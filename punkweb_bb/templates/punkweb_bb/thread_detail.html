@@ -1,0 +1,34 @@
+{% extends 'punkweb_bb/base.html' %}
+
+{% block extra_head %}
+{{post_form.media.css}}
+{% endblock %}
+
+{% block extra_script %}
+{{post_form.media.js}}
+{% endblock %}
+
+{% block content %}
+
+<h1>{{thread.title}}</h1>
+
+<h3>{{thread.user.username}}</h3>
+
+{{thread.content.rendered}}
+
+<hr />
+
+{% for post in thread.posts.all %}
+<h3>{{post.user.username}}</h3>
+{{post.content.rendered}}
+{% endfor %}
+
+<hr />
+
+<form action="{% url 'punkweb_bb:post_create' thread.id %}" method="post">
+  {% csrf_token %}
+  {{ post_form.as_p }}
+  <button type="submit">Create Post</button>
+</form>
+
+{% endblock %}

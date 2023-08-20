@@ -1,0 +1,28 @@
+{% extends 'punkweb_bb/base.html' %}
+
+{% block content %}
+
+<h1>{{subcategory.name}}</h1>
+
+<a href="{% url 'punkweb_bb:thread_create' subcategory.slug %}">Create Thread</a>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Posts</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for thread in subcategory.threads.all %}
+    <tr>
+      <td><a href="{% url 'punkweb_bb:thread_detail' thread.id %}">{{thread.title}}</a></td>
+      <td>{{thread.user.username}}</td>
+      <td>{{thread.post_count}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

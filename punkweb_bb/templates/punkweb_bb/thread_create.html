@@ -1,0 +1,19 @@
+{% extends 'punkweb_bb/base.html' %}
+
+{% block extra_head %}
+{{form.media.css}}
+{% endblock %}
+
+{% block content %}
+
+<form action="{% url 'punkweb_bb:thread_create' subcategory.slug %}" method="post">
+  {% csrf_token %}
+  {{form.as_p}}
+  <button type="submit">Create Thread</button>
+</form>
+
+{% endblock %}
+
+{% block extra_script %}
+{{form.media.js}}
+{% endblock %}

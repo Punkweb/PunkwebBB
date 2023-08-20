@@ -1,0 +1,28 @@
+{% extends 'punkweb_bb/base.html' %}
+
+{% block content %}
+
+{% for category in categories %}
+<table>
+  <thead>
+    <tr>
+      <th><a href="{% url 'punkweb_bb:category_detail' category.slug %}">{{category.name}}</a></th>
+      <th>Threads</th>
+      <th>Posts</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for subcategory in category.subcategories.all %}
+    <tr>
+      <td>
+        <a href="{% url 'punkweb_bb:subcategory_detail' subcategory.slug %}">{{subcategory.name}}</a>
+      </td>
+      <td>{{subcategory.thread_count}}</td>
+      <td>{{subcategory.post_count}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endfor %}
+
+{% endblock %}
