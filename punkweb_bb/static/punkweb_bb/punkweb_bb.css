@@ -1,0 +1,146 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: var(--oc-blue-9);
+  text-decoration: none;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1024px;
+  padding: 0 1rem;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.nav {
+  background-color: var(--oc-gray-9);
+  color: white;
+}
+
+.nav__content {
+  align-items: center;
+  display: flex;
+  padding: 1rem 0;
+}
+
+.nav__spacer {
+  flex: 1;
+}
+
+.nav__title {
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.nav__link {
+  color: white;
+  font-weight: 500;
+}
+
+.footer {
+  background-color: var(--oc-gray-9);
+  color: white;
+  padding: 0.5rem 0;
+}
+
+.pw-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.pw-table thead tr th {
+  background-color: var(--oc-gray-2);
+  color: var(--oc-gray-7);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.pw-table tbody tr td {
+  padding: 0.75rem 1rem;
+}
+
+.pw-button {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none !important;
+  transition: all 0.1s ease-in-out;
+}
+
+.pw-button:disabled {
+  cursor: not-allowed;
+}
+
+/* Default */
+.pw-button:hover {
+  background-color: var(--oc-gray-0);
+}
+
+.pw-button:active {
+  background-color: var(--oc-gray-1);
+}
+
+/* Outlined */
+
+.pw-button.outlined {
+  background-color: transparent;
+  border: 1px solid var(--oc-blue-9);
+  color: var(--oc-blue-9);
+}
+
+.pw-button.outlined:hover {
+  background-color: var(--oc-blue-9);
+  color: white;
+}
+
+.pw-button.outlined:active {
+  background-color: var(--oc-blue-8);
+}
+
+/* Raised */
+
+.pw-button.raised {
+  background-color: var(--oc-blue-9);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
+.pw-button.raised:active {
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+}
+
+.pw-button.raised:disabled {
+  background-color: var(--oc-gray-0) !important;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25) !important;
+  color: var(--oc-gray-5) !important;
+}
