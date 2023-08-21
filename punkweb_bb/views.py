@@ -1,3 +1,5 @@
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import PostForm, ThreadForm
@@ -12,6 +14,33 @@ def index(request):
     }
 
     return render(request, "punkweb_bb/index.html", context=context)
+
+
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect("punkweb_bb:index")
+    else:
+        form = AuthenticationForm()
+
+    context = {
+        "form": form,
+    }
+    return render(request, "punkweb_bb/login.html", context)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("punkweb_bb:index")
 
 
 def category_detail(request, category_slug):
