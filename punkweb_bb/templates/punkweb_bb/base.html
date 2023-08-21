@@ -7,28 +7,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PunkwebBB</title>
+  <link rel="stylesheet" href="{% static 'punkweb_bb/prism.css' %}">
+  <link rel="stylesheet" href="{% static 'punkweb_bb/open-color.css' %}">
+  <link rel="stylesheet" href="{% static 'punkweb_bb/punkweb_bb.css' %}">
   {% block extra_head %}
   {% endblock %}
 </head>
 
 <body>
-  <header>
-    <nav>
-      <a href="{% url 'punkweb_bb:index' %}">
-        PunkwebBB
-      </a>
-    </nav>
-  </header>
-  <main>
-    {% block content %}
-    {% endblock content %}
-  </main>
-  <footer>
-    <p>
-      PunkwebBB
-    </p>
-  </footer>
+  <div class="layout">
+    <header>
+      <nav class="nav">
+        <div class="container">
+          <div class="nav__content">
+            <a class="nav__title" href="{% url 'punkweb_bb:index' %}">
+              PunkwebBB
+            </a>
+            <div class="nav__spacer"></div>
+            {% if request.user.is_authenticated %}
+            <a class="nav__link" href="{% url 'punkweb_bb:logout' %}">
+              Logout
+            </a>
+            {% else %}
+            <a class="nav__link" href="{% url 'punkweb_bb:login' %}">
+              Login
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="main">
+      <div class="container">
+        {% block content %}
+        {% endblock content %}
+      </div>
+    </main>
+    <footer>
+      <div class="footer">
+        <div class="container">
+          <div class="footer__content">
+            <p>
+              PunkwebBB
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
   <script src="{% static 'punkweb_bb/jquery-3.7.0.min.js' %}"></script>
+  <script src="{% static 'punkweb_bb/prism.js' %}"></script>
   {% block extra_script %}
   {% endblock %}
 </body>

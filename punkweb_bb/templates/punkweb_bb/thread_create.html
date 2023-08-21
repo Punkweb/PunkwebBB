@@ -9,7 +9,7 @@
 <form action="{% url 'punkweb_bb:thread_create' subcategory.slug %}" method="post">
   {% csrf_token %}
   {{form.as_p}}
-  <button type="submit">Create Thread</button>
+  <button class="pw-button raised" type="submit">Create Thread</button>
 </form>
 
 {% endblock %}

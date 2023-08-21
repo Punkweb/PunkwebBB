@@ -3,7 +3,7 @@
 {% block content %}
 
 {% for category in categories %}
-<table>
+<table class="pw-table">
   <thead>
     <tr>
       <th><a href="{% url 'punkweb_bb:category_detail' category.slug %}">{{category.name}}</a></th>
