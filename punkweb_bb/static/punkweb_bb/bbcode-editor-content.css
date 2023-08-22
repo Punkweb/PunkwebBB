@@ -1,16 +1,21 @@
 /*! SCEditor | (C) 2011-2013, Sam Clarke | sceditor.com/license */
-html, body, p, code:before, table {
-	margin: 0;
-	padding: 0;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 14px;
+html, body {
 	color: #111;
-	line-height: 1.25;
+	font-family: Helvetica, Arial, sans-serif;
+	margin: 0;
 	overflow: visible;
+	padding: 0;
 }
 html {
 	height: 100%;
 }
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
 .ios {
 	/* Needed for iOS scrolling bug fix */
 	overflow: auto;
@@ -18,8 +23,8 @@ html {
 }
 .ios body {
 	/* Needed for iOS scrolling bug fix */
-	position: relative;
 	overflow: auto;
+	position: relative;
 }
 body {
 	/* Needed to make sure body covers the whole editor and that
@@ -29,17 +34,17 @@ body {
 }
 
 body.placeholder::before {
-    content: attr(placeholder);
-    color: #555;
-    font-style: italic;
+	color: #555;
+	content: attr(placeholder);
+	font-style: italic;
 }
 
-ul, ol {
+/* ul, ol {
 	margin-top: 0;
 	margin-bottom: 0;
 	padding-top: 0;
 	padding-bottom: 0;
-}
+} */
 
 table, td {
 	border: 1px dotted #000;
@@ -51,32 +56,33 @@ table td {
 }
 
 code {
-	display: block;
 	background: #f1f1f1;
-	white-space: pre;
+	direction: ltr;
+	display: block;
+	margin: .25em 0;
 	padding: 1em;
 	text-align: left;
-	margin: .25em 0;
-	direction: ltr;
+	white-space: pre;
 }
 
 blockquote {
 	background: #fff7d9;
-	margin: .25em 0;
 	border-left: .3em solid #f4e59f;
+	margin: .25em 0;
 	padding: .5em .5em .5em .75em;
 }
 blockquote cite {
-	font-weight: bold;
+	border-bottom: 1px solid #f4e59f;
 	display: block;
 	font-size: 1em;
+	font-weight: bold;
 	margin: 0 -.5em .25em -.75em;
 	padding: 0 .5em .15em .75em;
-	border-bottom: 1px solid #f4e59f;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	padding: 0; margin: 0;
+	margin: 0;
+	padding: 0;
 }
 
 /* Prevent empty paragraphs from collapsing */
