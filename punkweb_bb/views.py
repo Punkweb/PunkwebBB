@@ -3,16 +3,29 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import PostForm, ThreadForm
-from .models import Category, Subcategory, Post, Thread
+from .models import BoardProfile, Category, Subcategory, Post, Thread
 
 
 def index(request):
     categories = Category.objects.all()
 
+    recent_threads = Thread.objects.all().order_by("-created_at")[:5]
+    recent_posts = Post.objects.all().order_by("-created_at")[:5]
+
+    thread_count = Thread.objects.count()
+    post_count = Post.objects.count()
+    profile_count = BoardProfile.objects.count()
+    newest_profile = BoardProfile.objects.order_by("-created_at").first()
+
     context = {
         "categories": categories,
+        "recent_threads": recent_threads,
+        "recent_posts": recent_posts,
+        "thread_count": thread_count,
+        "post_count": post_count,
+        "profile_count": profile_count,
+        "newest_profile": newest_profile,
     }
-
     return render(request, "punkweb_bb/index.html", context=context)
 
 
@@ -49,7 +62,6 @@ def category_detail(request, category_slug):
     context = {
         "category": category,
     }
-
     return render(request, "punkweb_bb/category_detail.html", context=context)
 
 
@@ -59,7 +71,6 @@ def subcategory_detail(request, subcategory_slug):
     context = {
         "subcategory": subcategory,
     }
-
     return render(request, "punkweb_bb/subcategory_detail.html", context=context)
 
 
@@ -83,7 +94,6 @@ def thread_create(request, subcategory_slug):
         "subcategory": subcategory,
         "form": form,
     }
-
     return render(request, "punkweb_bb/thread_create.html", context=context)
 
 
@@ -96,7 +106,6 @@ def thread_detail(request, thread_id):
         "thread": thread,
         "post_form": post_form,
     }
-
     return render(request, "punkweb_bb/thread_detail.html", context=context)
 
 

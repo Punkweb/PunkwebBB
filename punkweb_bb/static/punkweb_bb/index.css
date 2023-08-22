@@ -1,0 +1,12 @@
+.index {
+  display: flex;
+  gap: 1rem;
+}
+
+.index__main {
+  flex: 1;
+}
+
+.index__sidebar {
+  flex: 0 0 320px;
+}
