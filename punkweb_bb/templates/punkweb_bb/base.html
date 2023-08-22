@@ -7,8 +7,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PunkwebBB</title>
-  <link rel="stylesheet" href="{% static 'punkweb_bb/prism.css' %}">
-  <link rel="stylesheet" href="{% static 'punkweb_bb/open-color.css' %}">
+  <link rel="icon" href="{% static 'punkweb_bb/favicon.ico' %}">
+  <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/prism.css' %}">
+  <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/open-color.css' %}">
   <link rel="stylesheet" href="{% static 'punkweb_bb/punkweb_bb.css' %}">
   {% block extra_head %}
   {% endblock %}
@@ -21,7 +22,7 @@
         <div class="container">
           <div class="nav__content">
             <a class="nav__title" href="{% url 'punkweb_bb:index' %}">
-              PunkwebBB
+              EXAMPLE
             </a>
             <div class="nav__spacer"></div>
             {% if request.user.is_authenticated %}
@@ -55,8 +56,8 @@
       </div>
     </footer>
   </div>
-  <script src="{% static 'punkweb_bb/jquery-3.7.0.min.js' %}"></script>
-  <script src="{% static 'punkweb_bb/prism.js' %}"></script>
+  <script src="{% static 'punkweb_bb/vendor/jquery-3.7.0.min.js' %}"></script>
+  <script src="{% static 'punkweb_bb/vendor/prism.js' %}"></script>
   {% block extra_script %}
   {% endblock %}
 </body>
