@@ -6,7 +6,15 @@
 
 <form action="{% url 'punkweb_bb:login' %}" method="post">
   {% csrf_token %}
-  {{form.as_p}}
+  <p>
+    <label for="id_username">Username:</label>
+    <input class="pw-input" type="text" name="username" autofocus autocapitalize="none" autocomplete="username"
+      maxlength="150" required id="id_username">
+  </p>
+  <p>
+    <label for="id_password">Password:</label>
+    <input class="pw-input" type="password" name="password" autocomplete="current-password" required id="id_password">
+  </p>
   <button class="pw-button raised" type="submit">Login</button>
 </form>
 

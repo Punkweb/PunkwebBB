@@ -28,7 +28,9 @@
 {% if request.user.is_authenticated %}
 <form action="{% url 'punkweb_bb:post_create' thread.id %}" method="post">
   {% csrf_token %}
-  {{ post_form.as_p }}
+  <p>
+    <textarea name="content" cols="40" rows="10" class="bbcode-editor" required id="id_content"></textarea>
+  </p>
   <button class="pw-button raised" type="submit">Create Post</button>
 </form>
 {% endif %}

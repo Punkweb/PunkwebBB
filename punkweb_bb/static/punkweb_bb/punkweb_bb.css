@@ -3,20 +3,28 @@ html, body {
   padding: 0;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: var(--oc-blue-9);
+  color: var(--oc-indigo-9);
   text-decoration: none;
 }
 
-.container {
-  margin: 0 auto;
-  max-width: 1024px;
-  padding: 0 1rem;
+a:hover {
+  text-decoration: underline;
 }
+
+label {
+  display: block;
+}
+
+/** Layout **/
 
 .layout {
   display: flex;
@@ -26,11 +34,22 @@ a {
 
 .main {
   flex: 1;
+  margin: 2rem 0;
   overflow-y: auto;
 }
 
+.container {
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+/** Nav **/
+
 .nav {
-  background-color: var(--oc-gray-9);
+  background-color: var(--oc-indigo-9);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
   color: white;
 }
 
@@ -50,16 +69,25 @@ a {
   font-weight: 700;
 }
 
+.nav__title:hover {
+  color: white;
+  text-decoration: none;
+}
+
 .nav__link {
   color: white;
   font-weight: 500;
 }
+
+/** Footer **/
 
 .footer {
   background-color: var(--oc-gray-9);
   color: white;
   padding: 0.5rem 0;
 }
+
+/** Table **/
 
 .pw-table {
   border-collapse: collapse;
@@ -79,6 +107,8 @@ a {
 .pw-table tbody tr td {
   padding: 0.75rem 1rem;
 }
+
+/** Button **/
 
 .pw-button {
   appearance: none;
@@ -114,23 +144,23 @@ a {
 
 .pw-button.outlined {
   background-color: transparent;
-  border: 1px solid var(--oc-blue-9);
-  color: var(--oc-blue-9);
+  border: 1px solid var(--oc-indigo-9);
+  color: var(--oc-indigo-9);
 }
 
 .pw-button.outlined:hover {
-  background-color: var(--oc-blue-9);
+  background-color: var(--oc-indigo-9);
   color: white;
 }
 
 .pw-button.outlined:active {
-  background-color: var(--oc-blue-8);
+  background-color: var(--oc-indigo-8);
 }
 
 /* Raised */
 
 .pw-button.raised {
-  background-color: var(--oc-blue-9);
+  background-color: var(--oc-indigo-9);
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
   color: white;
 }
@@ -143,4 +173,49 @@ a {
   background-color: var(--oc-gray-0) !important;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25) !important;
   color: var(--oc-gray-5) !important;
+}
+
+/** Input **/
+
+.pw-input {
+  background: transparent;
+  border: 2px solid var(--oc-gray-4);
+  border-radius: 4px;
+  font-size: 1rem;
+  outline: none;
+  padding: 0.5rem 1rem;
+  transition: all 0.1s ease-in-out;
+}
+
+.pw-input:disabled {
+  cursor: not-allowed;
+}
+
+.pw-input.textarea {
+  max-width: 100%;
+  min-height: 8rem;
+  padding: 1rem;
+}
+
+.pw-input:hover {
+  border: 2px solid var(--oc-gray-5);
+}
+
+.pw-input:focus,
+.pw-input:active {
+  border: 2px solid var(--oc-indigo-9);
+}
+
+/** Card **/
+
+.pw-card {
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid var(--oc-gray-4);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+  width: fit-content;
+}
+
+.pw-card.fluid {
+  width: 100%;
 }
