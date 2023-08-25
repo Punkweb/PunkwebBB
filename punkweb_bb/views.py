@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -30,6 +31,9 @@ def index(request):
 
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect("punkweb_bb:index")
+
     if request.method == "POST":
         form = AuthenticationForm(request, request.POST)
 
@@ -41,6 +45,7 @@ def login_view(request):
 
             if user is not None:
                 login(request, user)
+
                 return redirect("punkweb_bb:index")
     else:
         form = AuthenticationForm()
@@ -53,7 +58,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect("punkweb_bb:index")
+    return redirect("punkweb_bb:login")
 
 
 def category_detail(request, category_slug):
@@ -74,6 +79,7 @@ def subcategory_detail(request, subcategory_slug):
     return render(request, "punkweb_bb/subcategory_detail.html", context=context)
 
 
+@login_required(login_url="/login/")
 def thread_create(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
@@ -109,6 +115,7 @@ def thread_detail(request, thread_id):
     return render(request, "punkweb_bb/thread_detail.html", context=context)
 
 
+@login_required(login_url="/login/")
 def post_create(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
