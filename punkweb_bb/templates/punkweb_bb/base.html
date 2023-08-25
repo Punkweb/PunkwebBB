@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PunkwebBB</title>
+  <title>{% block title_prefix %}{% endblock %}PunkwebBB</title>
   <link rel="icon" href="{% static 'punkweb_bb/favicon.ico' %}">
   <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/prism.css' %}">
   <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/open-color.css' %}">
@@ -19,21 +19,32 @@
   <div class="layout">
     <header>
       <nav class="nav">
-        <div class="container">
-          <div class="nav__content">
-            <a class="nav__title" href="{% url 'punkweb_bb:index' %}">
-              EXAMPLE
-            </a>
-            <div class="nav__spacer"></div>
-            {% if request.user.is_authenticated %}
-            <a class="nav__link" href="{% url 'punkweb_bb:logout' %}">
-              Logout
-            </a>
-            {% else %}
-            <a class="nav__link" href="{% url 'punkweb_bb:login' %}">
-              Login
-            </a>
-            {% endif %}
+        <div class="nav__upper">
+          <div class="container">
+            <div class="nav__upper__content">
+              {% if request.user.is_staff %}
+              <a class="nav__upper__link" href="{% url 'admin:index' %}">Admin</a>
+              {% endif %}
+              <div class="nav__spacer"></div>
+              {% if request.user.is_authenticated %}
+              <a class="nav__upper__link" href="{% url 'punkweb_bb:logout' %}">
+                Logout
+              </a>
+              {% else %}
+              <a class="nav__upper__link" href="{% url 'punkweb_bb:login' %}">
+                Login
+              </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="nav__main">
+          <div class="container">
+            <div class="nav__main__content">
+              <a class="nav__title" href="{% url 'punkweb_bb:index' %}">
+                EXAMPLE
+              </a>
+            </div>
           </div>
         </div>
       </nav>

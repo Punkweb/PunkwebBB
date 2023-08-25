@@ -24,6 +24,10 @@ label {
   display: block;
 }
 
+img {
+  max-width: 100%;
+}
+
 /** Layout **/
 
 .layout {
@@ -47,13 +51,28 @@ label {
 
 /** Nav **/
 
-.nav {
+.nav__upper {
+  background-color: var(--oc-gray-9);
+}
+
+.nav__upper__content {
+  display: flex;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0.5rem 0;
+}
+
+.nav__upper__link {
+  color: white;
+}
+
+.nav__main {
   background-color: var(--oc-indigo-9);
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
   color: white;
 }
 
-.nav__content {
+.nav__main__content {
   align-items: center;
   display: flex;
   padding: 1rem 0;
