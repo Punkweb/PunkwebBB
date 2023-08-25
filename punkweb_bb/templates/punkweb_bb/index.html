@@ -7,6 +7,19 @@
 <link rel="stylesheet" href="{% static 'punkweb_bb/shoutbox.css' %}">
 {% endblock %}
 
+{% block extra_script %}
+<script>
+  function shoutboxScrollToBottom() {
+    var shoutlist = document.querySelector('#shoutlist');
+    shoutlist.scrollTop = shoutlist.scrollHeight;
+  }
+
+  setTimeout(function () {
+    shoutboxScrollToBottom();
+  }, 100);
+</script>
+{% endblock %}
+
 {% block content %}
 
 <div class="index">
