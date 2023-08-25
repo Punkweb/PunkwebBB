@@ -1,5 +1,7 @@
 {% extends 'punkweb_bb/base.html' %}
 
+{% block title_prefix %}{{category.name}} | {% endblock%}
+
 {% block content %}
 
 <h1>{{category.name}}</h1>
