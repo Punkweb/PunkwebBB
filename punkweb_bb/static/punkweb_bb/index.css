@@ -1,9 +1,11 @@
-.index {
+.index {}
+
+.index__main {
   display: flex;
   gap: 1rem;
 }
 
-.index__main {
+.index__categories {
   flex: 1;
 }
 

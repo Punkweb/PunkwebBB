@@ -111,3 +111,16 @@ class Post(UUIDPrimaryKeyMixin, TimestampMixin):
 
     def __str__(self):
         return f"{self.thread} > {self.user} > {self.created_at}"
+
+
+class Shout(UUIDPrimaryKeyMixin, TimestampMixin):
+    user = models.ForeignKey(User, related_name="shouts", on_delete=models.CASCADE)
+    content = BBCodeTextField()
+
+    class Meta:
+        ordering = [
+            "-created_at",
+        ]
+
+    def __str__(self):
+        return f"{self.user} > {self.created_at}"

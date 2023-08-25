@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Post, Thread
+from .models import Post, Shout, Thread
 from .widgets import BBCodeEditor
 
 
@@ -20,3 +20,9 @@ class ThreadForm(forms.ModelForm):
         widgets = {
             "content": BBCodeEditor(),
         }
+
+
+class ShoutForm(forms.ModelForm):
+    class Meta:
+        model = Shout
+        fields = ["content"]

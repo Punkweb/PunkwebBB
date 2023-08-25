@@ -4,59 +4,63 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'punkweb_bb/index.css' %}">
+<link rel="stylesheet" href="{% static 'punkweb_bb/shoutbox.css' %}">
 {% endblock %}
 
 {% block content %}
 
 <div class="index">
   <div class="index__main">
-    {% for category in categories %}
-    <div class="pw-card fluid">
-      <table class="pw-table">
-        <thead>
-          <tr>
-            <th><a href="{% url 'punkweb_bb:category_detail' category.slug %}">{{category.name}}</a></th>
-            <th>Threads</th>
-            <th>Posts</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for subcategory in category.subcategories.all %}
-          <tr>
-            <td>
-              <a href="{% url 'punkweb_bb:subcategory_detail' subcategory.slug %}">{{subcategory.name}}</a>
-            </td>
-            <td>{{subcategory.thread_count}}</td>
-            <td>{{subcategory.post_count}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="index__categories">
+      {% include 'punkweb_bb/shoutbox/shoutbox.html' %}
+      {% for category in categories %}
+      <div class="pw-card fluid">
+        <table class="pw-table">
+          <thead>
+            <tr>
+              <th><a href="{% url 'punkweb_bb:category_detail' category.slug %}">{{category.name}}</a></th>
+              <th>Threads</th>
+              <th>Posts</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for subcategory in category.subcategories.all %}
+            <tr>
+              <td>
+                <a href="{% url 'punkweb_bb:subcategory_detail' subcategory.slug %}">{{subcategory.name}}</a>
+              </td>
+              <td>{{subcategory.thread_count}}</td>
+              <td>{{subcategory.post_count}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
-  </div>
-  <div class="index__sidebar">
-    <h3>Recent Threads</h3>
-    {% for thread in recent_threads %}
-    <div>
-      <a href="{% url 'punkweb_bb:thread_detail' thread.id %}">{{thread.title}}</a>
-      <p>Posted by: {{ thread.user.username }} ({{thread.post_count}}
-        {% if thread.post_count == 1 %}reply{% else%}replies{% endif %})</p>
-      <p>
-        {{thread.created_at|date:'m/d/Y'}} in
-        <a href="{% url 'punkweb_bb:subcategory_detail' thread.subcategory.slug %}">
-          {{thread.subcategory.name}}
-        </a>
-      </p>
+    <div class="index__sidebar">
+      <h3>Recent Threads</h3>
+      {% for thread in recent_threads %}
+      <div>
+        <a href="{% url 'punkweb_bb:thread_detail' thread.id %}">{{thread.title}}</a>
+        <p>Posted by: {{ thread.user.username }} ({{thread.post_count}}
+          {% if thread.post_count == 1 %}reply{% else%}replies{% endif %})</p>
+        <p>
+          {{thread.created_at|date:'m/d/Y'}} in
+          <a href="{% url 'punkweb_bb:subcategory_detail' thread.subcategory.slug %}">
+            {{thread.subcategory.name}}
+          </a>
+        </p>
+      </div>
+      {% endfor %}
+      <h3>Statistics</h3>
+      <ul>
+        <li>Total threads: {{ thread_count }}</li>
+        <li>Total posts: {{post_count}}</li>
+        <li>Total users: {{profile_count}}</li>
+        <li>Newest member: {{newest_profile.user.username}}</li>
+      </ul>
     </div>
-    {% endfor %}
-    <h3>Statistics</h3>
-    <ul>
-      <li>Total threads: {{ thread_count }}</li>
-      <li>Total posts: {{post_count}}</li>
-      <li>Total users: {{profile_count}}</li>
-      <li>Newest member: {{newest_profile.user.username}}</li>
-    </ul>
   </div>
 </div>
 

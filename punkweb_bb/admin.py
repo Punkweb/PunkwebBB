@@ -7,7 +7,7 @@ from .admin_forms import (
     SubcategoryAdminForm,
     ThreadAdminForm,
 )
-from .models import BoardProfile, Category, Post, Subcategory, Thread
+from .models import BoardProfile, Category, Post, Shout, Subcategory, Thread
 
 
 @admin.register(BoardProfile)
@@ -97,6 +97,19 @@ class PostAdmin(admin.ModelAdmin):
     form = PostAdminForm
     list_display = [
         "thread",
+        "user",
+        "created_at",
+    ]
+    search_fields = [
+        "user__username",
+        "user__email",
+        "content",
+    ]
+
+
+@admin.register(Shout)
+class ShoutAdmin(admin.ModelAdmin):
+    list_display = [
         "user",
         "created_at",
     ]

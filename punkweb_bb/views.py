@@ -1,10 +1,11 @@
+import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import PostForm, ThreadForm
-from .models import BoardProfile, Category, Subcategory, Post, Thread
+from .forms import PostForm, ShoutForm, ThreadForm
+from .models import BoardProfile, Category, Shout, Subcategory, Post, Thread
 
 
 def index(request):
@@ -128,3 +129,41 @@ def post_create(request, thread_id):
         post.save()
 
         return redirect("punkweb_bb:thread_detail", thread_id=thread.id)
+
+
+def current_shouts():
+    return Shout.objects.filter(
+        created_at__gt=datetime.datetime.today() - datetime.timedelta(hours=24)
+    ).order_by("created_at")[:100]
+
+
+def shout_list(request):
+    shouts = current_shouts()
+
+    context = {
+        "shouts": shouts,
+    }
+    return render(request, "punkweb_bb/shoutbox/shout_list.html", context=context)
+
+
+def shout_create(request):
+    if not request.user.is_authenticated:
+        context = {
+            "shouts": current_shouts(),
+        }
+        return render(request, "punkweb_bb/shoutbox/shout_list.html", context=context)
+
+    if request.method == "POST":
+        form = ShoutForm(request.POST)
+
+        if form.is_valid():
+            shout = form.save(commit=False)
+            shout.user = request.user
+            shout.save()
+
+            context = {
+                "shouts": current_shouts(),
+            }
+            return render(
+                request, "punkweb_bb/shoutbox/shout_list.html", context=context
+            )
