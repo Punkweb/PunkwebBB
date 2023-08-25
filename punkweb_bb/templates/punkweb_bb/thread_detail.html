@@ -1,6 +1,11 @@
 {% extends 'punkweb_bb/base.html' %}
 
+{% load static %}
+
+{% block title_prefix %}{{thread.title}} | {% endblock %}
+
 {% block extra_head %}
+<link rel="stylesheet" href="{% static 'punkweb_bb/thread-detail.css' %}" />
 {{post_form.media.css}}
 {% endblock %}
 
@@ -10,29 +15,75 @@
 
 {% block content %}
 
-<h1>{{thread.title}}</h1>
-
-<h3>{{thread.user.username}}</h3>
-
-<div>{{thread.content.rendered}}</div>
-
-<hr />
+<div class="pw-card fluid">
+  <div class="thread">
+    <div class="thread__header">
+      <div class="thread__title">{{thread.title}}</div>
+    </div>
+    <div class="thread__body">
+      <div class="thread__user">
+        <div class="thread__user__image">
+          <img src="{{thread.user.profile.image.url}}" alt="{{thread.user.username}}" />
+        </div>
+        <div>{{thread.user.username}}</div>
+        <div>Posts: {{thread.user.profile.post_count}}</div>
+        <div>
+          Join date: {{thread.user.profile.created_at|date:"m/d/y"}}
+        </div>
+      </div>
+      <div class="thread__main">
+        <div class="thread__content">
+          {{thread.content.rendered}}
+        </div>
+        <div class="thread__signature">
+          {{thread.user.profile.signature.rendered}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% for post in thread.posts.all %}
-<h3>{{post.user.username}}</h3>
-{{post.content.rendered}}
+<div class="pw-card fluid">
+  <div class="thread">
+    <div class="thread__header">
+      <div class="thread__title">{{ forloop.counter }}</div>
+    </div>
+    <div class="thread__body">
+      <div class="thread__user">
+        <div class="thread__user__image">
+          <img src="{{post.user.profile.image.url}}" alt="{{post.user.username}}" />
+        </div>
+        <div>{{post.user.username}}</div>
+        <div>Posts: {{post.user.profile.post_count}}</div>
+        <div>
+          Join date: {{post.user.profile.created_at|date:"m/d/y"}}
+        </div>
+      </div>
+      <div class="thread__main">
+        <div class="thread__content">
+          {{post.content.rendered}}
+        </div>
+        <div class="thread__signature">
+          {{post.user.profile.signature.rendered}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endfor %}
 
-<hr />
-
 {% if request.user.is_authenticated %}
-<form action="{% url 'punkweb_bb:post_create' thread.id %}" method="post">
-  {% csrf_token %}
-  <p>
-    <textarea name="content" cols="40" rows="10" class="bbcode-editor" required id="id_content"></textarea>
-  </p>
-  <button class="pw-button raised" type="submit">Create Post</button>
-</form>
+<div class="pw-card fluid">
+  <h4>Reply to thread</h4>
+  <form action="{% url 'punkweb_bb:post_create' thread.id %}" method="post">
+    {% csrf_token %}
+    <p>
+      <textarea name="content" cols="40" rows="10" class="bbcode-editor" required id="id_content"></textarea>
+    </p>
+    <button class="pw-button raised" type="submit">Post reply</button>
+  </form>
+</div>
 {% endif %}
 
 {% endblock %}

@@ -1,0 +1,58 @@
+.thread {
+
+}
+
+.thread__header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.thread__title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.thread__body {
+  display: flex;
+  padding: 1rem;
+}
+
+.thread__user {
+  align-items: center;
+  border-right: 2px solid var(--oc-gray-4);
+  display: flex;
+  flex: 0 0 256px;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.thread__user__image {
+  height: 100px;
+  width: 100px;
+}
+
+.thread__user__image img {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+}
+
+.thread__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.thread__content {
+  flex: 1;
+  padding: 0 1rem 1rem 1rem;
+
+}
+
+.thread__signature {
+  border-top: 2px solid var(--oc-gray-4);
+  padding: 1rem;
+}
