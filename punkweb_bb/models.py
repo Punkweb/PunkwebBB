@@ -1,3 +1,4 @@
+import os
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.safestring import mark_safe
@@ -9,8 +10,14 @@ from .mixins import UUIDPrimaryKeyMixin, TimestampMixin
 User = get_user_model()
 
 
+def profile_image_upload_to(instance, filename):
+    ext = os.path.splitext(filename)[-1]
+    return f"punkweb_bb/board_profiles/{instance.user.username}/image{ext}"
+
+
 class BoardProfile(UUIDPrimaryKeyMixin, TimestampMixin):
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=profile_image_upload_to, blank=True, null=True)
     signature = BBCodeTextField(max_length=1024, blank=True, null=True)
 
     class Meta:
@@ -23,6 +30,9 @@ class BoardProfile(UUIDPrimaryKeyMixin, TimestampMixin):
 
     def rendered_signature(self):
         return mark_safe(self.signature.rendered)
+
+    def post_count(self):
+        return self.user.threads.count() + self.user.posts.count()
 
 
 class Category(UUIDPrimaryKeyMixin, TimestampMixin):
