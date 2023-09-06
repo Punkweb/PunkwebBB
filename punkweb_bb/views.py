@@ -133,8 +133,8 @@ def post_create(request, thread_id):
 
 def current_shouts():
     return Shout.objects.filter(
-        created_at__gt=datetime.datetime.today() - datetime.timedelta(hours=24)
-    ).order_by("created_at")[:100]
+        created_at__gt=datetime.datetime.today() - datetime.timedelta(hours=12)
+    ).order_by("created_at")
 
 
 def shout_list(request):
