@@ -5,6 +5,17 @@ Oldschool forum board software written in Django.
 This is the successor to [punkweb-boards](https://github.com/Punkweb/punkweb-boards)
 
 
+## Data Fixtures
+
+As a convience for populating dummy data in development, a fixture file is included that will import 100 users, 4 categories, 11 subcategories, 385 threads, and 2227 posts.  You don't have to use it, but it's there.
+
+To load the data, run this command:
+
+```bash
+python manage.py loaddata fixtures/initial_data.json
+```
+
+
 ## Coverage
 
 Report:
