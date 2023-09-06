@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from .admin_forms import (
     BoardProfileAdminForm,
@@ -27,8 +28,11 @@ class BoardProfileAdmin(admin.ModelAdmin):
         "user__email",
     ]
     readonly_fields = [
-        "rendered_signature",
+        "signature_rendered",
     ]
+
+    def signature_rendered(self, obj):
+        return mark_safe(obj.signature.rendered)
 
 
 @admin.register(Category)

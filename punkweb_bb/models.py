@@ -28,9 +28,6 @@ class BoardProfile(UUIDPrimaryKeyMixin, TimestampMixin):
     def __str__(self):
         return self.user.username
 
-    def rendered_signature(self):
-        return mark_safe(self.signature.rendered)
-
     def post_count(self):
         return self.user.threads.count() + self.user.posts.count()
 
