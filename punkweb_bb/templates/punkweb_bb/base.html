@@ -15,7 +15,7 @@
   {% endblock %}
 </head>
 
-<body>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
   <div class="layout">
     <header>
       <nav class="nav">
