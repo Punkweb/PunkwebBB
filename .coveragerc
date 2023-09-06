@@ -1,0 +1,6 @@
+[run]
+command_line = manage.py test
+include =
+  punkweb_bb/**/*.py
+omit =
+  **/migrations/**/*.py
