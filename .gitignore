@@ -1,6 +1,15 @@
-venv
+# pycache
 __pycache__
+
+# dev virtual env
+venv
+
+# dev database
 *.sqlite3
-/server/
+
+# dev media
+server
+
+# coverage
 .coverage
 htmlcov
