@@ -1,7 +1,14 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from .models import BoardProfile, Category, Post, Shout, Subcategory, Thread
+from .models import (
+    profile_image_upload_to,
+    Category,
+    Post,
+    Shout,
+    Subcategory,
+    Thread,
+)
 
 User = get_user_model()
 
@@ -13,6 +20,13 @@ class BoardProfileTestCase(TestCase):
         self.assertEqual(user.profile.user, user)
         self.assertEqual(user.profile.user.username, "test")
         self.assertEqual(user.profile.user.is_active, True)
+
+    def test_profile_image_upload_to_path(self):
+        user = User.objects.create_user(username="test", password="test")
+        self.assertEqual(
+            profile_image_upload_to(user.profile, "test.png"),
+            f"punkweb_bb/board_profiles/{user.username}/image.png",
+        )
 
     def test_board_profile_str(self):
         user = User.objects.create_user(username="test", password="test")
