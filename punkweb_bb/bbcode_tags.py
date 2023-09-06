@@ -4,12 +4,16 @@ from precise_bbcode.tag_pool import tag_pool
 
 class CodeTag(BBCodeTag):
     name = "code"
-    definition_string = "[code={TEXT1}]{TEXT2}[/code]"
-    format_string = "<pre data-language='{TEXT1}'><code class='language-{TEXT1}'>{TEXT2}</code></pre>"
 
     class Options:
         render_embedded = False
-        transform_newlines = True
+        strip = True
+        transform_newlines = False
+
+    def render(self, value, option=None, parent=None):
+        if option is not None:
+            return f"<pre><code class='language-{option}'>{value}</code></pre>"
+        return f"<pre><code>{value}</code></pre>"
 
 
 class EmailTag(BBCodeTag):

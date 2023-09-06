@@ -7,10 +7,12 @@ $(function () {
       isInline: false,
       isHtmlInline: false,
       allowedChildren: ["#"],
+      skipLastLineBreak: true,
       format: function (element, content) {
-        var language = element.getAttribute("data-language");
+        var languageClass = element.classList[0];
 
-        if (language) {
+        if (languageClass) {
+          var language = languageClass.split("-")[1];
           return "[code=" + language + "]" + content + "[/code]";
         }
 
@@ -21,11 +23,7 @@ $(function () {
 
         if (language) {
           return (
-            "<pre data-language='" +
-            language +
-            "'><code data-language='" +
-            language +
-            "' class='language-" +
+            "<pre><code class='language-" +
             language +
             "'>" +
             content +
