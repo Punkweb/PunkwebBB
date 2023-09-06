@@ -17,7 +17,7 @@ $(function () {
       style: "/static/punkweb_bb/bbcode-editor-content.css",
       toolbar:
         "bold,italic,underline,strike|bulletlist,orderedlist,center,horizontalrule|font,size,color,quote,code,emoticon,link,image|date,time|source,maximize,removeformat",
-      height: "400px",
+      height: "300px",
       width: "100%",
     });
   });

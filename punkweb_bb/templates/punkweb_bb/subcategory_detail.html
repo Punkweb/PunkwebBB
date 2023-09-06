@@ -10,23 +10,25 @@
 <a class="pw-button raised" href="{% url 'punkweb_bb:thread_create' subcategory.slug %}">Create Thread</a>
 {% endif %}
 
-<table class="pw-table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Author</th>
-      <th>Posts</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for thread in subcategory.threads.all %}
-    <tr>
-      <td><a href="{% url 'punkweb_bb:thread_detail' thread.id %}">{{thread.title}}</a></td>
-      <td>{{thread.user.username}}</td>
-      <td>{{thread.post_count}}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="pw-card fluid margin">
+  <table class="pw-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Posts</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for thread in subcategory.threads.all %}
+      <tr>
+        <td><a href="{% url 'punkweb_bb:thread_detail' thread.id %}">{{thread.title}}</a></td>
+        <td>{{thread.user.username}}</td>
+        <td>{{thread.post_count}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 {% endblock %}

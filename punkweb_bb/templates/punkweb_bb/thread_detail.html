@@ -15,66 +15,70 @@
 
 {% block content %}
 
-<div class="pw-card fluid">
+<div class="pw-card fluid margin">
+  <div class="thread__header">
+    <div class="thread__title">{{thread.title}}</div>
+  </div>
   <div class="thread">
-    <div class="thread__header">
-      <div class="thread__title">{{thread.title}}</div>
+    <div class="thread__user">
+      {% if thread.user.profile.image %}
+      <div class="thread__user__image">
+        <img src="{{thread.user.profile.image.url}}" alt="{{thread.user.username}}" />
+      </div>
+      {% endif %}
+      <div>{{thread.user.username}}</div>
+      <div>Posts: {{thread.user.profile.post_count}}</div>
+      <div>
+        Join date: {{thread.user.profile.created_at|date:"m/d/y"}}
+      </div>
     </div>
-    <div class="thread__body">
-      <div class="thread__user">
-        <div class="thread__user__image">
-          <img src="{{thread.user.profile.image.url}}" alt="{{thread.user.username}}" />
-        </div>
-        <div>{{thread.user.username}}</div>
-        <div>Posts: {{thread.user.profile.post_count}}</div>
-        <div>
-          Join date: {{thread.user.profile.created_at|date:"m/d/y"}}
-        </div>
+    <div class="thread__main">
+      <div class="thread__content">
+        {{thread.content.rendered}}
       </div>
-      <div class="thread__main">
-        <div class="thread__content">
-          {{thread.content.rendered}}
-        </div>
-        <div class="thread__signature">
-          {{thread.user.profile.signature.rendered}}
-        </div>
+      {% if thread.user.profile.signature %}
+      <div class="thread__signature">
+        {{thread.user.profile.signature.rendered}}
       </div>
+      {% endif %}
     </div>
   </div>
 </div>
 
 {% for post in thread.posts.all %}
-<div class="pw-card fluid">
+<div class="pw-card fluid margin">
+  <div class="thread__header">
+    <div class="thread__title">#{{forloop.counter}}</div>
+  </div>
   <div class="thread">
-    <div class="thread__header">
-      <div class="thread__title">{{ forloop.counter }}</div>
+    <div class="thread__user">
+      {% if post.user.profile.image %}
+      <div class="thread__user__image">
+        <img src="{{post.user.profile.image.url}}" alt="{{post.user.username}}" />
+      </div>
+      {% endif %}
+      <div>{{post.user.username}}</div>
+      <div>Posts: {{post.user.profile.post_count}}</div>
+      <div>
+        Join date: {{post.user.profile.created_at|date:"m/d/y"}}
+      </div>
     </div>
-    <div class="thread__body">
-      <div class="thread__user">
-        <div class="thread__user__image">
-          <img src="{{post.user.profile.image.url}}" alt="{{post.user.username}}" />
-        </div>
-        <div>{{post.user.username}}</div>
-        <div>Posts: {{post.user.profile.post_count}}</div>
-        <div>
-          Join date: {{post.user.profile.created_at|date:"m/d/y"}}
-        </div>
+    <div class="thread__main">
+      <div class="thread__content">
+        {{post.content.rendered}}
       </div>
-      <div class="thread__main">
-        <div class="thread__content">
-          {{post.content.rendered}}
-        </div>
-        <div class="thread__signature">
-          {{post.user.profile.signature.rendered}}
-        </div>
+      {% if post.user.profile.signature %}
+      <div class="thread__signature">
+        {{post.user.profile.signature.rendered}}
       </div>
+      {% endif %}
     </div>
   </div>
 </div>
 {% endfor %}
 
 {% if request.user.is_authenticated %}
-<div class="pw-card fluid">
+<div class="pw-card fluid margin padding">
   <h4>Reply to thread</h4>
   <form action="{% url 'punkweb_bb:post_create' thread.id %}" method="post">
     {% csrf_token %}
