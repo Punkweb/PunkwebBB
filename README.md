@@ -12,7 +12,7 @@ As a convience for populating dummy data in development, a fixture file is inclu
 To load the data, run this command:
 
 ```bash
-python manage.py loaddata fixtures/initial_data.json
+./manage.py loaddata fixtures/initial_data.json
 ```
 
 
