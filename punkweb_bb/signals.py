@@ -12,5 +12,3 @@ User = get_user_model()
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         BoardProfile.objects.create(user=instance)
-    else:
-        instance.profile.save()
