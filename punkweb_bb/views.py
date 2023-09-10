@@ -12,7 +12,6 @@ def index(request):
     categories = Category.objects.all()
 
     recent_threads = Thread.objects.all().order_by("-created_at")[:5]
-    recent_posts = Post.objects.all().order_by("-created_at")[:5]
 
     thread_count = Thread.objects.count()
     post_count = Post.objects.count()
@@ -22,7 +21,6 @@ def index(request):
     context = {
         "categories": categories,
         "recent_threads": recent_threads,
-        "recent_posts": recent_posts,
         "thread_count": thread_count,
         "post_count": post_count,
         "profile_count": profile_count,
@@ -140,6 +138,27 @@ def thread_detail(request, thread_id):
         "post_form": post_form,
     }
     return render(request, "punkweb_bb/thread_detail.html", context=context)
+
+
+@login_required(login_url="/login/")
+def thread_update(request, thread_id):
+    thread = get_object_or_404(Thread, pk=thread_id, user=request.user)
+
+    if request.method == "POST":
+        form = ThreadForm(request.POST, instance=thread)
+
+        if form.is_valid():
+            thread = form.save()
+
+            return redirect("punkweb_bb:thread_detail", thread_id=thread.id)
+    else:
+        form = ThreadForm(instance=thread)
+
+    context = {
+        "thread": thread,
+        "form": form,
+    }
+    return render(request, "punkweb_bb/thread_update.html", context=context)
 
 
 @login_required(login_url="/login/")
