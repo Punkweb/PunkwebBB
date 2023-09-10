@@ -12,7 +12,7 @@ body {
 }
 
 a {
-  color: var(--oc-indigo-9);
+  color: var(--oc-teal-9);
   text-decoration: none;
 }
 
@@ -67,7 +67,7 @@ img {
 }
 
 .nav__main {
-  background-color: var(--oc-indigo-9);
+  background-color: var(--oc-teal-9);
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
   color: white;
 }
@@ -150,6 +150,10 @@ img {
   cursor: not-allowed;
 }
 
+.pw-button.fluid {
+  width: 100%;
+}
+
 /* Default */
 .pw-button:hover {
   background-color: var(--oc-gray-0);
@@ -163,23 +167,23 @@ img {
 
 .pw-button.outlined {
   background-color: transparent;
-  border: 1px solid var(--oc-indigo-9);
-  color: var(--oc-indigo-9);
+  border: 1px solid var(--oc-teal-9);
+  color: var(--oc-teal-9);
 }
 
 .pw-button.outlined:hover {
-  background-color: var(--oc-indigo-9);
+  background-color: var(--oc-teal-9);
   color: white;
 }
 
 .pw-button.outlined:active {
-  background-color: var(--oc-indigo-8);
+  background-color: var(--oc-teal-8);
 }
 
 /* Raised */
 
 .pw-button.raised {
-  background-color: var(--oc-indigo-9);
+  background-color: var(--oc-teal-9);
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
   color: white;
 }
@@ -222,7 +226,7 @@ img {
 
 .pw-input:focus,
 .pw-input:active {
-  border: 2px solid var(--oc-indigo-9);
+  border: 2px solid var(--oc-teal-9);
 }
 
 /** Card **/
@@ -237,6 +241,11 @@ img {
 
 .pw-card.fluid {
   width: 100%;
+}
+
+.pw-card.center {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .pw-card.margin {
