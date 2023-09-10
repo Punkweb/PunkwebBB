@@ -1,0 +1,25 @@
+{% extends 'punkweb_bb/base.html' %}
+
+{% block title_prefix %}Update Thread | {% endblock %}
+
+{% block extra_head %}
+{{form.media.css}}
+{% endblock %}
+
+{% block content %}
+
+<div class="pw-card fluid padding">
+  <h1>Update Thread</h1>
+  <form action="{% url 'punkweb_bb:thread_update' thread.id %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <a class="pw-button" href="{% url 'punkweb_bb:thread_detail' thread.id %}">Cancel</a>
+    <button class="pw-button raised" type="submit">Save</button>
+  </form>
+</div>
+
+{% endblock %}
+
+{% block extra_script %}
+{{form.media.js}}
+{% endblock %}
