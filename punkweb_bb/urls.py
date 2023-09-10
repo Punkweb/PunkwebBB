@@ -24,6 +24,7 @@ urlpatterns = [
         name="thread_create",
     ),
     path("thread/<str:thread_id>/", views.thread_detail, name="thread_detail"),
+    path("thread/<str:thread_id>/update/", views.thread_update, name="thread_update"),
     path("thread/<str:thread_id>/create-post/", views.post_create, name="post_create"),
     path("shout-list/", views.shout_list, name="shout_list"),
     path("shout-create", views.shout_create, name="shout_create"),
