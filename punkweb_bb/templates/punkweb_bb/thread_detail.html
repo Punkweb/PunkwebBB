@@ -41,6 +41,11 @@
         {{thread.user.profile.signature.rendered}}
       </div>
       {% endif %}
+      {% if thread.user == request.user %}
+      <div class="thread__actions">
+        <a class="pw-button raised" href="{% url 'punkweb_bb:thread_update' thread.id %}">Edit</a>
+      </div>
+      {% endif %}
     </div>
   </div>
 </div>

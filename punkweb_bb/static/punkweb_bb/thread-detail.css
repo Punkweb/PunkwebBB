@@ -52,3 +52,11 @@
   border-top: 1px solid var(--oc-gray-4);
   padding: 1rem;
 }
+
+.thread__actions {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1rem;
+}
