@@ -30,6 +30,7 @@ class ThreadForm(forms.ModelForm):
         model = Thread
         fields = ["title", "content"]
         widgets = {
+            "title": forms.TextInput(attrs={"class": "pw-input"}),
             "content": BBCodeEditor(),
         }
 
