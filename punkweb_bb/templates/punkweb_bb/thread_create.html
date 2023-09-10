@@ -8,18 +8,14 @@
 
 {% block content %}
 
-<form action="{% url 'punkweb_bb:thread_create' subcategory.slug %}" method="post">
-  {% csrf_token %}
-  <p>
-    <label for="id_title">Title:</label>
-    <input class="pw-input" type="text" name="title" maxlength="255" required id="id_title">
-  </p>
-  <p>
-    <label for="id_content">Content:</label>
-    <textarea name="content" cols="40" rows="10" class="bbcode-editor" required id="id_content"></textarea>
-  </p>
-  <button class="pw-button raised" type="submit">Create Thread</button>
-</form>
+<div class="pw-card fluid padding">
+  <h1>Create Thread</h1>
+  <form action="{% url 'punkweb_bb:thread_create' subcategory.slug %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="pw-button raised" type="submit">Create Thread</button>
+  </form>
+</div>
 
 {% endblock %}
 
