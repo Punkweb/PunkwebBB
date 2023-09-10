@@ -1,7 +1,7 @@
 from django import forms
 
 from .models import BoardProfile, Post, Shout, Thread
-from .widgets import BBCodeEditor
+from .widgets import BBCodeEditorWidget
 
 
 class BoardProfileForm(forms.ModelForm):
@@ -12,7 +12,7 @@ class BoardProfileForm(forms.ModelForm):
             "signature",
         ]
         widgets = {
-            "signature": BBCodeEditor(),
+            "signature": BBCodeEditorWidget(),
         }
 
 
@@ -21,7 +21,7 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ["content"]
         widgets = {
-            "content": BBCodeEditor(),
+            "content": BBCodeEditorWidget(),
         }
 
 
@@ -31,7 +31,7 @@ class ThreadForm(forms.ModelForm):
         fields = ["title", "content"]
         widgets = {
             "title": forms.TextInput(attrs={"class": "pw-input"}),
-            "content": BBCodeEditor(),
+            "content": BBCodeEditorWidget(),
         }
 
 

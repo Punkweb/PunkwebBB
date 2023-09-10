@@ -1,7 +1,7 @@
 from django import forms
 
 from .models import BoardProfile, Category, Post, Subcategory, Thread
-from .widgets import BBCodeEditor
+from .widgets import BBCodeEditorWidget
 
 
 class BoardProfileAdminForm(forms.ModelForm):
@@ -9,7 +9,7 @@ class BoardProfileAdminForm(forms.ModelForm):
         model = BoardProfile
         fields = "__all__"
         widgets = {
-            "signature": BBCodeEditor(),
+            "signature": BBCodeEditorWidget(),
         }
 
 
@@ -18,7 +18,7 @@ class CategoryAdminForm(forms.ModelForm):
         model = Category
         fields = "__all__"
         widgets = {
-            "description": BBCodeEditor(),
+            "description": BBCodeEditorWidget(),
         }
 
 
@@ -27,7 +27,7 @@ class SubcategoryAdminForm(forms.ModelForm):
         model = Subcategory
         fields = "__all__"
         widgets = {
-            "description": BBCodeEditor(),
+            "description": BBCodeEditorWidget(),
         }
 
 
@@ -36,7 +36,7 @@ class ThreadAdminForm(forms.ModelForm):
         model = Thread
         fields = "__all__"
         widgets = {
-            "content": BBCodeEditor(),
+            "content": BBCodeEditorWidget(),
         }
 
 
@@ -45,5 +45,5 @@ class PostAdminForm(forms.ModelForm):
         model = Post
         fields = "__all__"
         widgets = {
-            "content": BBCodeEditor(),
+            "content": BBCodeEditorWidget(),
         }

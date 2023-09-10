@@ -1,9 +1,9 @@
 from django import forms
 
 
-class BBCodeEditor(forms.Textarea):
+class BBCodeEditorWidget(forms.Textarea):
     def __init__(self, *args, **kwargs):
-        super(BBCodeEditor, self).__init__(*args, **kwargs)
+        super(BBCodeEditorWidget, self).__init__(*args, **kwargs)
         self.attrs["class"] = "bbcode-editor"
 
     class Media:
