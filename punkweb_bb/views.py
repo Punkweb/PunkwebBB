@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import PostForm, BoardProfileForm, ShoutForm, ThreadForm
+from .forms import PostModelForm, BoardProfileModelForm, ShoutModelForm, ThreadModelForm
 from .models import BoardProfile, Category, Shout, Subcategory, Post, Thread
 
 
@@ -68,7 +68,7 @@ def profile_detail(request):
 @login_required(login_url="/login/")
 def profile_update(request):
     if request.method == "POST":
-        form = BoardProfileForm(
+        form = BoardProfileModelForm(
             request.POST, request.FILES, instance=request.user.profile
         )
 
@@ -77,7 +77,7 @@ def profile_update(request):
 
             return redirect("punkweb_bb:profile_update")
 
-    form = BoardProfileForm(instance=request.user.profile)
+    form = BoardProfileModelForm(instance=request.user.profile)
 
     context = {
         "form": form,
@@ -109,7 +109,7 @@ def thread_create(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
     if request.method == "POST":
-        form = ThreadForm(request.POST)
+        form = ThreadModelForm(request.POST)
 
         if form.is_valid():
             thread = form.save(commit=False)
@@ -119,7 +119,7 @@ def thread_create(request, subcategory_slug):
 
             return redirect("punkweb_bb:thread_detail", thread_id=thread.id)
     else:
-        form = ThreadForm()
+        form = ThreadModelForm()
 
     context = {
         "subcategory": subcategory,
@@ -131,7 +131,7 @@ def thread_create(request, subcategory_slug):
 def thread_detail(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
-    post_form = PostForm()
+    post_form = PostModelForm()
 
     context = {
         "thread": thread,
@@ -145,14 +145,14 @@ def thread_update(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id, user=request.user)
 
     if request.method == "POST":
-        form = ThreadForm(request.POST, instance=thread)
+        form = ThreadModelForm(request.POST, instance=thread)
 
         if form.is_valid():
             thread = form.save()
 
             return redirect("punkweb_bb:thread_detail", thread_id=thread.id)
     else:
-        form = ThreadForm(instance=thread)
+        form = ThreadModelForm(instance=thread)
 
     context = {
         "thread": thread,
@@ -165,7 +165,7 @@ def thread_update(request, thread_id):
 def post_create(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
-    form = PostForm(request.POST)
+    form = PostModelForm(request.POST)
 
     if form.is_valid():
         post = form.save(commit=False)
@@ -199,7 +199,7 @@ def shout_create(request):
         return render(request, "punkweb_bb/shoutbox/shout_list.html", context=context)
 
     if request.method == "POST":
-        form = ShoutForm(request.POST)
+        form = ShoutModelForm(request.POST)
 
         if form.is_valid():
             shout = form.save(commit=False)

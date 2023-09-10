@@ -4,7 +4,7 @@ from .models import BoardProfile, Post, Shout, Thread
 from .widgets import BBCodeEditorWidget
 
 
-class BoardProfileForm(forms.ModelForm):
+class BoardProfileModelForm(forms.ModelForm):
     class Meta:
         model = BoardProfile
         fields = [
@@ -16,7 +16,7 @@ class BoardProfileForm(forms.ModelForm):
         }
 
 
-class PostForm(forms.ModelForm):
+class PostModelForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ["content"]
@@ -25,7 +25,7 @@ class PostForm(forms.ModelForm):
         }
 
 
-class ThreadForm(forms.ModelForm):
+class ThreadModelForm(forms.ModelForm):
     class Meta:
         model = Thread
         fields = ["title", "content"]
@@ -35,7 +35,7 @@ class ThreadForm(forms.ModelForm):
         }
 
 
-class ShoutForm(forms.ModelForm):
+class ShoutModelForm(forms.ModelForm):
     class Meta:
         model = Shout
         fields = ["content"]

@@ -4,7 +4,7 @@ from .models import BoardProfile, Category, Post, Subcategory, Thread
 from .widgets import BBCodeEditorWidget
 
 
-class BoardProfileAdminForm(forms.ModelForm):
+class BoardProfileAdminModelForm(forms.ModelForm):
     class Meta:
         model = BoardProfile
         fields = "__all__"
@@ -13,7 +13,7 @@ class BoardProfileAdminForm(forms.ModelForm):
         }
 
 
-class CategoryAdminForm(forms.ModelForm):
+class CategoryAdminModelForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = "__all__"
@@ -22,7 +22,7 @@ class CategoryAdminForm(forms.ModelForm):
         }
 
 
-class SubcategoryAdminForm(forms.ModelForm):
+class SubcategoryAdminModelForm(forms.ModelForm):
     class Meta:
         model = Subcategory
         fields = "__all__"
@@ -31,7 +31,7 @@ class SubcategoryAdminForm(forms.ModelForm):
         }
 
 
-class ThreadAdminForm(forms.ModelForm):
+class ThreadAdminModelForm(forms.ModelForm):
     class Meta:
         model = Thread
         fields = "__all__"
@@ -40,7 +40,7 @@ class ThreadAdminForm(forms.ModelForm):
         }
 
 
-class PostAdminForm(forms.ModelForm):
+class PostAdminModelForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = "__all__"

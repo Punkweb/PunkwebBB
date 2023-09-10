@@ -2,18 +2,18 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 from .admin_forms import (
-    BoardProfileAdminForm,
-    CategoryAdminForm,
-    PostAdminForm,
-    SubcategoryAdminForm,
-    ThreadAdminForm,
+    BoardProfileAdminModelForm,
+    CategoryAdminModelForm,
+    PostAdminModelForm,
+    SubcategoryAdminModelForm,
+    ThreadAdminModelForm,
 )
 from .models import BoardProfile, Category, Post, Shout, Subcategory, Thread
 
 
 @admin.register(BoardProfile)
-class BoardProfileAdmin(admin.ModelAdmin):
-    form = BoardProfileAdminForm
+class BoardProfileModelAdmin(admin.ModelAdmin):
+    form = BoardProfileAdminModelForm
     list_display = [
         "user",
     ]
@@ -36,8 +36,8 @@ class BoardProfileAdmin(admin.ModelAdmin):
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    form = CategoryAdminForm
+class CategoryModelAdmin(admin.ModelAdmin):
+    form = CategoryAdminModelForm
     list_display = [
         "name",
         "order",
@@ -54,8 +54,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(Subcategory)
-class SubcategoryAdmin(admin.ModelAdmin):
-    form = SubcategoryAdminForm
+class SubcategoryModelAdmin(admin.ModelAdmin):
+    form = SubcategoryAdminModelForm
     list_display = [
         "name",
         "category",
@@ -76,8 +76,8 @@ class SubcategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(Thread)
-class ThreadAdmin(admin.ModelAdmin):
-    form = ThreadAdminForm
+class ThreadModelAdmin(admin.ModelAdmin):
+    form = ThreadAdminModelForm
     list_display = [
         "title",
         "subcategory",
@@ -97,8 +97,8 @@ class ThreadAdmin(admin.ModelAdmin):
 
 
 @admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
-    form = PostAdminForm
+class PostModelAdmin(admin.ModelAdmin):
+    form = PostAdminModelForm
     list_display = [
         "thread",
         "user",
@@ -112,7 +112,7 @@ class PostAdmin(admin.ModelAdmin):
 
 
 @admin.register(Shout)
-class ShoutAdmin(admin.ModelAdmin):
+class ShoutModelAdmin(admin.ModelAdmin):
     list_display = [
         "user",
         "created_at",
