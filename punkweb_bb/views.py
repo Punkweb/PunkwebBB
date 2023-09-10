@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import PostForm, ShoutForm, ThreadForm
+from .forms import PostForm, BoardProfileForm, ShoutForm, ThreadForm
 from .models import BoardProfile, Category, Shout, Subcategory, Post, Thread
 
 
@@ -60,6 +60,32 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect("punkweb_bb:login")
+
+
+@login_required(login_url="/login/")
+def profile_detail(request):
+    return render(request, "punkweb_bb/profile_detail.html")
+
+
+@login_required(login_url="/login/")
+def profile_update(request):
+    if request.method == "POST":
+        form = BoardProfileForm(
+            request.POST, request.FILES, instance=request.user.profile
+        )
+
+        if form.is_valid():
+            form.save()
+
+            return redirect("punkweb_bb:profile_update")
+
+    form = BoardProfileForm(instance=request.user.profile)
+
+    context = {
+        "form": form,
+    }
+
+    return render(request, "punkweb_bb/profile_update.html", context=context)
 
 
 def category_detail(request, category_slug):

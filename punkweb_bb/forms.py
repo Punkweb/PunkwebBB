@@ -1,7 +1,19 @@
 from django import forms
 
-from .models import Post, Shout, Thread
+from .models import BoardProfile, Post, Shout, Thread
 from .widgets import BBCodeEditor
+
+
+class BoardProfileForm(forms.ModelForm):
+    class Meta:
+        model = BoardProfile
+        fields = [
+            "image",
+            "signature",
+        ]
+        widgets = {
+            "signature": BBCodeEditor(),
+        }
 
 
 class PostForm(forms.ModelForm):

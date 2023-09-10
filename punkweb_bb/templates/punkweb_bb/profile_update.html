@@ -1,0 +1,25 @@
+{% extends 'punkweb_bb/base.html' %}
+
+{% block title_prefix %}Update Profile | {% endblock %}
+
+{% block extra_head %}
+{{form.media.css}}
+{% endblock %}
+
+{% block content %}
+
+<div class="pw-card fluid padding">
+  <h1>Update Profile</h1>
+  <form action="{% url 'punkweb_bb:profile_update' %}" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="pw-button" type="reset">Cancel</button>
+    <button class="pw-button raised" type="submit">Save</button>
+  </form>
+</div>
+
+{% endblock %}
+
+{% block extra_script %}
+{{form.media.js}}
+{% endblock %}
