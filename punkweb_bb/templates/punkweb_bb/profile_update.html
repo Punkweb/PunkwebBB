@@ -13,7 +13,7 @@
   <form action="{% url 'punkweb_bb:profile_update' %}" enctype="multipart/form-data" method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <button class="pw-button" type="reset">Cancel</button>
+    <a class="pw-button" href="{% url 'punkweb_bb:profile_detail' %}">Cancel</a>
     <button class="pw-button raised" type="submit">Save</button>
   </form>
 </div>
