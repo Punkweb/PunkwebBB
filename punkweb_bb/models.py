@@ -1,5 +1,7 @@
+import datetime
 import os
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.db import models
 from precise_bbcode.fields import BBCodeTextField
 
@@ -26,6 +28,13 @@ class BoardProfile(UUIDPrimaryKeyMixin, TimestampMixin):
 
     def __str__(self):
         return self.user.username
+
+    def is_online(self):
+        last_seen = cache.get(f"profile_online_{self.id}")
+        if last_seen:
+            now = datetime.datetime.now()
+            return now < last_seen + datetime.timedelta(minutes=5)
+        return False
 
     def post_count(self):
         return self.user.threads.count() + self.user.posts.count()
