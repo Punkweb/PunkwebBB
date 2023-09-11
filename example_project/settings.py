@@ -49,6 +49,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "punkweb_bb.middleware.ProfileOnlineCacheMiddleware",
 ]
 
 ROOT_URLCONF = "example_project.urls"
