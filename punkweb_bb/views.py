@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
 
 from .forms import PostModelForm, BoardProfileModelForm, ShoutModelForm, ThreadModelForm
 from .models import BoardProfile, Category, Shout, Subcategory, Post, Thread
@@ -178,7 +179,7 @@ def post_create(request, thread_id):
 
 def current_shouts():
     return Shout.objects.filter(
-        created_at__gt=datetime.datetime.today() - datetime.timedelta(hours=12)
+        created_at__gt=timezone.now() - datetime.timedelta(hours=12)
     ).order_by("created_at")
 
 
