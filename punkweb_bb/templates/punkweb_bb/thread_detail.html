@@ -43,7 +43,11 @@
       {% endif %}
       {% if thread.user == request.user %}
       <div class="thread__actions">
-        <a class="pw-button raised" href="{% url 'punkweb_bb:thread_update' thread.id %}">Edit</a>
+        <a class="pw-button" href="{% url 'punkweb_bb:thread_update' thread.id %}">Edit</a>
+        <a class="pw-button raised danger" hx-get="{% url 'punkweb_bb:thread_delete' thread.id %}"
+          hx-target="#modal-portal">
+          Delete
+        </a>
       </div>
       {% endif %}
     </div>

@@ -3,10 +3,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils import timezone
 
 from .forms import PostModelForm, BoardProfileModelForm, ShoutModelForm, ThreadModelForm
 from .models import BoardProfile, Category, Shout, Subcategory, Post, Thread
+from .response import htmx_redirect
 
 
 def index(request):
@@ -160,6 +162,24 @@ def thread_update(request, thread_id):
         "form": form,
     }
     return render(request, "punkweb_bb/thread_update.html", context=context)
+
+
+@login_required(login_url="/login/")
+def thread_delete(request, thread_id):
+    thread = get_object_or_404(Thread, pk=thread_id, user=request.user)
+
+    if request.method == "DELETE":
+        thread.delete()
+
+        return htmx_redirect(
+            reverse("punkweb_bb:subcategory_detail", args=[thread.subcategory.slug])
+        )
+
+    context = {
+        "thread": thread,
+    }
+
+    return render(request, "punkweb_bb/partials/thread_delete.html", context=context)
 
 
 @login_required(login_url="/login/")
