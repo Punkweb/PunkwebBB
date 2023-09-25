@@ -2,6 +2,7 @@ import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -195,6 +196,29 @@ def post_create(request, thread_id):
         post.save()
 
         return redirect("punkweb_bb:thread_detail", thread_id=thread.id)
+
+
+@login_required(login_url="/login/")
+def post_update(request, post_id):
+    context = {}
+
+    return render(request, "punkweb_bb/partials/post_update.html", context=context)
+
+
+@login_required(login_url="/login/")
+def post_delete(request, post_id):
+    post = get_object_or_404(Post, pk=post_id, user=request.user)
+
+    if request.method == "DELETE":
+        post.delete()
+
+        return HttpResponse("")
+
+    context = {
+        "post": post,
+    }
+
+    return render(request, "punkweb_bb/partials/post_delete.html", context=context)
 
 
 def current_shouts():

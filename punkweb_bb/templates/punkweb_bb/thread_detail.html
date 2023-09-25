@@ -55,7 +55,7 @@
 </div>
 
 {% for post in thread.posts.all %}
-<div class="pw-card fluid margin">
+<div id="post-{{post.id}}" class="pw-card fluid margin">
   <div class="thread__header">
     <div class="thread__title">#{{forloop.counter}}</div>
   </div>
@@ -79,6 +79,15 @@
       {% if post.user.profile.signature %}
       <div class="thread__signature">
         {{post.user.profile.signature.rendered}}
+      </div>
+      {% endif %}
+      {% if post.user == request.user %}
+      <div class="thread__actions">
+        <a class="pw-button" hx-get="{% url 'punkweb_bb:post_update' post.id %}" hx-target="#modal-portal">Edit</a>
+        <a class="pw-button raised danger" hx-get="{% url 'punkweb_bb:post_delete' post.id %}"
+          hx-target="#modal-portal">
+          Delete
+        </a>
       </div>
       {% endif %}
     </div>

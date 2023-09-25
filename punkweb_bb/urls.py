@@ -27,6 +27,8 @@ urlpatterns = [
     path("thread/<str:thread_id>/delete/", views.thread_delete, name="thread_delete"),
     path("thread/<str:thread_id>/update/", views.thread_update, name="thread_update"),
     path("thread/<str:thread_id>/create-post/", views.post_create, name="post_create"),
+    path("post/<str:post_id>/delete/", views.post_delete, name="post_delete"),
+    path("post/<str:post_id>/update/", views.post_update, name="post_update"),
     path("shout-list/", views.shout_list, name="shout_list"),
     path("shout-create/", views.shout_create, name="shout_create"),
 ]
