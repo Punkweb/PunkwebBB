@@ -20,6 +20,9 @@ class PostModelForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ["content"]
+        labels = {
+            "content": "",
+        }
         widgets = {
             "content": BBCodeEditorWidget(),
         }
