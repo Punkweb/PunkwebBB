@@ -65,6 +65,10 @@ class CategoryTestCase(TestCase):
         category = Category.objects.create(name="test", order="0")
         self.assertEqual(str(category), "0. test")
 
+    def test_get_absolute_url(self):
+        category = Category.objects.create(name="test", slug="test")
+        self.assertEqual(category.get_absolute_url(), "/category/test/")
+
 
 class SubcategoryTestCase(TestCase):
     def test_subcategory_str(self):
@@ -99,6 +103,13 @@ class SubcategoryTestCase(TestCase):
 
         self.assertEqual(subcategory.post_count(), 1)
 
+    def test_get_absolute_url(self):
+        category = Category.objects.create(name="test", slug="test")
+        subcategory = Subcategory.objects.create(
+            category=category, name="test", slug="test"
+        )
+        self.assertEqual(subcategory.get_absolute_url(), "/subcategory/test/")
+
 
 class ThreadTestCase(TestCase):
     def setUp(self):
@@ -125,6 +136,12 @@ class ThreadTestCase(TestCase):
 
         self.assertEqual(thread.post_count(), 1)
 
+    def test_get_absolute_url(self):
+        thread = Thread.objects.create(
+            subcategory=self.subcategory, user=self.user, title="test", content="test"
+        )
+        self.assertEqual(thread.get_absolute_url(), f"/thread/{thread.id}/")
+
 
 class PostTestCase(TestCase):
     def setUp(self):
@@ -140,6 +157,31 @@ class PostTestCase(TestCase):
     def test_post_str(self):
         post = Post.objects.create(thread=self.thread, user=self.user, content="test")
         self.assertEqual(str(post), f"{post.thread} > {post.user} > {post.created_at}")
+
+    def test_index(self):
+        post_1 = Post.objects.create(thread=self.thread, user=self.user, content="test")
+        post_2 = Post.objects.create(thread=self.thread, user=self.user, content="test")
+        post_3 = Post.objects.create(thread=self.thread, user=self.user, content="test")
+
+        self.assertEqual(post_1.index(), 1)
+        self.assertEqual(post_2.index(), 2)
+        self.assertEqual(post_3.index(), 3)
+
+    def test_page_number(self):
+        post_1 = Post.objects.create(thread=self.thread, user=self.user, content="test")
+        post_2 = Post.objects.create(thread=self.thread, user=self.user, content="test")
+        post_3 = Post.objects.create(thread=self.thread, user=self.user, content="test")
+
+        self.assertEqual(post_1.page_number(page_size=2), 1)
+        self.assertEqual(post_2.page_number(page_size=2), 1)
+        self.assertEqual(post_3.page_number(page_size=2), 2)
+
+    def test_get_absolute_url(self):
+        post = Post.objects.create(thread=self.thread, user=self.user, content="test")
+        self.assertEqual(
+            post.get_absolute_url(),
+            f"/thread/{post.thread.id}/?page={post.page_number()}#post-{post.id}",
+        )
 
 
 class ShoutTestCase(TestCase):
