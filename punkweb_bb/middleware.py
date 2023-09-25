@@ -1,5 +1,5 @@
-import datetime
 from django.core.cache import cache
+from django.utils import timezone
 
 
 class ProfileOnlineCacheMiddleware:
@@ -8,8 +8,9 @@ class ProfileOnlineCacheMiddleware:
 
     def __call__(self, request):
         if request.user.is_authenticated:
-            now = datetime.datetime.now()
-            cache.set(f"profile_online_{request.user.profile.id}", now, 60 * 5)
+            cache.set(
+                f"profile_online_{request.user.profile.id}", timezone.now(), 60 * 5
+            )
 
         response = self.get_response(request)
 
