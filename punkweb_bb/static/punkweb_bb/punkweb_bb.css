@@ -163,6 +163,18 @@ img {
   background-color: var(--oc-gray-1);
 }
 
+.pw-button.danger {
+  color: var(--oc-red-9);
+}
+
+.pw-button.danger:hover {
+  background-color: var(--oc-red-0);
+}
+
+.pw-button.danger:active {
+  background-color: var(--oc-red-1);
+}
+
 /* Outlined */
 
 .pw-button.outlined {
@@ -180,12 +192,31 @@ img {
   background-color: var(--oc-teal-8);
 }
 
+.pw-button.outlined.danger {
+  border-color: var(--oc-red-9);
+  color: var(--oc-red-9);
+}
+
+.pw-button.outlined.danger:hover {
+  background-color: var(--oc-red-9);
+  color: white;
+}
+
+.pw-button.outlined.danger:active {
+  background-color: var(--oc-red-8);
+  color: white;
+}
+
 /* Raised */
 
 .pw-button.raised {
   background-color: var(--oc-teal-9);
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
   color: white;
+}
+
+.pw-button.raised.danger {
+  background-color: var(--oc-red-9);
 }
 
 .pw-button.raised:active {
