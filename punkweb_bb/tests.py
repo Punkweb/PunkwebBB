@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import TestCase
+from django.utils import timezone
 
 from .models import (
     profile_image_upload_to,
@@ -48,6 +50,14 @@ class BoardProfileTestCase(TestCase):
         Post.objects.create(thread=Thread.objects.first(), user=user, content="test")
 
         self.assertEqual(user.profile.post_count(), 2)
+
+    def test_is_online(self):
+        user = User.objects.create_user(username="test", password="test")
+        self.assertEqual(user.profile.is_online(), False)
+
+        cache.set(f"profile_online_{user.profile.id}", timezone.now(), 60 * 5)
+
+        self.assertEqual(user.profile.is_online(), True)
 
 
 class CategoryTestCase(TestCase):
