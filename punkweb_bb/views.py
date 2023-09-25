@@ -212,7 +212,22 @@ def post_create(request, thread_id):
 
 @login_required(login_url="/login/")
 def post_update(request, post_id):
-    context = {}
+    post = get_object_or_404(Post, pk=post_id, user=request.user)
+
+    if request.method == "POST":
+        form = PostModelForm(request.POST, instance=post)
+
+        if form.is_valid():
+            post = form.save()
+
+            return redirect(post)
+
+    form = PostModelForm(instance=post)
+
+    context = {
+        "post": post,
+        "form": form,
+    }
 
     return render(request, "punkweb_bb/partials/post_update.html", context=context)
 

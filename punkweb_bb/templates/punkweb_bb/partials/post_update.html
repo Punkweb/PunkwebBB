@@ -2,4 +2,11 @@
 
 {% block content %}
 <h2>Update Post</h2>
+<form action="{% url 'punkweb_bb:post_update' post.id %}" method="post">
+  {% csrf_token %}
+  {{form.as_p}}
+  <button class="pw-button raised" type="submit">Update post</button>
+</form>
+{{form.media.css}}
+{{form.media.js}}
 {% endblock %}
