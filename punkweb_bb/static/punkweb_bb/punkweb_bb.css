@@ -229,6 +229,48 @@ img {
   color: var(--oc-gray-5) !important;
 }
 
+/** Icon Button **/
+
+.pw-icon-button {
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 100%;
+  color: var(--oc-gray-9);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 18px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0;
+  position: relative;
+  max-height: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  min-width: 40px;
+  text-align: center;
+  text-decoration: none !important;
+  transition: all 100ms ease-in-out;
+  width: 40px;
+}
+
+.pw-icon-button .material-symbols-outlined {
+  display: block;
+}
+
+.pw-icon-button:hover:not(:disabled) {
+  background-color: var(--oc-gray-0);
+}
+
+.pw-icon-button:active:not(:disabled) {
+  background-color: var(--oc-gray-1);
+}
+
+.pw-icon-button:disabled {
+  color: var(--oc-gray-5);
+  cursor: not-allowed;
+}
+
 /** Input **/
 
 .pw-input {
