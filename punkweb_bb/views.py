@@ -212,7 +212,7 @@ def post_delete(request, post_id):
     if request.method == "DELETE":
         post.delete()
 
-        return HttpResponse("")
+        return htmx_redirect(reverse("punkweb_bb:thread_detail", args=[post.thread.id]))
 
     context = {
         "post": post,
