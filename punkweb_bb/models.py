@@ -1,8 +1,10 @@
 import datetime
+import math
 import os
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from precise_bbcode.fields import BBCodeTextField
 
@@ -56,6 +58,9 @@ class Category(UUIDPrimaryKeyMixin, TimestampMixin):
     def __str__(self):
         return f"{self.order}. {self.name}"
 
+    def get_absolute_url(self):
+        return reverse("punkweb_bb:category_detail", args=[self.slug])
+
 
 class Subcategory(UUIDPrimaryKeyMixin, TimestampMixin):
     category = models.ForeignKey(
@@ -83,6 +88,9 @@ class Subcategory(UUIDPrimaryKeyMixin, TimestampMixin):
     def post_count(self):
         return sum([thread.post_count() for thread in self.threads.all()])
 
+    def get_absolute_url(self):
+        return reverse("punkweb_bb:subcategory_detail", args=[self.slug])
+
 
 class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
     subcategory = models.ForeignKey(
@@ -103,6 +111,9 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
     def post_count(self):
         return self.posts.count()
 
+    def get_absolute_url(self):
+        return reverse("punkweb_bb:thread_detail", args=[self.id])
+
 
 class Post(UUIDPrimaryKeyMixin, TimestampMixin):
     thread = models.ForeignKey(Thread, related_name="posts", on_delete=models.CASCADE)
@@ -116,6 +127,21 @@ class Post(UUIDPrimaryKeyMixin, TimestampMixin):
 
     def __str__(self):
         return f"{self.thread} > {self.user} > {self.created_at}"
+
+    def post_index(self):
+        qs = self.thread.posts.order_by("created_at")
+        index = list(qs.values_list("id", flat=True)).index(self.id)
+        return index + 1
+
+    def page_number(self, page_size=10):
+        return math.ceil(self.post_index() / page_size)
+
+    def get_absolute_url(self):
+        thread_url = reverse("punkweb_bb:thread_detail", args=[self.thread.id])
+
+        thread_url += f"?page={self.page_number()}#post-{self.id}"
+
+        return thread_url
 
 
 class Shout(UUIDPrimaryKeyMixin, TimestampMixin):
