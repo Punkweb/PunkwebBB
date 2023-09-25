@@ -139,7 +139,7 @@ class Post(UUIDPrimaryKeyMixin, TimestampMixin):
     def get_absolute_url(self):
         thread_url = reverse("punkweb_bb:thread_detail", args=[self.thread.id])
 
-        thread_url += f"?page={self.index()}#post-{self.id}"
+        thread_url += f"?page={self.page_number()}#post-{self.id}"
 
         return thread_url
 
