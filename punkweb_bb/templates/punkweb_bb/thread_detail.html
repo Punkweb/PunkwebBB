@@ -112,9 +112,7 @@
   <h4>Reply to thread</h4>
   <form action="{% url 'punkweb_bb:post_create' thread.id %}" method="post">
     {% csrf_token %}
-    <p>
-      <textarea name="content" cols="40" rows="10" class="bbcode-editor" required id="id_content"></textarea>
-    </p>
+    {{post_form.as_p}}
     <button class="pw-button raised" type="submit">Post reply</button>
   </form>
 </div>
