@@ -207,7 +207,7 @@ def post_create(request, thread_id):
         post.user = request.user
         post.save()
 
-        return redirect("punkweb_bb:thread_detail", thread_id=thread.id)
+        return redirect(post)
 
 
 @login_required(login_url="/login/")
