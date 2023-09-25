@@ -2,7 +2,7 @@ import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.http import HttpResponse
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -135,10 +135,22 @@ def thread_create(request, subcategory_slug):
 def thread_detail(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
+    post_paginator = Paginator(thread.posts.all(), 10)
+
+    page = request.GET.get("page", 1)
+
+    try:
+        posts = post_paginator.page(page)
+    except PageNotAnInteger:
+        posts = post_paginator.page(1)
+    except EmptyPage:
+        posts = post_paginator.page(post_paginator.num_pages)
+
     post_form = PostModelForm()
 
     context = {
         "thread": thread,
+        "posts": posts,
         "post_form": post_form,
     }
     return render(request, "punkweb_bb/thread_detail.html", context=context)

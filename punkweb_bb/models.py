@@ -128,18 +128,18 @@ class Post(UUIDPrimaryKeyMixin, TimestampMixin):
     def __str__(self):
         return f"{self.thread} > {self.user} > {self.created_at}"
 
-    def post_index(self):
+    def index(self):
         qs = self.thread.posts.order_by("created_at")
         index = list(qs.values_list("id", flat=True)).index(self.id)
         return index + 1
 
     def page_number(self, page_size=10):
-        return math.ceil(self.post_index() / page_size)
+        return math.ceil(self.index() / page_size)
 
     def get_absolute_url(self):
         thread_url = reverse("punkweb_bb:thread_detail", args=[self.thread.id])
 
-        thread_url += f"?page={self.page_number()}#post-{self.id}"
+        thread_url += f"?page={self.index()}#post-{self.id}"
 
         return thread_url
 

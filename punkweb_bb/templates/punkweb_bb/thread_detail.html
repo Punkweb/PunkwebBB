@@ -15,6 +15,7 @@
 
 {% block content %}
 
+{% if posts.number == 1 %}
 <div class="pw-card fluid margin">
   <div class="thread__header">
     <div class="thread__title">{{thread.title}}</div>
@@ -36,7 +37,7 @@
       <div class="thread__content">
         {{thread.content.rendered}}
       </div>
-      {% if thread.user.profile.signature %}
+      {% if thread.user.profile.signature.rendered %}
       <div class="thread__signature">
         {{thread.user.profile.signature.rendered}}
       </div>
@@ -53,11 +54,12 @@
     </div>
   </div>
 </div>
+{% endif %}
 
-{% for post in thread.posts.all %}
+{% for post in posts %}
 <div id="post-{{post.id}}" class="pw-card fluid margin">
   <div class="thread__header">
-    <div class="thread__title">#{{forloop.counter}}</div>
+    <div class="thread__title">#{{post.index}}</div>
   </div>
   <div class="thread">
     <div class="thread__user">
@@ -76,7 +78,7 @@
       <div class="thread__content">
         {{post.content.rendered}}
       </div>
-      {% if post.user.profile.signature %}
+      {% if post.user.profile.signature.rendered %}
       <div class="thread__signature">
         {{post.user.profile.signature.rendered}}
       </div>
@@ -94,6 +96,16 @@
   </div>
 </div>
 {% endfor %}
+
+<ul>
+  {% for i in posts.paginator.page_range %}
+  {% if posts.number == i %}
+  <li>{{i}}</li>
+  {% else %}
+  <li><a href="{% url 'punkweb_bb:thread_detail' thread.id %}?page={{i}}">{{i}}</a></li>
+  {% endif %}
+  {% endfor %}
+</ul>
 
 {% if request.user.is_authenticated %}
 <div class="pw-card fluid margin padding">
