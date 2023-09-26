@@ -89,6 +89,10 @@ class Subcategory(UUIDPrimaryKeyMixin, TimestampMixin):
     def post_count(self):
         return sum([thread.post_count for thread in self.threads.all()])
 
+    @property
+    def latest_thread(self):
+        return self.threads.order_by("-created_at").first()
+
     def __str__(self):
         return f"{self.category} > {self.order}. {self.name}"
 
@@ -115,6 +119,10 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
     @property
     def post_count(self):
         return self.posts.count()
+
+    @property
+    def latest_post(self):
+        return self.posts.order_by("-created_at").first()
 
     def get_absolute_url(self):
         return reverse("punkweb_bb:thread_detail", args=[self.id])
