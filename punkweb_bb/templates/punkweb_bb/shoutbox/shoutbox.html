@@ -3,7 +3,7 @@
     Shoutbox
   </div>
 
-  <div class="shoutbox__shouts" id="shoutlist" hx-get="{% url 'punkweb_bb:shout_list' %}" hx-trigger="load, every 30s"
+  <div class="shoutbox__shouts" id="shoutlist" hx-get="{% url 'punkweb_bb:shout_list' %}" hx-trigger="load, every 10s"
     hx-on::after-request="shoutboxScrollToBottom(event)">
   </div>
 

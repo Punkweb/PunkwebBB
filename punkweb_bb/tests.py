@@ -3,14 +3,7 @@ from django.core.cache import cache
 from django.test import TestCase
 from django.utils import timezone
 
-from .models import (
-    profile_image_upload_to,
-    Category,
-    Post,
-    Shout,
-    Subcategory,
-    Thread,
-)
+from .models import Category, Post, Shout, Subcategory, Thread, profile_image_upload_to
 
 User = get_user_model()
 

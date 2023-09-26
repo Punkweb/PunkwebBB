@@ -1,6 +1,7 @@
 import datetime
 import math
 import os
+
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.db import models
@@ -8,8 +9,7 @@ from django.urls import reverse
 from django.utils import timezone
 from precise_bbcode.fields import BBCodeTextField
 
-from .mixins import UUIDPrimaryKeyMixin, TimestampMixin
-
+from .mixins import TimestampMixin, UUIDPrimaryKeyMixin
 
 User = get_user_model()
 

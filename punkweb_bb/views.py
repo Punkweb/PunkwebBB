@@ -1,14 +1,14 @@
 import datetime
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
 from django.utils import timezone
 
-from .forms import PostModelForm, BoardProfileModelForm, ShoutModelForm, ThreadModelForm
-from .models import BoardProfile, Category, Shout, Subcategory, Post, Thread
+from .forms import BoardProfileModelForm, PostModelForm, ShoutModelForm, ThreadModelForm
+from .models import BoardProfile, Category, Post, Shout, Subcategory, Thread
 from .response import htmx_redirect
 
 
@@ -121,7 +121,7 @@ def thread_create(request, subcategory_slug):
             thread.user = request.user
             thread.save()
 
-            return redirect("punkweb_bb:thread_detail", thread_id=thread.id)
+            return redirect(thread)
     else:
         form = ThreadModelForm()
 
@@ -166,7 +166,7 @@ def thread_update(request, thread_id):
         if form.is_valid():
             thread = form.save()
 
-            return redirect("punkweb_bb:thread_detail", thread_id=thread.id)
+            return redirect(thread)
     else:
         form = ThreadModelForm(instance=thread)
 
@@ -184,9 +184,7 @@ def thread_delete(request, thread_id):
     if request.method == "DELETE":
         thread.delete()
 
-        return htmx_redirect(
-            reverse("punkweb_bb:subcategory_detail", args=[thread.subcategory.slug])
-        )
+        return htmx_redirect(thread.subcategory.get_absolute_url())
 
     context = {
         "thread": thread,
@@ -239,7 +237,7 @@ def post_delete(request, post_id):
     if request.method == "DELETE":
         post.delete()
 
-        return htmx_redirect(reverse("punkweb_bb:thread_detail", args=[post.thread.id]))
+        return htmx_redirect(post.thread.get_absolute_url())
 
     context = {
         "post": post,
