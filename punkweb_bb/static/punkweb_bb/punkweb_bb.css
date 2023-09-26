@@ -28,6 +28,13 @@ img {
   max-width: 100%;
 }
 
+#scrollToTop {
+  position: fixed;
+  bottom: 3rem;
+  right: 0.5rem;
+  z-index: 100;
+}
+
 /** Layout **/
 
 .layout {

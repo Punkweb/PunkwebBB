@@ -13,3 +13,6 @@ server
 # coverage
 .coverage
 htmlcov
+
+# misc
+todo.md
