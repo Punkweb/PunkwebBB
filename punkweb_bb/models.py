@@ -29,17 +29,19 @@ class BoardProfile(UUIDPrimaryKeyMixin, TimestampMixin):
             "user__username",
         ]
 
-    def __str__(self):
-        return self.user.username
-
+    @property
     def is_online(self):
         last_seen = cache.get(f"profile_online_{self.id}")
         if last_seen:
             return timezone.now() < last_seen + datetime.timedelta(minutes=5)
         return False
 
+    @property
     def post_count(self):
         return self.user.threads.count() + self.user.posts.count()
+
+    def __str__(self):
+        return self.user.username
 
 
 class Category(UUIDPrimaryKeyMixin, TimestampMixin):
@@ -79,14 +81,16 @@ class Subcategory(UUIDPrimaryKeyMixin, TimestampMixin):
             "order",
         ]
 
-    def __str__(self):
-        return f"{self.category} > {self.order}. {self.name}"
-
+    @property
     def thread_count(self):
         return self.threads.count()
 
+    @property
     def post_count(self):
-        return sum([thread.post_count() for thread in self.threads.all()])
+        return sum([thread.post_count for thread in self.threads.all()])
+
+    def __str__(self):
+        return f"{self.category} > {self.order}. {self.name}"
 
     def get_absolute_url(self):
         return reverse("punkweb_bb:subcategory_detail", args=[self.slug])
@@ -108,6 +112,7 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
     def __str__(self):
         return f"{self.title}"
 
+    @property
     def post_count(self):
         return self.posts.count()
 
@@ -128,18 +133,22 @@ class Post(UUIDPrimaryKeyMixin, TimestampMixin):
     def __str__(self):
         return f"{self.thread} > {self.user} > {self.created_at}"
 
+    @property
     def index(self):
+        # Returns the index of the post in the thread, starting with 1
+
         qs = self.thread.posts.order_by("created_at")
         index = list(qs.values_list("id", flat=True)).index(self.id)
         return index + 1
 
-    def page_number(self, page_size=10):
-        return math.ceil(self.index() / page_size)
+    @property
+    def page_number(self):
+        return math.ceil(self.index / 10)
 
     def get_absolute_url(self):
         thread_url = reverse("punkweb_bb:thread_detail", args=[self.thread.id])
 
-        thread_url += f"?page={self.page_number()}#post-{self.id}"
+        thread_url += f"?page={self.page_number}#post-{self.id}"
 
         return thread_url
 

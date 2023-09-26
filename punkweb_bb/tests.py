@@ -1,3 +1,5 @@
+import math
+
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.test import TestCase
@@ -29,7 +31,7 @@ class BoardProfileTestCase(TestCase):
 
     def test_board_profile_post_count(self):
         user = User.objects.create_user(username="test", password="test")
-        self.assertEqual(user.profile.post_count(), 0)
+        self.assertEqual(user.profile.post_count, 0)
 
         category = Category.objects.create(name="test")
         subcategory = Subcategory.objects.create(name="test", category=category)
@@ -38,19 +40,19 @@ class BoardProfileTestCase(TestCase):
             subcategory=subcategory, user=user, title="test", content="test"
         )
 
-        self.assertEqual(user.profile.post_count(), 1)
+        self.assertEqual(user.profile.post_count, 1)
 
         Post.objects.create(thread=Thread.objects.first(), user=user, content="test")
 
-        self.assertEqual(user.profile.post_count(), 2)
+        self.assertEqual(user.profile.post_count, 2)
 
     def test_is_online(self):
         user = User.objects.create_user(username="test", password="test")
-        self.assertEqual(user.profile.is_online(), False)
+        self.assertEqual(user.profile.is_online, False)
 
         cache.set(f"profile_online_{user.profile.id}", timezone.now(), 60 * 5)
 
-        self.assertEqual(user.profile.is_online(), True)
+        self.assertEqual(user.profile.is_online, True)
 
 
 class CategoryTestCase(TestCase):
@@ -75,13 +77,13 @@ class SubcategoryTestCase(TestCase):
         user = User.objects.create_user(username="test", password="test")
         category = Category.objects.create(name="test")
         subcategory = Subcategory.objects.create(name="test", category=category)
-        self.assertEqual(subcategory.thread_count(), 0)
+        self.assertEqual(subcategory.thread_count, 0)
 
         Thread.objects.create(
             subcategory=subcategory, user=user, title="test", content="test"
         )
 
-        self.assertEqual(subcategory.thread_count(), 1)
+        self.assertEqual(subcategory.thread_count, 1)
 
     def test_subcategory_post_count(self):
         user = User.objects.create_user(username="test", password="test")
@@ -90,11 +92,11 @@ class SubcategoryTestCase(TestCase):
         thread = Thread.objects.create(
             subcategory=subcategory, user=user, title="test", content="test"
         )
-        self.assertEqual(subcategory.post_count(), 0)
+        self.assertEqual(subcategory.post_count, 0)
 
         Post.objects.create(thread=thread, user=user, content="test")
 
-        self.assertEqual(subcategory.post_count(), 1)
+        self.assertEqual(subcategory.post_count, 1)
 
     def test_get_absolute_url(self):
         category = Category.objects.create(name="test", slug="test")
@@ -123,11 +125,11 @@ class ThreadTestCase(TestCase):
             subcategory=self.subcategory, user=self.user, title="test", content="test"
         )
 
-        self.assertEqual(thread.post_count(), 0)
+        self.assertEqual(thread.post_count, 0)
 
         Post.objects.create(thread=thread, user=self.user, content="test")
 
-        self.assertEqual(thread.post_count(), 1)
+        self.assertEqual(thread.post_count, 1)
 
     def test_get_absolute_url(self):
         thread = Thread.objects.create(
@@ -156,24 +158,22 @@ class PostTestCase(TestCase):
         post_2 = Post.objects.create(thread=self.thread, user=self.user, content="test")
         post_3 = Post.objects.create(thread=self.thread, user=self.user, content="test")
 
-        self.assertEqual(post_1.index(), 1)
-        self.assertEqual(post_2.index(), 2)
-        self.assertEqual(post_3.index(), 3)
+        self.assertEqual(post_1.index, 1)
+        self.assertEqual(post_2.index, 2)
+        self.assertEqual(post_3.index, 3)
 
     def test_page_number(self):
-        post_1 = Post.objects.create(thread=self.thread, user=self.user, content="test")
-        post_2 = Post.objects.create(thread=self.thread, user=self.user, content="test")
-        post_3 = Post.objects.create(thread=self.thread, user=self.user, content="test")
-
-        self.assertEqual(post_1.page_number(page_size=2), 1)
-        self.assertEqual(post_2.page_number(page_size=2), 1)
-        self.assertEqual(post_3.page_number(page_size=2), 2)
+        for i in range(1, 21):
+            post = Post.objects.create(
+                thread=self.thread, user=self.user, content=f"test {i}"
+            )
+            self.assertEqual(post.page_number, math.ceil(i / 10))
 
     def test_get_absolute_url(self):
         post = Post.objects.create(thread=self.thread, user=self.user, content="test")
         self.assertEqual(
             post.get_absolute_url(),
-            f"/thread/{post.thread.id}/?page={post.page_number()}#post-{post.id}",
+            f"/thread/{post.thread.id}/?page={post.page_number}#post-{post.id}",
         )
 
 
