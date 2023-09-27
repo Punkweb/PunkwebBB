@@ -27,7 +27,12 @@
         <img src="{{thread.user.profile.image.url}}" alt="{{thread.user.username}}" />
       </div>
       {% endif %}
-      <div>{{thread.user.username}}</div>
+      <div>
+        {% if thread.user.profile.is_online %}
+        <span class="onlineIndicator"></span>
+        {% endif %}
+        {{thread.user.username}}
+      </div>
       <div>Posts: {{thread.user.profile.post_count}}</div>
       <div>
         Join date: {{thread.user.profile.created_at|date:"m/d/y"}}
@@ -59,7 +64,7 @@
 {% for post in posts %}
 <div id="post-{{post.id}}" class="pw-card fluid margin">
   <div class="thread__header">
-    <div class="thread__title">#{{post.index}}</div>
+    <a class="thread__title" href="{{post.get_absolute_url}}">#{{post.index}}</a>
   </div>
   <div class="thread">
     <div class="thread__user">
@@ -68,7 +73,12 @@
         <img src="{{post.user.profile.image.url}}" alt="{{post.user.username}}" />
       </div>
       {% endif %}
-      <div>{{post.user.username}}</div>
+      <div>
+        {% if post.user.profile.is_online %}
+        <span class="onlineIndicator"></span>
+        {% endif %}
+        {{post.user.username}}
+      </div>
       <div>Posts: {{post.user.profile.post_count}}</div>
       <div>
         Join date: {{post.user.profile.created_at|date:"m/d/y"}}

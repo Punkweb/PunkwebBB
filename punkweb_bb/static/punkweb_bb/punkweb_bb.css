@@ -35,6 +35,14 @@ img {
   z-index: 100;
 }
 
+.onlineIndicator {
+  background-color: var(--oc-green-6);
+  border-radius: 100%;
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+}
+
 /** Layout **/
 
 .layout {
