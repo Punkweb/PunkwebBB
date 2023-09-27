@@ -115,6 +115,7 @@
 </div>
 {% endfor %}
 
+{% if posts.has_other_pages %}
 <nav>
   <ul class="pw-pagination">
     {% if posts.has_previous %}
@@ -160,6 +161,7 @@
     {% endif %}
   </ul>
 </nav>
+{% endif %}
 
 {% if request.user.is_authenticated %}
 <div class="pw-card fluid margin padding">
