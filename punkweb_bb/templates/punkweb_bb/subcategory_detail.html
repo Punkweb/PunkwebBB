@@ -30,7 +30,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for thread in subcategory.threads.all %}
+      {% for thread in threads %}
       <tr>
         <td>
           <a href="{% url 'punkweb_bb:thread_detail' thread.id %}">{{thread.title}}</a>
@@ -66,5 +66,52 @@
     </tbody>
   </table>
 </div>
+
+
+{% if threads.has_other_pages %}
+<nav>
+  <ul class="pw-pagination">
+    {% if threads.has_previous %}
+    <li class="pw-pagination-item">
+      <a class="pw-pagination-link" href="{{ subcategory.get_absolute_url }}?page={{threads.previous_page_number}}">
+        Prev
+      </a>
+    </li>
+    {% else %}
+    <li class="pw-pagination-item disabled">
+      <a class="pw-pagination-link" href="#">
+        Prev
+      </a>
+    </li>
+    {% endif %}
+    {% for i in threads.paginator.page_range %}
+    {% if threads.number == i %}
+    <li class="pw-pagination-item active">
+      <a class="pw-pagination-link" href="#">
+        {{i}}
+      </a>
+    </li>
+    {% else %}
+    <li class="pw-pagination-item">
+      <a class="pw-pagination-link" href="{{ subcategory.get_absolute_url }}?page={{i}}">
+        {{i}}
+      </a>
+    </li>
+    {% endif %}
+    {% endfor %}
+    {% if threads.has_next %}
+    <li class="pw-pagination-item">
+      <a class="pw-pagination-link" href="{{ subcategory.get_absolute_url }}?page={{posts.next_page_number}}">
+        Next
+      </a>
+    </li>
+    {% else %}
+    <li class="pw-pagination-item disabled">
+      <a class="pw-pagination-link" href="#">Next</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
 
 {% endblock %}

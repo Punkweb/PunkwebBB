@@ -93,8 +93,20 @@ def profile_update(request):
 def subcategory_detail(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
+    thread_paginator = Paginator(subcategory.threads.all(), 20)
+
+    page = request.GET.get("page", 1)
+
+    try:
+        threads = thread_paginator.page(page)
+    except PageNotAnInteger:
+        threads = thread_paginator.page(1)
+    except EmptyPage:
+        threads = thread_paginator.page(thread_paginator.num_pages)
+
     context = {
         "subcategory": subcategory,
+        "threads": threads,
     }
     return render(request, "punkweb_bb/subcategory_detail.html", context=context)
 

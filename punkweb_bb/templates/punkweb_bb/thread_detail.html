@@ -120,8 +120,7 @@
   <ul class="pw-pagination">
     {% if posts.has_previous %}
     <li class="pw-pagination-item">
-      <a class="pw-pagination-link"
-        href="{% url 'punkweb_bb:thread_detail' thread.id %}?page={{posts.previous_page_number}}">
+      <a class="pw-pagination-link" href="{{ post.thread.get_absolute_url }}?page={{posts.previous_page_number}}">
         Prev
       </a>
     </li>
@@ -141,7 +140,7 @@
     </li>
     {% else %}
     <li class="pw-pagination-item">
-      <a class="pw-pagination-link" href="{% url 'punkweb_bb:thread_detail' thread.id %}?page={{i}}">
+      <a class="pw-pagination-link" href="{{ post.thread.get_absolute_url }}?page={{i}}">
         {{i}}
       </a>
     </li>
@@ -149,8 +148,7 @@
     {% endfor %}
     {% if posts.has_next %}
     <li class="pw-pagination-item">
-      <a class="pw-pagination-link"
-        href="{% url 'punkweb_bb:thread_detail' thread.id %}?page={{posts.next_page_number}}">
+      <a class="pw-pagination-link" href="{{ post.thread.get_absolute_url }}?page={{posts.next_page_number}}">
         Next
       </a>
     </li>

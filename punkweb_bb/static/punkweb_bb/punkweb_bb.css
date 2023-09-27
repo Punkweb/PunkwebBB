@@ -359,7 +359,7 @@ img {
 .pw-pagination-link {
   color: var(--oc-teal-9);
   display: block;
-  padding: 0.5rem 0.75rem;
+  padding: 0.25rem 0.5rem;
 }
 
 .pw-pagination-link:not(:disabled):not(.disabled) {
