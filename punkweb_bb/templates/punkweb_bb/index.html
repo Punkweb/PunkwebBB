@@ -45,6 +45,9 @@
               <td>
                 <a href="{% url 'punkweb_bb:subcategory_detail' subcategory.slug %}"
                   title="{{subcategory.name}}">{{subcategory.name}}</a>
+                <div>
+                  {{subcategory.description}}
+                </div>
               </td>
               <td>{{subcategory.thread_count}}</td>
               <td>{{subcategory.post_count}}</td>
