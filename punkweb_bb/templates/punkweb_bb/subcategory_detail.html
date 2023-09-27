@@ -1,6 +1,11 @@
 {% extends 'punkweb_bb/base.html' %}
+{% load static %}
 
 {% block title_prefix %}{{subcategory.name}} | {% endblock%}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'punkweb_bb/subcategory-detail.css' %}" />
+{% endblock %}
 
 {% block content %}
 
@@ -12,19 +17,46 @@
 
 <div class="pw-card fluid margin">
   <table class="pw-table">
+    <colgroup>
+      <col span="1">
+      <col span="1" width="96px">
+      <col span="1" width="160px">
+    </colgroup>
     <thead>
       <tr>
         <th>Title</th>
-        <th>Author</th>
         <th>Posts</th>
+        <th>Latest Post</th>
       </tr>
     </thead>
     <tbody>
       {% for thread in subcategory.threads.all %}
       <tr>
-        <td><a href="{% url 'punkweb_bb:thread_detail' thread.id %}">{{thread.title}}</a></td>
-        <td>{{thread.user.username}}</td>
+        <td>
+          <a href="{% url 'punkweb_bb:thread_detail' thread.id %}">{{thread.title}}</a>
+          <div>{{thread.user.username}} • {{thread.created_at|date:'M j, Y'}}</div>
+        </td>
         <td>{{thread.post_count}}</td>
+        <td>
+          {% if thread.latest_post %}
+          <div class="thread__latestPost">
+            <div class="thread__latestPost__info">
+              <a class="thread__latestPost__info__title" href="{{ thread.latest_post.get_absolute_url }}"
+                title="{{thread.latest_post.title}}">
+                <time datetime="{{thread.latest_post.created_at|date:'c'}}">
+                  {{thread.latest_post.created_at|date:'M j, Y'}}
+                </time>
+              </a>
+              <div>
+                {{thread.latest_post.user.username}}
+              </div>
+            </div>
+            <img class="thread__latestPost__profileImage" src="{{thread.latest_post.user.profile.image.url}}" />
+          </div>
+          {% else %}
+          No posts yet
+          {% endif %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>

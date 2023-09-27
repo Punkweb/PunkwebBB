@@ -1,0 +1,16 @@
+.thread__latestPost {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.thread__latestPost__profileImage {
+  border-radius: 100%;
+  object-fit: contain;
+  height: 32px;
+  width: 32px;
+}
+
+.thread__latestPost__info {
+  font-size: 14px;
+}
