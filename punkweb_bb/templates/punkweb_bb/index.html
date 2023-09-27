@@ -43,8 +43,7 @@
             {% for subcategory in category.subcategories.all %}
             <tr>
               <td>
-                <a href="{% url 'punkweb_bb:subcategory_detail' subcategory.slug %}"
-                  title="{{subcategory.name}}">{{subcategory.name}}</a>
+                <a href="{{subcategory.get_absolute_url}}" title="{{subcategory.name}}">{{subcategory.name}}</a>
                 <div>
                   {{subcategory.description}}
                 </div>
@@ -63,8 +62,7 @@
                   {% endif %}
                   <div class="subcategory__latestThread__info">
                     <a class="subcategory__latestThread__info__title"
-                      href="{% url 'punkweb_bb:thread_detail' subcategory.latest_thread.id %}"
-                      title="{{subcategory.latest_thread.title}}">
+                      href="{{subcategory.latest_thread.get_absolute_url}}" title="{{subcategory.latest_thread.title}}">
                       {{subcategory.latest_thread.title}}
                     </a>
                     <div>
@@ -87,18 +85,18 @@
       </div>
       {% endfor %}
     </div>
-    <div class="index__sidebar">
+    <!-- <div class="index__sidebar">
       <div class="pw-card fluid padding">
         <h3>Recent Threads</h3>
         {% for thread in recent_threads %}
         <ul>
           <li>
-            <a href="{% url 'punkweb_bb:thread_detail' thread.id %}">{{thread.title}}</a>
+            <a href="{{thread.get_absolute_url}}">{{thread.title}}</a>
             <p>Posted by: {{ thread.user.username }} ({{thread.post_count}}
               {% if thread.post_count == 1 %}reply{% else%}replies{% endif %})</p>
             <p>
               {{thread.created_at|date:'m/d/Y'}} in
-              <a href="{% url 'punkweb_bb:subcategory_detail' thread.subcategory.slug %}">
+              <a href="{{thread.subcategory.get_absolute_url}}">
                 {{thread.subcategory.name}}
               </a>
             </p>
@@ -115,7 +113,7 @@
           <li>Newest member: {{newest_profile.user.username}}</li>
         </ul>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 

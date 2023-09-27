@@ -13,7 +13,7 @@
   <form action="{% url 'punkweb_bb:thread_update' thread.id %}" method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <a class="pw-button" href="{% url 'punkweb_bb:thread_detail' thread.id %}">Cancel</a>
+    <a class="pw-button" href="{{thread.get_absolute_url}}">Cancel</a>
     <button class="pw-button raised" type="submit">Save</button>
   </form>
 </div>

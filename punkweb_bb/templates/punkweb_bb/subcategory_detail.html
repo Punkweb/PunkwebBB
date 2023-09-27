@@ -33,7 +33,7 @@
       {% for thread in threads %}
       <tr>
         <td>
-          <a href="{% url 'punkweb_bb:thread_detail' thread.id %}">{{thread.title}}</a>
+          <a href="{{thread.get_absolute_url}}">{{thread.title}}</a>
           <div>{{thread.user.username}} • {{thread.created_at|date:'M j, Y'}}</div>
         </td>
         <td>{{thread.post_count}}</td>
