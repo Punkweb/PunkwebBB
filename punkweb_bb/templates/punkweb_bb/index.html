@@ -49,6 +49,7 @@
               <td>{{subcategory.thread_count}}</td>
               <td>{{subcategory.post_count}}</td>
               <td>
+                {% if subcategory.latest_thread %}
                 <div class="subcategory__latestThread">
                   <img class="subcategory__latestThread__profileImage"
                     src="{{subcategory.latest_thread.user.profile.image.url}}" />
@@ -67,6 +68,9 @@
                     </div>
                   </div>
                 </div>
+                {% else %}
+                No threads yet
+                {% endif %}
               </td>
             </tr>
             {% endfor %}
