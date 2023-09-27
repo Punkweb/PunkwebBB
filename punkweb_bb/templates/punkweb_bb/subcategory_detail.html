@@ -51,7 +51,11 @@
                 {{thread.latest_post.user.username}}
               </div>
             </div>
+            {% if thread.latest_post.user.profile.image %}
             <img class="thread__latestPost__profileImage" src="{{thread.latest_post.user.profile.image.url}}" />
+            {% else %}
+            <img class="thread__latestPost__profileImage" src="{% static 'punkweb_bb/default-profile-image.png' %}" />
+            {% endif %}
           </div>
           {% else %}
           No posts yet

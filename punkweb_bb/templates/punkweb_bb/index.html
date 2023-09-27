@@ -54,8 +54,13 @@
               <td>
                 {% if subcategory.latest_thread %}
                 <div class="subcategory__latestThread">
+                  {% if subcategory.latest_thread.user.profile.image %}
                   <img class="subcategory__latestThread__profileImage"
                     src="{{subcategory.latest_thread.user.profile.image.url}}" />
+                  {% else%}
+                  <img class="subcategory__latestThread__profileImage"
+                    src="{% static 'punkweb_bb/default-profile-image.png' %}" />
+                  {% endif %}
                   <div class="subcategory__latestThread__info">
                     <a class="subcategory__latestThread__info__title"
                       href="{% url 'punkweb_bb:thread_detail' subcategory.latest_thread.id %}"
