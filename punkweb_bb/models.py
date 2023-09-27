@@ -47,7 +47,6 @@ class BoardProfile(UUIDPrimaryKeyMixin, TimestampMixin):
 class Category(UUIDPrimaryKeyMixin, TimestampMixin):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=1024, unique=True)
-    description = BBCodeTextField(blank=True, null=True)
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
@@ -61,7 +60,8 @@ class Category(UUIDPrimaryKeyMixin, TimestampMixin):
         return f"{self.order}. {self.name}"
 
     def get_absolute_url(self):
-        return reverse("punkweb_bb:category_detail", args=[self.slug])
+        index_url = reverse("punkweb_bb:index")
+        return f"{index_url}#{self.slug}.{self.order}"
 
 
 class Subcategory(UUIDPrimaryKeyMixin, TimestampMixin):
