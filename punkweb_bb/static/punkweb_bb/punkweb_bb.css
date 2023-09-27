@@ -16,10 +16,6 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
-}
-
 label {
   display: block;
 }
@@ -342,4 +338,61 @@ img {
 
 .pw-card.padding {
   padding: 1rem;
+}
+
+/* Pagination */
+
+.pw-pagination {
+  border: 1px solid var(--oc-gray-4);
+  border-radius: 4px;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: fit-content;
+}
+
+.pw-pagination-item:not(:last-of-type) {
+  border-right: 1px solid var(--oc-gray-4);
+}
+
+.pw-pagination-link {
+  color: var(--oc-teal-9);
+  display: block;
+  padding: 0.5rem 0.75rem;
+}
+
+.pw-pagination-link:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+
+.pw-pagination-item:first-child .pw-pagination-link {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.pw-pagination-item:last-child .pw-pagination-link {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.pw-pagination-item.disabled .pw-pagination-link {
+  color: var(--oc-gray-6);
+  cursor: auto;
+  pointer-events: none;
+}
+
+.pw-pagination-item.active .pw-pagination-link {
+  color: white;
+  background-color: var(--oc-teal-9);
+  border-color: var(--oc-teal-9);
+  z-index: 1;
+}
+
+.pw-pagination-item:not(:disabled):not(.disabled):not(.active):hover {
+  background-color: var(--oc-gray-0);
+}
+
+.pw-pagination-item:not(:disabled):not(.disabled):not(.active):active {
+  background-color: var(--oc-gray-1);
 }
