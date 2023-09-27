@@ -11,7 +11,7 @@ User = get_user_model()
 
 
 class BoardProfileTestCase(TestCase):
-    def test_board_profile_is_created(self):
+    def test_is_created(self):
         user = User.objects.create_user(username="test", password="test")
         self.assertIsNotNone(user.profile)
         self.assertEqual(user.profile.user, user)
@@ -25,11 +25,11 @@ class BoardProfileTestCase(TestCase):
             f"punkweb_bb/board_profiles/{user.username}/image.png",
         )
 
-    def test_board_profile_str(self):
+    def test_str(self):
         user = User.objects.create_user(username="test", password="test")
         self.assertEqual(str(user.profile), "test")
 
-    def test_board_profile_post_count(self):
+    def test_post_count(self):
         user = User.objects.create_user(username="test", password="test")
         self.assertEqual(user.profile.post_count, 0)
 
@@ -56,7 +56,7 @@ class BoardProfileTestCase(TestCase):
 
 
 class CategoryTestCase(TestCase):
-    def test_category_str(self):
+    def test_str(self):
         category = Category.objects.create(name="test", order="0")
         self.assertEqual(str(category), "0. test")
 
@@ -66,14 +66,14 @@ class CategoryTestCase(TestCase):
 
 
 class SubcategoryTestCase(TestCase):
-    def test_subcategory_str(self):
+    def test_str(self):
         category = Category.objects.create(name="test", order="0")
         subcategory = Subcategory.objects.create(
             name="test", category=category, order="0"
         )
         self.assertEqual(str(subcategory), "0. test > 0. test")
 
-    def test_subcategory_thread_count(self):
+    def test_thread_count(self):
         user = User.objects.create_user(username="test", password="test")
         category = Category.objects.create(name="test")
         subcategory = Subcategory.objects.create(name="test", category=category)
@@ -85,7 +85,7 @@ class SubcategoryTestCase(TestCase):
 
         self.assertEqual(subcategory.thread_count, 1)
 
-    def test_subcategory_post_count(self):
+    def test_post_count(self):
         user = User.objects.create_user(username="test", password="test")
         category = Category.objects.create(name="test")
         subcategory = Subcategory.objects.create(name="test", category=category)
@@ -97,6 +97,24 @@ class SubcategoryTestCase(TestCase):
         Post.objects.create(thread=thread, user=user, content="test")
 
         self.assertEqual(subcategory.post_count, 1)
+
+    def test_latest_thread(self):
+        user = User.objects.create_user(username="test", password="test")
+        category = Category.objects.create(name="test")
+        subcategory = Subcategory.objects.create(name="test", category=category)
+        self.assertIsNone(subcategory.latest_thread)
+
+        thread_1 = Thread.objects.create(
+            subcategory=subcategory, user=user, title="test", content="test"
+        )
+
+        self.assertEqual(subcategory.latest_thread, thread_1)
+
+        thread_2 = Thread.objects.create(
+            subcategory=subcategory, user=user, title="test", content="test"
+        )
+
+        self.assertEqual(subcategory.latest_thread, thread_2)
 
     def test_get_absolute_url(self):
         category = Category.objects.create(name="test", slug="test")
@@ -131,6 +149,20 @@ class ThreadTestCase(TestCase):
 
         self.assertEqual(thread.post_count, 1)
 
+    def test_latest_post(self):
+        thread = Thread.objects.create(
+            subcategory=self.subcategory, user=self.user, title="test", content="test"
+        )
+        self.assertIsNone(thread.latest_post)
+
+        post_1 = Post.objects.create(thread=thread, user=self.user, content="test")
+
+        self.assertEqual(thread.latest_post, post_1)
+
+        post_2 = Post.objects.create(thread=thread, user=self.user, content="test")
+
+        self.assertEqual(thread.latest_post, post_2)
+
     def test_get_absolute_url(self):
         thread = Thread.objects.create(
             subcategory=self.subcategory, user=self.user, title="test", content="test"
@@ -149,7 +181,7 @@ class PostTestCase(TestCase):
             subcategory=self.subcategory, user=self.user, title="test", content="test"
         )
 
-    def test_post_str(self):
+    def test_str(self):
         post = Post.objects.create(thread=self.thread, user=self.user, content="test")
         self.assertEqual(str(post), f"{post.thread} > {post.user} > {post.created_at}")
 
@@ -181,6 +213,6 @@ class ShoutTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="test", password="test")
 
-    def test_shout_str(self):
+    def test_str(self):
         shout = Shout.objects.create(user=self.user, content="test")
         self.assertEqual(str(shout), f"{shout.user} > {shout.created_at}")
