@@ -10,9 +10,6 @@ urlpatterns = [
     path("profile/", views.profile_detail, name="profile_detail"),
     path("profile/update/", views.profile_update, name="profile_update"),
     path(
-        "category/<str:category_slug>/", views.category_detail, name="category_detail"
-    ),
-    path(
         "subcategory/<str:subcategory_slug>/",
         views.subcategory_detail,
         name="subcategory_detail",

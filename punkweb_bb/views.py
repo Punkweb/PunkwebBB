@@ -90,15 +90,6 @@ def profile_update(request):
     return render(request, "punkweb_bb/profile_update.html", context=context)
 
 
-def category_detail(request, category_slug):
-    category = get_object_or_404(Category, slug=category_slug)
-
-    context = {
-        "category": category,
-    }
-    return render(request, "punkweb_bb/category_detail.html", context=context)
-
-
 def subcategory_detail(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 

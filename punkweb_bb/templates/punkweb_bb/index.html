@@ -23,7 +23,7 @@
     <div class="index__categories">
       {% include 'punkweb_bb/shoutbox/shoutbox.html' %}
       {% for category in categories %}
-      <div class="pw-card fluid margin">
+      <div id="{{category.slug}}.{{category.order}}" class="pw-card fluid margin">
         <table class="pw-table">
           <colgroup>
             <col span="1">
@@ -33,7 +33,7 @@
           </colgroup>
           <thead>
             <tr>
-              <th><a href="{% url 'punkweb_bb:category_detail' category.slug %}">{{category.name}}</a></th>
+              <th><a href="{{category.get_absolute_url}}">{{category.name}}</a></th>
               <th>Threads</th>
               <th>Posts</th>
               <th>Latest Thread</th>
