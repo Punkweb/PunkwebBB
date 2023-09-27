@@ -62,7 +62,7 @@ class CategoryTestCase(TestCase):
 
     def test_get_absolute_url(self):
         category = Category.objects.create(name="test", slug="test")
-        self.assertEqual(category.get_absolute_url(), "/category/test/")
+        self.assertEqual(category.get_absolute_url(), "/#test.0")
 
 
 class SubcategoryTestCase(TestCase):
