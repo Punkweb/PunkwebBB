@@ -25,21 +25,49 @@
       {% for category in categories %}
       <div class="pw-card fluid margin">
         <table class="pw-table">
+          <colgroup>
+            <col span="1">
+            <col span="1" width="96px">
+            <col span="1" width="96px">
+            <col span="1" width="320px">
+          </colgroup>
           <thead>
             <tr>
               <th><a href="{% url 'punkweb_bb:category_detail' category.slug %}">{{category.name}}</a></th>
               <th>Threads</th>
               <th>Posts</th>
+              <th>Latest Thread</th>
             </tr>
           </thead>
           <tbody>
             {% for subcategory in category.subcategories.all %}
             <tr>
               <td>
-                <a href="{% url 'punkweb_bb:subcategory_detail' subcategory.slug %}">{{subcategory.name}}</a>
+                <a href="{% url 'punkweb_bb:subcategory_detail' subcategory.slug %}"
+                  title="{{subcategory.name}}">{{subcategory.name}}</a>
               </td>
               <td>{{subcategory.thread_count}}</td>
               <td>{{subcategory.post_count}}</td>
+              <td>
+                <div class="subcategory__latestThread">
+                  <img class="subcategory__latestThread__profileImage"
+                    src="{{subcategory.latest_thread.user.profile.image.url}}" />
+                  <div class="subcategory__latestThread__info">
+                    <a class="subcategory__latestThread__info__title"
+                      href="{% url 'punkweb_bb:thread_detail' subcategory.latest_thread.id %}"
+                      title="{{subcategory.latest_thread.title}}">
+                      {{subcategory.latest_thread.title}}
+                    </a>
+                    <div>
+                      <time datetime="{{subcategory.latest_thread.created_at|date:'c'}}">
+                        {{subcategory.latest_thread.created_at|date:'M j, Y'}} at
+                        {{subcategory.latest_thread.created_at|date:'g:i A'}}
+                      </time>
+                      • {{subcategory.latest_thread.user.username}}
+                    </div>
+                  </div>
+                </div>
+              </td>
             </tr>
             {% endfor %}
           </tbody>

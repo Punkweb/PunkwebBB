@@ -10,3 +10,29 @@
 .index__sidebar {
   flex: 0 0 320px;
 }
+
+.subcategory__latestThread {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.subcategory__latestThread__profileImage {
+  border-radius: 100%;
+  object-fit: contain;
+  height: 32px;
+  width: 32px;
+}
+
+.subcategory__latestThread__info {
+  flex: 1;
+  font-size: 12px;
+}
+
+.subcategory__latestThread__info__title {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 240px;
+}
