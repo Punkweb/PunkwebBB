@@ -8,6 +8,17 @@
 
 {% block content %}
 
+<nav>
+  <ol class="pw-breadcrumb">
+    <li class="pw-breadcrumb-item">
+      <a href="{% url 'punkweb_bb:index' %}">Home</a>
+    </li>
+    <li class="pw-breadcrumb-item active">
+      Settings
+    </li>
+  </ol>
+</nav>
+
 <div class="pw-card fluid padding">
   <h1>Update Profile</h1>
   <form action="{% url 'punkweb_bb:profile_update' %}" enctype="multipart/form-data" method="post">

@@ -8,6 +8,20 @@
 
 {% block content %}
 
+<nav>
+  <ol class="pw-breadcrumb">
+    <li class="pw-breadcrumb-item">
+      <a href="{% url 'punkweb_bb:index' %}">Home</a>
+    </li>
+    <li class="pw-breadcrumb-item">
+      <a href="{{subcategory.get_absolute_url}}">{{subcategory.name}}</a>
+    </li>
+    <li class="pw-breadcrumb-item active">
+      Create Thread
+    </li>
+  </ol>
+</nav>
+
 <div class="pw-card fluid padding">
   <h1>Create Thread</h1>
   <form action="{% url 'punkweb_bb:thread_create' subcategory.slug %}" method="post">

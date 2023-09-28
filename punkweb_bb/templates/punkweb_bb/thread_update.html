@@ -8,6 +8,23 @@
 
 {% block content %}
 
+<nav>
+  <ol class="pw-breadcrumb">
+    <li class="pw-breadcrumb-item">
+      <a href="{% url 'punkweb_bb:index' %}">Home</a>
+    </li>
+    <li class="pw-breadcrumb-item">
+      <a href="{{thread.subcategory.get_absolute_url}}">{{thread.subcategory.name}}</a>
+    </li>
+    <li class="pw-breadcrumb-item">
+      <a href="{{thread.get_absolute_url}}">{{thread.title}}</a>
+    </li>
+    <li class="pw-breadcrumb-item active">
+      Update
+    </li>
+  </ol>
+</nav>
+
 <div class="pw-card fluid padding">
   <h1>Update Thread</h1>
   <form action="{% url 'punkweb_bb:thread_update' thread.id %}" method="post">
