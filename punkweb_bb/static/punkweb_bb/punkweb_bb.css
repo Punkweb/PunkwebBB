@@ -416,9 +416,10 @@ img {
 
 .pw-breadcrumb-item:not(:first-of-type)::before {
   color: var(--oc-gray-7);
-  content: "/";
+  content: "›";
   display: inline-block;
   padding: 0 0.5rem;
+  pointer-events: none;
 }
 
 .pw-breadcrumb-item.active {
