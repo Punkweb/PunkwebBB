@@ -11,15 +11,15 @@
   padding: 1rem;
 }
 
-.thread__title {
+.thread__date {
   color: var(--oc-gray-9) !important;
-  font-size: 20px;
   font-weight: bold;
   text-decoration: none;
 }
 
-.thread__title:hover {
-  text-decoration: none;
+.thread__index {
+  color: var(--oc-gray-9) !important;
+  font-weight: medium;
 }
 
 .thread__user {

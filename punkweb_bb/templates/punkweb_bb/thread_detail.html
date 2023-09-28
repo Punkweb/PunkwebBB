@@ -16,9 +16,11 @@
 {% block content %}
 
 {% if posts.number == 1 %}
+<h1>{{thread.title}}</h1>
+
 <div class="pw-card fluid margin">
   <div class="thread__header">
-    <div class="thread__title">{{thread.title}}</div>
+    <div class="thread__date">{{thread.created_at|date:'M d, Y'}}</div>
   </div>
   <div class="thread">
     <div class="thread__user">
@@ -37,10 +39,10 @@
         {% endif %}
         {{thread.user.username}}
       </div>
-      <div>Posts: {{thread.user.profile.post_count}}</div>
       <div>
-        Join date: {{thread.user.profile.created_at|date:"m/d/y"}}
+        Joined: {{thread.user.profile.created_at|date:"M d, Y "}}
       </div>
+      <div>Posts: {{thread.user.profile.post_count}}</div>
     </div>
     <div class="thread__main">
       <div class="thread__content">
@@ -68,7 +70,8 @@
 {% for post in posts %}
 <div id="post-{{post.id}}" class="pw-card fluid margin">
   <div class="thread__header">
-    <a class="thread__title" href="{{post.get_absolute_url}}">#{{post.index}}</a>
+    <div class="thread__date">{{post.created_at|date:'M d, Y'}}</div>
+    <a class="thread__index" href="{{post.get_absolute_url}}">#{{post.index}}</a>
   </div>
   <div class="thread">
     <div class="thread__user">
@@ -87,10 +90,10 @@
         {% endif %}
         {{post.user.username}}
       </div>
-      <div>Posts: {{post.user.profile.post_count}}</div>
       <div>
-        Join date: {{post.user.profile.created_at|date:"m/d/y"}}
+        Joined: {{post.user.profile.created_at|date:"M d, Y"}}
       </div>
+      <div>Posts: {{post.user.profile.post_count}}</div>
     </div>
     <div class="thread__main">
       <div class="thread__content">
