@@ -401,3 +401,26 @@ img {
 .pw-pagination-item:not(:disabled):not(.disabled):not(.active):active {
   background-color: var(--oc-gray-1);
 }
+
+/* Breadcrumb */
+
+.pw-breadcrumb {
+  background-color: var(--oc-gray-1);
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 1rem 0;
+  padding: 0.75rem 1rem;
+}
+
+.pw-breadcrumb-item:not(:first-of-type)::before {
+  color: var(--oc-gray-7);
+  content: "/";
+  display: inline-block;
+  padding: 0 0.5rem;
+}
+
+.pw-breadcrumb-item.active {
+  color: var(--oc-gray-7);
+}
