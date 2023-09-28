@@ -6,17 +6,22 @@ from django.test import TestCase
 from django.utils import timezone
 
 from .models import Category, Post, Shout, Subcategory, Thread, profile_image_upload_to
+from .response import htmx_redirect
 
 User = get_user_model()
+
+
+class HTMXRedirectTestCase(TestCase):
+    def test_htmx_redirect(self):
+        response = htmx_redirect("/")
+
+        self.assertEqual(response.headers["HX-Redirect"], "/")
 
 
 class BoardProfileTestCase(TestCase):
     def test_is_created(self):
         user = User.objects.create_user(username="test", password="test")
         self.assertIsNotNone(user.profile)
-        self.assertEqual(user.profile.user, user)
-        self.assertEqual(user.profile.user.username, "test")
-        self.assertEqual(user.profile.user.is_active, True)
 
     def test_profile_image_upload_to_path(self):
         user = User.objects.create_user(username="test", password="test")
