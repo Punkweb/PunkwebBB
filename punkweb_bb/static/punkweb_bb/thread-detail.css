@@ -43,6 +43,12 @@
   width: 100%;
 }
 
+.thread__user__usernameContainer {
+  align-items: center;
+  display: flex;
+  gap: 0.25rem;
+}
+
 .thread__user__info {
   background-color: var(--oc-gray-0);
   border: 1px solid var(--oc-gray-4);

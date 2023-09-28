@@ -33,9 +33,9 @@
         <img src="{% static 'punkweb_bb/default-profile-image.png' %}" alt="{{post.user.username}}" />
       </div>
       {% endif %}
-      <div>
+      <div class="thread__user__usernameContainer">
         {% if thread.user.profile.is_online %}
-        <span class="onlineIndicator"></span>
+        <div class="onlineIndicator"></div>
         {% endif %}
         {{thread.user.username}}
       </div>
@@ -92,9 +92,9 @@
         <img src="{% static 'punkweb_bb/default-profile-image.png' %}" alt="{{post.user.username}}" />
       </div>
       {% endif %}
-      <div>
+      <div class="thread__user__usernameContainer">
         {% if post.user.profile.is_online %}
-        <span class="onlineIndicator"></span>
+        <div class="onlineIndicator"></div>
         {% endif %}
         {{post.user.username}}
       </div>
