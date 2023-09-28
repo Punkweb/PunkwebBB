@@ -8,8 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title_prefix %}{% endblock %}PunkwebBB</title>
   <link rel="icon" href="{% static 'punkweb_bb/favicon.ico' %}" />
-  <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/prism.css' %}" />
   <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/open-color.css' %}" />
+  <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/prism.css' %}" />
   <link rel="stylesheet" href="{% static 'punkweb_bb/punkweb_bb.css' %}" />
   <link rel="stylesheet" href="{% static 'punkweb_bb/punkweb_modal.css' %}" />
   <link rel="stylesheet"
@@ -23,7 +23,7 @@
         'opsz' 24
     }
   </style>
-  {% block extra_head %} {% endblock %}
+  {% block extra_head %}{% endblock %}
 </head>
 
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
@@ -86,11 +86,11 @@
     </button>
   </div>
   <div id="modal-portal"></div>
-  <script src="https://unpkg.com/htmx.org@1.9.4"></script>
-  <script src="https://unpkg.com/hyperscript.org@0.9.11"></script>
+  <script src="{% static 'punkweb_bb/vendor/htmx-1.9.4.min.js' %}"></script>
+  <script src="{% static 'punkweb_bb/vendor/hyperscript-0.9.11.min.js' %}"></script>
   <script src="{% static 'punkweb_bb/vendor/jquery-3.7.0.min.js' %}"></script>
   <script src="{% static 'punkweb_bb/vendor/prism.js' %}"></script>
-  {% block extra_script %} {% endblock %}
+  {% block extra_script %}{% endblock %}
 </body>
 
 </html>
