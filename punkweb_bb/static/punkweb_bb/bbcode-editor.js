@@ -10,13 +10,11 @@ $(function () {
           ":cool:": "cool.png",
         },
       },
-      fonts:
-        "Arial,Arial Black,Comic Sans MS,Courier New,Georgia,Impact,Sans-serif,Serif,Times New Roman,Trebuchet MS,Verdana",
       format: "bbcode",
       icons: "material",
       style: "/static/punkweb_bb/bbcode-editor-content.css",
       toolbar:
-        "bold,italic,underline,strike|bulletlist,orderedlist,center,horizontalrule|font,size,color,quote,code,emoticon,link,image|date,time|source,maximize,removeformat",
+        "removeformat,bold,italic,size,color,font,strike,underline|orderedlist,bulletlist|left,center,right|link,image,emoticon|horizontalrule,quote,code|maximize,source",
       height: "300px",
       width: "100%",
     });
