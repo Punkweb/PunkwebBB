@@ -73,6 +73,11 @@ img {
   padding: 0.5rem 0;
 }
 
+.nav__upper__links {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .nav__upper__link {
   color: white;
 }

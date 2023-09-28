@@ -34,23 +34,29 @@
           <div class="container">
             <div class="nav__upper__content">
               {% if request.user.is_staff %}
-              <a class="nav__upper__link" href="{% url 'admin:index' %}">Admin</a>
+              <div class="nav__upper__links">
+                <a class="nav__upper__link" href="{% url 'admin:index' %}">Admin</a>
+              </div>
               {% endif %}
               <div class="nav__spacer"></div>
               {% if request.user.is_authenticated %}
-              <a class="nav__upper__link" href="{% url 'punkweb_bb:profile_detail' %}">
-                Profile
-              </a>
-              <a class="nav__upper__link" href="{% url 'punkweb_bb:profile_update' %}">
-                Settings
-              </a>
-              <a class="nav__upper__link" href="{% url 'punkweb_bb:logout' %}">
-                Logout
-              </a>
+              <div class="nav__upper__links">
+                <a class="nav__upper__link" href="{% url 'punkweb_bb:profile_detail' %}">
+                  Profile
+                </a>
+                <a class="nav__upper__link" href="{% url 'punkweb_bb:profile_update' %}">
+                  Settings
+                </a>
+                <a class="nav__upper__link" href="{% url 'punkweb_bb:logout' %}">
+                  Logout
+                </a>
+              </div>
               {% else %}
-              <a class="nav__upper__link" href="{% url 'punkweb_bb:login' %}">
-                Login
-              </a>
+              <div class="nav__upper__links">
+                <a class="nav__upper__link" href="{% url 'punkweb_bb:login' %}">
+                  Login
+                </a>
+              </div>
               {% endif %}
             </div>
           </div>
