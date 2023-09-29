@@ -109,8 +109,9 @@
         <ul>
           <li>Total threads: {{ thread_count }}</li>
           <li>Total posts: {{post_count}}</li>
-          <li>Total users: {{profile_count}}</li>
-          <li>Newest member: {{newest_profile.user.username}}</li>
+          <li>Total members: {{users|length}}</li>
+          <li>Newest member: {{newest_user.username}}</li>
+          <li>Members online: {{users_online|length}}</li>
         </ul>
       </div>
     </div>

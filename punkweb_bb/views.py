@@ -1,15 +1,22 @@
 import datetime
 
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
-from .forms import BoardProfileModelForm, PostModelForm, ShoutModelForm, ThreadModelForm
-from .models import BoardProfile, Category, Post, Shout, Subcategory, Thread
+from .forms import (
+    BoardAuthenticationForm,
+    BoardProfileModelForm,
+    PostModelForm,
+    ShoutModelForm,
+    ThreadModelForm,
+)
+from .models import Category, Post, Shout, Subcategory, Thread
 from .response import htmx_redirect
+
+User = get_user_model()
 
 
 def index(request):
@@ -19,16 +26,19 @@ def index(request):
 
     thread_count = Thread.objects.count()
     post_count = Post.objects.count()
-    profile_count = BoardProfile.objects.count()
-    newest_profile = BoardProfile.objects.order_by("-created_at").first()
+
+    users = User.objects.select_related("profile").all()
+    newest_user = users.order_by("-profile__created_at").first()
+    users_online = [user for user in users if user.profile.is_online]
 
     context = {
         "categories": categories,
         "recent_threads": recent_threads,
         "thread_count": thread_count,
         "post_count": post_count,
-        "profile_count": profile_count,
-        "newest_profile": newest_profile,
+        "users": users,
+        "newest_user": newest_user,
+        "users_online": users_online,
     }
     return render(request, "punkweb_bb/index.html", context=context)
 
@@ -38,7 +48,7 @@ def login_view(request):
         return redirect("punkweb_bb:index")
 
     if request.method == "POST":
-        form = AuthenticationForm(request, request.POST)
+        form = BoardAuthenticationForm(request, request.POST)
 
         if form.is_valid():
             username = form.cleaned_data["username"]
@@ -51,7 +61,7 @@ def login_view(request):
 
                 return redirect("punkweb_bb:index")
     else:
-        form = AuthenticationForm()
+        form = BoardAuthenticationForm()
 
     context = {
         "form": form,
