@@ -1,0 +1,7 @@
+.loginForm {
+  width: 280px;
+}
+
+.loginForm .errorlist {
+  color: var(--oc-red-7);
+}

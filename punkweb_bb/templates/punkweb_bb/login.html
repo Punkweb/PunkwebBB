@@ -1,6 +1,11 @@
 {% extends 'punkweb_bb/base.html' %}
+{% load static %}
 
 {% block title_prefix %}Login | {% endblock%}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'punkweb_bb/login.css' %}" />
+{% endblock %}
 
 {% block content %}
 
@@ -17,17 +22,9 @@
 
 <div class="pw-card center padding">
   <h1>Login</h1>
-  <form action="{% url 'punkweb_bb:login' %}" method="post">
+  <form class="loginForm" action="{% url 'punkweb_bb:login' %}" method="post">
     {% csrf_token %}
-    <p>
-      <label for="id_username">Username:</label>
-      <input class="pw-input" type="text" name="username" autofocus autocapitalize="none" autocomplete="username"
-        maxlength="150" required id="id_username">
-    </p>
-    <p>
-      <label for="id_password">Password:</label>
-      <input class="pw-input" type="password" name="password" autocomplete="current-password" required id="id_password">
-    </p>
+    {{form.as_p}}
     <button class="pw-button fluid raised" type="submit">Login</button>
   </form>
 </div>

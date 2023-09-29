@@ -1,7 +1,21 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 
 from .models import BoardProfile, Post, Shout, Thread
 from .widgets import BBCodeEditorWidget
+
+
+class BoardAuthenticationForm(AuthenticationForm):
+    """
+    Override the default AuthenticationForm to add CSS classes to the
+    username and password fields.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["username"].widget.attrs.update({"class": "pw-input fluid"})
+        self.fields["password"].widget.attrs.update({"class": "pw-input fluid"})
 
 
 class BoardProfileModelForm(forms.ModelForm):
