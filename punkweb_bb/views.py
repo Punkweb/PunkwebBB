@@ -104,7 +104,7 @@ def profile_update(request):
 def subcategory_detail(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
-    threads = paginate_qs(request, subcategory.threads.all(), page_size=1)
+    threads = paginate_qs(request, subcategory.threads.all())
 
     context = {
         "subcategory": subcategory,
