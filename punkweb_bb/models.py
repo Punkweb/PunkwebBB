@@ -25,9 +25,7 @@ class BoardProfile(UUIDPrimaryKeyMixin, TimestampMixin):
     signature = BBCodeTextField(max_length=1024, blank=True, null=True)
 
     class Meta:
-        ordering = [
-            "user__username",
-        ]
+        ordering = ("user__username",)
 
     @property
     def is_online(self):
@@ -52,9 +50,7 @@ class Category(UUIDPrimaryKeyMixin, TimestampMixin):
     class Meta:
         verbose_name = "category"
         verbose_name_plural = "categories"
-        ordering = [
-            "order",
-        ]
+        ordering = ("order",)
 
     def __str__(self):
         return f"{self.order}. {self.name}"
@@ -76,10 +72,10 @@ class Subcategory(UUIDPrimaryKeyMixin, TimestampMixin):
     class Meta:
         verbose_name = "subcategory"
         verbose_name_plural = "subcategories"
-        ordering = [
+        ordering = (
             "category__order",
             "order",
-        ]
+        )
 
     @property
     def thread_count(self):
@@ -109,9 +105,7 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
     content = BBCodeTextField()
 
     class Meta:
-        ordering = [
-            "-created_at",
-        ]
+        ordering = ("-created_at",)
 
     def __str__(self):
         return f"{self.title}"
@@ -134,9 +128,7 @@ class Post(UUIDPrimaryKeyMixin, TimestampMixin):
     content = BBCodeTextField()
 
     class Meta:
-        ordering = [
-            "created_at",
-        ]
+        ordering = ("created_at",)
 
     def __str__(self):
         return f"{self.thread} > {self.user} > {self.created_at}"
@@ -166,9 +158,7 @@ class Shout(UUIDPrimaryKeyMixin, TimestampMixin):
     content = BBCodeTextField()
 
     class Meta:
-        ordering = [
-            "-created_at",
-        ]
+        ordering = ("-created_at",)
 
     def __str__(self):
         return f"{self.user} > {self.created_at}"

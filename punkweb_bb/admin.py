@@ -14,22 +14,18 @@ from punkweb_bb.models import BoardProfile, Category, Post, Shout, Subcategory, 
 @admin.register(BoardProfile)
 class BoardProfileModelAdmin(admin.ModelAdmin):
     form = BoardProfileAdminModelForm
-    list_display = [
-        "user",
-    ]
-    list_filter = [
+    list_display = ("user",)
+    list_filter = (
         "created_at",
         "user__is_active",
         "user__is_staff",
         "user__is_superuser",
-    ]
-    search_fields = [
+    )
+    search_fields = (
         "user__username",
         "user__email",
-    ]
-    readonly_fields = [
-        "signature_rendered",
-    ]
+    )
+    readonly_fields = ("signature_rendered",)
 
     def signature_rendered(self, obj):
         return mark_safe(obj.signature.rendered)
@@ -38,87 +34,77 @@ class BoardProfileModelAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryModelAdmin(admin.ModelAdmin):
     form = CategoryAdminModelForm
-    list_display = [
+    list_display = (
         "name",
         "order",
-    ]
-    search_fields = [
+    )
+    search_fields = (
         "name",
         "description",
-    ]
-    prepopulated_fields = {
-        "slug": [
-            "name",
-        ]
-    }
+    )
+    prepopulated_fields = {"slug": ("name",)}
 
 
 @admin.register(Subcategory)
 class SubcategoryModelAdmin(admin.ModelAdmin):
     form = SubcategoryAdminModelForm
-    list_display = [
+    list_display = (
         "name",
         "category",
         "order",
-    ]
-    list_filter = [
-        "category",
-    ]
-    search_fields = [
+    )
+    list_filter = ("category",)
+    search_fields = (
         "name",
         "description",
-    ]
-    prepopulated_fields = {
-        "slug": [
-            "name",
-        ]
-    }
+    )
+    prepopulated_fields = {"slug": ("name",)}
 
 
 @admin.register(Thread)
 class ThreadModelAdmin(admin.ModelAdmin):
     form = ThreadAdminModelForm
-    list_display = [
+    list_display = (
         "title",
         "subcategory",
         "user",
         "created_at",
-    ]
-    list_filter = [
+    )
+    list_filter = (
         "subcategory",
         "created_at",
-    ]
-    search_fields = [
+    )
+    search_fields = (
         "user__username",
         "user__email",
         "title",
         "content",
-    ]
+    )
 
 
 @admin.register(Post)
 class PostModelAdmin(admin.ModelAdmin):
     form = PostAdminModelForm
-    list_display = [
+    list_display = (
         "thread",
         "user",
         "created_at",
-    ]
-    search_fields = [
+    )
+    search_fields = (
         "user__username",
         "user__email",
         "content",
-    ]
+    )
 
 
 @admin.register(Shout)
 class ShoutModelAdmin(admin.ModelAdmin):
-    list_display = [
+    list_display = (
         "user",
         "created_at",
-    ]
-    search_fields = [
+    )
+    search_fields = (
         "user__username",
         "user__email",
         "content",
-    ]
+    )

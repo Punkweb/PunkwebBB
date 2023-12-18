@@ -23,10 +23,10 @@ class BoardAuthenticationForm(AuthenticationForm):
 class BoardProfileModelForm(forms.ModelForm):
     class Meta:
         model = BoardProfile
-        fields = [
+        fields = (
             "image",
             "signature",
-        ]
+        )
         widgets = {
             "signature": BBCodeEditorWidget(),
         }
@@ -35,7 +35,7 @@ class BoardProfileModelForm(forms.ModelForm):
 class PostModelForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["content"]
+        fields = ("content",)
         labels = {
             "content": "",
         }
@@ -47,7 +47,10 @@ class PostModelForm(forms.ModelForm):
 class ThreadModelForm(forms.ModelForm):
     class Meta:
         model = Thread
-        fields = ["title", "content"]
+        fields = (
+            "title",
+            "content",
+        )
         widgets = {
             "title": forms.TextInput(attrs={"autofocus": True, "class": "pw-input"}),
             "content": BBCodeEditorWidget(),
@@ -57,4 +60,4 @@ class ThreadModelForm(forms.ModelForm):
 class ShoutModelForm(forms.ModelForm):
     class Meta:
         model = Shout
-        fields = ["content"]
+        fields = ("content",)
