@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 
-from .models import BoardProfile, Post, Shout, Thread
-from .widgets import BBCodeEditorWidget
+from punkweb_bb.models import BoardProfile, Post, Shout, Thread
+from punkweb_bb.widgets import BBCodeEditorWidget
 
 
 class BoardAuthenticationForm(AuthenticationForm):
@@ -14,7 +14,9 @@ class BoardAuthenticationForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["username"].widget.attrs.update({"class": "pw-input fluid"})
+        self.fields["username"].widget.attrs.update(
+            {"autofocus": True, "class": "pw-input fluid"}
+        )
         self.fields["password"].widget.attrs.update({"class": "pw-input fluid"})
 
 
@@ -47,7 +49,7 @@ class ThreadModelForm(forms.ModelForm):
         model = Thread
         fields = ["title", "content"]
         widgets = {
-            "title": forms.TextInput(attrs={"class": "pw-input"}),
+            "title": forms.TextInput(attrs={"autofocus": True, "class": "pw-input"}),
             "content": BBCodeEditorWidget(),
         }
 
