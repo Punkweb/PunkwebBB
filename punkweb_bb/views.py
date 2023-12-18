@@ -2,19 +2,20 @@ import datetime
 
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
-from .forms import (
+from punkweb_bb.pagination import paginate_qs
+
+from punkweb_bb.forms import (
     BoardAuthenticationForm,
     BoardProfileModelForm,
     PostModelForm,
     ShoutModelForm,
     ThreadModelForm,
 )
-from .models import Category, Post, Shout, Subcategory, Thread
-from .response import htmx_redirect
+from punkweb_bb.models import Category, Post, Shout, Subcategory, Thread
+from punkweb_bb.response import htmx_redirect
 
 User = get_user_model()
 
@@ -103,16 +104,7 @@ def profile_update(request):
 def subcategory_detail(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
-    thread_paginator = Paginator(subcategory.threads.all(), 20)
-
-    page = request.GET.get("page", 1)
-
-    try:
-        threads = thread_paginator.page(page)
-    except PageNotAnInteger:
-        threads = thread_paginator.page(1)
-    except EmptyPage:
-        threads = thread_paginator.page(thread_paginator.num_pages)
+    threads = paginate_qs(request, subcategory.threads.all(), page_size=1)
 
     context = {
         "subcategory": subcategory,
@@ -148,16 +140,7 @@ def thread_create(request, subcategory_slug):
 def thread_detail(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
-    post_paginator = Paginator(thread.posts.all(), 10)
-
-    page = request.GET.get("page", 1)
-
-    try:
-        posts = post_paginator.page(page)
-    except PageNotAnInteger:
-        posts = post_paginator.page(1)
-    except EmptyPage:
-        posts = post_paginator.page(post_paginator.num_pages)
+    posts = paginate_qs(request, thread.posts.all())
 
     post_form = PostModelForm()
 
