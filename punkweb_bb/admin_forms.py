@@ -1,7 +1,7 @@
 from django import forms
 
-from .models import BoardProfile, Category, Post, Subcategory, Thread
-from .widgets import BBCodeEditorWidget
+from punkweb_bb.models import BoardProfile, Category, Post, Subcategory, Thread
+from punkweb_bb.widgets import BBCodeEditorWidget
 
 
 class BoardProfileAdminModelForm(forms.ModelForm):

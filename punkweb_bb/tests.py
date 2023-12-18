@@ -5,8 +5,15 @@ from django.core.cache import cache
 from django.test import TestCase
 from django.utils import timezone
 
-from .models import Category, Post, Shout, Subcategory, Thread, profile_image_upload_to
-from .response import htmx_redirect
+from punkweb_bb.models import (
+    Category,
+    Post,
+    Shout,
+    Subcategory,
+    Thread,
+    profile_image_upload_to,
+)
+from punkweb_bb.response import htmx_redirect
 
 User = get_user_model()
 

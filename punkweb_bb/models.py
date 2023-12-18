@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils import timezone
 from precise_bbcode.fields import BBCodeTextField
 
-from .mixins import TimestampMixin, UUIDPrimaryKeyMixin
+from punkweb_bb.mixins import TimestampMixin, UUIDPrimaryKeyMixin
 
 User = get_user_model()
 

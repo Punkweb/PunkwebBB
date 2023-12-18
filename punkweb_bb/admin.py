@@ -1,14 +1,14 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .admin_forms import (
+from punkweb_bb.admin_forms import (
     BoardProfileAdminModelForm,
     CategoryAdminModelForm,
     PostAdminModelForm,
     SubcategoryAdminModelForm,
     ThreadAdminModelForm,
 )
-from .models import BoardProfile, Category, Post, Shout, Subcategory, Thread
+from punkweb_bb.models import BoardProfile, Category, Post, Shout, Subcategory, Thread
 
 
 @admin.register(BoardProfile)

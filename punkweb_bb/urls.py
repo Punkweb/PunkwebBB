@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from punkweb_bb import views
 
 app_name = "punkweb_bb"
 urlpatterns = [
