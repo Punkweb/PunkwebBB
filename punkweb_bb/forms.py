@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 from punkweb_bb.models import BoardProfile, Post, Shout, Thread
 from punkweb_bb.widgets import BBCodeEditorWidget
@@ -18,6 +18,22 @@ class BoardAuthenticationForm(AuthenticationForm):
             {"autofocus": True, "class": "pw-input fluid"}
         )
         self.fields["password"].widget.attrs.update({"class": "pw-input fluid"})
+
+
+class BoardRegistrationForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["username"].widget.attrs.update(
+            {"autofocus": True, "class": "pw-input fluid"}
+        )
+        self.fields["password1"].widget.attrs.update({"class": "pw-input fluid"})
+        self.fields["password2"].widget.attrs.update({"class": "pw-input fluid"})
+
+        # By default `UserCreationForm` has `help_text` for the every field.
+        # It's ugly so I remove it here.
+        for field in self.fields:
+            self.fields[field].help_text = None
 
 
 class BoardProfileModelForm(forms.ModelForm):

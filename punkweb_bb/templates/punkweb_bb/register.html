@@ -1,0 +1,32 @@
+{% extends 'punkweb_bb/base.html' %}
+{% load static %}
+
+{% block title_prefix %}Register | {% endblock%}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'punkweb_bb/login.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<nav>
+  <ol class="pw-breadcrumb">
+    <li class="pw-breadcrumb-item">
+      <a href="{% url 'punkweb_bb:index' %}">Home</a>
+    </li>
+    <li class="pw-breadcrumb-item active">
+        Register
+    </li>
+  </ol>
+</nav>
+
+<div class="pw-card center padding">
+  <h1>Register</h1>
+  <form class="loginForm" action="{% url 'punkweb_bb:register' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="pw-button fluid raised" type="submit">Register</button>
+  </form>
+</div>
+
+{% endblock %}
