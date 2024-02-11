@@ -10,6 +10,7 @@ from punkweb_bb.pagination import paginate_qs
 from punkweb_bb.forms import (
     BoardAuthenticationForm,
     BoardProfileModelForm,
+    BoardRegistrationForm,
     PostModelForm,
     ShoutModelForm,
     ThreadModelForm,
@@ -73,6 +74,26 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect("punkweb_bb:login")
+
+
+def register_view(request):
+    if request.user.is_authenticated:
+        return redirect("punkweb_bb:index")
+
+    if request.method == "POST":
+        form = BoardRegistrationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect("punkweb_bb:login")
+    else:
+        form = BoardRegistrationForm()
+
+    context = {
+        "form": form,
+    }
+    return render(request, "punkweb_bb/register.html", context)
 
 
 @login_required(login_url="/login/")

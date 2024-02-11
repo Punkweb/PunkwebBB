@@ -6,6 +6,7 @@ app_name = "punkweb_bb"
 urlpatterns = [
     path("", views.index, name="index"),
     path("login/", views.login_view, name="login"),
+    path("register/", views.register_view, name="register"),
     path("logout/", views.logout_view, name="logout"),
     path("profile/", views.profile_detail, name="profile_detail"),
     path("profile/update/", views.profile_update, name="profile_update"),
