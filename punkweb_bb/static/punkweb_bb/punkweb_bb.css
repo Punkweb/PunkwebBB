@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -35,8 +36,8 @@ img {
   background-color: var(--oc-green-6);
   border-radius: 100%;
   display: inline-block;
-  height: 8px;
-  width: 8px;
+  height: 0.5rem;
+  width: 0.5rem;
 }
 
 /** Layout **/
@@ -55,7 +56,7 @@ img {
 
 .container {
   margin: 0 auto;
-  max-width: 1440px;
+  max-width: 90rem;
   padding: 0 1rem;
   width: 100%;
 }
@@ -68,7 +69,7 @@ img {
 
 .nav__upper__content {
   display: flex;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 700;
   padding: 0.5rem 0;
 }
@@ -100,7 +101,7 @@ img {
 
 .nav__title {
   color: white;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
 }
 
@@ -133,7 +134,7 @@ img {
   background-color: var(--oc-gray-1);
   border-bottom: 1px solid var(--oc-gray-4);
   color: var(--oc-gray-7);
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: bold;
   padding: 0.75rem 1rem;
   text-align: left;
@@ -149,7 +150,7 @@ img {
   appearance: none;
   background-color: transparent;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   color: black;
   cursor: pointer;
   display: inline-block;
@@ -255,23 +256,24 @@ img {
   color: var(--oc-gray-9);
   cursor: pointer;
   display: inline-block;
-  font-size: 18px;
-  height: 40px;
-  line-height: 40px;
+  font-size: 1.125rem;
+  height: 2rem;
+  line-height: 2rem;
   padding: 0;
   position: relative;
-  max-height: 40px;
-  max-width: 40px;
-  min-height: 40px;
-  min-width: 40px;
+  max-height: 2rem;
+  max-width: 2rem;
+  min-height: 2rem;
+  min-width: 2rem;
   text-align: center;
   text-decoration: none !important;
   transition: all 100ms ease-in-out;
-  width: 40px;
+  width: 2rem;
 }
 
 .pw-icon-button .material-symbols-outlined {
   display: block;
+  font-size: 1.125rem;
 }
 
 .pw-icon-button:hover:not(:disabled) {
@@ -291,8 +293,8 @@ img {
 
 .pw-input {
   background: transparent;
-  border: 2px solid var(--oc-gray-4);
-  border-radius: 4px;
+  border: 1px solid var(--oc-gray-4);
+  border-radius: 0.25rem;
   font-size: 1rem;
   outline: none;
   padding: 0.5rem 1rem;
@@ -314,19 +316,19 @@ img {
 }
 
 .pw-input:hover {
-  border: 2px solid var(--oc-gray-5);
+  border: 1px solid var(--oc-gray-5);
 }
 
 .pw-input:focus,
 .pw-input:active {
-  border: 2px solid var(--oc-teal-9);
+  border: 1px solid var(--oc-teal-9);
 }
 
 /** Card **/
 
 .pw-card {
   background-color: white;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   border: 1px solid var(--oc-gray-4);
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
   width: fit-content;
@@ -353,7 +355,7 @@ img {
 
 .pw-pagination {
   border: 1px solid var(--oc-gray-4);
-  border-radius: 4px;
+  border-radius: 0.25rem;
   display: flex;
   list-style: none;
   margin: 0;
@@ -376,13 +378,13 @@ img {
 }
 
 .pw-pagination-item:first-child .pw-pagination-link {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
 }
 
 .pw-pagination-item:last-child .pw-pagination-link {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
 }
 
 .pw-pagination-item.disabled .pw-pagination-link {
@@ -410,7 +412,7 @@ img {
 
 .pw-breadcrumb {
   background-color: var(--oc-gray-1);
-  border-radius: 4px;
+  border-radius: 0.25rem;
   display: flex;
   flex-wrap: wrap;
   list-style: none;

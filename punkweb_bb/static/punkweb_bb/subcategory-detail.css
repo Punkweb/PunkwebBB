@@ -7,10 +7,10 @@
 .thread__latestPost__profileImage {
   border-radius: 100%;
   object-fit: contain;
-  height: 32px;
-  width: 32px;
+  height: 2rem;
+  width: 2rem;
 }
 
 .thread__latestPost__info {
-  font-size: 14px;
+  font-size: 0.875rem;
 }

@@ -8,7 +8,7 @@
 }
 
 .index__sidebar {
-  flex: 0 0 320px;
+  flex: 0 0 20rem;
 }
 
 .subcategory__latestThread {
@@ -20,13 +20,13 @@
 .subcategory__latestThread__profileImage {
   border-radius: 100%;
   object-fit: contain;
-  height: 32px;
-  width: 32px;
+  height: 2rem;
+  width: 2rem;
 }
 
 .subcategory__latestThread__info {
   flex: 1;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .subcategory__latestThread__info__title {
@@ -34,5 +34,4 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 240px;
 }
