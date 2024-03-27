@@ -4,7 +4,7 @@
 <h2>Delete Post</h2>
 <p>Are you sure you want to delete this post? This action cannot be undone!</p>
 <div class="modal__actions">
-  <button class="pw-button" _="on click trigger closeModal">Cancel</button>
+  <button class="modal__cancel pw-button">Cancel</button>
   <button class="pw-button raised danger" hx-delete="{% url 'punkweb_bb:post_delete' post.id %}">Delete</button>
 </div>
 {% endblock %}

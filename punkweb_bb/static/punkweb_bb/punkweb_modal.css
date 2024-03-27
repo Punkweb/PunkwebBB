@@ -48,14 +48,6 @@
   gap: 1rem;
 }
 
-.modal--closing {
-  animation: fadeOut 150ms ease;
-}
-
-.modal__closing .modal__content {
-  animation: zoomOut 150ms ease;
-}
-
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -65,29 +57,11 @@
   }
 }
 
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
 @keyframes zoomIn {
   0% {
     transform: scale(0.9);
   }
   100% {
     transform: scale(1);
-  }
-}
-
-@keyframes zoomOut {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0.9);
   }
 }
