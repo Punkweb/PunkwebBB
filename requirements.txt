@@ -1,4 +1,4 @@
-Django==4.2.4
+Django==4.2.11
 django-precise-bbcode==1.2.16
 Pillow
 
