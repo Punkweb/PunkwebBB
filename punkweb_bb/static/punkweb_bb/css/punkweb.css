@@ -95,7 +95,19 @@ a {
 .footer {
   background-color: var(--oc-gray-9);
   color: white;
+  font-size: 0.875rem;
   padding: 0.5rem 0;
+}
+
+.footer__content {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer a {
+  color: white;
+  font-weight: 500;
 }
 
 /** Table **/
@@ -434,7 +446,7 @@ a {
 .pw-card {
   background-color: white;
   border: 1px solid var(--oc-gray-4);
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
   min-width: 16rem;
   width: fit-content;
