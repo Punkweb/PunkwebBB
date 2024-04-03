@@ -1,11 +1,11 @@
 {% extends 'punkweb_bb/base.html' %}
-
 {% load static %}
 
 {% block title_prefix %}{{thread.title}} | {% endblock %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'punkweb_bb/thread-detail.css' %}" />
+<link rel="stylesheet" href="{% static 'punkweb_bb/css/thread.css' %}" />
+<link rel="stylesheet" href="{% static 'punkweb_bb/css/thread-create.css' %}" />
 {{post_form.media.css}}
 {% endblock %}
 
@@ -44,7 +44,7 @@
       </div>
       {% else %}
       <div class="thread__user__image">
-        <img src="{% static 'punkweb_bb/default-profile-image.png' %}" alt="{{post.user.username}}" />
+        <img src="{% static 'punkweb_bb/img/default-profile-image.png' %}" alt="{{post.user.username}}" />
       </div>
       {% endif %}
       <div class="thread__user__usernameContainer">
@@ -103,7 +103,7 @@
       </div>
       {% else %}
       <div class="thread__user__image">
-        <img src="{% static 'punkweb_bb/default-profile-image.png' %}" alt="{{post.user.username}}" />
+        <img src="{% static 'punkweb_bb/img/default-profile-image.png' %}" alt="{{post.user.username}}" />
       </div>
       {% endif %}
       <div class="thread__user__usernameContainer">
@@ -197,10 +197,19 @@
 {% if request.user.is_authenticated %}
 <div class="pw-card fluid margin padding">
   <h4>Reply to thread</h4>
-  <form action="{% url 'punkweb_bb:post_create' thread.id %}" method="post">
+  <form class="threadForm" action="{% url 'punkweb_bb:post_create' thread.id %}" method="post">
     {% csrf_token %}
-    {{post_form.as_p}}
-    <button class="pw-button raised" type="submit">Post reply</button>
+    {% for field in post_form %}
+    <div class="threadForm__field">
+      {{ field }}
+    </div>
+    {% endfor %}
+    {% if post_form.non_field_errors %}
+    {{ post_form.non_field_errors }}
+    {% endif %}
+    <div class="threadForm__actions">
+      <button class="pw-button raised" type="submit">Post reply</button>
+    </div>
   </form>
 </div>
 {% endif %}

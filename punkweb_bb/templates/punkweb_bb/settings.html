@@ -1,0 +1,67 @@
+{% extends 'punkweb_bb/base.html' %}
+{% load static %}
+
+{% block title_prefix %}Settings | {% endblock %}
+
+{% block extra_head %}
+{{form.media.css}}
+<link rel="stylesheet" href="{% static 'punkweb_bb/css/settings.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<nav>
+  <ol class="pw-breadcrumb">
+    <li class="pw-breadcrumb-item">
+      <a href="{% url 'punkweb_bb:index' %}">Home</a>
+    </li>
+    <li class="pw-breadcrumb-item active">
+      Settings
+    </li>
+  </ol>
+</nav>
+
+<div class="pw-card fluid padding">
+  <h1>Settings</h1>
+  <form class="profileForm" action="{% url 'punkweb_bb:settings' %}" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    {% if field.name == "image" %}
+    <div class="profileForm__field">
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {% if field.value %}
+      <div class="profileForm__image">
+        <img src="{{ field.value.url }}" alt="{{ field.label }}">
+      </div>
+      <label>
+        <input type="checkbox" name="image-clear" id="image-clear_id" />
+        Remove
+      </label>
+      {% endif %}
+      <input type="file" name="image" accept="image/*" id="id_image" />
+    </div>
+    {% else %}
+    <div class="profileForm__field">
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+    </div>
+    {% endif %}
+    {% if field.errors %}
+    {{ field.errors }}
+    {% endif %}
+    {% endfor %}
+    {% if form.non_field_errors %}
+    {{ form.non_field_errors }}
+    {% endif %}
+    <div class="profileForm__actions">
+      <a class="pw-button" href="{% url 'punkweb_bb:profile' %}">Cancel</a>
+      <button class="pw-button raised" type="submit">Save</button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
+
+{% block extra_script %}
+{{form.media.js}}
+{% endblock %}

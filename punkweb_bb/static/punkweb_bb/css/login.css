@@ -1,0 +1,27 @@
+.login__title {
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 20rem;
+}
+
+.loginForm__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.loginForm__field label {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.loginForm .errorlist {
+  color: var(--oc-red-9);
+  margin: 0;
+}

@@ -1,11 +1,11 @@
 import datetime
 
-from django.contrib.auth import authenticate, get_user_model, login, logout
+from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
-
-from punkweb_bb.pagination import paginate_qs
 
 from punkweb_bb.forms import (
     BoardAuthenticationForm,
@@ -16,6 +16,7 @@ from punkweb_bb.forms import (
     ThreadModelForm,
 )
 from punkweb_bb.models import Category, Post, Shout, Subcategory, Thread
+from punkweb_bb.pagination import paginate_qs
 from punkweb_bb.response import htmx_redirect
 
 User = get_user_model()
@@ -45,7 +46,7 @@ def index(request):
     return render(request, "punkweb_bb/index.html", context=context)
 
 
-def login_view(request):
+def login(request):
     if request.user.is_authenticated:
         return redirect("punkweb_bb:index")
 
@@ -59,7 +60,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
-                login(request, user)
+                auth_login(request, user)
 
                 return redirect("punkweb_bb:index")
     else:
@@ -71,12 +72,12 @@ def login_view(request):
     return render(request, "punkweb_bb/login.html", context)
 
 
-def logout_view(request):
-    logout(request)
+def logout(request):
+    auth_logout(request)
     return redirect("punkweb_bb:login")
 
 
-def register_view(request):
+def signup(request):
     if request.user.is_authenticated:
         return redirect("punkweb_bb:index")
 
@@ -93,16 +94,16 @@ def register_view(request):
     context = {
         "form": form,
     }
-    return render(request, "punkweb_bb/register.html", context)
+    return render(request, "punkweb_bb/signup.html", context)
 
 
 @login_required(login_url="/login/")
-def profile_detail(request):
-    return render(request, "punkweb_bb/profile_detail.html")
+def profile(request):
+    return render(request, "punkweb_bb/profile.html")
 
 
 @login_required(login_url="/login/")
-def profile_update(request):
+def settings(request):
     if request.method == "POST":
         form = BoardProfileModelForm(
             request.POST, request.FILES, instance=request.user.profile
@@ -111,7 +112,7 @@ def profile_update(request):
         if form.is_valid():
             form.save()
 
-            return redirect("punkweb_bb:profile_update")
+            return redirect("punkweb_bb:settings")
 
     form = BoardProfileModelForm(instance=request.user.profile)
 
@@ -119,10 +120,10 @@ def profile_update(request):
         "form": form,
     }
 
-    return render(request, "punkweb_bb/profile_update.html", context=context)
+    return render(request, "punkweb_bb/settings.html", context=context)
 
 
-def subcategory_detail(request, subcategory_slug):
+def subcategory(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
     threads = paginate_qs(request, subcategory.threads.all())
@@ -131,7 +132,7 @@ def subcategory_detail(request, subcategory_slug):
         "subcategory": subcategory,
         "threads": threads,
     }
-    return render(request, "punkweb_bb/subcategory_detail.html", context=context)
+    return render(request, "punkweb_bb/subcategory.html", context=context)
 
 
 @login_required(login_url="/login/")
@@ -158,7 +159,7 @@ def thread_create(request, subcategory_slug):
     return render(request, "punkweb_bb/thread_create.html", context=context)
 
 
-def thread_detail(request, thread_id):
+def thread(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
     posts = paginate_qs(request, thread.posts.all())
@@ -170,7 +171,7 @@ def thread_detail(request, thread_id):
         "posts": posts,
         "post_form": post_form,
     }
-    return render(request, "punkweb_bb/thread_detail.html", context=context)
+    return render(request, "punkweb_bb/thread.html", context=context)
 
 
 @login_required(login_url="/login/")

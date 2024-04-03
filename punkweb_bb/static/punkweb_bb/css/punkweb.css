@@ -1,35 +1,10 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Helvetica, Arial, sans-serif;
-}
-
 a {
   color: var(--oc-teal-9);
   text-decoration: none;
 }
 
-label {
-  display: block;
-}
-
-img {
-  max-width: 100%;
-}
-
-#scrollToTop {
-  position: fixed;
-  bottom: 3rem;
-  right: 0.5rem;
-  z-index: 100;
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 
 .onlineIndicator {

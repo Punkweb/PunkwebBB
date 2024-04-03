@@ -6,7 +6,7 @@
 
 .thread__latestPost__profileImage {
   border-radius: 100%;
-  object-fit: contain;
+  object-fit: cover;
   height: 2rem;
   width: 2rem;
 }

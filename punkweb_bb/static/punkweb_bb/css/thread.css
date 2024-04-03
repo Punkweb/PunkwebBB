@@ -38,7 +38,8 @@
 }
 
 .thread__user__image img {
-  object-fit: contain;
+  border-radius: 100%;
+  object-fit: cover;
   height: 100%;
   width: 100%;
 }

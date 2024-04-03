@@ -93,7 +93,7 @@ class Subcategory(UUIDPrimaryKeyMixin, TimestampMixin):
         return f"{self.category} > {self.order}. {self.name}"
 
     def get_absolute_url(self):
-        return reverse("punkweb_bb:subcategory_detail", args=[self.slug])
+        return reverse("punkweb_bb:subcategory", args=[self.slug])
 
 
 class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
@@ -119,7 +119,7 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
         return self.posts.order_by("-created_at").first()
 
     def get_absolute_url(self):
-        return reverse("punkweb_bb:thread_detail", args=[self.id])
+        return reverse("punkweb_bb:thread", args=[self.id])
 
 
 class Post(UUIDPrimaryKeyMixin, TimestampMixin):
@@ -146,7 +146,7 @@ class Post(UUIDPrimaryKeyMixin, TimestampMixin):
         return math.ceil(self.index / 10)
 
     def get_absolute_url(self):
-        thread_url = reverse("punkweb_bb:thread_detail", args=[self.thread.id])
+        thread_url = reverse("punkweb_bb:thread", args=[self.thread.id])
 
         thread_url += f"?page={self.page_number}#post-{self.id}"
 

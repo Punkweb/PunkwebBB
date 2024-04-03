@@ -1,9 +1,11 @@
 {% extends 'punkweb_bb/base.html' %}
+{% load static %}
 
 {% block title_prefix %}Create Thread | {% endblock %}
 
 {% block extra_head %}
 {{form.media.css}}
+<link rel="stylesheet" href="{% static 'punkweb_bb/css/thread-create.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -24,10 +26,20 @@
 
 <div class="pw-card fluid padding">
   <h1>Create Thread</h1>
-  <form action="{% url 'punkweb_bb:thread_create' subcategory.slug %}" method="post">
+  <form class="threadForm" action="{% url 'punkweb_bb:thread_create' subcategory.slug %}" method="post">
     {% csrf_token %}
-    {{form.as_p}}
-    <button class="pw-button raised" type="submit">Create Thread</button>
+    {% for field in form %}
+    <div class="threadForm__field">
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+    </div>
+    {% endfor %}
+    {% if form.non_field_errors %}
+    {{ form.non_field_errors }}
+    {% endif %}
+    <div class="threadForm__actions">
+      <button class="pw-button raised" type="submit">Create Thread</button>
+    </div>
   </form>
 </div>
 

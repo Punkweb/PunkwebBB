@@ -12,7 +12,7 @@ $(function () {
       },
       format: "bbcode",
       icons: "material",
-      style: "/static/punkweb_bb/bbcode-editor-content.css",
+      style: "/static/punkweb_bb/editor/bbcode-editor-content.css",
       toolbar:
         "removeformat,bold,italic,size,color,font,strike,underline|orderedlist,bulletlist|left,center,right|link,image,emoticon|horizontalrule,quote,code|maximize,source",
       height: "300px",

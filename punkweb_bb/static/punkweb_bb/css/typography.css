@@ -1,0 +1,38 @@
+html,
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.5rem;
+}
+h3 {
+  font-size: 1.25rem;
+}
+h4 {
+  font-size: 1rem;
+}
+h5 {
+  font-size: 0.875rem;
+}
+h6 {
+  font-size: 0.75rem;
+}
+
+.error {
+  color: var(--oc-red-9);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.hint {
+  color: var(--oc-gray-7);
+  font-size: 0.75rem;
+  font-weight: 400;
+}

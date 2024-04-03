@@ -4,7 +4,7 @@
 {% block title_prefix %}{{subcategory.name}} | {% endblock%}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'punkweb_bb/subcategory-detail.css' %}" />
+<link rel="stylesheet" href="{% static 'punkweb_bb/css/subcategory.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -65,7 +65,8 @@
             {% if thread.latest_post.user.profile.image %}
             <img class="thread__latestPost__profileImage" src="{{thread.latest_post.user.profile.image.url}}" />
             {% else %}
-            <img class="thread__latestPost__profileImage" src="{% static 'punkweb_bb/default-profile-image.png' %}" />
+            <img class="thread__latestPost__profileImage"
+              src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
             {% endif %}
           </div>
           {% else %}

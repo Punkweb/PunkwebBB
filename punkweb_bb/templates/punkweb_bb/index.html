@@ -3,12 +3,12 @@
 {% load static %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'punkweb_bb/index.css' %}" />
-<link rel="stylesheet" href="{% static 'punkweb_bb/shoutbox.css' %}" />
+<link rel="stylesheet" href="{% static 'punkweb_bb/css/index.css' %}" />
+<link rel="stylesheet" href="{% static 'punkweb_bb/css/shoutbox.css' %}" />
 {% endblock %}
 
 {% block extra_script %}
-<script src="{% static 'punkweb_bb/shoutbox.js' %}"></script>
+<script src="{% static 'punkweb_bb/js/shoutbox.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -53,7 +53,7 @@
                     src="{{subcategory.latest_thread.user.profile.image.url}}" />
                   {% else%}
                   <img class="subcategory__latestThread__profileImage"
-                    src="{% static 'punkweb_bb/default-profile-image.png' %}" />
+                    src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
                   {% endif %}
                   <div class="subcategory__latestThread__info">
                     <a class="subcategory__latestThread__info__title"
@@ -89,7 +89,7 @@
           <img class="subcategory__latestThread__profileImage" src="{{thread.user.profile.image.url}}" />
           {% else%}
           <img class="subcategory__latestThread__profileImage"
-            src="{% static 'punkweb_bb/default-profile-image.png' %}" />
+            src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
           {% endif %}
           <div class="subcategory__latestThread__info">
             <a class="subcategory__latestThread__info__title" href="{{thread.get_absolute_url}}"

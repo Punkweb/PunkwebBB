@@ -30,11 +30,6 @@ class BoardRegistrationForm(UserCreationForm):
         self.fields["password1"].widget.attrs.update({"class": "pw-input fluid"})
         self.fields["password2"].widget.attrs.update({"class": "pw-input fluid"})
 
-        # By default `UserCreationForm` has `help_text` for the every field.
-        # It's ugly so I remove it here.
-        for field in self.fields:
-            self.fields[field].help_text = None
-
 
 class BoardProfileModelForm(forms.ModelForm):
     class Meta:
