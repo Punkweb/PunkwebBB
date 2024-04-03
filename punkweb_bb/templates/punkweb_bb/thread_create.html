@@ -30,7 +30,7 @@
     {% csrf_token %}
     {% for field in form %}
     <div class="threadForm__field">
-      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
       {{ field }}
     </div>
     {% endfor %}
@@ -38,7 +38,7 @@
     {{ form.non_field_errors }}
     {% endif %}
     <div class="threadForm__actions">
-      <button class="pw-button raised" type="submit">Create Thread</button>
+      <button class="pw-button raised primary" type="submit">Create Thread</button>
     </div>
   </form>
 </div>

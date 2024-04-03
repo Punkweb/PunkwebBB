@@ -26,7 +26,7 @@
     {% csrf_token %}
     {% for field in form %}
     <div class="loginForm__field">
-      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
       {{ field }}
     </div>
     {% if field.errors %}
@@ -36,7 +36,7 @@
     {% if form.non_field_errors %}
     {{ form.non_field_errors }}
     {% endif %}
-    <button class="pw-button fluid raised" type="submit">Sign Up</button>
+    <button class="pw-button fluid raised primary" type="submit">Sign Up</button>
   </form>
 </div>
 

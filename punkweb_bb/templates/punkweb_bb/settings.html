@@ -28,7 +28,7 @@
     {% for field in form %}
     {% if field.name == "image" %}
     <div class="profileForm__field">
-      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
       {% if field.value %}
       <div class="profileForm__image">
         <img src="{{ field.value.url }}" alt="{{ field.label }}">
@@ -42,7 +42,7 @@
     </div>
     {% else %}
     <div class="profileForm__field">
-      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
       {{ field }}
     </div>
     {% endif %}
@@ -54,8 +54,8 @@
     {{ form.non_field_errors }}
     {% endif %}
     <div class="profileForm__actions">
-      <a class="pw-button" href="{% url 'punkweb_bb:profile' %}">Cancel</a>
-      <button class="pw-button raised" type="submit">Save</button>
+      <a class="pw-button default" href="{% url 'punkweb_bb:profile' %}">Cancel</a>
+      <button class="pw-button raised primary" type="submit">Save</button>
     </div>
   </form>
 </div>

@@ -10,11 +10,6 @@
   gap: 0.5rem;
 }
 
-.threadForm__field label {
-  font-size: 0.875rem;
-  font-weight: 700;
-}
-
 .threadForm .errorlist {
   color: var(--oc-red-9);
   margin: 0;

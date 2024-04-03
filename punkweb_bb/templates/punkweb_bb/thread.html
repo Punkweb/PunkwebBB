@@ -77,7 +77,7 @@
       {% endif %}
       {% if thread.user == request.user %}
       <div class="thread__actions">
-        <a class="pw-button" href="{% url 'punkweb_bb:thread_update' thread.id %}">Edit</a>
+        <a class="pw-button default" href="{% url 'punkweb_bb:thread_update' thread.id %}">Edit</a>
         <a class="pw-button raised danger" hx-get="{% url 'punkweb_bb:thread_delete' thread.id %}"
           hx-target="#modal-portal">
           Delete
@@ -136,7 +136,7 @@
       {% endif %}
       {% if post.user == request.user %}
       <div class="thread__actions">
-        <a class="pw-button" hx-get="{% url 'punkweb_bb:post_update' post.id %}" hx-target="#modal-portal">Edit</a>
+        <a class="pw-button default" hx-get="{% url 'punkweb_bb:post_update' post.id %}" hx-target="#modal-portal">Edit</a>
         <a class="pw-button raised danger" hx-get="{% url 'punkweb_bb:post_delete' post.id %}"
           hx-target="#modal-portal">
           Delete
@@ -208,7 +208,7 @@
     {{ post_form.non_field_errors }}
     {% endif %}
     <div class="threadForm__actions">
-      <button class="pw-button raised" type="submit">Post reply</button>
+      <button class="pw-button raised primary" type="submit">Post reply</button>
     </div>
   </form>
 </div>

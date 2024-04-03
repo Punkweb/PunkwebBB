@@ -122,23 +122,21 @@ a {
 /** Button **/
 
 .pw-button {
-  appearance: none;
-  background-color: transparent;
-  border: none;
   border-radius: 0.25rem;
-  color: black;
+  color: var(--oc-gray-9);
   cursor: pointer;
   display: inline-block;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 700;
   padding: 0.5rem 1rem;
-  position: relative;
   text-align: center;
-  text-decoration: none !important;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.15s ease;
 }
 
 .pw-button:disabled {
+  background-color: var(--oc-gray-0) !important;
+  border-color: var(--oc-gray-0) !important;
+  color: var(--oc-gray-5) !important;
   cursor: not-allowed;
 }
 
@@ -146,42 +144,69 @@ a {
   width: 100%;
 }
 
+.pw-button.rounded {
+  border-radius: 2rem;
+}
+
 /* Default */
-.pw-button:hover {
+.pw-button.default:not(:disabled):hover {
   background-color: var(--oc-gray-0);
 }
 
-.pw-button:active {
+.pw-button.default:not(:disabled):active {
   background-color: var(--oc-gray-1);
 }
 
-.pw-button.danger {
+.pw-button.default.primary {
+  color: var(--oc-teal-9);
+}
+
+.pw-button.default.primary:hover {
+  background-color: var(--oc-teal-0);
+}
+
+.pw-button.default.primary:active {
+  background-color: var(--oc-teal-1);
+}
+
+.pw-button.default.danger {
   color: var(--oc-red-9);
 }
 
-.pw-button.danger:hover {
+.pw-button.default.danger:hover {
   background-color: var(--oc-red-0);
 }
 
-.pw-button.danger:active {
+.pw-button.default.danger:active {
   background-color: var(--oc-red-1);
 }
 
 /* Outlined */
 
 .pw-button.outlined {
-  background-color: transparent;
-  border: 1px solid var(--oc-teal-9);
+  border: 1px solid var(--oc-gray-9);
+  color: var(--oc-gray-9);
+}
+
+.pw-button.outlined:not(:disabled):hover {
+  background-color: var(--oc-gray-0);
+}
+
+.pw-button.outlined:not(:disabled):active {
+  background-color: var(--oc-gray-1);
+}
+
+.pw-button.outlined.primary {
+  border-color: var(--oc-teal-9);
   color: var(--oc-teal-9);
 }
 
-.pw-button.outlined:hover {
-  background-color: var(--oc-teal-9);
-  color: white;
+.pw-button.outlined.primary:hover {
+  background-color: var(--oc-teal-0);
 }
 
-.pw-button.outlined:active {
-  background-color: var(--oc-teal-8);
+.pw-button.outlined.primary:active {
+  background-color: var(--oc-teal-1);
 }
 
 .pw-button.outlined.danger {
@@ -190,60 +215,61 @@ a {
 }
 
 .pw-button.outlined.danger:hover {
-  background-color: var(--oc-red-9);
-  color: white;
+  background-color: var(--oc-red-0);
 }
 
 .pw-button.outlined.danger:active {
-  background-color: var(--oc-red-8);
-  color: white;
+  background-color: var(--oc-red-1);
 }
 
 /* Raised */
 
 .pw-button.raised {
-  background-color: var(--oc-teal-9);
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+  background-color: var(--oc-gray-9);
+  box-shadow: 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, 0.25);
   color: white;
+}
+
+.pw-button.raised.primary {
+  background-color: var(--oc-teal-9);
 }
 
 .pw-button.raised.danger {
   background-color: var(--oc-red-9);
 }
 
-.pw-button.raised:active {
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+.pw-button.raised:not(:disabled):hover {
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
 }
 
-.pw-button.raised:disabled {
-  background-color: var(--oc-gray-0) !important;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25) !important;
-  color: var(--oc-gray-5) !important;
+.pw-button.raised:not(:disabled):active {
+  box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.25);
 }
 
 /** Icon Button **/
 
 .pw-icon-button {
-  appearance: none;
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: 100%;
-  color: var(--oc-gray-9);
+  border-radius: 0.25rem;
   cursor: pointer;
   display: inline-block;
-  font-size: 1.125rem;
+  font-weight: 700;
+  transition: all 0.15s ease;
+  text-align: center;
+
   height: 2rem;
   line-height: 2rem;
-  padding: 0;
-  position: relative;
   max-height: 2rem;
   max-width: 2rem;
   min-height: 2rem;
   min-width: 2rem;
-  text-align: center;
-  text-decoration: none !important;
-  transition: all 100ms ease-in-out;
   width: 2rem;
+}
+
+.pw-icon-button:disabled {
+  background-color: var(--oc-gray-5) !important;
+  border-color: var(--oc-gray-5) !important;
+  color: var(--oc-gray-5) !important;
+  cursor: not-allowed;
 }
 
 .pw-icon-button .material-symbols-outlined {
@@ -251,61 +277,98 @@ a {
   font-size: 1.125rem;
 }
 
-.pw-icon-button:hover:not(:disabled) {
+.pw-icon-button.rounded {
+  border-radius: 100%;
+}
+
+/* Default */
+
+.pw-icon-button.default {
+  color: var(--oc-gray-9);
+}
+
+.pw-icon-button.default:not(:disabled):hover {
   background-color: var(--oc-gray-0);
 }
 
-.pw-icon-button:active:not(:disabled) {
+.pw-icon-button.default:not(:disabled):active {
   background-color: var(--oc-gray-1);
 }
 
-.pw-icon-button:disabled {
-  color: var(--oc-gray-5);
-  cursor: not-allowed;
+/* Outlined */
+
+.pw-icon-button.outlined {
+  border: 1px solid var(--oc-gray-9);
+  color: var(--oc-gray-9);
+}
+
+.pw-icon-button.outlined:not(:disabled):hover {
+  background-color: var(--oc-gray-0);
+}
+
+.pw-icon-button.outlined:not(:disabled):active {
+  background-color: var(--oc-gray-1);
+}
+
+/* Raised */
+
+.pw-icon-button.raised {
+  background-color: var(--oc-gray-9);
+  box-shadow: 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
+.pw-icon-button.raised:not(:disabled):hover {
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+}
+
+.pw-icon-button.raised:not(:disabled):active {
+  box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.25);
 }
 
 /** Input **/
 
 .pw-input {
-  background: transparent;
   border: 1px solid var(--oc-gray-4);
   border-radius: 0.25rem;
-  font-size: 1rem;
   outline: none;
   padding: 0.5rem 1rem;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.15s ease;
+}
+
+.pw-input:disabled {
+  background-color: var(--oc-gray-3);
+  cursor: not-allowed;
 }
 
 .pw-input.fluid {
   width: 100%;
 }
 
-.pw-input:disabled {
-  cursor: not-allowed;
+.pw-input:not(:disabled):hover {
+  border-color: var(--oc-gray-6);
 }
 
-.pw-input.textarea {
-  max-width: 100%;
-  min-height: 8rem;
-  padding: 1rem;
-}
-
-.pw-input:hover {
-  border: 1px solid var(--oc-gray-5);
-}
-
-.pw-input:focus,
-.pw-input:active {
+.pw-input:not(:disabled):focus,
+.pw-input:not(:disabled):active {
   border: 1px solid var(--oc-teal-9);
+}
+
+.pw-input-label {
+  color: var(--oc-gray-9);
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
 }
 
 /** Card **/
 
 .pw-card {
   background-color: white;
-  border-radius: 0.25rem;
   border: 1px solid var(--oc-gray-4);
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+  min-width: 16rem;
   width: fit-content;
 }
 

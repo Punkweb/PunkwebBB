@@ -23,7 +23,7 @@
 <h1>{{subcategory.name}}</h1>
 
 {% if request.user.is_authenticated %}
-<a class="pw-button raised" href="{% url 'punkweb_bb:thread_create' subcategory.slug %}">Create Thread</a>
+<a class="pw-button raised primary" href="{% url 'punkweb_bb:thread_create' subcategory.slug %}">Create Thread</a>
 {% endif %}
 
 <div class="pw-card fluid margin">
