@@ -5,7 +5,7 @@ from punkweb_bb.models import BoardProfile, Post, Shout, Thread
 from punkweb_bb.widgets import BBCodeEditorWidget
 
 
-class BoardAuthenticationForm(AuthenticationForm):
+class LoginForm(AuthenticationForm):
     """
     Override the default AuthenticationForm to add CSS classes to the
     username and password fields.
@@ -20,7 +20,7 @@ class BoardAuthenticationForm(AuthenticationForm):
         self.fields["password"].widget.attrs.update({"class": "pw-input fluid"})
 
 
-class BoardRegistrationForm(UserCreationForm):
+class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

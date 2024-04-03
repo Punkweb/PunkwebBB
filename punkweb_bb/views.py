@@ -8,11 +8,11 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
 from punkweb_bb.forms import (
-    BoardAuthenticationForm,
     BoardProfileModelForm,
-    BoardRegistrationForm,
+    LoginForm,
     PostModelForm,
     ShoutModelForm,
+    SignUpForm,
     ThreadModelForm,
 )
 from punkweb_bb.models import Category, Post, Shout, Subcategory, Thread
@@ -51,7 +51,7 @@ def login(request):
         return redirect("punkweb_bb:index")
 
     if request.method == "POST":
-        form = BoardAuthenticationForm(request, request.POST)
+        form = LoginForm(request, request.POST)
 
         if form.is_valid():
             username = form.cleaned_data["username"]
@@ -64,7 +64,7 @@ def login(request):
 
                 return redirect("punkweb_bb:index")
     else:
-        form = BoardAuthenticationForm()
+        form = LoginForm()
 
     context = {
         "form": form,
@@ -82,14 +82,14 @@ def signup(request):
         return redirect("punkweb_bb:index")
 
     if request.method == "POST":
-        form = BoardRegistrationForm(request.POST)
+        form = SignUpForm(request.POST)
 
         if form.is_valid():
             form.save()
 
             return redirect("punkweb_bb:login")
     else:
-        form = BoardRegistrationForm()
+        form = SignUpForm()
 
     context = {
         "form": form,
