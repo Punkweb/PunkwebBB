@@ -81,41 +81,62 @@
       {% endfor %}
     </div>
     <div class="index__sidebar">
-      <div class="pw-card fluid padding">
-        <h3>Recent Threads</h3>
-        {% for thread in recent_threads %}
-        <div class="subcategory__latestThread" style="margin-bottom: 1rem;">
-          {% if thread.user.profile.image %}
-          <img class="subcategory__latestThread__profileImage" src="{{thread.user.profile.image.url}}" />
-          {% else%}
-          <img class="subcategory__latestThread__profileImage"
-            src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
-          {% endif %}
-          <div class="subcategory__latestThread__info">
-            <a class="subcategory__latestThread__info__title" href="{{thread.get_absolute_url}}"
-              title="{{thread.title}}">
-              {{thread.title}}
-            </a>
-            <div>
-              <time datetime="{{thread.created_at|date:'c'}}">
-                {{thread.created_at|date:'M j, Y'}} at
-                {{thread.created_at|date:'g:i A'}}
-              </time>
-              • {{thread.user.username}}
+      <div class="pw-card fluid">
+        <div class="index__recentThreads__header">Recent Threads</div>
+        <div class="index__recentThreads__content">
+          {% for thread in recent_threads %}
+          <div class="index__recentThreads__thread">
+            {% if thread.user.profile.image %}
+            <img class="index__recentThreads__thread__profileImage" src="{{thread.user.profile.image.url}}" />
+            {% else%}
+            <img class="index__recentThreads__thread__profileImage"
+              src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
+            {% endif %}
+            <div class="index__recentThreads__thread__info">
+              <a class="index__recentThreads__thread__info__title" href="{{thread.get_absolute_url}}"
+                title="{{thread.title}}">
+                {{thread.title}}
+              </a>
+              <div>
+                <time datetime="{{thread.created_at|date:'c'}}">
+                  {{thread.created_at|date:'M j, Y'}} at
+                  {{thread.created_at|date:'g:i A'}}
+                </time>
+                • {{thread.user.username}}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="pw-card fluid margin">
+        <div class="index__statistics__header">Statistics</div>
+        <div class="index__statistics__content">
+          <div class="index__statistics__list">
+            <div class="index__statistics__row">
+              <div class="index__statistics__label">Total threads:</div>
+              <div class="index__statistics__value">
+                {{thread_count}}
+              </div>
+            </div>
+            <div class="index__statistics__row">
+              <div class="index__statistics__label">Total posts:</div>
+              <div class="index__statistics__value">{{post_count}}</div>
+            </div>
+            <div class="index__statistics__row">
+              <div class="index__statistics__label">Total members:</div>
+              <div class="index__statistics__value">{{users|length}}</div>
+            </div>
+            <div class="index__statistics__row">
+              <div class="index__statistics__label">Newest member:</div>
+              <div class="index__statistics__value">{{newest_user.username}}</div>
+            </div>
+            <div class="index__statistics__row">
+              <div class="index__statistics__label">Members online:</div>
+              <div class="index__statistics__value">{{users_online|length}}</div>
             </div>
           </div>
         </div>
-        {% endfor %}
-      </div>
-      <div class="pw-card fluid margin padding">
-        <h3>Statistics</h3>
-        <ul>
-          <li>Total threads: {{ thread_count }}</li>
-          <li>Total posts: {{post_count}}</li>
-          <li>Total members: {{users|length}}</li>
-          <li>Newest member: {{newest_user.username}}</li>
-          <li>Members online: {{users_online|length}}</li>
-        </ul>
       </div>
     </div>
   </div>
