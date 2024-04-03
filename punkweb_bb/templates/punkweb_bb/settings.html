@@ -23,14 +23,14 @@
 
 <div class="pw-card fluid padding">
   <h1>Settings</h1>
-  <form class="profileForm" action="{% url 'punkweb_bb:settings' %}" enctype="multipart/form-data" method="post">
+  <form class="settingsForm" action="{% url 'punkweb_bb:settings' %}" enctype="multipart/form-data" method="post">
     {% csrf_token %}
     {% for field in form %}
     {% if field.name == "image" %}
-    <div class="profileForm__field">
+    <div class="settingsForm__field">
       <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
       {% if field.value %}
-      <div class="profileForm__image">
+      <div class="settingsForm__image">
         <img src="{{ field.value.url }}" alt="{{ field.label }}">
       </div>
       <label>
@@ -41,7 +41,7 @@
       <input type="file" name="image" accept="image/*" id="id_image" />
     </div>
     {% else %}
-    <div class="profileForm__field">
+    <div class="settingsForm__field">
       <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
       {{ field }}
     </div>
@@ -53,7 +53,7 @@
     {% if form.non_field_errors %}
     {{ form.non_field_errors }}
     {% endif %}
-    <div class="profileForm__actions">
+    <div class="settingsForm__actions">
       <a class="pw-button default" href="{% url 'punkweb_bb:profile' %}">Cancel</a>
       <button class="pw-button raised primary" type="submit">Save</button>
     </div>
