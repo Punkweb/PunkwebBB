@@ -222,6 +222,56 @@ a {
   background-color: var(--oc-red-1);
 }
 
+/* Ghost */
+
+.pw-button.ghost {
+  border: 1px solid var(--oc-gray-9);
+  color: var(--oc-gray-9);
+}
+
+.pw-button.ghost:not(:disabled):hover {
+  background-color: var(--oc-gray-9);
+  color: white;
+}
+
+.pw-button.ghost:not(:disabled):active {
+  background-color: var(--oc-gray-9);
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
+.pw-button.ghost.primary {
+  border: 1px solid var(--oc-teal-9);
+  color: var(--oc-teal-9);
+}
+
+.pw-button.ghost.primary:not(:disabled):hover {
+  background-color: var(--oc-teal-9);
+  color: white;
+}
+
+.pw-button.ghost.primary:not(:disabled):active {
+  background-color: var(--oc-teal-9);
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
+.pw-button.ghost.danger {
+  border: 1px solid var(--oc-red-9);
+  color: var(--oc-red-9);
+}
+
+.pw-button.ghost.danger:not(:disabled):hover {
+  background-color: var(--oc-red-9);
+  color: white;
+}
+
+.pw-button.ghost.danger:not(:disabled):active {
+  background-color: var(--oc-red-9);
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
 /* Raised */
 
 .pw-button.raised {
@@ -308,6 +358,24 @@ a {
 
 .pw-icon-button.outlined:not(:disabled):active {
   background-color: var(--oc-gray-1);
+}
+
+/* Outlined */
+
+.pw-icon-button.ghost {
+  border: 1px solid var(--oc-gray-9);
+  color: var(--oc-gray-9);
+}
+
+.pw-icon-button.ghost:not(:disabled):hover {
+  background-color: var(--oc-gray-9);
+  color: white;
+}
+
+.pw-icon-button.ghost:not(:disabled):active {
+  background-color: var(--oc-gray-9);
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+  color: white;
 }
 
 /* Raised */
