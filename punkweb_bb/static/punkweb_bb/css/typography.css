@@ -1,6 +1,6 @@
 html,
 body {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: "Inter", Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
@@ -28,7 +28,7 @@ h6 {
 .error {
   color: var(--oc-red-9);
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .hint {

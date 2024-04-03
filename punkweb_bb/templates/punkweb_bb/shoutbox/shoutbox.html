@@ -8,9 +8,13 @@
   </div>
 
   {% if request.user.is_authenticated %}
-  <form class="shoutbox__form" hx-post="{% url 'punkweb_bb:shout_create' %}" hx-target="#shoutlist"
-    hx-on::after-request="this.reset(); shoutboxScrollToBottom(event)">
-    <input class="pw-input shoutbox__input" autocomplete="off" name="content" type="text"
+  <form
+    class="shoutbox__form"
+    hx-post="{% url 'punkweb_bb:shout_create' %}"
+    hx-target="#shoutlist"
+    hx-on::after-request="this.reset(); shoutboxScrollToBottom(event)"
+  >
+    <input class="pw-input fluid shoutbox__input" autocomplete="off" name="content" type="text"
       placeholder="Type your message here..." />
   </form>
   {% endif %}

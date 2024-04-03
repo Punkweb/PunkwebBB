@@ -2,7 +2,7 @@
   background-color: var(--oc-gray-1);
   border-bottom: 1px solid var(--oc-gray-4);
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 700;
   padding: 1rem;
 }
 
@@ -25,12 +25,5 @@
 }
 
 .shoutbox__input {
-  border: none;
-  width: 100%;
-}
-
-.shoutbox__input:hover,
-.shoutbox__input:focus {
-  border: none;
-  outline: none;
+  border: none !important;
 }

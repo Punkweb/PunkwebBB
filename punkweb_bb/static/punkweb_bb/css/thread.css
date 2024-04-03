@@ -13,13 +13,13 @@
 
 .thread__date {
   color: var(--oc-gray-9) !important;
-  font-weight: bold;
+  font-weight: 700;
   text-decoration: none;
 }
 
 .thread__index {
   color: var(--oc-gray-9) !important;
-  font-weight: medium;
+  font-weight: 500;
 }
 
 .thread__user {
