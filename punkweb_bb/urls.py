@@ -28,4 +28,5 @@ urlpatterns = [
     path("post/<str:post_id>/update/", views.post_update, name="post_update"),
     path("shout-list/", views.shout_list, name="shout_list"),
     path("shout-create/", views.shout_create, name="shout_create"),
+    path("bbcode/", views.bbcode, name="bbcode"),
 ]

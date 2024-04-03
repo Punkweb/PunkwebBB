@@ -300,3 +300,54 @@ def shout_create(request):
             return render(
                 request, "punkweb_bb/shoutbox/shout_list.html", context=context
             )
+
+
+def bbcode(request):
+    codes = (
+        ("Bold", "[b]Bold Text[/b]"),
+        ("Italic", "[i]Italic Text[/i]"),
+        ("Underline", "[u]Underlined Text[/u]"),
+        ("Strikethrough", "[s]Strikethrough Text[/s]"),
+        ("List", "[list][*]Item 1[*]Item 2[/list]"),
+        ("Quote", "[quote=Example]Quoted Text[/quote]"),
+        ("Center", "[center]Centered Text[/center]"),
+        ("Color", "[color=red]Red Text[/color]"),
+        ("Url", "[url=https://google.com]Link Text[/url]"),
+        (
+            "Image",
+            "[img]https://punkweb.net/media/music/artists/system-lynx_EklOGpj.png.200x200_q85_crop.png[/img]",
+        ),
+        # Custom
+        ("Horizontal Rule", "[hr]"),
+        ("Code", "[code=javascript]console.log('Hello world!');[/code]"),
+        ("Email", "[email=test@example.com]Example[/email]"),
+        ("Font", "[font=serif]Serif Text[/font]"),
+        ("Ordered List", "[ol][li]Item 1[/li][li]Item 2[/li][/ol]"),
+        ("Unordered List", "[ul][li]Item 1[/li][li]Item 2[/li][/ul]"),
+        ("Shadow", "[shadow=red]Red Shadow Text[/shadow]"),
+        ("Size", "[size=7]Size 7 Text[/size]"),
+        (
+            "Checkbox",
+            """
+            [n]Unchecked
+            [y]Checked
+            """,
+        ),
+        ("Superscript", "Sup [sup]Superscript Text[/sup]"),
+        ("Subscript", "Sub [sub]Subscript Text[/sub]"),
+        # Unimplemented
+        ("Left", "[left]Left Text[/left]"),
+        ("Right", "[right]Right Text[/right]"),
+        ("Justify", "[justify]Justified Text[/justify]"),
+        ("Preformatted", "[pre]Preformatted Text[/pre]"),
+        ("Spoiler", "[spoiler]Spoiler Text[/spoiler]"),
+        ("User", "[user]punkweb[/user]"),
+        ("Anchor", "[anchor]anchor[/anchor]"),
+        ("Escape", "[escape][b]Escaped bbcode[/b][/escape]"),
+    )
+
+    context = {
+        "codes": codes,
+    }
+
+    return render(request, "punkweb_bb/bbcode.html", context=context)
