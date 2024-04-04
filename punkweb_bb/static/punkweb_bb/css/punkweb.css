@@ -1,10 +1,22 @@
+body {
+  background-color: var(--body-bg);
+  color: var(--body-fg);
+}
+
 a {
-  color: var(--oc-teal-9);
+  color: var(--link);
   text-decoration: none;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1rem 0;
 }
 
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  user-select: none;
 }
 
 .onlineIndicator {
@@ -39,7 +51,7 @@ a {
 /** Nav **/
 
 .nav__upper {
-  background-color: var(--oc-gray-9);
+  background-color: var(--upper-nav-bg);
 }
 
 .nav__upper__content {
@@ -55,13 +67,13 @@ a {
 }
 
 .nav__upper__link {
-  color: white;
+  color: var(--upper-nav-link);
 }
 
 .nav__main {
-  background-color: var(--oc-teal-9);
+  background-color: var(--main-nav-bg);
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
-  color: white;
+  color: var(--main-nav-text);
 }
 
 .nav__main__content {
@@ -75,25 +87,25 @@ a {
 }
 
 .nav__title {
-  color: white;
+  color: var(--main-nav-title);
   font-size: 1.5rem;
   font-weight: 700;
 }
 
 .nav__title:hover {
-  color: white;
+  color: var(--main-nav-title);
   text-decoration: none;
 }
 
 .nav__link {
-  color: white;
+  color: var(--main-nav-link);
   font-weight: 500;
 }
 
 /** Footer **/
 
 .footer {
-  background-color: var(--oc-gray-9);
+  background-color: var(--footer-bg);
   color: white;
   font-size: 0.875rem;
   padding: 0.5rem 0;
@@ -106,7 +118,7 @@ a {
 }
 
 .footer a {
-  color: white;
+  color: var(--footer-link);
   font-weight: 500;
 }
 
@@ -118,9 +130,9 @@ a {
 }
 
 .pw-table thead tr th {
-  background-color: var(--oc-gray-1);
-  border-bottom: 1px solid var(--oc-gray-4);
-  color: var(--oc-gray-7);
+  background-color: var(--table-header-bg);
+  border-bottom: 1px solid var(--border);
+  color: var(--table-header-text);
   font-size: 0.875rem;
   font-weight: 500;
   padding: 0.75rem 1rem;
@@ -170,15 +182,15 @@ a {
 }
 
 .pw-button.default.primary {
-  color: var(--oc-teal-9);
+  color: var(--primary-9);
 }
 
 .pw-button.default.primary:hover {
-  background-color: var(--oc-teal-0);
+  background-color: var(--primary-0);
 }
 
 .pw-button.default.primary:active {
-  background-color: var(--oc-teal-1);
+  background-color: var(--primary-1);
 }
 
 .pw-button.default.danger {
@@ -209,16 +221,16 @@ a {
 }
 
 .pw-button.outlined.primary {
-  border-color: var(--oc-teal-9);
-  color: var(--oc-teal-9);
+  border-color: var(--primary-9);
+  color: var(--primary-9);
 }
 
 .pw-button.outlined.primary:hover {
-  background-color: var(--oc-teal-0);
+  background-color: var(--primary-0);
 }
 
 .pw-button.outlined.primary:active {
-  background-color: var(--oc-teal-1);
+  background-color: var(--primary-1);
 }
 
 .pw-button.outlined.danger {
@@ -253,17 +265,17 @@ a {
 }
 
 .pw-button.ghost.primary {
-  border: 1px solid var(--oc-teal-9);
-  color: var(--oc-teal-9);
+  border: 1px solid var(--primary-9);
+  color: var(--primary-9);
 }
 
 .pw-button.ghost.primary:not(:disabled):hover {
-  background-color: var(--oc-teal-9);
+  background-color: var(--primary-9);
   color: white;
 }
 
 .pw-button.ghost.primary:not(:disabled):active {
-  background-color: var(--oc-teal-9);
+  background-color: var(--primary-9);
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
   color: white;
 }
@@ -293,7 +305,7 @@ a {
 }
 
 .pw-button.raised.primary {
-  background-color: var(--oc-teal-9);
+  background-color: var(--primary-9);
 }
 
 .pw-button.raised.danger {
@@ -409,8 +421,9 @@ a {
 /** Input **/
 
 .pw-input {
-  border: 1px solid var(--oc-gray-4);
+  border: 1px solid var(--border);
   border-radius: 0.25rem;
+  color: var(--body-fg);
   outline: none;
   padding: 0.5rem 1rem;
   transition: all 0.15s ease;
@@ -431,11 +444,10 @@ a {
 
 .pw-input:not(:disabled):focus,
 .pw-input:not(:disabled):active {
-  border: 1px solid var(--oc-teal-9);
+  border: 1px solid var(--primary-9);
 }
 
 .pw-input-label {
-  color: var(--oc-gray-9);
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
@@ -444,8 +456,8 @@ a {
 /** Card **/
 
 .pw-card {
-  background-color: white;
-  border: 1px solid var(--oc-gray-4);
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
   border-radius: 0.25rem;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
   min-width: 16rem;
@@ -469,10 +481,24 @@ a {
   padding: 1rem;
 }
 
+.pw-card-header {
+  background-color: var(--card-header-bg);
+  border-bottom: 1px solid var(--border);
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 1rem;
+}
+
+.pw-card-content {
+  padding: 1rem;
+}
+
 /* Pagination */
 
 .pw-pagination {
-  border: 1px solid var(--oc-gray-4);
+  border: 1px solid var(--border);
   border-radius: 0.25rem;
   display: flex;
   list-style: none;
@@ -482,11 +508,11 @@ a {
 }
 
 .pw-pagination-item:not(:last-of-type) {
-  border-right: 1px solid var(--oc-gray-4);
+  border-right: 1px solid var(--border);
 }
 
 .pw-pagination-link {
-  color: var(--oc-teal-9);
+  color: var(--primary-9);
   display: block;
   padding: 0.25rem 0.5rem;
 }
@@ -513,8 +539,8 @@ a {
 
 .pw-pagination-item.active .pw-pagination-link {
   color: white;
-  background-color: var(--oc-teal-9);
-  border-color: var(--oc-teal-9);
+  background-color: var(--primary-9);
+  border-color: var(--primary-9);
   z-index: 1;
 }
 
@@ -529,7 +555,7 @@ a {
 /* Breadcrumb */
 
 .pw-breadcrumb {
-  background-color: var(--oc-gray-1);
+  background-color: var(--breadcrumb-bg);
   border-radius: 0.25rem;
   display: flex;
   flex-wrap: wrap;
@@ -538,8 +564,12 @@ a {
   padding: 0.75rem 1rem;
 }
 
+.pw-breadcrumb-item a {
+  color: var(--breadcrumb-link);
+}
+
 .pw-breadcrumb-item:not(:first-of-type)::before {
-  color: var(--oc-gray-7);
+  color: var(--breadcrumb-separator);
   content: "›";
   display: inline-block;
   padding: 0 0.5rem;
@@ -547,5 +577,5 @@ a {
 }
 
 .pw-breadcrumb-item.active {
-  color: var(--oc-gray-7);
+  color: var(--breadcrumb-active);
 }

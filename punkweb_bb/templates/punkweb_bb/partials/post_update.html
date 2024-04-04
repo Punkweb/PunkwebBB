@@ -1,11 +1,20 @@
 {% extends 'punkweb_bb/base_modal.html' %}
 
 {% block content %}
-<h2>Update Post</h2>
-<form action="{% url 'punkweb_bb:post_update' post.id %}" method="post">
+<h2>Edit Post</h2>
+<form class="postForm" action="{% url 'punkweb_bb:post_update' post.id %}" method="post">
   {% csrf_token %}
-  {{form.as_p}}
-  <button class="pw-button raised primary" type="submit">Update post</button>
+  {% for field in form %}
+  <div class="postForm__field">
+    {{ field }}
+  </div>
+  {% endfor %}
+  {% if form.non_field_errors %}
+  {{ form.non_field_errors }}
+  {% endif %}
+  <div class="postForm__actions">
+    <button class="pw-button raised primary" type="submit">Save</button>
+  </div>
 </form>
 {{form.media.css}}
 {{form.media.js}}

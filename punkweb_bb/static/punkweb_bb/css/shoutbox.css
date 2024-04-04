@@ -1,13 +1,5 @@
-.shoutbox__header {
-  background-color: var(--oc-gray-1);
-  border-bottom: 1px solid var(--oc-gray-4);
-  font-size: 1rem;
-  font-weight: 700;
-  padding: 1rem;
-}
-
 .shoutbox__shouts {
-  border-bottom: 1px solid var(--oc-gray-4);
+  border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   height: 12rem;

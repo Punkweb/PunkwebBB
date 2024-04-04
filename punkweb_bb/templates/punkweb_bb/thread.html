@@ -4,8 +4,9 @@
 {% block title_prefix %}{{thread.title}} | {% endblock %}
 
 {% block extra_head %}
+<link rel="stylesheet" href="{% static 'punkweb_bb/css/post-form.css' %}" />
 <link rel="stylesheet" href="{% static 'punkweb_bb/css/thread.css' %}" />
-<link rel="stylesheet" href="{% static 'punkweb_bb/css/thread-create.css' %}" />
+<link rel="stylesheet" href="{% static 'punkweb_bb/css/thread-form.css' %}" />
 {{post_form.media.css}}
 {% endblock %}
 
@@ -33,7 +34,7 @@
 <h1>{{thread.title}}</h1>
 
 <div class="pw-card fluid margin">
-  <div class="thread__header">
+  <div class="pw-card-header">
     <div class="thread__date">{{thread.created_at|date:'M d, Y'}}</div>
   </div>
   <div class="thread">
@@ -91,7 +92,7 @@
 
 {% for post in posts %}
 <div id="post-{{post.id}}" class="pw-card fluid margin">
-  <div class="thread__header">
+  <div class="pw-card-header thread__header">
     <div class="thread__date">{{post.created_at|date:'M d, Y'}}</div>
     <a class="thread__index" href="{{post.get_absolute_url}}">#{{post.index}}</a>
   </div>
@@ -195,22 +196,26 @@
 {% endif %}
 
 {% if request.user.is_authenticated %}
-<div class="pw-card fluid margin padding">
-  <h4>Reply to thread</h4>
-  <form class="threadForm" action="{% url 'punkweb_bb:post_create' thread.id %}" method="post">
-    {% csrf_token %}
-    {% for field in post_form %}
-    <div class="threadForm__field">
-      {{ field }}
+<div class="pw-card fluid margin">
+  <div class="pw-card-header">Reply to thread</div>
+  <div class="pw-card-content">
+    <div class="thread__reply__content">
+      <form class="postForm" action="{% url 'punkweb_bb:post_create' thread.id %}" method="post">
+        {% csrf_token %}
+        {% for field in post_form %}
+        <div class="postForm__field">
+          {{ field }}
+        </div>
+        {% endfor %}
+        {% if post_form.non_field_errors %}
+        {{ post_form.non_field_errors }}
+        {% endif %}
+        <div class="postForm__actions">
+          <button class="pw-button raised primary" type="submit">Post reply</button>
+        </div>
+      </form>
     </div>
-    {% endfor %}
-    {% if post_form.non_field_errors %}
-    {{ post_form.non_field_errors }}
-    {% endif %}
-    <div class="threadForm__actions">
-      <button class="pw-button raised primary" type="submit">Post reply</button>
-    </div>
-  </form>
+  </div>
 </div>
 {% endif %}
 

@@ -1,17 +1,23 @@
-.loginForm {
+.postForm {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 20rem;
 }
 
-.loginForm__field {
+.postForm__field {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.loginForm .errorlist {
+.postForm .errorlist {
   color: var(--oc-red-9);
   margin: 0;
+}
+
+.postForm__actions {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
 }

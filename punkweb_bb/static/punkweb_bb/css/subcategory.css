@@ -1,3 +1,10 @@
+.subcategory__header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+
 .thread__latestPost {
   align-items: center;
   display: flex;

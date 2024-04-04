@@ -21,43 +21,45 @@
   </ol>
 </nav>
 
-<div class="pw-card fluid padding">
-  <h1>Settings</h1>
-  <form class="settingsForm" action="{% url 'punkweb_bb:settings' %}" enctype="multipart/form-data" method="post">
-    {% csrf_token %}
-    {% for field in form %}
-    {% if field.name == "image" %}
-    <div class="settingsForm__field">
-      <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-      {% if field.value %}
-      <div class="settingsForm__image">
-        <img src="{{ field.value.url }}" alt="{{ field.label }}">
+<div class="pw-card fluid">
+  <div class="pw-card-header">Settings</div>
+  <div class="pw-card-content">
+    <form class="settingsForm" action="{% url 'punkweb_bb:settings' %}" enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      {% for field in form %}
+      {% if field.name == "image" %}
+      <div class="settingsForm__field">
+        <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {% if field.value %}
+        <div class="settingsForm__image">
+          <img src="{{ field.value.url }}" alt="{{ field.label }}">
+        </div>
+        <label>
+          <input type="checkbox" name="image-clear" id="image-clear_id" />
+          Remove
+        </label>
+        {% endif %}
+        <input type="file" name="image" accept="image/*" id="id_image" />
       </div>
-      <label>
-        <input type="checkbox" name="image-clear" id="image-clear_id" />
-        Remove
-      </label>
+      {% else %}
+      <div class="settingsForm__field">
+        <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+      </div>
       {% endif %}
-      <input type="file" name="image" accept="image/*" id="id_image" />
-    </div>
-    {% else %}
-    <div class="settingsForm__field">
-      <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-      {{ field }}
-    </div>
-    {% endif %}
-    {% if field.errors %}
-    {{ field.errors }}
-    {% endif %}
-    {% endfor %}
-    {% if form.non_field_errors %}
-    {{ form.non_field_errors }}
-    {% endif %}
-    <div class="settingsForm__actions">
-      <a class="pw-button default" href="{% url 'punkweb_bb:profile' %}">Cancel</a>
-      <button class="pw-button raised primary" type="submit">Save</button>
-    </div>
-  </form>
+      {% if field.errors %}
+      {{ field.errors }}
+      {% endif %}
+      {% endfor %}
+      {% if form.non_field_errors %}
+      {{ form.non_field_errors }}
+      {% endif %}
+      <div class="settingsForm__actions">
+        <a class="pw-button default" href="{% url 'punkweb_bb:profile' %}">Cancel</a>
+        <button class="pw-button raised primary" type="submit">Save</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 {% endblock %}

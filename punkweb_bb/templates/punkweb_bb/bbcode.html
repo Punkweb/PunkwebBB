@@ -4,18 +4,16 @@
 
 {% block content %}
 
-<div class="container">
-  <div class="pw-card fluid padding">
-    <h1>BBCode</h1>
-    <div style="display: flex; flex-direction: column; gap: 1rem;">
-      {% for code in codes %}
-      <div>
-        <h4>{{ code.0 }}</h4>
-        <pre>{{ code.1 }}</pre>
-        {% bbcode code.1 %}
-      </div>
-      {% endfor %}
+<div class="pw-card fluid padding">
+  <h1>BBCode Reference</h1>
+  <div style="display: flex; flex-direction: column; gap: 1rem;">
+    {% for code in codes %}
+    <div>
+      <h4>{{ code.0 }}</h4>
+      <pre>{{ code.1 }}</pre>
+      {% bbcode code.1 %}
     </div>
+    {% endfor %}
   </div>
 </div>
 

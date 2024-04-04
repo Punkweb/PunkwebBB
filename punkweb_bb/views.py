@@ -319,7 +319,24 @@ def bbcode(request):
         ),
         # Custom
         ("Horizontal Rule", "[hr]"),
-        ("Code", "[code=javascript]console.log('Hello world!');[/code]"),
+        (
+            "Code",
+            """
+[code=python]
+class ThreadModelForm(forms.ModelForm):
+    class Meta:
+        model = Thread
+        fields = (
+            "title",
+            "content",
+        )
+        widgets = {
+            "title": forms.TextInput(attrs={"autofocus": True, "class": "pw-input"}),
+            "content": BBCodeEditorWidget(),
+        }
+[/code]
+""",
+        ),
         ("Email", "[email=test@example.com]Example[/email]"),
         ("Font", "[font=serif]Serif Text[/font]"),
         ("Ordered List", "[ol][li]Item 1[/li][li]Item 2[/li][/ol]"),
@@ -329,8 +346,8 @@ def bbcode(request):
         (
             "Checkbox",
             """
-            [n]Unchecked
-            [y]Checked
+[n]Unchecked
+[y]Checked
             """,
         ),
         ("Superscript", "Sup [sup]Superscript Text[/sup]"),
