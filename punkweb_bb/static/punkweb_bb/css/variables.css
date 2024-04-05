@@ -1,14 +1,14 @@
 :root {
-  --primary-0: var(--oc-violet-0);
-  --primary-1: var(--oc-violet-1);
-  --primary-2: var(--oc-violet-2);
-  --primary-3: var(--oc-violet-3);
-  --primary-4: var(--oc-violet-4);
-  --primary-5: var(--oc-violet-5);
-  --primary-6: var(--oc-violet-6);
-  --primary-7: var(--oc-violet-7);
-  --primary-8: var(--oc-violet-8);
-  --primary-9: var(--oc-violet-9);
+  --primary-0: var(--oc-indigo-0);
+  --primary-1: var(--oc-indigo-1);
+  --primary-2: var(--oc-indigo-2);
+  --primary-3: var(--oc-indigo-3);
+  --primary-4: var(--oc-indigo-4);
+  --primary-5: var(--oc-indigo-5);
+  --primary-6: var(--oc-indigo-6);
+  --primary-7: var(--oc-indigo-7);
+  --primary-8: var(--oc-indigo-8);
+  --primary-9: var(--oc-indigo-9);
 
   --text-dark: var(--oc-gray-9);
   --text-light: var(--oc-gray-0);
