@@ -28,17 +28,27 @@
   border-radius: 0.25rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.25);
   background-color: white;
-  padding: 1.5rem;
   position: relative;
   width: fit-content;
 
   animation: zoomIn 150ms ease;
 }
 
-.modal__close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+.modal__header {
+  align-items: center;
+  background-color: var(--card-header-bg);
+  border-bottom: 1px solid var(--border);
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  display: flex;
+  font-size: 1rem;
+  font-weight: 700;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.modal__body {
+  padding: 1rem;
 }
 
 .modal__actions {
@@ -46,6 +56,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
+  margin-top: 1rem;
 }
 
 @keyframes fadeIn {

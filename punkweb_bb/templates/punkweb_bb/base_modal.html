@@ -1,11 +1,16 @@
 <div class="modal">
   <div class="modal__underlay"></div>
   <div class="modal__content">
-    <button class="pw-icon-button default rounded modal__close">
-      <span class="material-symbols-outlined">
-        close
-      </span>
-    </button>
+    <div class="modal__header">
+      <div class="modal__title">{% block title %}{% endblock %}</div>
+      <button class="pw-icon-button default rounded modal__close">
+        <span class="material-symbols-outlined">
+          close
+        </span>
+      </button>
+    </div>
+    <div class="modal__body">
     {% block content %}{% endblock %}
+    </div>
   </div>
 </div>

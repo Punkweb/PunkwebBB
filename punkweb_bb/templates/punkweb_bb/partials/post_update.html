@@ -1,7 +1,8 @@
 {% extends 'punkweb_bb/base_modal.html' %}
 
+{% block title %}Edit Post{% endblock %}
+
 {% block content %}
-<h2>Edit Post</h2>
 <form class="postForm" action="{% url 'punkweb_bb:post_update' post.id %}" method="post">
   {% csrf_token %}
   {% for field in form %}
