@@ -69,10 +69,14 @@ class ThreadModelAdmin(admin.ModelAdmin):
         "subcategory",
         "user",
         "created_at",
+        "is_pinned",
+        "is_closed",
     )
     list_filter = (
         "subcategory",
         "created_at",
+        "is_pinned",
+        "is_closed",
     )
     search_fields = (
         "user__username",

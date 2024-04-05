@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
@@ -216,6 +217,9 @@ def thread_delete(request, thread_id):
 @login_required(login_url="/login/")
 def post_create(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
+
+    if thread.is_closed:
+        return HttpResponseForbidden("This thread is closed.")
 
     form = PostModelForm(request.POST)
 

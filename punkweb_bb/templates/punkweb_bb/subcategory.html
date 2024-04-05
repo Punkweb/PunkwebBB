@@ -45,7 +45,15 @@
       {% for thread in threads %}
       <tr>
         <td>
-          <a href="{{thread.get_absolute_url}}">{{thread.title}}</a>
+          <div class="thread__title">
+            <a href="{{thread.get_absolute_url}}">{{thread.title}}</a>
+            {% if thread.is_pinned %}
+            <span class="material-symbols-outlined" title="Pinned">keep</span>
+            {% endif %}
+            {% if thread.is_closed %}
+            <span class="material-symbols-outlined" title="Closed">lock</span>
+            {% endif %}
+          </div>
           <div>{{thread.user.username}} • {{thread.created_at|date:'M j, Y'}}</div>
         </td>
         <td>{{thread.post_count}}</td>

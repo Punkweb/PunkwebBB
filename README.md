@@ -36,15 +36,16 @@ punkweb_bb/admin.py            41      1    98%
 punkweb_bb/admin_forms.py      28      0   100%
 punkweb_bb/apps.py              6      0   100%
 punkweb_bb/bbcode_tags.py      65      3    95%
-punkweb_bb/forms.py            22      0   100%
+punkweb_bb/forms.py            35      7    80%
 punkweb_bb/mixins.py           11      0   100%
-punkweb_bb/models.py           80      0   100%
-punkweb_bb/response.py          3      1    67%
+punkweb_bb/models.py          113      0   100%
+punkweb_bb/pagination.py       11      9    18%
+punkweb_bb/response.py          3      0   100%
 punkweb_bb/signals.py           9      0   100%
-punkweb_bb/tests.py            85      0   100%
+punkweb_bb/tests.py           128      0   100%
 punkweb_bb/urls.py              4      0   100%
-punkweb_bb/views.py           124     93    25%
+punkweb_bb/views.py           165    126    24%
 punkweb_bb/widgets.py           8      0   100%
 -----------------------------------------------
-TOTAL                         486     98    80%
+TOTAL                         627    146    77%
 ```

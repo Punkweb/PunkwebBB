@@ -5,6 +5,16 @@
   margin: 2rem 0;
 }
 
+.thread__title {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.thread__title .material-symbols-outlined {
+  font-size: 1rem;
+}
+
 .thread__latestPost {
   align-items: center;
   display: flex;

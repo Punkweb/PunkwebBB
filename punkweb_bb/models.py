@@ -103,9 +103,15 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
     user = models.ForeignKey(User, related_name="threads", on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     content = BBCodeTextField()
+    is_pinned = models.BooleanField(default=False)
+    is_closed = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ("-created_at",)
+        ordering = (
+            "subcategory",
+            "-is_pinned",
+            "-created_at",
+        )
 
     def __str__(self):
         return f"{self.title}"
