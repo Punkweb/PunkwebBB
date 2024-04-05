@@ -76,3 +76,9 @@
     transform: scale(1);
   }
 }
+
+@media screen and (max-width: 768px) {
+  .modal__content {
+    max-width: 90vw;
+  }
+}

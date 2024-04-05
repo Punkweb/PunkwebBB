@@ -96,3 +96,14 @@
   flex-direction: column;
   gap: 1rem;
 }
+
+@media screen and (max-width: 1024px) {
+  .thread {
+    flex-direction: column;
+  }
+
+  .thread__user {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}

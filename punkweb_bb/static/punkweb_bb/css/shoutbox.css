@@ -3,17 +3,18 @@
   display: flex;
   flex-direction: column;
   height: 12rem;
-  gap: 1rem;
+  gap: 0.25rem;
   overflow-y: auto;
   padding: 1rem;
 }
 
 .shoutbox__shout {
+  font-size: 0.75rem;
   white-space: wrap;
 }
 
 .shoutbox__form {
-  padding: 1rem 0;
+  padding: 0.5rem 0;
 }
 
 .shoutbox__input {

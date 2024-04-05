@@ -28,64 +28,66 @@
 </div>
 
 <div class="pw-card fluid margin">
-  <table class="pw-table">
-    <colgroup>
-      <col span="1">
-      <col span="1" width="96px">
-      <col span="1" width="160px">
-    </colgroup>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Posts</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for thread in threads %}
-      <tr>
-        <td>
-          <div class="thread__title">
-            <a href="{{thread.get_absolute_url}}">{{thread.title}}</a>
-            {% if thread.is_pinned %}
-            <span class="material-symbols-outlined" title="Pinned">keep</span>
-            {% endif %}
-            {% if thread.is_closed %}
-            <span class="material-symbols-outlined" title="Closed">lock</span>
-            {% endif %}
-          </div>
-          <div>{{thread.user.username}} • {{thread.created_at|date:'M j, Y'}}</div>
-        </td>
-        <td>{{thread.post_count}}</td>
-        <td>
-          {% if thread.latest_post %}
-          <div class="thread__latestPost">
-            <div class="thread__latestPost__info">
-              <a class="thread__latestPost__info__title" href="{{ thread.latest_post.get_absolute_url }}"
-                title="{{thread.latest_post.title}}">
-                <time datetime="{{thread.latest_post.created_at|date:'c'}}">
-                  {{thread.latest_post.created_at|date:'M j, Y'}}
-                </time>
-              </a>
-              <div>
-                {{thread.latest_post.user.username}}
-              </div>
+  <div class="pw-table-container">
+    <table class="pw-table">
+      <colgroup>
+        <col span="1">
+        <col span="1" width="96px">
+        <col span="1" width="160px">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Posts</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for thread in threads %}
+        <tr>
+          <td>
+            <div class="thread__title">
+              <a href="{{thread.get_absolute_url}}">{{thread.title}}</a>
+              {% if thread.is_pinned %}
+              <span class="material-symbols-outlined" title="Pinned">keep</span>
+              {% endif %}
+              {% if thread.is_closed %}
+              <span class="material-symbols-outlined" title="Closed">lock</span>
+              {% endif %}
             </div>
-            {% if thread.latest_post.user.profile.image %}
-            <img class="thread__latestPost__profileImage" src="{{thread.latest_post.user.profile.image.url}}" />
+            <div>{{thread.user.username}} • {{thread.created_at|date:'M j, Y'}}</div>
+          </td>
+          <td>{{thread.post_count}}</td>
+          <td>
+            {% if thread.latest_post %}
+            <div class="thread__latestPost">
+              <div class="thread__latestPost__info">
+                <a class="thread__latestPost__info__title" href="{{ thread.latest_post.get_absolute_url }}"
+                  title="{{thread.latest_post.title}}">
+                  <time datetime="{{thread.latest_post.created_at|date:'c'}}">
+                    {{thread.latest_post.created_at|date:'M j, Y'}}
+                  </time>
+                </a>
+                <div>
+                  {{thread.latest_post.user.username}}
+                </div>
+              </div>
+              {% if thread.latest_post.user.profile.image %}
+              <img class="thread__latestPost__profileImage" src="{{thread.latest_post.user.profile.image.url}}" />
+              {% else %}
+              <img class="thread__latestPost__profileImage"
+                src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
+              {% endif %}
+            </div>
             {% else %}
-            <img class="thread__latestPost__profileImage"
-              src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
+            No posts
             {% endif %}
-          </div>
-          {% else %}
-          No posts
-          {% endif %}
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 
 

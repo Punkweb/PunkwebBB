@@ -19,89 +19,91 @@
       {% include 'punkweb_bb/shoutbox/shoutbox.html' %}
       {% for category in categories %}
       <div id="{{category.slug}}.{{category.order}}" class="pw-card fluid margin">
-        <table class="pw-table">
-          <colgroup>
-            <col span="1">
-            <col span="1" width="96px">
-            <col span="1" width="96px">
-            <col span="1" width="320px">
-          </colgroup>
-          <thead>
-            <tr>
-              <th><a href="{{category.get_absolute_url}}">{{category.name}}</a></th>
-              <th>Threads</th>
-              <th>Posts</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for subcategory in category.subcategories.all %}
-            <tr>
-              <td>
-                <a href="{{subcategory.get_absolute_url}}" title="{{subcategory.name}}">{{subcategory.name}}</a>
-                <div>
-                  {{subcategory.description}}
-                </div>
-              </td>
-              <td>{{subcategory.thread_count}}</td>
-              <td>{{subcategory.post_count}}</td>
-              <td>
-                {% if subcategory.latest_thread %}
-                {% if subcategory.latest_thread.latest_post %}
-                <div class="subcategory__latestThread">
-                  {% if subcategory.latest_thread.latest_post.user.profile.image %}
-                  <img class="subcategory__latestThread__profileImage"
-                    src="{{subcategory.latest_thread.latest_post.user.profile.image.url}}" />
-                  {% else%}
-                  <img class="subcategory__latestThread__profileImage"
-                    src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
-                  {% endif %}
-                  <div class="subcategory__latestThread__info">
-                    <a class="subcategory__latestThread__info__title"
-                      href="{{subcategory.latest_thread.get_absolute_url}}" title="{{subcategory.latest_thread.title}}">
-                      {{subcategory.latest_thread.title}}
-                    </a>
-                    <div>
-                      <time datetime="{{subcategory.latest_thread.latest_post.created_at|date:'c'}}">
-                        {{subcategory.latest_thread.latest_post.created_at|date:'M j, Y'}} at
-                        {{subcategory.latest_thread.latest_post.created_at|date:'g:i A'}}
-                      </time>
-                      • {{subcategory.latest_thread.latest_post.user.username}}
+        <div class="pw-table-container">
+          <table class="pw-table">
+            <colgroup>
+              <col span="1">
+              <col span="1" width="96px">
+              <col span="1" width="96px">
+              <col span="1" width="320px">
+            </colgroup>
+            <thead>
+              <tr>
+                <th><a href="{{category.get_absolute_url}}">{{category.name}}</a></th>
+                <th>Threads</th>
+                <th>Posts</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for subcategory in category.subcategories.all %}
+              <tr>
+                <td>
+                  <a href="{{subcategory.get_absolute_url}}" title="{{subcategory.name}}">{{subcategory.name}}</a>
+                  <div>
+                    {{subcategory.description}}
+                  </div>
+                </td>
+                <td>{{subcategory.thread_count}}</td>
+                <td>{{subcategory.post_count}}</td>
+                <td>
+                  {% if subcategory.latest_thread %}
+                  {% if subcategory.latest_thread.latest_post %}
+                  <div class="subcategory__latestThread">
+                    {% if subcategory.latest_thread.latest_post.user.profile.image %}
+                    <img class="subcategory__latestThread__profileImage"
+                      src="{{subcategory.latest_thread.latest_post.user.profile.image.url}}" />
+                    {% else%}
+                    <img class="subcategory__latestThread__profileImage"
+                      src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
+                    {% endif %}
+                    <div class="subcategory__latestThread__info">
+                      <a class="subcategory__latestThread__info__title"
+                        href="{{subcategory.latest_thread.get_absolute_url}}" title="{{subcategory.latest_thread.title}}">
+                        {{subcategory.latest_thread.title}}
+                      </a>
+                      <div>
+                        <time datetime="{{subcategory.latest_thread.latest_post.created_at|date:'c'}}">
+                          {{subcategory.latest_thread.latest_post.created_at|date:'M j, Y'}} at
+                          {{subcategory.latest_thread.latest_post.created_at|date:'g:i A'}}
+                        </time>
+                        • {{subcategory.latest_thread.latest_post.user.username}}
+                      </div>
                     </div>
                   </div>
-                </div>
-                {% else %}
-                <div class="subcategory__latestThread">
-                  {% if subcategory.latest_thread.user.profile.image %}
-                  <img class="subcategory__latestThread__profileImage"
-                    src="{{subcategory.latest_thread.user.profile.image.url}}" />
-                  {% else%}
-                  <img class="subcategory__latestThread__profileImage"
-                    src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
-                  {% endif %}
-                  <div class="subcategory__latestThread__info">
-                    <a class="subcategory__latestThread__info__title"
-                      href="{{subcategory.latest_thread.get_absolute_url}}" title="{{subcategory.latest_thread.title}}">
-                      {{subcategory.latest_thread.title}}
-                    </a>
-                    <div>
-                      <time datetime="{{subcategory.latest_thread.created_at|date:'c'}}">
-                        {{subcategory.latest_thread.created_at|date:'M j, Y'}} at
-                        {{subcategory.latest_thread.created_at|date:'g:i A'}}
-                      </time>
-                      • {{subcategory.latest_thread.user.username}}
+                  {% else %}
+                  <div class="subcategory__latestThread">
+                    {% if subcategory.latest_thread.user.profile.image %}
+                    <img class="subcategory__latestThread__profileImage"
+                      src="{{subcategory.latest_thread.user.profile.image.url}}" />
+                    {% else%}
+                    <img class="subcategory__latestThread__profileImage"
+                      src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
+                    {% endif %}
+                    <div class="subcategory__latestThread__info">
+                      <a class="subcategory__latestThread__info__title"
+                        href="{{subcategory.latest_thread.get_absolute_url}}" title="{{subcategory.latest_thread.title}}">
+                        {{subcategory.latest_thread.title}}
+                      </a>
+                      <div>
+                        <time datetime="{{subcategory.latest_thread.created_at|date:'c'}}">
+                          {{subcategory.latest_thread.created_at|date:'M j, Y'}} at
+                          {{subcategory.latest_thread.created_at|date:'g:i A'}}
+                        </time>
+                        • {{subcategory.latest_thread.user.username}}
+                      </div>
                     </div>
                   </div>
-                </div>
-                {% endif %}
-                {% else %}
-                No threads
-                {% endif %}
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+                  {% endif %}
+                  {% else %}
+                  No threads
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
       {% endfor %}
     </div>

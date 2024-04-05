@@ -92,3 +92,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+@media screen and (max-width: 1024px) {
+  .index__main {
+    flex-direction: column;
+    gap: 0;
+  }
+}
