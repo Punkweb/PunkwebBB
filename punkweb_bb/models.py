@@ -87,7 +87,7 @@ class Subcategory(UUIDPrimaryKeyMixin, TimestampMixin):
 
     @property
     def latest_thread(self):
-        return self.threads.order_by("-created_at").first()
+        return self.threads.order_by("-last_post_created_at").first()
 
     def __str__(self):
         return f"{self.category} > {self.order}. {self.name}"
@@ -105,12 +105,13 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
     content = BBCodeTextField()
     is_pinned = models.BooleanField(default=False)
     is_closed = models.BooleanField(default=False)
+    last_post_created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = (
             "subcategory",
             "-is_pinned",
-            "-created_at",
+            "-last_post_created_at",
         )
 
     def __str__(self):
@@ -157,6 +158,12 @@ class Post(UUIDPrimaryKeyMixin, TimestampMixin):
         thread_url += f"?page={self.page_number}#post-{self.id}"
 
         return thread_url
+
+    def save(self, *args, **kwargs):
+        if self._state.adding:
+            self.thread.last_post_created_at = timezone.now()
+            self.thread.save()
+        super().save(*args, **kwargs)
 
 
 class Shout(UUIDPrimaryKeyMixin, TimestampMixin):

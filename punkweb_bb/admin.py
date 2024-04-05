@@ -69,12 +69,14 @@ class ThreadModelAdmin(admin.ModelAdmin):
         "subcategory",
         "user",
         "created_at",
+        "last_post_created_at",
         "is_pinned",
         "is_closed",
     )
     list_filter = (
         "subcategory",
         "created_at",
+        "last_post_created_at",
         "is_pinned",
         "is_closed",
     )
