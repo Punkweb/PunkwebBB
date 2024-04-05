@@ -17,7 +17,7 @@
 {% block content %}
 
 <nav>
-  <ol class="pw-breadcrumb">
+  <ul class="pw-breadcrumb">
     <li class="pw-breadcrumb-item">
       <a href="{% url 'punkweb_bb:index' %}">Home</a>
     </li>
@@ -27,7 +27,7 @@
     <li class="pw-breadcrumb-item active">
       {{thread.title}}
     </li>
-  </ol>
+  </ul>
 </nav>
 
 {% if posts.number == 1 %}
