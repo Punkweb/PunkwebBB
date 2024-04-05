@@ -33,6 +33,7 @@ def index(request):
     users = User.objects.select_related("profile").all()
     newest_user = users.order_by("-profile__created_at").first()
     users_online = [user for user in users if user.profile.is_online]
+    staff_online = [user for user in users_online if user.is_staff]
 
     context = {
         "categories": categories,
@@ -42,6 +43,7 @@ def index(request):
         "users": users,
         "newest_user": newest_user,
         "users_online": users_online,
+        "staff_online": staff_online,
     }
     return render(request, "punkweb_bb/index.html", context=context)
 
