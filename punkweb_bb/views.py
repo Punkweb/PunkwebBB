@@ -317,7 +317,6 @@ def bbcode(request):
         ("Italic", "[i]Italic Text[/i]"),
         ("Underline", "[u]Underlined Text[/u]"),
         ("Strikethrough", "[s]Strikethrough Text[/s]"),
-        ("List", "[list][*]Item 1[*]Item 2[/list]"),
         ("Quote", "[quote=Example]Quoted Text[/quote]"),
         ("Center", "[center]Centered Text[/center]"),
         ("Color", "[color=red]Red Text[/color]"),
@@ -361,14 +360,8 @@ class ThreadModelForm(forms.ModelForm):
         ),
         ("Superscript", "Sup [sup]Superscript Text[/sup]"),
         ("Subscript", "Sub [sub]Subscript Text[/sub]"),
-        # Unimplemented
         ("Left", "[left]Left Text[/left]"),
         ("Right", "[right]Right Text[/right]"),
-        ("Justify", "[justify]Justified Text[/justify]"),
-        ("Preformatted", "[pre]Preformatted Text[/pre]"),
-        ("Spoiler", "[spoiler]Spoiler Text[/spoiler]"),
-        ("User", "[user]punkweb[/user]"),
-        ("Anchor", "[anchor]anchor[/anchor]"),
         ("Escape", "[escape][b]Escaped bbcode[/b][/escape]"),
     )
 
