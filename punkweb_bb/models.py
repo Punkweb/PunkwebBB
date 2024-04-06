@@ -68,6 +68,7 @@ class Subcategory(UUIDPrimaryKeyMixin, TimestampMixin):
     slug = models.SlugField(max_length=1024, unique=True)
     description = BBCodeTextField(blank=True, null=True)
     order = models.PositiveIntegerField(default=0)
+    staff_post_only = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "subcategory"

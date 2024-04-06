@@ -23,7 +23,9 @@
 <div class="subcategory__header">
   <h1>{{subcategory.name}}</h1>
   {% if request.user.is_authenticated %}
+  {% if not subcategory.staff_post_only or request.user.is_staff %}
   <a class="pw-button ghost primary" href="{% url 'punkweb_bb:thread_create' subcategory.slug %}">Create Thread</a>
+  {% endif %}
   {% endif %}
 </div>
 

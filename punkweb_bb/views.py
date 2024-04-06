@@ -142,6 +142,9 @@ def subcategory(request, subcategory_slug):
 def thread_create(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
+    if subcategory.staff_post_only and not request.user.is_staff:
+        return redirect(subcategory)
+
     if request.method == "POST":
         form = ThreadModelForm(request.POST)
 
