@@ -21,13 +21,6 @@
   gap: 0.75rem;
 }
 
-.thread__latestPost__profileImage {
-  border-radius: 100%;
-  object-fit: cover;
-  height: 2rem;
-  width: 2rem;
-}
-
 .thread__latestPost__info {
   font-size: 0.875rem;
 }

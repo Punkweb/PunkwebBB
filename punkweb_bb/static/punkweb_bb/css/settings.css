@@ -20,10 +20,3 @@
   display: flex;
   gap: 1rem;
 }
-
-.settingsForm__image img {
-  border-radius: 100%;
-  height: 6rem;
-  object-fit: cover;
-  width: 6rem;
-}

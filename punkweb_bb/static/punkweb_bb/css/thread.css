@@ -28,18 +28,6 @@
   padding: 1rem;
 }
 
-.thread__user__image {
-  height: 6rem;
-  width: 6rem;
-}
-
-.thread__user__image img {
-  border-radius: 100%;
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-}
-
 .thread__user__usernameContainer {
   align-items: center;
   display: flex;
