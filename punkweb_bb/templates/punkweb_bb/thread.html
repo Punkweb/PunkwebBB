@@ -40,13 +40,9 @@
   <div class="thread">
     <div class="thread__user">
       {% if thread.user.profile.image %}
-      <div class="thread__user__image">
-        <img src="{{thread.user.profile.image.url}}" alt="{{thread.user.username}}" />
-      </div>
+      <img class="pw-avatar" src="{{thread.user.profile.image.url}}" alt="{{thread.user.username}}" />
       {% else %}
-      <div class="thread__user__image">
-        <img src="{% static 'punkweb_bb/img/default-profile-image.png' %}" alt="{{post.user.username}}" />
-      </div>
+      <img class="pw-avatar" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" alt="{{post.user.username}}" />
       {% endif %}
       <div class="thread__user__usernameContainer">
         {% if thread.user.profile.is_online %}
@@ -100,11 +96,11 @@
     <div class="thread__user">
       {% if post.user.profile.image %}
       <div class="thread__user__image">
-        <img src="{{post.user.profile.image.url}}" alt="{{post.user.username}}" />
+        <img class="pw-avatar" src="{{post.user.profile.image.url}}" alt="{{post.user.username}}" />
       </div>
       {% else %}
       <div class="thread__user__image">
-        <img src="{% static 'punkweb_bb/img/default-profile-image.png' %}" alt="{{post.user.username}}" />
+        <img class="pw-avatar" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" alt="{{post.user.username}}" />
       </div>
       {% endif %}
       <div class="thread__user__usernameContainer">

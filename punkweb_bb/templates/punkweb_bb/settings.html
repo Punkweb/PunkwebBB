@@ -31,9 +31,7 @@
       <div class="settingsForm__field">
         <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
         {% if field.value %}
-        <div class="settingsForm__image">
-          <img src="{{ field.value.url }}" alt="{{ field.label }}">
-        </div>
+        <img class="pw-avatar xl" src="{{ field.value.url }}" alt="{{ field.label }}">
         <label>
           <input type="checkbox" name="image-clear" id="image-clear_id" />
           Remove

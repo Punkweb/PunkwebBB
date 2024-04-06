@@ -51,11 +51,9 @@
                   {% if subcategory.latest_thread.latest_post %}
                   <div class="subcategory__latestThread">
                     {% if subcategory.latest_thread.latest_post.user.profile.image %}
-                    <img class="subcategory__latestThread__profileImage"
-                      src="{{subcategory.latest_thread.latest_post.user.profile.image.url}}" />
+                    <img class="pw-avatar xs" src="{{subcategory.latest_thread.latest_post.user.profile.image.url}}" />
                     {% else%}
-                    <img class="subcategory__latestThread__profileImage"
-                      src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
+                    <img class="pw-avatar xs" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
                     {% endif %}
                     <div class="subcategory__latestThread__info">
                       <a class="subcategory__latestThread__info__title"
@@ -74,11 +72,9 @@
                   {% else %}
                   <div class="subcategory__latestThread">
                     {% if subcategory.latest_thread.user.profile.image %}
-                    <img class="subcategory__latestThread__profileImage"
-                      src="{{subcategory.latest_thread.user.profile.image.url}}" />
+                    <img class="pw-avatar xs" src="{{subcategory.latest_thread.user.profile.image.url}}" />
                     {% else%}
-                    <img class="subcategory__latestThread__profileImage"
-                      src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
+                    <img class="pw-avatar xs" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
                     {% endif %}
                     <div class="subcategory__latestThread__info">
                       <a class="subcategory__latestThread__info__title"
@@ -114,10 +110,9 @@
           {% for thread in recent_threads %}
           <div class="index__recentThreads__thread">
             {% if thread.user.profile.image %}
-            <img class="index__recentThreads__thread__profileImage" src="{{thread.user.profile.image.url}}" />
+            <img class="pw-avatar xs" src="{{thread.user.profile.image.url}}" />
             {% else%}
-            <img class="index__recentThreads__thread__profileImage"
-              src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
+            <img class="pw-avatar xs" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
             {% endif %}
             <div class="index__recentThreads__thread__info">
               <a class="index__recentThreads__thread__info__title" href="{{thread.get_absolute_url}}"
