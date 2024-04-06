@@ -1,0 +1,95 @@
+{% extends "punkweb_bb/base.html" %}
+{% load static %}
+
+{% block title_prefix %}Members | {% endblock%}
+
+{% block content %}
+
+<nav>
+  <ul class="pw-breadcrumb">
+    <li class="pw-breadcrumb-item">
+      <a href="{% url 'punkweb_bb:index' %}">Home</a>
+    </li>
+    <li class="pw-breadcrumb-item active">
+      Members
+    </li>
+  </ul>
+</nav>
+
+<div class="pw-card fluid">
+  <div class="pw-table-container">
+    <table class="pw-table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Posts</th>
+          <th>Joined</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <td>
+            {% if thread.latest_post.user.profile.image %}
+            <img class="pw-avatar xs" src="{{thread.latest_post.user.profile.image.url}}" />
+            {% else %}
+            <img class="pw-avatar xs" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
+            {% endif %}
+            <a href="#">{{ user.username }}</a>
+          </td>
+          <td>{{ user.profile.post_count }}</td>
+          <td>{{ user.date_joined }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% if users.has_other_pages %}
+<nav>
+  <ul class="pw-pagination">
+    {% if users.has_previous %}
+    <li class="pw-pagination-item">
+      <a class="pw-pagination-link" href="{% url 'punkweb_bb:members' %}?page={{users.previous_page_number}}">
+        Prev
+      </a>
+    </li>
+    {% else %}
+    <li class="pw-pagination-item disabled">
+      <a class="pw-pagination-link" href="#">
+        Prev
+      </a>
+    </li>
+    {% endif %}
+    {% for i in users.paginator.page_range %}
+    {% if users.number == i %}
+    <li class="pw-pagination-item active">
+      <a class="pw-pagination-link" href="#">
+        {{i}}
+      </a>
+    </li>
+    {% else %}
+    <li class="pw-pagination-item">
+      <a class="pw-pagination-link" href="{% url 'punkweb_bb:members' %}?page={{i}}">
+        {{i}}
+      </a>
+    </li>
+    {% endif %}
+    {% endfor %}
+    {% if users.has_next %}
+    <li class="pw-pagination-item">
+      <a class="pw-pagination-link" href="{% url 'punkweb_bb:members' %}?page={{users.next_page_number}}">
+        Next
+      </a>
+    </li>
+    {% else %}
+    <li class="pw-pagination-item disabled">
+      <a class="pw-pagination-link" href="#">Next</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+
+{% endblock %}

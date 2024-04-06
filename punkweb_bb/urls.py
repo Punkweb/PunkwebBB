@@ -10,6 +10,7 @@ urlpatterns = [
     path("logout/", views.logout, name="logout"),
     path("profile/", views.profile, name="profile"),
     path("settings/", views.settings, name="settings"),
+    path("members/", views.members, name="members"),
     path(
         "subcategory/<str:subcategory_slug>/",
         views.subcategory,

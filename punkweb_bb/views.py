@@ -105,6 +105,15 @@ def profile(request):
     return render(request, "punkweb_bb/profile.html")
 
 
+def members(request):
+    users = paginate_qs(request, User.objects.select_related("profile").all())
+
+    context = {
+        "users": users,
+    }
+    return render(request, "punkweb_bb/members.html", context=context)
+
+
 @login_required(login_url="/login/")
 def settings(request):
     if request.method == "POST":
