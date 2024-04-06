@@ -55,7 +55,7 @@ a {
 /* remove default bullet point or numbers from lists */
 ul,
 ol {
-  list-style: none;
+  padding-inline-start: 2rem;
 }
 
 /* set a consistent vertical alignment for inline and table cell elements */
