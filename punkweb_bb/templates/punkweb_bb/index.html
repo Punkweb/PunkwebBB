@@ -65,7 +65,10 @@
                           {{subcategory.latest_thread.latest_post.created_at|date:'M j, Y'}} at
                           {{subcategory.latest_thread.latest_post.created_at|date:'g:i A'}}
                         </time>
-                        • {{subcategory.latest_thread.latest_post.user.username}}
+                        •
+                        <a href="{% url 'punkweb_bb:profile' subcategory.latest_thread.latest_post.user.id %}">
+                          {{subcategory.latest_thread.latest_post.user.username}}
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -86,7 +89,10 @@
                           {{subcategory.latest_thread.created_at|date:'M j, Y'}} at
                           {{subcategory.latest_thread.created_at|date:'g:i A'}}
                         </time>
-                        • {{subcategory.latest_thread.user.username}}
+                        •
+                        <a href="{% url 'punkweb_bb:profile' subcategory.latest_thread.user.id %}">
+                          {{subcategory.latest_thread.user.username}}
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -124,7 +130,10 @@
                   {{thread.created_at|date:'M j, Y'}} at
                   {{thread.created_at|date:'g:i A'}}
                 </time>
-                • {{thread.user.username}}
+                •
+                <a href="{% url 'punkweb_bb:profile' thread.user.id %}">
+                  {{thread.user.username}}
+                </a>
               </div>
             </div>
           </div>
@@ -151,7 +160,11 @@
             </div>
             <div class="index__statistics__row">
               <div class="index__statistics__label">Newest member:</div>
-              <div class="index__statistics__value">{{newest_user.username}}</div>
+              <div class="index__statistics__value">
+                <a href="{% url 'punkweb_bb:profile' newest_user.id %}">
+                  {{newest_user.username}}
+                </a>
+              </div>
             </div>
             <div class="index__statistics__row">
               <div class="index__statistics__label">Members online:</div>

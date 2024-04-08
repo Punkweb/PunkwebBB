@@ -53,7 +53,7 @@
       {{ form.non_field_errors }}
       {% endif %}
       <div class="settingsForm__actions">
-        <a class="pw-button default" href="{% url 'punkweb_bb:profile' %}">Cancel</a>
+        <a class="pw-button default" href="{% url 'punkweb_bb:profile' request.user.id %}">Cancel</a>
         <button class="pw-button raised primary" type="submit">Save</button>
       </div>
     </form>

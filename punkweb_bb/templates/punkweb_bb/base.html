@@ -36,7 +36,7 @@
               <div class="nav__spacer"></div>
               {% if request.user.is_authenticated %}
               <div class="nav__upper__links">
-                <a class="nav__upper__link" href="{% url 'punkweb_bb:profile' %}">
+                <a class="nav__upper__link" href="{% url 'punkweb_bb:profile' request.user.id %}">
                   Profile
                 </a>
                 <a class="nav__upper__link" href="{% url 'punkweb_bb:settings' %}">

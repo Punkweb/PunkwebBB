@@ -1,6 +1,6 @@
 {% extends 'punkweb_bb/base.html' %}
 
-{% block title_prefix %}{% endblock%}
+{% block title_prefix %}{{ user.username }} | {% endblock%}
 
 {% block content %}
 
@@ -9,12 +9,15 @@
     <li class="pw-breadcrumb-item">
       <a href="{% url 'punkweb_bb:index' %}">Home</a>
     </li>
+    <li class="pw-breadcrumb-item">
+      <a href="{% url 'punkweb_bb:members' %}">Members</a>
+    </li>
     <li class="pw-breadcrumb-item active">
-      Profile
+      {{ user.username }}
     </li>
   </ul>
 </nav>
 
-<h1>Profile</h1>
+<h1>{{ user.username }}</h1>
 
 {% endblock %}

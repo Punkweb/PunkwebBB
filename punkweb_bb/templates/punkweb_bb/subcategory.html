@@ -66,7 +66,12 @@
               <span class="material-symbols-outlined" title="Closed">lock</span>
               {% endif %}
             </div>
-            <div>{{thread.user.username}} • {{thread.created_at|date:'M j, Y'}}</div>
+            <div>
+              <a href="{% url 'punkweb_bb:profile' thread.user.id %}">
+                {{thread.user.username}}
+              </a>
+              •
+              {{thread.created_at|date:'M j, Y'}}</div>
           </td>
           <td>{{thread.post_count}}</td>
           <td>
@@ -80,7 +85,9 @@
                   </time>
                 </a>
                 <div>
-                  {{thread.latest_post.user.username}}
+                  <a href="{% url 'punkweb_bb:profile' thread.latest_post.user.id %}">
+                    {{thread.latest_post.user.username}}
+                  </a>
                 </div>
               </div>
               {% if thread.latest_post.user.profile.image %}

@@ -42,13 +42,15 @@
       {% if thread.user.profile.image %}
       <img class="pw-avatar" src="{{thread.user.profile.image.url}}" alt="{{thread.user.username}}" />
       {% else %}
-      <img class="pw-avatar" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" alt="{{post.user.username}}" />
+      <img class="pw-avatar" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" alt="{{thread.user.username}}" />
       {% endif %}
       <div class="thread__user__usernameContainer">
         {% if thread.user.profile.is_online %}
         <div class="onlineIndicator"></div>
         {% endif %}
-        {{thread.user.username}}
+        <a href="{% url 'punkweb_bb:profile' thread.user.id %}">
+          {{thread.user.username}}
+        </a>
       </div>
       <div class="thread__user__info">
         <div class="thread__user__info__row">
@@ -107,7 +109,9 @@
         {% if post.user.profile.is_online %}
         <div class="onlineIndicator"></div>
         {% endif %}
-        {{post.user.username}}
+        <a href="{% url 'punkweb_bb:profile' post.user.id %}">
+          {{post.user.username}}
+        </a>
       </div>
       <div class="thread__user__info">
         <div class="thread__user__info__row">

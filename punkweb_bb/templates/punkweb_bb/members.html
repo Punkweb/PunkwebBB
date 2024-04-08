@@ -40,7 +40,7 @@
             {% else %}
             <img class="pw-avatar xs" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
             {% endif %}
-            <a href="#">{{ user.username }}</a>
+            <a href="{% url 'punkweb_bb:profile' user.id %}">{{ user.username }}</a>
           </td>
           <td>{{ user.profile.post_count }}</td>
           <td>{{ user.date_joined }}</td>
