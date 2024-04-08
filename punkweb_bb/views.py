@@ -100,9 +100,13 @@ def signup(request):
     return render(request, "punkweb_bb/signup.html", context)
 
 
-@login_required(login_url="/login/")
-def profile(request):
-    return render(request, "punkweb_bb/profile.html")
+def profile(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+
+    context = {
+        "user": user,
+    }
+    return render(request, "punkweb_bb/profile.html", context=context)
 
 
 def members(request):
