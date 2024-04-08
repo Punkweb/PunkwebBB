@@ -129,6 +129,8 @@ def settings(request):
             form.save()
 
             return redirect("punkweb_bb:settings")
+        else:
+            return render(request, "punkweb_bb/settings.html", context={"form": form})
 
     form = BoardProfileModelForm(instance=request.user.profile)
 
