@@ -3,6 +3,10 @@
 
 {% block title_prefix %}Members | {% endblock%}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'punkweb_bb/css/members.css' %}" />
+{% endblock %}
+
 {% block content %}
 
 <nav>
@@ -18,36 +22,33 @@
 
 <div class="pw-card fluid">
   <div class="pw-table-container">
-    <table class="pw-table">
-      <colgroup>
-        <col>
-        <col style="width: 96px">
-        <col style="width: 240px">
-      </colgroup>
-      <thead>
-        <tr>
-          <th>Username</th>
-          <th>Posts</th>
-          <th>Joined</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for user in users %}
-        <tr>
-          <td>
-            {% if thread.latest_post.user.profile.image %}
-            <img class="pw-avatar xs" src="{{thread.latest_post.user.profile.image.url}}" />
-            {% else %}
-            <img class="pw-avatar xs" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
-            {% endif %}
-            <a href="{% url 'punkweb_bb:profile' user.id %}">{{ user.username }}</a>
-          </td>
-          <td>{{ user.profile.post_count }}</td>
-          <td>{{ user.date_joined }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+
+    <ul class="members__list">
+      {% for user in users %}
+      <li class="members__user">
+        <div class="members__user__avatar">
+          {% if user.profile.image %}
+          <img class="pw-avatar sm" src="{{user.profile.image.url}}" />
+          {% else %}
+          <img class="pw-avatar sm" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
+          {% endif %}
+        </div>
+        <div class="members__user__info">
+          <div class="members__user__username"><a href="{% url 'punkweb_bb:profile' user.id %}">{{ user.username }}</a></div>
+          <div class="members__user__stats">
+            <div class="members__user__stat">
+              Posts:
+              <span class="members__user__stat__value">{{user.profile.post_count}}</span>
+            </div>
+            <div class="members__user__stat">
+              Date Joined:
+              <span class="members__user__stat__value">{{user.date_joined | date:'m/d/Y'}}</span>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
   </div>
 </div>
 

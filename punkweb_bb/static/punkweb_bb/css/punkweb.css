@@ -92,6 +92,7 @@ blockquote cite {
   align-items: center;
   display: flex;
   padding: 1rem 0;
+  gap: 1.5rem;
 }
 
 .nav__spacer {

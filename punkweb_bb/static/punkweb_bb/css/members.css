@@ -1,0 +1,28 @@
+.members__list {
+  list-style: none;
+  padding: 0.5rem;
+}
+
+.members__user {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.members__user:not(:last-of-type) {
+  border-bottom: 1px solid var(--border);
+}
+
+.members__user__username {
+  font-size: 1.25rem;
+}
+
+.members__user__stat {
+  color: var(--oc-gray-7);
+  font-size: 0.75rem;
+}
+
+.members__user__stat__value {
+  color: var(--text-dark);
+  font-weight: 700;
+}
