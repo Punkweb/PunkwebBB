@@ -169,7 +169,7 @@ class Post(UUIDPrimaryKeyMixin, TimestampMixin):
 
 class Shout(UUIDPrimaryKeyMixin, TimestampMixin):
     user = models.ForeignKey(User, related_name="shouts", on_delete=models.CASCADE)
-    content = BBCodeTextField()
+    content = models.TextField()
 
     class Meta:
         ordering = ("-created_at",)
