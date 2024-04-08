@@ -4,10 +4,6 @@ PunkwebBB is a Django application that provides a simple and modern forum board 
 
 This is the successor to [punkweb-boards](https://github.com/Punkweb/punkweb-boards)
 
-![Index](https://github.com/Punkweb/PunkwebBB/blob/main/images/index.png)
-![Thread](https://github.com/Punkweb/PunkwebBB/blob/main/images/thread.png)
-![Models](https://github.com/Punkweb/PunkwebBB/blob/main/images/models.png)
-
 ## Built with
 
 - [Django](https://www.djangoproject.com/)
@@ -39,3 +35,17 @@ HTML:
 ```bash
 coverage run && coverage html
 ```
+
+## Preview
+
+#### Models
+
+![Models](https://github.com/Punkweb/PunkwebBB/blob/main/images/models.png)
+
+#### Index View
+
+![Index](https://github.com/Punkweb/PunkwebBB/blob/main/images/index.png)
+
+#### Thread View
+
+![Thread](https://github.com/Punkweb/PunkwebBB/blob/main/images/thread.png)
