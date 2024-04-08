@@ -1,5 +1,7 @@
+{% load shoutbox_bbcode %}
+
 {% for shout in shouts %}
 <div class="shoutbox__shout">
-  {{shout.created_at|date:'h:i:s A'}} {{shout.user.username}}: {{ shout.content.rendered }}
+  {{shout.created_at|date:'h:i:s A'}} {{shout.user.username}}: {{ shout.content | safe | shoutbox_bbcode }}
 </div>
 {% endfor %}
