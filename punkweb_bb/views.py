@@ -1,8 +1,8 @@
 import datetime
 
 from django.contrib.auth import authenticate, get_user_model
-from django.contrib.auth import login as auth_login
-from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import login
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
@@ -23,7 +23,7 @@ from punkweb_bb.response import htmx_redirect
 User = get_user_model()
 
 
-def index(request):
+def index_view(request):
     categories = Category.objects.all()
 
     recent_threads = Thread.objects.all().order_by("-created_at")[:5]
@@ -49,7 +49,7 @@ def index(request):
     return render(request, "punkweb_bb/index.html", context=context)
 
 
-def login(request):
+def login_view(request):
     if request.user.is_authenticated:
         return redirect("punkweb_bb:index")
 
@@ -63,7 +63,7 @@ def login(request):
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
-                auth_login(request, user)
+                login(request, user)
 
                 return redirect("punkweb_bb:index")
     else:
@@ -75,12 +75,12 @@ def login(request):
     return render(request, "punkweb_bb/login.html", context)
 
 
-def logout(request):
-    auth_logout(request)
+def logout_view(request):
+    logout(request)
     return redirect("punkweb_bb:login")
 
 
-def signup(request):
+def signup_view(request):
     if request.user.is_authenticated:
         return redirect("punkweb_bb:index")
 
@@ -100,7 +100,7 @@ def signup(request):
     return render(request, "punkweb_bb/signup.html", context)
 
 
-def profile(request, user_id):
+def profile_view(request, user_id):
     user = get_object_or_404(User, pk=user_id)
 
     context = {
@@ -109,7 +109,7 @@ def profile(request, user_id):
     return render(request, "punkweb_bb/profile.html", context=context)
 
 
-def members(request):
+def members_view(request):
     users = paginate_qs(request, User.objects.select_related("profile").all())
 
     context = {
@@ -119,7 +119,7 @@ def members(request):
 
 
 @login_required(login_url="/login/")
-def settings(request):
+def settings_view(request):
     if request.method == "POST":
         form = BoardProfileModelForm(
             request.POST, request.FILES, instance=request.user.profile
@@ -141,7 +141,7 @@ def settings(request):
     return render(request, "punkweb_bb/settings.html", context=context)
 
 
-def subcategory(request, subcategory_slug):
+def subcategory_view(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
     threads = paginate_qs(request, subcategory.threads.all())
@@ -154,7 +154,7 @@ def subcategory(request, subcategory_slug):
 
 
 @login_required(login_url="/login/")
-def thread_create(request, subcategory_slug):
+def thread_create_view(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
     if subcategory.staff_post_only and not request.user.is_staff:
@@ -180,7 +180,7 @@ def thread_create(request, subcategory_slug):
     return render(request, "punkweb_bb/thread_create.html", context=context)
 
 
-def thread(request, thread_id):
+def thread_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
     posts = paginate_qs(request, thread.posts.all())
@@ -196,7 +196,7 @@ def thread(request, thread_id):
 
 
 @login_required(login_url="/login/")
-def thread_update(request, thread_id):
+def thread_update_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id, user=request.user)
 
     if request.method == "POST":
@@ -217,7 +217,7 @@ def thread_update(request, thread_id):
 
 
 @login_required(login_url="/login/")
-def thread_delete(request, thread_id):
+def thread_delete_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id, user=request.user)
 
     if request.method == "DELETE":
@@ -233,7 +233,7 @@ def thread_delete(request, thread_id):
 
 
 @login_required(login_url="/login/")
-def post_create(request, thread_id):
+def post_create_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
     if thread.is_closed:
@@ -251,7 +251,7 @@ def post_create(request, thread_id):
 
 
 @login_required(login_url="/login/")
-def post_update(request, post_id):
+def post_update_view(request, post_id):
     post = get_object_or_404(Post, pk=post_id, user=request.user)
 
     if request.method == "POST":
@@ -273,7 +273,7 @@ def post_update(request, post_id):
 
 
 @login_required(login_url="/login/")
-def post_delete(request, post_id):
+def post_delete_view(request, post_id):
     post = get_object_or_404(Post, pk=post_id, user=request.user)
 
     if request.method == "DELETE":
@@ -294,7 +294,7 @@ def current_shouts():
     ).order_by("created_at")
 
 
-def shout_list(request):
+def shout_list_view(request):
     shouts = current_shouts()
 
     context = {
@@ -303,7 +303,7 @@ def shout_list(request):
     return render(request, "punkweb_bb/shoutbox/shout_list.html", context=context)
 
 
-def shout_create(request):
+def shout_create_view(request):
     if not request.user.is_authenticated:
         context = {
             "shouts": current_shouts(),
@@ -326,7 +326,7 @@ def shout_create(request):
             )
 
 
-def bbcode(request):
+def bbcode_view(request):
     codes = (
         ("Bold", "[b]Bold Text[/b]"),
         ("Italic", "[i]Italic Text[/i]"),
