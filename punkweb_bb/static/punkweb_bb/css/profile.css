@@ -1,0 +1,55 @@
+.profile__info {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.profile__info__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profile__info__username {
+  font-size: 1.5rem;
+}
+
+.profile__info__stat {
+  color: var(--oc-gray-6);
+}
+
+.profile__info__stat__value {
+  color: var(--text-dark);
+}
+
+.profile__thread__list {
+  list-style: none;
+  padding: 0;
+}
+
+.profile__thread {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.profile__thread__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.profile__thread__title {
+  font-size: 1.125rem;
+}
+
+.profile__thread__date {
+  color: var(--oc-gray-6);
+  font-size: 0.875rem;
+}
+
+.profile__thread:not(:last-of-type) {
+  border-bottom: 1px solid var(--border);
+}

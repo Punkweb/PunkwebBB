@@ -18,11 +18,10 @@
 }
 
 .members__user__stat {
-  color: var(--oc-gray-7);
+  color: var(--oc-gray-6);
   font-size: 0.75rem;
 }
 
 .members__user__stat__value {
   color: var(--text-dark);
-  font-weight: 700;
 }
