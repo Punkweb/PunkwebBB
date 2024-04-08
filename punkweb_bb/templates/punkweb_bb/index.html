@@ -16,7 +16,9 @@
 <div class="index">
   <div class="index__main">
     <div class="index__categories">
+      {% if conf.SHOUTBOX_ENABLED %}
       {% include 'punkweb_bb/shoutbox/shoutbox.html' %}
+      {% endif %}
       {% for category in categories %}
       <div id="{{category.slug}}.{{category.order}}" class="pw-card fluid margin">
         <div class="pw-table-container">
