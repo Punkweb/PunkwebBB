@@ -108,7 +108,9 @@ def profile_view(request, user_id):
 
 
 def members_view(request):
-    users = paginate_qs(request, User.objects.select_related("profile").all())
+    users = paginate_qs(
+        request, User.objects.select_related("profile").order_by("username")
+    )
 
     context = {
         "users": users,
