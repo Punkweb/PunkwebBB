@@ -22,6 +22,60 @@ This is the successor to [punkweb-boards](https://github.com/Punkweb/punkweb-boa
 
 It may work with older versions of Python and Django, but it has not been tested.
 
+## Installation
+
+```bash
+pip install punkweb-bb
+```
+
+Add `django-precise-bbcode` and `punkweb_bb` to your `INSTALLED_APPS` in your Django settings module:
+
+```python
+INSTALLED_APPS = [
+    ...
+    "django_precise_bbcode",
+    "punkweb_bb",
+]
+```
+
+_Note_: `django-precise-bbcode` is required for the BBCode editor to work. It must be installed before `punkweb_bb`.
+
+Add the following middleware to your `MIDDLEWARE` setting:
+
+```python
+MIDDLEWARE = [
+    ...
+    "punkweb_bb.middleware.ProfileOnlineCacheMiddleware",
+]
+```
+
+Add the following context processor to your `TEMPLATES` setting:
+
+```python
+TEMPLATES = [
+    {
+        ...
+        "OPTIONS": {
+            "context_processors": [
+                ...
+                "punkweb_bb.context_processors.punkweb_bb",
+            ],
+        },
+    },
+]
+```
+
+And finally, add the following URL pattern to your `urls.py`:
+
+```python
+from django.urls import path, include
+
+urlpatterns = [
+    ...
+    path("forum/", include("punkweb_bb.urls")), # or any other path you want the forum to be at
+]
+```
+
 ## Testing
 
 Report:
