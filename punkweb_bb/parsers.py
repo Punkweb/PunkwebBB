@@ -1,66 +1,70 @@
 from django.apps import apps
-from precise_bbcode.bbcode.defaults.tag import (
-    ColorBBCodeTag,
-    ItalicBBCodeTag,
-    StrikeBBCodeTag,
-    StrongBBCodeTag,
-    UnderlineBBCodeTag,
-    UrlBBCodeTag,
-)
 from precise_bbcode.bbcode.parser import BBCodeParser
 from precise_bbcode.bbcode.placeholder import BBCodePlaceholder
 from precise_bbcode.core.loading import get_subclasses
 
-from punkweb_bb.bbcode_tags import (
-    FontBBCodeTag,
-    ShadowBBCodeTag,
-    SubscriptBBCodeTag,
-    SuperscriptBBCodeTag,
-)
-
-shoutbox_parser = BBCodeParser()
+_shoutbox_parser = None
 
 
-def init_default_bbcode_placeholders():
-    import precise_bbcode.bbcode.defaults.placeholder
-
-    for placeholder_klass in get_subclasses(
-        precise_bbcode.bbcode.defaults.placeholder, BBCodePlaceholder
-    ):
-        setattr(placeholder_klass, "default_placeholder", True)
-        shoutbox_parser.add_placeholder(placeholder_klass)
+def get_shoutbox_parser():
+    if not _shoutbox_parser:
+        loader = ShoutboxParserLoader()
+        loader.load_parser()
+    return _shoutbox_parser
 
 
-def init_bbcode_placeholders():
-    from precise_bbcode.placeholder_pool import placeholder_pool
+class ShoutboxParserLoader(object):
+    def __init__(self, *args, **kwargs):
+        global _shoutbox_parser
+        _shoutbox_parser = BBCodeParser()
+        self.parser = _shoutbox_parser
 
-    placeholders = placeholder_pool.get_placeholders()
-    for placeholder in placeholders:
-        shoutbox_parser.add_placeholder(placeholder)
+    def load_parser(self):
+        self.init_default_bbcode_placeholders()
+        self.init_bbcode_placeholders()
+        self.init_default_bbcode_tags()
+        self.init_bbcode_tags()
+        self.init_bbcode_smilies()
 
+    def init_default_bbcode_placeholders(self):
+        import precise_bbcode.bbcode.defaults.placeholder
 
-def init_bbcode_tags():
-    shoutbox_parser.add_bbcode_tag(StrongBBCodeTag)
-    shoutbox_parser.add_bbcode_tag(ItalicBBCodeTag)
-    shoutbox_parser.add_bbcode_tag(UnderlineBBCodeTag)
-    shoutbox_parser.add_bbcode_tag(StrikeBBCodeTag)
-    shoutbox_parser.add_bbcode_tag(ColorBBCodeTag)
-    shoutbox_parser.add_bbcode_tag(UrlBBCodeTag)
-    shoutbox_parser.add_bbcode_tag(FontBBCodeTag)
-    shoutbox_parser.add_bbcode_tag(ShadowBBCodeTag)
-    shoutbox_parser.add_bbcode_tag(SubscriptBBCodeTag)
-    shoutbox_parser.add_bbcode_tag(SuperscriptBBCodeTag)
+        for placeholder_klass in get_subclasses(
+            precise_bbcode.bbcode.defaults.placeholder, BBCodePlaceholder
+        ):
+            setattr(placeholder_klass, "default_placeholder", True)
+            self.parser.add_placeholder(placeholder_klass)
 
+    def init_bbcode_placeholders(self):
+        from precise_bbcode.placeholder_pool import placeholder_pool
 
-def init_bbcode_smilies():
-    SmileyTag = apps.get_model("precise_bbcode", "SmileyTag")
-    if SmileyTag:
-        custom_smilies = SmileyTag.objects.all()
-        for smiley in custom_smilies:
-            shoutbox_parser.add_smiley(smiley.code, smiley.html_code)
+        placeholders = placeholder_pool.get_placeholders()
+        for placeholder in placeholders:
+            self.parser.add_placeholder(placeholder)
 
+    def init_default_bbcode_tags(self):
+        import precise_bbcode.bbcode.defaults.tag
 
-init_default_bbcode_placeholders()
-init_bbcode_placeholders()
-init_bbcode_tags()
-init_bbcode_smilies()
+        self.parser.add_bbcode_tag(precise_bbcode.bbcode.defaults.tag.StrongBBCodeTag)
+        self.parser.add_bbcode_tag(precise_bbcode.bbcode.defaults.tag.ItalicBBCodeTag)
+        self.parser.add_bbcode_tag(
+            precise_bbcode.bbcode.defaults.tag.UnderlineBBCodeTag
+        )
+        self.parser.add_bbcode_tag(precise_bbcode.bbcode.defaults.tag.StrikeBBCodeTag)
+        self.parser.add_bbcode_tag(precise_bbcode.bbcode.defaults.tag.ColorBBCodeTag)
+        self.parser.add_bbcode_tag(precise_bbcode.bbcode.defaults.tag.UrlBBCodeTag)
+
+    def init_bbcode_tags(self):
+        import punkweb_bb.bbcode_tags
+
+        self.parser.add_bbcode_tag(punkweb_bb.bbcode_tags.FontBBCodeTag)
+        self.parser.add_bbcode_tag(punkweb_bb.bbcode_tags.ShadowBBCodeTag)
+        self.parser.add_bbcode_tag(punkweb_bb.bbcode_tags.SubscriptBBCodeTag)
+        self.parser.add_bbcode_tag(punkweb_bb.bbcode_tags.SuperscriptBBCodeTag)
+
+    def init_bbcode_smilies(self):
+        SmileyTag = apps.get_model("precise_bbcode", "SmileyTag")
+        if SmileyTag:
+            custom_smilies = SmileyTag.objects.all()
+            for smiley in custom_smilies:
+                self.parser.add_smiley(smiley.code, smiley.html_code)
