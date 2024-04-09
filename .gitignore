@@ -14,5 +14,10 @@ server
 .coverage
 htmlcov
 
+# dist
+build
+dist
+*.egg-info
+
 # misc
 todo.md
