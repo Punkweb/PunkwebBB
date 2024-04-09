@@ -16,7 +16,7 @@
 <div class="index">
   <div class="index__main">
     <div class="index__categories">
-      {% if conf.SHOUTBOX_ENABLED %}
+      {% if punkweb_bb.settings.SHOUTBOX_ENABLED|default:True %}
       {% include 'punkweb_bb/shoutbox/shoutbox.html' %}
       {% endif %}
       {% for category in categories %}

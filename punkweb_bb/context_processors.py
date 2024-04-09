@@ -1,7 +1,9 @@
-from punkweb_bb.conf import PUNKWEB_CONF as conf
+from punkweb_bb import settings
 
 
-def punkweb_bb_conf(request):
+def punkweb_bb(request):
     return {
-        "conf": conf,
+        "punkweb_bb": {
+            "settings": settings,
+        }
     }

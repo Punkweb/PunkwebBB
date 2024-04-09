@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title_prefix %}{% endblock %}{{ conf.SITE_TITLE }}</title>
+  <title>{% block title_prefix %}{% endblock %}{{ punkweb_bb.settings.SITE_TITLE|default:"PunkwebBB" }}</title>
   <link rel="icon" href="{% static 'punkweb_bb/favicon.ico' %}" />
   <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/open-color.css' %}" />
   <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/prism.css' %}" />
@@ -63,7 +63,7 @@
           <div class="container">
             <div class="nav__main__content">
               <a class="nav__title" href="{% url 'punkweb_bb:index' %}">
-                {{ conf.SITE_NAME }}
+                {{ punkweb_bb.settings.SITE_NAME|default:"PUNKWEB"}}
               </a>
               <a class="nav__link" href="{% url 'punkweb_bb:index' %}">
                 Forum
