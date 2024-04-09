@@ -160,6 +160,7 @@
               <div class="index__statistics__label">Total members:</div>
               <div class="index__statistics__value">{{users|length}}</div>
             </div>
+            {% if newest_user %}
             <div class="index__statistics__row">
               <div class="index__statistics__label">Newest member:</div>
               <div class="index__statistics__value">
@@ -168,6 +169,7 @@
                 </a>
               </div>
             </div>
+            {% endif %}
             <div class="index__statistics__row">
               <div class="index__statistics__label">Members online:</div>
               <div class="index__statistics__value">{{users_online|length}}</div>
