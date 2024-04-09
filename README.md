@@ -28,17 +28,17 @@ It may work with older versions of Python and Django, but it has not been tested
 pip install punkweb-bb
 ```
 
-Add `django-precise-bbcode` and `punkweb_bb` to your `INSTALLED_APPS` in your Django settings module:
+Add `precise_bbcode` and `punkweb_bb` to your `INSTALLED_APPS` in your Django settings module:
 
 ```python
 INSTALLED_APPS = [
     ...
-    "django_precise_bbcode",
+    "precise_bbcode",
     "punkweb_bb",
 ]
 ```
 
-_Note_: `django-precise-bbcode` is required for the BBCode editor to work. It must be installed before `punkweb_bb`.
+_Note_: `precise_bbcode` is required. It must be installed before `punkweb_bb`.
 
 Add the following middleware to your `MIDDLEWARE` setting:
 
@@ -72,7 +72,7 @@ from django.urls import path, include
 
 urlpatterns = [
     ...
-    path("forum/", include("punkweb_bb.urls")), # or any other path you want the forum to be at
+    path("forum/", include("punkweb_bb.urls")), # or any other path you want
 ]
 ```
 
