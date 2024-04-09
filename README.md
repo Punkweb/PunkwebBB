@@ -65,7 +65,7 @@ TEMPLATES = [
 ]
 ```
 
-And finally, add the following URL pattern to your `urls.py`:
+Add the following URL pattern to your `urls.py`:
 
 ```python
 from django.urls import path, include
@@ -74,6 +74,24 @@ urlpatterns = [
     ...
     path("forum/", include("punkweb_bb.urls")), # or any other path you want
 ]
+```
+
+And finally, install the models:
+
+```bash
+python manage.py migrate
+```
+
+## Configuration
+
+You can configure the following settings in your Django settings module:
+
+```python
+PUNKWEB_BB = {
+  "SITE_NAME": "PUNKWEB",
+  "SITE_TITLE": "PunkwebBB",
+  "SHOUTBOX_ENABLED": True,
+}
 ```
 
 ## Testing
