@@ -110,17 +110,3 @@ HTML:
 ```bash
 coverage run && coverage html
 ```
-
-## Preview
-
-#### Models
-
-![Models](https://github.com/Punkweb/PunkwebBB/blob/main/images/models.png)
-
-#### Index View
-
-![Index](https://github.com/Punkweb/PunkwebBB/blob/main/images/index.png)
-
-#### Thread View
-
-![Thread](https://github.com/Punkweb/PunkwebBB/blob/main/images/thread.png)
