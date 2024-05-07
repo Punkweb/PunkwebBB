@@ -3,7 +3,8 @@ import math
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.forms import ValidationError
-from django.test import TestCase
+from django.test import Client, TestCase
+from django.urls import reverse
 from django.utils import timezone
 
 from punkweb_bb.models import (
@@ -142,7 +143,7 @@ class ThreadTestCase(TestCase):
         self.user = User.objects.create_user(username="test", password="test")
         self.category = Category.objects.create(name="test")
         self.subcategory = Subcategory.objects.create(
-            name="test", category=self.category
+            name="test", category=self.category, slug="test"
         )
 
     def test_thread_str(self):
@@ -287,3 +288,459 @@ class ShoutTestCase(TestCase):
     def test_str(self):
         shout = Shout.objects.create(user=self.user, content="test")
         self.assertEqual(str(shout), f"{shout.user} > {shout.created_at}")
+
+
+class IndexViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse("punkweb_bb:index")
+        self.user = User.objects.create(username="test", password="test")
+        self.staff_user = User.objects.create(
+            username="staff", password="staff", is_staff=True
+        )
+
+    def test_users_online(self):
+        response = self.client.get(self.url)
+        self.assertEqual(len(response.context["users_online"]), 0)
+
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertEqual(len(response.context["users_online"]), 1)
+
+    def test_staff_online(self):
+        response = self.client.get(self.url)
+        self.assertEqual(len(response.context["staff_online"]), 0)
+
+        self.client.force_login(self.staff_user)
+        response = self.client.get(self.url)
+
+        self.assertEqual(len(response.context["staff_online"]), 1)
+
+    def test_newest_user(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["newest_user"], self.staff_user)
+
+    def test_users_count(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["users"].count(), 2)
+
+
+class LoginViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse("punkweb_bb:login")
+        self.user = User.objects.create_user(username="test", password="test")
+
+    def test_redirect_authenticated_user(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertRedirects(response, reverse("punkweb_bb:index"))
+
+    def test_login(self):
+        response = self.client.post(
+            self.url, {"username": "test", "password": "test"}, follow=True
+        )
+
+        self.assertRedirects(response, reverse("punkweb_bb:index"))
+        self.assertTrue(response.context["user"].is_authenticated)
+
+
+class LogoutViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse("punkweb_bb:logout")
+        self.user = User.objects.create_user(username="test", password="test")
+
+    def test_logout(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.url, follow=True)
+
+        self.assertRedirects(response, reverse("punkweb_bb:login"))
+        self.assertFalse(response.context["user"].is_authenticated)
+
+
+class SignupViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse("punkweb_bb:signup")
+        self.user = User.objects.create_user(username="test1", password="test")
+
+    def test_redirect_authenticated_user(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertRedirects(response, reverse("punkweb_bb:index"))
+
+    def test_signup(self):
+        response = self.client.post(
+            self.url,
+            {
+                "username": "test2",
+                "password1": "needsmorecomplexity",
+                "password2": "needsmorecomplexity",
+            },
+        )
+
+        self.assertRedirects(response, reverse("punkweb_bb:login"))
+
+
+class SettingsViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse("punkweb_bb:settings")
+        self.user = User.objects.create_user(username="test", password="test")
+
+    def test_redirect_unauthenticated_user(self):
+        response = self.client.get(self.url)
+
+        self.assertRedirects(response, f"{reverse('punkweb_bb:login')}?next={self.url}")
+
+    def test_settings(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+
+        self.client.post(
+            self.url,
+            {
+                "signature": "[b]test[/b]",
+            },
+        )
+
+        self.user.profile.refresh_from_db()
+        self.assertEqual(self.user.profile._signature_rendered, "<strong>test</strong>")
+
+        self.assertEqual(response.status_code, 200)
+
+
+class ThreadCreateViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username="test", password="test")
+        self.category = Category.objects.create(name="test")
+        self.subcategory = Subcategory.objects.create(
+            name="test", category=self.category, slug="test"
+        )
+        self.staff_subcategory = Subcategory.objects.create(
+            name="staff", category=self.category, slug="staff", staff_post_only=True
+        )
+        self.url = reverse("punkweb_bb:thread_create", args=[self.subcategory.slug])
+        self.staff_only_url = reverse(
+            "punkweb_bb:thread_create", args=[self.staff_subcategory.slug]
+        )
+
+    def test_redirect_unauthenticated_user(self):
+        response = self.client.get(self.url)
+
+        self.assertRedirects(response, f"{reverse('punkweb_bb:login')}?next={self.url}")
+
+    def test_thread_create(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(
+            self.url,
+            {
+                "title": "test",
+                "content": "test",
+            },
+            follow=True,
+        )
+
+        new_thread = Thread.objects.first()
+
+        self.assertRedirects(response, new_thread.get_absolute_url())
+        self.assertEqual(Thread.objects.count(), 1)
+        self.assertEqual(new_thread.user, self.user)
+        self.assertEqual(new_thread.subcategory, self.subcategory)
+
+    def test_thread_create_staff_post_only(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.staff_only_url)
+
+        self.assertRedirects(response, self.staff_subcategory.get_absolute_url())
+
+
+class ThreadViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username="test", password="test")
+        self.category = Category.objects.create(name="test")
+        self.subcategory = Subcategory.objects.create(
+            name="test", category=self.category, slug="test"
+        )
+        self.thread = Thread.objects.create(
+            subcategory=self.subcategory, user=self.user, title="test", content="test"
+        )
+        self.url = reverse("punkweb_bb:thread", args=[self.thread.id])
+
+    def test_view_count(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["thread"].view_count, 1)
+
+        # ensure that the view count does not increase when viewed again from the same session
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["thread"].view_count, 1)
+
+
+class ThreadUpdateViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username="test", password="test")
+        self.other_user = User.objects.create_user(username="other", password="other")
+        self.category = Category.objects.create(name="test")
+        self.subcategory = Subcategory.objects.create(
+            name="test", category=self.category, slug="test"
+        )
+        self.thread = Thread.objects.create(
+            subcategory=self.subcategory, user=self.user, title="test", content="test"
+        )
+        self.url = reverse("punkweb_bb:thread_update", args=[self.thread.id])
+
+    def test_redirect_unauthenticated_user(self):
+        response = self.client.get(self.url)
+
+        self.assertRedirects(response, f"{reverse('punkweb_bb:login')}?next={self.url}")
+
+    def test_is_author(self):
+        self.client.force_login(self.other_user)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 404)
+
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_thread_update(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(
+            self.url,
+            {
+                "title": "edit",
+                "content": "edit",
+            },
+            follow=True,
+        )
+
+        self.assertRedirects(response, self.thread.get_absolute_url())
+        self.thread.refresh_from_db()
+        self.assertEqual(self.thread.title, "edit")
+        self.assertEqual(self.thread._content_rendered, "edit")
+
+
+class ThreadDeleteViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username="test", password="test")
+        self.other_user = User.objects.create_user(username="other", password="other")
+        self.category = Category.objects.create(name="test")
+        self.subcategory = Subcategory.objects.create(
+            name="test", category=self.category, slug="test"
+        )
+        self.thread = Thread.objects.create(
+            subcategory=self.subcategory, user=self.user, title="test", content="test"
+        )
+        self.url = reverse("punkweb_bb:thread_delete", args=[self.thread.id])
+
+    def test_redirect_unauthenticated_user(self):
+        response = self.client.get(self.url)
+
+        self.assertRedirects(response, f"{reverse('punkweb_bb:login')}?next={self.url}")
+
+    def test_is_author(self):
+        self.client.force_login(self.other_user)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 404)
+
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_thread_delete(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.delete(self.url, follow=True)
+
+        self.assertEqual(
+            response.headers["HX-Redirect"], self.subcategory.get_absolute_url()
+        )
+        self.assertEqual(Thread.objects.count(), 0)
+
+
+class PostCreateViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username="test", password="test")
+        self.category = Category.objects.create(name="test")
+        self.subcategory = Subcategory.objects.create(
+            name="test", category=self.category, slug="test"
+        )
+        self.thread = Thread.objects.create(
+            subcategory=self.subcategory, user=self.user, title="test", content="test"
+        )
+        self.url = reverse("punkweb_bb:post_create", args=[self.thread.id])
+
+    def test_redirect_unauthenticated_user(self):
+        response = self.client.get(self.url)
+
+        self.assertRedirects(response, f"{reverse('punkweb_bb:login')}?next={self.url}")
+
+    def test_post_create(self):
+        self.client.force_login(self.user)
+
+        response = self.client.post(
+            self.url,
+            {
+                "content": "test",
+            },
+            follow=True,
+        )
+
+        new_post = Post.objects.first()
+
+        self.assertRedirects(response, new_post.get_absolute_url())
+        self.assertEqual(Post.objects.count(), 1)
+        self.assertEqual(new_post.user, self.user)
+        self.assertEqual(new_post.thread, self.thread)
+
+
+class PostUpdateViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username="test", password="test")
+        self.other_user = User.objects.create_user(username="other", password="other")
+        self.category = Category.objects.create(name="test")
+        self.subcategory = Subcategory.objects.create(
+            name="test", category=self.category, slug="test"
+        )
+        self.thread = Thread.objects.create(
+            subcategory=self.subcategory, user=self.user, title="test", content="test"
+        )
+        self.post = Post.objects.create(
+            thread=self.thread, user=self.user, content="test"
+        )
+        self.url = reverse("punkweb_bb:post_update", args=[self.post.id])
+
+    def test_redirect_unauthenticated_user(self):
+        response = self.client.get(self.url)
+
+        self.assertRedirects(response, f"{reverse('punkweb_bb:login')}?next={self.url}")
+
+    def test_is_author(self):
+        self.client.force_login(self.other_user)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 404)
+
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_update(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(
+            self.url,
+            {
+                "content": "edit",
+            },
+            follow=True,
+        )
+
+        self.assertRedirects(response, self.post.get_absolute_url())
+        self.post.refresh_from_db()
+        self.assertEqual(self.post._content_rendered, "edit")
+
+
+class PostDeleteViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username="test", password="test")
+        self.other_user = User.objects.create_user(username="other", password="other")
+        self.category = Category.objects.create(name="test")
+        self.subcategory = Subcategory.objects.create(
+            name="test", category=self.category, slug="test"
+        )
+        self.thread = Thread.objects.create(
+            subcategory=self.subcategory, user=self.user, title="test", content="test"
+        )
+        self.post = Post.objects.create(
+            thread=self.thread, user=self.user, content="test"
+        )
+        self.url = reverse("punkweb_bb:post_delete", args=[self.post.id])
+
+    def test_redirect_unauthenticated_user(self):
+        response = self.client.get(self.url)
+
+        self.assertRedirects(response, f"{reverse('punkweb_bb:login')}?next={self.url}")
+
+    def test_is_author(self):
+        self.client.force_login(self.other_user)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 404)
+
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_delete(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.delete(self.url, follow=True)
+
+        self.assertEqual(
+            response.headers["HX-Redirect"], self.thread.get_absolute_url()
+        )
+        self.assertEqual(Post.objects.count(), 0)
+
+
+class ShoutCreateViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username="test", password="test")
+        self.url = reverse("punkweb_bb:shout_create")
+
+    def test_unauthenticated(self):
+        response = self.client.get(self.url)
+
+        self.client.post(
+            self.url,
+            {
+                "content": "test",
+            },
+        )
+
+        self.assertEqual(Shout.objects.count(), 0)
+        self.assertEqual(response.status_code, 200)
+
+    def test_shout_create(self):
+        self.client.force_login(self.user)
+
+        response = self.client.post(
+            self.url,
+            {
+                "content": "test",
+            },
+            follow=True,
+        )
+
+        self.assertEqual(Shout.objects.count(), 1)
+        self.assertEqual(response.status_code, 200)
