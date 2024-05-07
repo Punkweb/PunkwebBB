@@ -53,3 +53,10 @@
 .profile__thread:not(:last-of-type) {
   border-bottom: 1px solid var(--border);
 }
+
+@media screen and (max-width: 768px) {
+  .profile__info {
+    align-items: start;
+    flex-direction: column;
+  }
+}
