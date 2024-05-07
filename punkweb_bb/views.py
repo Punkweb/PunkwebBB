@@ -244,7 +244,7 @@ def post_create_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
     if thread.is_closed:
-        return HttpResponseForbidden("This thread is closed.")
+        return HttpResponseForbidden("Cannot add posts to a closed thread.")
 
     form = PostModelForm(request.POST)
 

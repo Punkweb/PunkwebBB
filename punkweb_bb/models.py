@@ -5,6 +5,7 @@ import os
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.db import models
+from django.forms import ValidationError
 from django.urls import reverse
 from django.utils import timezone
 from precise_bbcode.fields import BBCodeTextField
@@ -162,6 +163,8 @@ class Post(UUIDPrimaryKeyMixin, TimestampMixin):
         return thread_url
 
     def save(self, *args, **kwargs):
+        if self.thread.is_closed:
+            raise ValidationError("Cannot add posts to a closed thread.")
         if self._state.adding:
             self.thread.last_post_created_at = timezone.now()
             self.thread.save()
