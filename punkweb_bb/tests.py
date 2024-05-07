@@ -2,6 +2,7 @@ import math
 
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
+from django.forms import ValidationError
 from django.test import TestCase
 from django.utils import timezone
 
@@ -174,6 +175,64 @@ class ThreadTestCase(TestCase):
         post_2 = Post.objects.create(thread=thread, user=self.user, content="test")
 
         self.assertEqual(thread.latest_post, post_2)
+
+    def test_last_post_created_at(self):
+        thread = Thread.objects.create(
+            subcategory=self.subcategory, user=self.user, title="test", content="test"
+        )
+        initial_last_post_created_at = thread.last_post_created_at
+        Post.objects.create(thread=thread, user=self.user, content="test")
+        new_last_post_created_at = thread.last_post_created_at
+
+        self.assertGreater(new_last_post_created_at, initial_last_post_created_at)
+
+    def test_is_closed(self):
+        thread = Thread.objects.create(
+            subcategory=self.subcategory,
+            user=self.user,
+            title="test",
+            content="test",
+            is_closed=True,
+        )
+        self.assertEqual(thread.is_closed, True)
+
+        post = Post(
+            thread=thread,
+            user=self.user,
+            content="test",
+        )
+
+        self.assertRaises(ValidationError, post.save)
+
+    def test_is_pinned(self):
+        thread = Thread.objects.create(
+            subcategory=self.subcategory,
+            user=self.user,
+            title="test1",
+            content="test1",
+            is_pinned=True,
+        )
+        self.assertEqual(thread.is_pinned, True)
+
+        Thread.objects.create(
+            subcategory=self.subcategory, user=self.user, title="test2", content="test2"
+        )
+
+        threads = Thread.objects.all()
+
+        self.assertEqual(threads[0], thread)
+
+    def test_bump(self):
+        thread1 = Thread.objects.create(
+            subcategory=self.subcategory, user=self.user, title="test1", content="test1"
+        )
+        Thread.objects.create(
+            subcategory=self.subcategory, user=self.user, title="test2", content="test2"
+        )
+        Post.objects.create(thread=thread1, user=self.user, content="test1")
+        threads = Thread.objects.all()
+
+        self.assertEqual(threads[0], thread1)
 
     def test_get_absolute_url(self):
         thread = Thread.objects.create(
