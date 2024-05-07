@@ -110,3 +110,41 @@ HTML:
 ```bash
 coverage run && coverage html
 ```
+
+```bash
+Found 57 test(s).
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+.........................................................
+----------------------------------------------------------------------
+Ran 57 tests in 8.824s
+
+OK
+Destroying test database for alias 'default'...
+Name                                         Stmts   Miss  Cover
+----------------------------------------------------------------
+punkweb_bb/__init__.py                           0      0   100%
+punkweb_bb/admin.py                             41      1    98%
+punkweb_bb/admin_forms.py                       28      0   100%
+punkweb_bb/apps.py                               6      0   100%
+punkweb_bb/bbcode_tags.py                      115      3    97%
+punkweb_bb/context_processors.py                 3      0   100%
+punkweb_bb/forms.py                             35      0   100%
+punkweb_bb/middleware.py                        10      0   100%
+punkweb_bb/mixins.py                            11      0   100%
+punkweb_bb/models.py                           124      0   100%
+punkweb_bb/pagination.py                        11      4    64%
+punkweb_bb/parsers.py                           50      2    96%
+punkweb_bb/response.py                           3      0   100%
+punkweb_bb/settings.py                           6      0   100%
+punkweb_bb/signals.py                            9      0   100%
+punkweb_bb/templatetags/__init__.py              0      0   100%
+punkweb_bb/templatetags/humanize_int.py          9      5    44%
+punkweb_bb/templatetags/shoutbox_bbcode.py       9      0   100%
+punkweb_bb/tests.py                            410      0   100%
+punkweb_bb/urls.py                               4      0   100%
+punkweb_bb/views.py                            174     17    90%
+punkweb_bb/widgets.py                            8      0   100%
+----------------------------------------------------------------
+TOTAL                                         1066     32    97%
+```
