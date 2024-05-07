@@ -86,12 +86,13 @@ python manage.py migrate
 
 ## Configuration
 
-You can configure the following settings in your Django settings module:
+These are the default settings for PunkwebBB, which can be overridden in your Django settings module:
 
 ```python
 PUNKWEB_BB = {
   "SITE_NAME": "PUNKWEB",
   "SITE_TITLE": "PunkwebBB",
+  "FAVICON": "punkweb_bb/favicon.ico",
   "SHOUTBOX_ENABLED": True,
 }
 ```
