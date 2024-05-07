@@ -22,6 +22,9 @@
       <a href="{% url 'punkweb_bb:index' %}">Home</a>
     </li>
     <li class="pw-breadcrumb-item">
+      <a href="{{thread.subcategory.category.get_absolute_url}}">{{thread.subcategory.category.name}}</a>
+    </li>
+    <li class="pw-breadcrumb-item">
       <a href="{{thread.subcategory.get_absolute_url}}">{{thread.subcategory.name}}</a>
     </li>
     <li class="pw-breadcrumb-item active">

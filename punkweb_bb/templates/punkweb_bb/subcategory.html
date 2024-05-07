@@ -1,5 +1,5 @@
 {% extends 'punkweb_bb/base.html' %}
-{% load static %}
+{% load static humanize_int %}
 
 {% block title_prefix %}{{subcategory.name}} | {% endblock%}
 
@@ -13,6 +13,9 @@
   <ul class="pw-breadcrumb">
     <li class="pw-breadcrumb-item">
       <a href="{% url 'punkweb_bb:index' %}">Home</a>
+    </li>
+    <li class="pw-breadcrumb-item">
+      <a href="{{subcategory.category.get_absolute_url}}">{{subcategory.category.name}}</a>
     </li>
     <li class="pw-breadcrumb-item active">
       {{subcategory.name}}
@@ -44,12 +47,14 @@
       <colgroup>
         <col span="1">
         <col span="1" width="96px">
+        <col span="1" width="96px">
         <col span="1" width="160px">
       </colgroup>
       <thead>
         <tr>
           <th>Title</th>
           <th>Posts</th>
+          <th>Views</th>
           <th></th>
         </tr>
       </thead>
@@ -74,6 +79,7 @@
               {{thread.created_at|date:'M j, Y'}}</div>
           </td>
           <td>{{thread.post_count}}</td>
+          <td>{{thread.view_count | humanize_int}}</td>
           <td>
             {% if thread.latest_post %}
             <div class="thread__latestPost">

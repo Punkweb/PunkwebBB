@@ -187,6 +187,13 @@ def thread_view(request, thread_id):
 
     post_form = PostModelForm()
 
+    # Increment view count if this session hasn't viewed the thread before
+    viewed_threads = request.session.get("viewed_threads", [])
+    if thread_id not in viewed_threads:
+        thread.view_count += 1
+        thread.save()
+        request.session["viewed_threads"] = viewed_threads + [thread_id]
+
     context = {
         "thread": thread,
         "posts": posts,
@@ -338,7 +345,7 @@ def bbcode_view(request):
         ("Url", "[url=https://google.com]Link Text[/url]"),
         (
             "Image",
-            "[img]https://punkweb.net/media/music/artists/system-lynx_EklOGpj.png.200x200_q85_crop.png[/img]",
+            "[img]https://placehold.co/400[/img]",
         ),
         # Custom
         ("Horizontal Rule", "[hr]"),

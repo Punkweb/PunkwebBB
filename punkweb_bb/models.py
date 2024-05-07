@@ -107,6 +107,7 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
     is_pinned = models.BooleanField(default=False)
     is_closed = models.BooleanField(default=False)
     last_post_created_at = models.DateTimeField(auto_now_add=True)
+    view_count = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = (
