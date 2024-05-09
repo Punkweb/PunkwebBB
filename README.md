@@ -4,7 +4,7 @@ PunkwebBB is a Django application that provides a simple and modern forum board 
 
 This is the successor to [punkweb-boards](https://github.com/Punkweb/punkweb-boards).
 
-Check out [punkweb.net](https://punkweb.net/board/) for a live demo and more information!
+Check out [punkweb.net](https://punkweb.net/board/) for documentation, support and a live demonstration of the software.
 
 ## Built with
 
