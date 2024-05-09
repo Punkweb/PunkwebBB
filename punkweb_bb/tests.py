@@ -299,14 +299,14 @@ class IndexViewTestCase(TestCase):
             username="staff", password="staff", is_staff=True
         )
 
-    def test_users_online(self):
+    def test_members_online(self):
         response = self.client.get(self.url)
-        self.assertEqual(len(response.context["users_online"]), 0)
+        self.assertEqual(len(response.context["members_online"]), 0)
 
         self.client.force_login(self.user)
         response = self.client.get(self.url)
 
-        self.assertEqual(len(response.context["users_online"]), 1)
+        self.assertEqual(len(response.context["members_online"]), 1)
 
     def test_staff_online(self):
         response = self.client.get(self.url)
@@ -316,6 +316,17 @@ class IndexViewTestCase(TestCase):
         response = self.client.get(self.url)
 
         self.assertEqual(len(response.context["staff_online"]), 1)
+
+    def test_guests_online(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["guests_online"], 1)
+
+    def test_total_online(self):
+        response = self.client.get(self.url)
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.context["total_online"], 2)
 
     def test_newest_user(self):
         response = self.client.get(self.url)

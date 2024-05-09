@@ -6,6 +6,7 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
+from punkweb_bb.guests import guest_list
 from punkweb_bb.forms import (
     BoardProfileModelForm,
     LoginForm,
@@ -31,8 +32,12 @@ def index_view(request):
 
     users = User.objects.select_related("profile").all()
     newest_user = users.order_by("-profile__created_at").first()
+
     users_online = [user for user in users if user.profile.is_online]
+    members_online = [user for user in users_online if not user.is_staff]
     staff_online = [user for user in users_online if user.is_staff]
+    guests_online = guest_list.length()
+    total_online = len(members_online) + len(staff_online) + guests_online
 
     context = {
         "categories": categories,
@@ -41,8 +46,10 @@ def index_view(request):
         "post_count": post_count,
         "users": users,
         "newest_user": newest_user,
-        "users_online": users_online,
+        "members_online": members_online,
         "staff_online": staff_online,
+        "guests_online": guests_online,
+        "total_online": total_online,
     }
     return render(request, "punkweb_bb/index.html", context=context)
 

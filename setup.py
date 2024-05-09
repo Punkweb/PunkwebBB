@@ -17,6 +17,7 @@ setup(
     install_requires=[
         "django>=4.0",
         "django-precise-bbcode",
+        "expiringdict",
         "pillow",
     ],
     classifiers=[
