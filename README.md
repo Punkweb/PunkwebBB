@@ -94,6 +94,9 @@ PUNKWEB_BB = {
   "SITE_TITLE": "PunkwebBB",
   "FAVICON": "punkweb_bb/favicon.ico",
   "SHOUTBOX_ENABLED": True,
+  "DISCORD_WIDGET_ENABLED": False,
+  "DISCORD_WIDGET_THEME": "dark",
+  "DISCORD_SERVER_ID": None, # Found under Server Settings > Widget > Server ID
 }
 ```
 
