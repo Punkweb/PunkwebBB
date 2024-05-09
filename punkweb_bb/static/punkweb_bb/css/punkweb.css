@@ -646,3 +646,26 @@ blockquote cite {
 .pw-breadcrumb-item.active {
   color: var(--breadcrumb-active);
 }
+
+/* Callout */
+
+.pw-callout {
+  background-color: var(--oc-gray-1);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  color: var(--oc-gray-9);
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+
+.pw-callout.primary {
+  background-color: var(--primary-0);
+  border-color: 1px solid var(--primary-4);
+  color: var(--primary-9);
+}
+
+.pw-callout.danger {
+  background-color: var(--oc-red-0);
+  border-color: 1px solid var(--oc-red-4);
+  color: var(--oc-red-9);
+}
