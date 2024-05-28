@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
-from punkweb_bb.models import BoardProfile, Post, Shout, Thread
+from punkweb_bb.models import BoardProfile, Category, Post, Shout, Subcategory, Thread
 from punkweb_bb.widgets import BBCodeEditorWidget
 
 
@@ -43,6 +43,21 @@ class BoardProfileModelForm(forms.ModelForm):
         }
 
 
+class CategoryModelForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = (
+            "name",
+            "order",
+        )
+        widgets = {
+            "name": forms.TextInput(attrs={"autofocus": True, "class": "pw-input"}),
+            "order": forms.TextInput(
+                attrs={"class": "pw-input", "min": "0", "type": "number"}
+            ),
+        }
+
+
 class PostModelForm(forms.ModelForm):
     class Meta:
         model = Post
@@ -52,6 +67,30 @@ class PostModelForm(forms.ModelForm):
         }
         widgets = {
             "content": BBCodeEditorWidget(),
+        }
+
+
+class ShoutModelForm(forms.ModelForm):
+    class Meta:
+        model = Shout
+        fields = ("content",)
+
+
+class SubcategoryModelForm(forms.ModelForm):
+    class Meta:
+        model = Subcategory
+        fields = (
+            "name",
+            "description",
+            "order",
+            "staff_post_only",
+        )
+        widgets = {
+            "name": forms.TextInput(attrs={"autofocus": True, "class": "pw-input"}),
+            "description": BBCodeEditorWidget(),
+            "order": forms.TextInput(
+                attrs={"class": "pw-input", "min": "0", "type": "number"}
+            ),
         }
 
 
@@ -66,9 +105,3 @@ class ThreadModelForm(forms.ModelForm):
             "title": forms.TextInput(attrs={"autofocus": True, "class": "pw-input"}),
             "content": BBCodeEditorWidget(),
         }
-
-
-class ShoutModelForm(forms.ModelForm):
-    class Meta:
-        model = Shout
-        fields = ("content",)
