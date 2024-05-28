@@ -474,7 +474,7 @@ class ThreadCreateViewTestCase(TestCase):
         self.client.force_login(self.user)
         response = self.client.get(self.staff_only_url)
 
-        self.assertRedirects(response, self.staff_subcategory.get_absolute_url())
+        self.assertEqual(response.status_code, 403)
 
 
 class ThreadViewTestCase(TestCase):
@@ -522,7 +522,7 @@ class ThreadUpdateViewTestCase(TestCase):
     def test_is_author(self):
         self.client.force_login(self.other_user)
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 403)
 
         self.client.force_login(self.user)
         response = self.client.get(self.url)
@@ -571,7 +571,7 @@ class ThreadDeleteViewTestCase(TestCase):
     def test_is_author(self):
         self.client.force_login(self.other_user)
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 403)
 
         self.client.force_login(self.user)
         response = self.client.get(self.url)
@@ -653,7 +653,7 @@ class PostUpdateViewTestCase(TestCase):
     def test_is_author(self):
         self.client.force_login(self.other_user)
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 403)
 
         self.client.force_login(self.user)
         response = self.client.get(self.url)
@@ -703,7 +703,7 @@ class PostDeleteViewTestCase(TestCase):
     def test_is_author(self):
         self.client.force_login(self.other_user)
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 403)
 
         self.client.force_login(self.user)
         response = self.client.get(self.url)
