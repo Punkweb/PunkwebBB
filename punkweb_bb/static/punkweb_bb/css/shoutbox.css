@@ -3,14 +3,25 @@
   display: flex;
   flex-direction: column;
   height: 12rem;
-  gap: 0.25rem;
   overflow-y: auto;
-  padding: 1rem;
 }
 
 .shoutbox__shout {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
   font-size: 0.75rem;
+  padding: 0.25rem 1rem;
   white-space: wrap;
+}
+
+.shoutbox__shout:hover {
+  background-color: var(--oc-gray-1);
+}
+
+.shoutbox__shout__actions {
+  align-items: center;
+  display: flex;
 }
 
 .shoutbox__form {

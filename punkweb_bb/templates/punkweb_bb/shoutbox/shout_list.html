@@ -1,9 +1,19 @@
-{% load shoutbox_bbcode %}
+{% load shoutbox_bbcode can_delete %}
 
 {% for shout in shouts %}
 <div class="shoutbox__shout">
-  <span>{{shout.created_at|date:'g:i A'}}</span>
-  <span><a href="{% url 'punkweb_bb:profile' shout.user.id %}">{{shout.user.username}}</a>: </span>
-  <span>{{ shout.content | safe | shoutbox_bbcode }}</span>
+  <div class="shoutbox__shout__content">
+    <span>{{shout.created_at|date:'g:i A'}}</span>
+    <span><a href="{% url 'punkweb_bb:profile' shout.user.id %}">{{shout.user.username}}</a>: </span>
+    <span>{{ shout.content | safe | shoutbox_bbcode }}</span>
+  </div>
+  {% if shout|can_delete:request.user %}
+  <div class="shoutbox__shout__actions">
+    <button class="pw-icon-button danger xs" hx-get="{% url 'punkweb_bb:shout_delete' shout.id %}"
+      hx-target="#modal-portal">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+  {% endif %}
 </div>
 {% endfor %}
