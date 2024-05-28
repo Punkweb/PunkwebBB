@@ -29,12 +29,12 @@
     {% if perms.punkweb_bb.edit_subcategory or perms.punkweb_bb.delete_subcategory %}
     <div class="subcategory__header__actions">
       {% if perms.punkweb_bb.edit_subcategory %}
-      <a class="pw-button ghost sm" href="{% url 'punkweb_bb:subcategory_update' subcategory.slug %}">
+      <a class="pw-button ghost xs" href="{% url 'punkweb_bb:subcategory_update' subcategory.slug %}">
         Edit
       </a>
       {% endif %}
       {% if perms.punkweb_bb.delete_subcategory %}
-      <a class="pw-button ghost danger sm" hx-get="{% url 'punkweb_bb:subcategory_delete' subcategory.slug %}" hx-target="#modal-portal">
+      <a class="pw-button ghost danger xs" hx-get="{% url 'punkweb_bb:subcategory_delete' subcategory.slug %}" hx-target="#modal-portal">
         Delete
       </a>
       {% endif %}

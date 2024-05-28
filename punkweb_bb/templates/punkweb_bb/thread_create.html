@@ -42,6 +42,7 @@
       {{ form.non_field_errors }}
       {% endif %}
       <div class="threadForm__actions">
+        <a class="pw-button default" href="{{subcategory.get_absolute_url}}" type="submit">Cancel</a>
         <button class="pw-button raised primary" type="submit">Create Thread</button>
       </div>
     </form>

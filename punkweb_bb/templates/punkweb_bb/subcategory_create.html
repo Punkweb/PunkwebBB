@@ -39,7 +39,8 @@
       {{ form.non_field_errors }}
       {% endif %}
       <div class="subcategoryForm__actions">
-        <button class="pw-button raised primary" type="submit">Create Subcategory</button>
+        <a class="pw-button default" href="{% url 'punkweb_bb:index' %}" type="submit">Cancel</a>
+        <button class="pw-button raised primary" type="submit">Create</button>
       </div>
     </form>
   </div>

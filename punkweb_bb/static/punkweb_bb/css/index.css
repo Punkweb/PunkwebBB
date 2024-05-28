@@ -7,6 +7,12 @@
   flex: 1;
 }
 
+.index__category__actions {
+  align-items: center;
+  display: flex;
+  gap: 0.25rem;
+}
+
 .index__sidebar {
   flex: 0 0 20rem;
 }
