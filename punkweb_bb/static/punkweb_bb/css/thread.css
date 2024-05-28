@@ -55,6 +55,25 @@
   color: var(--body-fg);
 }
 
+.thread__user__groups {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.thread__user__group {
+  background-color: var(--primary-8);
+  border: 1px solid var(--primary-9);
+  border-radius: 0.25rem;
+  color: var(--text-on-primary);
+  display: flex;
+  font-size: 0.875rem;
+  justify-content: center;
+  padding: 0.5rem;
+  width: 100%;
+}
+
 .thread__main {
   display: flex;
   flex-direction: column;

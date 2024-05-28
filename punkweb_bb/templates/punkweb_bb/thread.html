@@ -67,6 +67,13 @@
           <div class="thread__user__info__value">{{thread.user.profile.post_count}}</div>
         </div>
       </div>
+      {% if thread.user.groups.all|length > 0 %}
+      <div class="thread__user__groups">
+        {% for group in thread.user.groups.all %}
+        <div class="thread__user__group">{{group.name}}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
     <div class="thread__main">
       <div class="thread__content">
@@ -132,6 +139,13 @@
           <div class="thread__user__info__value">{{post.user.profile.post_count}}</div>
         </div>
       </div>
+      {% if post.user.groups.all|length > 0 %}
+      <div class="thread__user__groups">
+        {% for group in post.user.groups.all %}
+        <div class="thread__user__group">{{group.name}}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
     <div class="thread__main">
       <div class="thread__content">

@@ -12,6 +12,7 @@
 
   --text-dark: var(--oc-gray-9);
   --text-light: var(--oc-gray-0);
+  --text-on-primary: var(--oc-gray-0);
 
   --body-bg: var(--oc-white);
   --body-fg: var(--text-dark);
