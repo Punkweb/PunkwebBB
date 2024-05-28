@@ -406,16 +406,72 @@ blockquote cite {
   width: 2rem;
 }
 
+.pw-icon-button .material-symbols-outlined {
+  display: block;
+  font-size: 1.125rem;
+}
+
+.pw-icon-button.xs {
+  height: 1rem;
+  line-height: 1rem;
+  max-height: 1rem;
+  max-width: 1rem;
+  min-height: 1rem;
+  min-width: 1rem;
+  width: 1rem;
+}
+
+.pw-icon-button.xs .material-symbols-outlined {
+  font-size: 0.875rem;
+}
+
+.pw-icon-button.sm {
+  height: 1.5rem;
+  line-height: 1.5rem;
+  max-height: 1.5rem;
+  max-width: 1.5rem;
+  min-height: 1.5rem;
+  min-width: 1.5rem;
+  width: 1.5rem;
+}
+
+.pw-icon-button.sm .material-symbols-outlined {
+  font-size: 1rem;
+}
+
+.pw-icon-button.lg {
+  height: 2.5rem;
+  line-height: 2.5rem;
+  max-height: 2.5rem;
+  max-width: 2.5rem;
+  min-height: 2.5rem;
+  min-width: 2.5rem;
+  width: 2.5rem;
+}
+
+.pw-icon-button.lg .material-symbols-outlined {
+  font-size: 1.25rem;
+}
+
+.pw-icon-button.xl {
+  height: 3rem;
+  line-height: 3rem;
+  max-height: 3rem;
+  max-width: 3rem;
+  min-height: 3rem;
+  min-width: 3rem;
+  width: 3rem;
+}
+
+.pw-icon-button.sl .material-symbols-outlined {
+  font-size: 1.5rem;
+}
+
 .pw-icon-button:disabled {
   background-color: var(--oc-gray-5) !important;
   border-color: var(--oc-gray-5) !important;
   color: var(--oc-gray-5) !important;
   cursor: not-allowed;
-}
-
-.pw-icon-button .material-symbols-outlined {
-  display: block;
-  font-size: 1.125rem;
 }
 
 .pw-icon-button.rounded {
