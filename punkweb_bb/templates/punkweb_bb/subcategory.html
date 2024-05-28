@@ -1,5 +1,5 @@
 {% extends 'punkweb_bb/base.html' %}
-{% load static humanize_int %}
+{% load static humanize_int can_post %}
 
 {% block title_prefix %}{{subcategory.name}} | {% endblock%}
 
@@ -24,20 +24,35 @@
 </nav>
 
 <div class="subcategory__header">
-  <h1>{{subcategory.name}}</h1>
-  {% if request.user.is_authenticated %}
-  {% if not subcategory.staff_post_only or request.user.is_staff %}
+  <div class="subcategory__header__name">
+    <h1>{{subcategory.name}}</h1>
+    {% if perms.punkweb_bb.edit_subcategory or perms.punkweb_bb.delete_subcategory %}
+    <div class="subcategory__header__actions">
+      {% if perms.punkweb_bb.edit_subcategory %}
+      <a class="pw-button ghost sm" href="{% url 'punkweb_bb:subcategory_update' subcategory.slug %}">
+        Edit
+      </a>
+      {% endif %}
+      {% if perms.punkweb_bb.delete_subcategory %}
+      <a class="pw-button ghost danger sm" hx-get="{% url 'punkweb_bb:subcategory_delete' subcategory.slug %}" hx-target="#modal-portal">
+        Delete
+      </a>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+
+  {% if subcategory|can_post:request.user %}
   <a class="pw-button ghost primary" href="{% url 'punkweb_bb:thread_create' subcategory.slug %}">Create Thread</a>
   {% else %}
   <button
     class="pw-button ghost primary"
     disabled
     href="{% url 'punkweb_bb:thread_create' subcategory.slug %}"
-    title="Only staff can create threads in this subcategory"
+    title="You do not have permission to create a thread in this subcategory."
   >
     Create Thread
   </button>
-  {% endif %}
   {% endif %}
 </div>
 

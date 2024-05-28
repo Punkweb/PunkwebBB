@@ -5,6 +5,18 @@
   margin: 2rem 0;
 }
 
+.subcategory__header__name {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+
+.subcategory__header__actions {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
 .thread__title {
   align-items: center;
   display: flex;
