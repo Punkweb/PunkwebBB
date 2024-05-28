@@ -130,7 +130,7 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
         return user == self.user or user.has_perm("punkweb_bb.delete_thread")
 
     def can_post(self, user):
-        return not self.is_closed or user.is_staff
+        return not self.is_closed
 
     @property
     def post_count(self):
