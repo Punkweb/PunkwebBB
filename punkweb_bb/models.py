@@ -79,6 +79,9 @@ class Subcategory(UUIDPrimaryKeyMixin, TimestampMixin):
             "order",
         )
 
+    def can_post(self, user):
+        return not self.staff_post_only or user.is_staff
+
     @property
     def thread_count(self):
         return self.threads.count()
@@ -120,6 +123,15 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
     def __str__(self):
         return f"{self.title}"
 
+    def can_edit(self, user):
+        return user == self.user or user.has_perm("punkweb_bb.change_thread")
+
+    def can_delete(self, user):
+        return user == self.user or user.has_perm("punkweb_bb.delete_thread")
+
+    def can_post(self, user):
+        return not self.is_closed or user.is_staff
+
     @property
     def post_count(self):
         return self.posts.count()
@@ -142,6 +154,12 @@ class Post(UUIDPrimaryKeyMixin, TimestampMixin):
 
     def __str__(self):
         return f"{self.thread} > {self.user} > {self.created_at}"
+
+    def can_edit(self, user):
+        return user == self.user or user.has_perm("punkweb_bb.change_post")
+
+    def can_delete(self, user):
+        return user == self.user or user.has_perm("punkweb_bb.delete_post")
 
     @property
     def index(self):
@@ -180,3 +198,6 @@ class Shout(UUIDPrimaryKeyMixin, TimestampMixin):
 
     def __str__(self):
         return f"{self.user} > {self.created_at}"
+
+    def can_delete(self, user):
+        return user == self.user or user.has_perm("punkweb_bb.delete_shout")
