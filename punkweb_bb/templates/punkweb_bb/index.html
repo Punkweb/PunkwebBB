@@ -43,7 +43,7 @@
                 <td>
                   <a href="{{subcategory.get_absolute_url}}" title="{{subcategory.name}}">{{subcategory.name}}</a>
                   <div>
-                    {{subcategory.description}}
+                    {{subcategory.description.rendered}}
                   </div>
                 </td>
                 <td>{{subcategory.thread_count}}</td>
@@ -105,11 +105,21 @@
                 </td>
               </tr>
               {% endfor %}
+              {% if perms.punkweb_bb.add_subcategory %}
+              <tr>
+                <td colspan="4">
+                  <a class="pw-button ghost primary xs" href="{% url 'punkweb_bb:subcategory_create' category.slug %}">Create Subcategory</a>
+                </td>
+              </tr>
+              {% endif %}
             </tbody>
           </table>
         </div>
       </div>
       {% endfor %}
+      {% if perms.punkweb_bb.add_category %}
+      <a class="pw-button ghost primary xs" href="{% url 'punkweb_bb:category_create' %}">Create Category</a>
+      {% endif %}
     </div>
     <div class="index__sidebar">
       <div class="pw-card fluid">
