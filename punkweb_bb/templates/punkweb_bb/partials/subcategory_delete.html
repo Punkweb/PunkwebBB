@@ -1,0 +1,11 @@
+{% extends 'punkweb_bb/base_modal.html' %}
+
+{% block title %}Delete Subcategory{% endblock %}
+
+{% block content %}
+<p>Are you sure you want to delete this subcategory? This action cannot be undone!</p>
+<div class="modal__actions">
+  <button class="modal__cancel pw-button default">Cancel</button>
+  <button class="pw-button raised danger" hx-delete="{% url 'punkweb_bb:subcategory_delete' subcategory.slug %}">Delete</button>
+</div>
+{% endblock %}

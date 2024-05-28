@@ -1,0 +1,52 @@
+{% extends 'punkweb_bb/base.html' %}
+{% load static %}
+
+{% block title_prefix %}Create Subcategory | {% endblock %}
+
+{% block extra_head %}
+{{form.media.css}}
+<link rel="stylesheet" href="{% static 'punkweb_bb/css/subcategory-form.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<nav>
+  <ul class="pw-breadcrumb">
+    <li class="pw-breadcrumb-item">
+      <a href="{% url 'punkweb_bb:index' %}">Home</a>
+    </li>
+    <li class="pw-breadcrumb-item">
+      <a href="{{category.get_absolute_url}}">{{category.name}}</a>
+    </li>
+    <li class="pw-breadcrumb-item active">
+      Create Subcategory
+    </li>
+  </ul>
+</nav>
+
+<div class="pw-card fluid">
+  <div class="pw-card-header">Create Subcategory</div>
+  <div class="pw-card-content">
+    <form class="subcategoryForm" action="{% url 'punkweb_bb:subcategory_create' category.slug %}" method="post">
+      {% csrf_token %}
+      {% for field in form %}
+      <div class="subcategoryForm__field">
+        <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+      </div>
+      {% endfor %}
+      {% if form.non_field_errors %}
+      {{ form.non_field_errors }}
+      {% endif %}
+      <div class="subcategoryForm__actions">
+        <button class="pw-button raised primary" type="submit">Create Subcategory</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_script %}
+{{form.media.js}}
+{% endblock %}

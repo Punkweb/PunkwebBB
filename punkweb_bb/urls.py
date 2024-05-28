@@ -11,10 +11,36 @@ urlpatterns = [
     path("settings/", views.settings_view, name="settings"),
     path("members/", views.members_view, name="members"),
     path("members/<path:user_id>/", views.profile_view, name="profile"),
+    path("create-category/", views.category_create_view, name="category_create"),
+    path(
+        "category/<str:category_slug>/update/",
+        views.category_update_view,
+        name="category_update",
+    ),
+    path(
+        "category/<str:category_slug>/delete/",
+        views.category_delete_view,
+        name="category_delete",
+    ),
     path(
         "subcategory/<str:subcategory_slug>/",
         views.subcategory_view,
         name="subcategory",
+    ),
+    path(
+        "category/<str:category_slug>/create-subcategory/",
+        views.subcategory_create_view,
+        name="subcategory_create",
+    ),
+    path(
+        "subcategory/<str:subcategory_slug>/update/",
+        views.subcategory_update_view,
+        name="subcategory_update",
+    ),
+    path(
+        "subcategory/<str:subcategory_slug>/delete/",
+        views.subcategory_delete_view,
+        name="subcategory_delete",
     ),
     path(
         "subcategory/<str:subcategory_slug>/create-thread/",
@@ -37,5 +63,6 @@ urlpatterns = [
     path("post/<str:post_id>/update/", views.post_update_view, name="post_update"),
     path("shout-list/", views.shout_list_view, name="shout_list"),
     path("shout-create/", views.shout_create_view, name="shout_create"),
+    path("shout/<str:shout_id>/delete/", views.shout_delete_view, name="shout_delete"),
     path("bbcode/", views.bbcode_view, name="bbcode"),
 ]
