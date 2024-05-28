@@ -26,9 +26,9 @@
 <div class="subcategory__header">
   <div class="subcategory__header__name">
     <h1>{{subcategory.name}}</h1>
-    {% if perms.punkweb_bb.edit_subcategory or perms.punkweb_bb.delete_subcategory %}
+    {% if perms.punkweb_bb.change_subcategory or perms.punkweb_bb.delete_subcategory %}
     <div class="subcategory__header__actions">
-      {% if perms.punkweb_bb.edit_subcategory %}
+      {% if perms.punkweb_bb.change_subcategory %}
       <a class="pw-button ghost xs" href="{% url 'punkweb_bb:subcategory_update' subcategory.slug %}">
         Edit
       </a>
