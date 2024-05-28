@@ -1,5 +1,5 @@
 {% extends 'punkweb_bb/base.html' %}
-{% load static %}
+{% load static can_delete can_edit can_post %}
 
 {% block title_prefix %}{{thread.title}} | {% endblock %}
 
@@ -77,13 +77,17 @@
         {{thread.user.profile.signature.rendered}}
       </div>
       {% endif %}
-      {% if thread.user == request.user %}
+      {% if thread|can_delete:request.user or thread|can_edit:request.user %}
       <div class="thread__actions">
+        {% if thread|can_edit:request.user %}
         <a class="pw-button ghost sm" href="{% url 'punkweb_bb:thread_update' thread.id %}">Edit</a>
+        {% endif %}
+        {% if thread|can_delete:request.user %}
         <a class="pw-button ghost danger sm" hx-get="{% url 'punkweb_bb:thread_delete' thread.id %}"
           hx-target="#modal-portal">
           Delete
         </a>
+        {% endif %}
       </div>
       {% endif %}
     </div>
@@ -138,13 +142,17 @@
         {{post.user.profile.signature.rendered}}
       </div>
       {% endif %}
-      {% if post.user == request.user %}
+      {% if post|can_delete:request.user or post|can_edit:request.user %}
       <div class="thread__actions">
+        {% if post|can_edit:request.user %}
         <a class="pw-button ghost sm" hx-get="{% url 'punkweb_bb:post_update' post.id %}" hx-target="#modal-portal">Edit</a>
+        {% endif %}
+        {% if post|can_delete:request.user %}
         <a class="pw-button ghost danger sm" hx-get="{% url 'punkweb_bb:post_delete' post.id %}"
           hx-target="#modal-portal">
           Delete
         </a>
+        {% endif %}
       </div>
       {% endif %}
     </div>
@@ -198,8 +206,7 @@
 </nav>
 {% endif %}
 
-{% if request.user.is_authenticated %}
-{% if not thread.is_closed %}
+{% if thread|can_post:request.user %}
 <div class="pw-card fluid margin">
   <div class="pw-card-header">Reply to thread</div>
   <div class="pw-card-content">
@@ -228,7 +235,6 @@
     <p>This thread is closed and you cannot reply to it.</p>
   </div>
 </div>
-{% endif %}
 {% endif %}
 
 {% endblock %}
