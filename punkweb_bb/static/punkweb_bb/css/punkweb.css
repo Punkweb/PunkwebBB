@@ -464,7 +464,7 @@ blockquote cite {
   width: 3rem;
 }
 
-.pw-icon-button.sl .material-symbols-outlined {
+.pw-icon-button.xl .material-symbols-outlined {
   font-size: 1.5rem;
 }
 
@@ -493,6 +493,30 @@ blockquote cite {
   background-color: var(--oc-gray-1);
 }
 
+.pw-icon-button.default.primary {
+  color: var(--primary-9);
+}
+
+.pw-icon-button.default.primary:hover {
+  background-color: var(--primary-0);
+}
+
+.pw-icon-button.default.primary:active {
+  background-color: var(--primary-1);
+}
+
+.pw-icon-button.default.danger {
+  color: var(--oc-red-9);
+}
+
+.pw-icon-button.default.danger:hover {
+  background-color: var(--oc-red-0);
+}
+
+.pw-icon-button.default.danger:active {
+  background-color: var(--oc-red-1);
+}
+
 /* Outlined */
 
 .pw-icon-button.outlined {
@@ -508,7 +532,33 @@ blockquote cite {
   background-color: var(--oc-gray-1);
 }
 
-/* Outlined */
+.pw-icon-button.outlined.primary {
+  border-color: var(--primary-9);
+  color: var(--primary-9);
+}
+
+.pw-icon-button.outlined.primary:hover {
+  background-color: var(--primary-0);
+}
+
+.pw-icon-button.outlined.primary:active {
+  background-color: var(--primary-1);
+}
+
+.pw-icon-button.outlined.danger {
+  border-color: var(--oc-red-9);
+  color: var(--oc-red-9);
+}
+
+.pw-icon-button.outlined.danger:hover {
+  background-color: var(--oc-red-0);
+}
+
+.pw-icon-button.outlined.danger:active {
+  background-color: var(--oc-red-1);
+}
+
+/* Ghost */
 
 .pw-icon-button.ghost {
   border: 1px solid var(--oc-gray-9);
@@ -526,12 +576,52 @@ blockquote cite {
   color: white;
 }
 
+.pw-icon-button.ghost.primary {
+  border: 1px solid var(--primary-9);
+  color: var(--primary-9);
+}
+
+.pw-icon-button.ghost.primary:not(:disabled):hover {
+  background-color: var(--primary-9);
+  color: white;
+}
+
+.pw-icon-button.ghost.primary:not(:disabled):active {
+  background-color: var(--primary-9);
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
+.pw-icon-button.ghost.danger {
+  border: 1px solid var(--oc-red-9);
+  color: var(--oc-red-9);
+}
+
+.pw-icon-button.ghost.danger:not(:disabled):hover {
+  background-color: var(--oc-red-9);
+  color: white;
+}
+
+.pw-icon-button.ghost.danger:not(:disabled):active {
+  background-color: var(--oc-red-9);
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
 /* Raised */
 
 .pw-icon-button.raised {
   background-color: var(--oc-gray-9);
   box-shadow: 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, 0.25);
   color: white;
+}
+
+.pw-icon-button.raised.primary {
+  background-color: var(--primary-9);
+}
+
+.pw-icon-button.raised.danger {
+  background-color: var(--oc-red-9);
 }
 
 .pw-icon-button.raised:not(:disabled):hover {
