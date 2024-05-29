@@ -28,13 +28,25 @@
   padding: 1rem;
 }
 
-.thread__user__usernameContainer {
+.thread__user__info {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.thread__user__username {
   align-items: center;
   display: flex;
   gap: 0.25rem;
 }
 
-.thread__user__info {
+.thread__user__group {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.thread__user__details {
   background-color: var(--oc-gray-0);
   border: 1px solid var(--border);
   border-radius: 0.25rem;
@@ -45,33 +57,14 @@
   width: 100%;
 }
 
-.thread__user__info__row {
+.thread__user__details__row {
   align-items: center;
   display: flex;
   justify-content: space-between;
 }
 
-.thread__user__info__label {
+.thread__user__details__label {
   color: var(--body-fg);
-}
-
-.thread__user__groups {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 100%;
-}
-
-.thread__user__group {
-  background-color: var(--oc-gray-0);
-  border: 1px solid var(--border);
-  border-radius: 0.25rem;
-  color: var(--text-on-primary);
-  display: flex;
-  font-size: 0.875rem;
-  justify-content: center;
-  padding: 0.5rem;
-  width: 100%;
 }
 
 .thread__main {
@@ -85,16 +78,16 @@
   padding: 1rem;
 }
 
-.thread__signature {
-  border-top: 1px solid var(--border);
-  padding: 1rem;
-}
-
 .thread__actions {
   align-items: center;
   display: flex;
   justify-content: flex-end;
   gap: 0.25rem;
+  padding: 1rem;
+}
+
+.thread__signature {
+  border-top: 1px solid var(--border);
   padding: 1rem;
 }
 

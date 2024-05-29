@@ -1,5 +1,5 @@
 {% extends 'punkweb_bb/base.html' %}
-{% load static can_delete can_edit can_post styled_username styled_group_name %}
+{% load static can_delete can_edit can_post styled_username %}
 
 {% block title_prefix %}{{thread.title}} | {% endblock %}
 {% block og_title_prefix %}{{thread.title}} | {% endblock %}
@@ -45,40 +45,42 @@
   </div>
   <div class="thread">
     <div class="thread__user">
-      {% if thread.user.profile.image %}
-      <img class="pw-avatar" src="{{thread.user.profile.image.url}}" alt="{{thread.user.username}}" />
-      {% else %}
-      <img class="pw-avatar" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" alt="{{thread.user.username}}" />
-      {% endif %}
-      <div class="thread__user__usernameContainer">
-        {% if thread.user.profile.is_online %}
-        <div class="onlineIndicator"></div>
-        {% endif %}
-        <a href="{% url 'punkweb_bb:profile' thread.user.id %}">
-          {{thread.user|styled_username}}
-        </a>
-      </div>
       <div class="thread__user__info">
-        <div class="thread__user__info__row">
-          <div class="thread__user__info__label">Joined:</div>
-          <div class="thread__user__info__value">
+        <div class="thread__user__image">
+          {% if thread.user.profile.image %}
+          <img class="pw-avatar" src="{{thread.user.profile.image.url}}" alt="{{thread.user.username}}" />
+          {% else %}
+          <img class="pw-avatar" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" alt="{{thread.user.username}}" />
+          {% endif %}
+        </div>
+        <div class="thread__user__username">
+          {% if thread.user.profile.is_online %}
+          <div class="onlineIndicator"></div>
+          {% endif %}
+          <a href="{% url 'punkweb_bb:profile' thread.user.id %}">
+            {{thread.user|styled_username}}
+          </a>
+        </div>
+        <div class="thread__user__group">
+          {% if thread.user.profile.priority_group %}
+          {{thread.user.profile.priority_group.name}}
+          {% else %}
+          Member
+          {% endif %}
+        </div>
+      </div>
+      <div class="thread__user__details">
+        <div class="thread__user__details__row">
+          <div class="thread__user__details__label">Joined:</div>
+          <div class="thread__user__details__value">
             {{thread.user.date_joined|date:"M d, Y"}}
           </div>
         </div>
-        <div class="thread__user__info__row">
-          <div class="thread__user__info__label">Posts:</div>
-          <div class="thread__user__info__value">{{thread.user.profile.post_count}}</div>
+        <div class="thread__user__details__row">
+          <div class="thread__user__details__label">Posts:</div>
+          <div class="thread__user__details__value">{{thread.user.profile.post_count}}</div>
         </div>
       </div>
-      {% if thread.user.groups.all|length > 0 %}
-      <div class="thread__user__groups">
-        {% for group in thread.user.groups.all %}
-        <div class="thread__user__group">
-          {{group|styled_group_name}}
-        </div>
-        {% endfor %}
-      </div>
-      {% endif %}
     </div>
     <div class="thread__main">
       <div class="thread__content">
@@ -153,44 +155,46 @@
   </div>
   <div class="thread">
     <div class="thread__user">
-      {% if post.user.profile.image %}
-      <div class="thread__user__image">
-        <img class="pw-avatar" src="{{post.user.profile.image.url}}" alt="{{post.user.username}}" />
-      </div>
-      {% else %}
-      <div class="thread__user__image">
-        <img class="pw-avatar" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" alt="{{post.user.username}}" />
-      </div>
-      {% endif %}
-      <div class="thread__user__usernameContainer">
-        {% if post.user.profile.is_online %}
-        <div class="onlineIndicator"></div>
-        {% endif %}
-        <a href="{% url 'punkweb_bb:profile' post.user.id %}">
-          {{post.user|styled_username}}
-        </a>
-      </div>
       <div class="thread__user__info">
-        <div class="thread__user__info__row">
-          <div class="thread__user__info__label">Joined:</div>
-          <div class="thread__user__info__value">
+        <div class="thread__user__image">
+          {% if post.user.profile.image %}
+          <div class="thread__user__image">
+            <img class="pw-avatar" src="{{post.user.profile.image.url}}" alt="{{post.user.username}}" />
+          </div>
+          {% else %}
+          <div class="thread__user__image">
+            <img class="pw-avatar" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" alt="{{post.user.username}}" />
+          </div>
+          {% endif %}
+        </div>
+        <div class="thread__user__username">
+          {% if post.user.profile.is_online %}
+          <div class="onlineIndicator"></div>
+          {% endif %}
+          <a href="{% url 'punkweb_bb:profile' post.user.id %}">
+            {{post.user|styled_username}}
+          </a>
+        </div>
+        <div class="thread__user__group">
+          {% if post.user.profile.priority_group %}
+          {{post.user.profile.priority_group.name}}
+          {% else %}
+          Member
+          {% endif %}
+        </div>
+      </div>
+      <div class="thread__user__details">
+        <div class="thread__user__details__row">
+          <div class="thread__user__details__label">Joined:</div>
+          <div class="thread__user__details__value">
             {{post.user.date_joined|date:"M d, Y"}}
           </div>
         </div>
-        <div class="thread__user__info__row">
-          <div class="thread__user__info__label">Posts:</div>
-          <div class="thread__user__info__value">{{post.user.profile.post_count}}</div>
+        <div class="thread__user__details__row">
+          <div class="thread__user__details__label">Posts:</div>
+          <div class="thread__user__details__value">{{post.user.profile.post_count}}</div>
         </div>
       </div>
-      {% if post.user.groups.all|length > 0 %}
-      <div class="thread__user__groups">
-        {% for group in post.user.groups.all %}
-        <div class="thread__user__group">
-          {{group|styled_group_name}}
-        </div>
-        {% endfor %}
-      </div>
-      {% endif %}
     </div>
     <div class="thread__main">
       <div class="thread__content">
