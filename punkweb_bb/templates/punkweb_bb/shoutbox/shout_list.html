@@ -1,10 +1,10 @@
-{% load shoutbox_bbcode can_delete %}
+{% load shoutbox_bbcode can_delete styled_username %}
 
 {% for shout in shouts %}
 <div class="shoutbox__shout">
   <div class="shoutbox__shout__content">
     <span>{{shout.created_at|date:'g:i A'}}</span>
-    <span><a href="{% url 'punkweb_bb:profile' shout.user.id %}">{{shout.user.username}}</a>: </span>
+    <span><a href="{% url 'punkweb_bb:profile' shout.user.id %}">{{shout.user|styled_username}}</a>: </span>
     <span>{{ shout.content | safe | shoutbox_bbcode }}</span>
   </div>
   {% if shout|can_delete:request.user %}

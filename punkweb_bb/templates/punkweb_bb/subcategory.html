@@ -1,5 +1,5 @@
 {% extends 'punkweb_bb/base.html' %}
-{% load static humanize_int can_post %}
+{% load static humanize_int can_post styled_username %}
 
 {% block title_prefix %}{{subcategory.name}} | {% endblock%}
 {% block og_title_prefix %}{{subcategory.name}} | {% endblock %}
@@ -70,10 +70,10 @@
   <div class="pw-table-container">
     <table class="pw-table">
       <colgroup>
-        <col span="1">
-        <col span="1" width="96px">
-        <col span="1" width="96px">
-        <col span="1" width="160px">
+        <col>
+        <col width="96px">
+        <col width="96px">
+        <col width="192px">
       </colgroup>
       <thead>
         <tr>
@@ -98,7 +98,7 @@
             </div>
             <div>
               <a href="{% url 'punkweb_bb:profile' thread.user.id %}">
-                {{thread.user.username}}
+                {{thread.user|styled_username}}
               </a>
               •
               {{thread.created_at|date:'M j, Y'}}</div>
@@ -117,7 +117,7 @@
                 </a>
                 <div>
                   <a href="{% url 'punkweb_bb:profile' thread.latest_post.user.id %}">
-                    {{thread.latest_post.user.username}}
+                    {{thread.latest_post.user|styled_username}}
                   </a>
                 </div>
               </div>

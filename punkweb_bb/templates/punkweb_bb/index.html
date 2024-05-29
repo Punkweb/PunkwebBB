@@ -1,6 +1,6 @@
 {% extends 'punkweb_bb/base.html' %}
 
-{% load static %}
+{% load static bbcode_tags styled_username %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'punkweb_bb/css/index.css' %}" />
@@ -101,7 +101,7 @@
                         </time>
                         •
                         <a href="{% url 'punkweb_bb:profile' subcategory.latest_thread.latest_post.user.id %}">
-                          {{subcategory.latest_thread.latest_post.user.username}}
+                          {{subcategory.latest_thread.latest_post.user|styled_username}}
                         </a>
                       </div>
                     </div>
@@ -125,7 +125,7 @@
                         </time>
                         •
                         <a href="{% url 'punkweb_bb:profile' subcategory.latest_thread.user.id %}">
-                          {{subcategory.latest_thread.user.username}}
+                          {{subcategory.latest_thread.user|styled_username}}
                         </a>
                       </div>
                     </div>
@@ -175,7 +175,7 @@
                 </time>
                 •
                 <a href="{% url 'punkweb_bb:profile' thread.user.id %}">
-                  {{thread.user.username}}
+                  {{thread.user|styled_username}}
                 </a>
               </div>
             </div>
@@ -206,7 +206,7 @@
               <div class="index__statistics__label">Newest member:</div>
               <div class="index__statistics__value">
                 <a href="{% url 'punkweb_bb:profile' newest_user.id %}">
-                  {{newest_user.username}}
+                  {{newest_user|styled_username}}
                 </a>
               </div>
             </div>

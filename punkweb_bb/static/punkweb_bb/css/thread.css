@@ -63,8 +63,8 @@
 }
 
 .thread__user__group {
-  background-color: var(--primary-8);
-  border: 1px solid var(--primary-9);
+  background-color: var(--oc-gray-0);
+  border: 1px solid var(--border);
   border-radius: 0.25rem;
   color: var(--text-on-primary);
   display: flex;

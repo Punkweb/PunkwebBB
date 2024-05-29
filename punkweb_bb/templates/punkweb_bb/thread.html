@@ -1,5 +1,5 @@
 {% extends 'punkweb_bb/base.html' %}
-{% load static can_delete can_edit can_post %}
+{% load static can_delete can_edit can_post styled_username styled_group_name %}
 
 {% block title_prefix %}{{thread.title}} | {% endblock %}
 {% block og_title_prefix %}{{thread.title}} | {% endblock %}
@@ -55,7 +55,7 @@
         <div class="onlineIndicator"></div>
         {% endif %}
         <a href="{% url 'punkweb_bb:profile' thread.user.id %}">
-          {{thread.user.username}}
+          {{thread.user|styled_username}}
         </a>
       </div>
       <div class="thread__user__info">
@@ -73,7 +73,9 @@
       {% if thread.user.groups.all|length > 0 %}
       <div class="thread__user__groups">
         {% for group in thread.user.groups.all %}
-        <div class="thread__user__group">{{group.name}}</div>
+        <div class="thread__user__group">
+          {{group|styled_group_name}}
+        </div>
         {% endfor %}
       </div>
       {% endif %}
@@ -165,7 +167,7 @@
         <div class="onlineIndicator"></div>
         {% endif %}
         <a href="{% url 'punkweb_bb:profile' post.user.id %}">
-          {{post.user.username}}
+          {{post.user|styled_username}}
         </a>
       </div>
       <div class="thread__user__info">
@@ -183,7 +185,9 @@
       {% if post.user.groups.all|length > 0 %}
       <div class="thread__user__groups">
         {% for group in post.user.groups.all %}
-        <div class="thread__user__group">{{group.name}}</div>
+        <div class="thread__user__group">
+          {{group|styled_group_name}}
+        </div>
         {% endfor %}
       </div>
       {% endif %}

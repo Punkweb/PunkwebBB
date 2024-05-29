@@ -1,5 +1,5 @@
 {% extends "punkweb_bb/base.html" %}
-{% load static %}
+{% load static styled_username %}
 
 {% block title_prefix %}Members | {% endblock%}
 {% block og_title_prefix %}Members | {% endblock %}
@@ -33,7 +33,7 @@
         {% endif %}
       </div>
       <div class="members__user__info">
-        <div class="members__user__username"><a href="{% url 'punkweb_bb:profile' user.id %}">{{ user.username }}</a></div>
+        <div class="members__user__username"><a href="{% url 'punkweb_bb:profile' user.id %}">{{ user|styled_username }}</a></div>
         <div class="members__user__stats">
           <div class="members__user__stat">
             Posts:
