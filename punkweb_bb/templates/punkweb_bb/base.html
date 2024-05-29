@@ -6,6 +6,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title_prefix %}{% endblock %}{{ punkweb_bb.settings.SITE_TITLE|default:"PunkwebBB" }}</title>
+  <meta property="og:title" content="{% block og_title_prefix %}{% endblock %}{{ punkweb_bb.settings.SITE_TITLE|default:"PunkwebBB" }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  {% if punkweb_bb.settings.OG_IMAGE %}
+  <meta property="og:image" content="{{ punkweb_bb.settings.OG_IMAGE }}" />
+  {% endif %}
   <link rel="icon" href="{% static punkweb_bb.settings.FAVICON %}" />
   <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/open-color.css' %}" />
   <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/prism.css' %}" />
