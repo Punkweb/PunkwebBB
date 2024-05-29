@@ -17,7 +17,7 @@ Check out [punkweb.net](https://punkweb.net/board/) for documentation, support a
 
 ## Requirements
 
-- Python 3.11+
+- Python 3.9+
 - Django 4.2+
 - django-precise-bbcode 1.2+
 - Pillow
@@ -93,6 +93,7 @@ PUNKWEB_BB = {
   "SITE_NAME": "PUNKWEB",
   "SITE_TITLE": "PunkwebBB",
   "FAVICON": "punkweb_bb/favicon.ico",
+  "OG_IMAGE": None, # Used for Open Graph meta tags, must be a full URL!
   "SHOUTBOX_ENABLED": True,
   "DISCORD_WIDGET_ENABLED": False,
   "DISCORD_WIDGET_THEME": "dark",
