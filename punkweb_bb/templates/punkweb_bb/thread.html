@@ -2,8 +2,11 @@
 {% load static can_delete can_edit can_post %}
 
 {% block title_prefix %}{{thread.title}} | {% endblock %}
+{% block og_title_prefix %}{{thread.title}} | {% endblock %}
 
 {% block extra_head %}
+<meta name="description" content="{{thread.content.rendered|striptags|truncatechars:120}}" />
+<meta property="og:description" content="{{thread.content.rendered|striptags|truncatechars:120}}" />
 <link rel="stylesheet" href="{% static 'punkweb_bb/css/post-form.css' %}" />
 <link rel="stylesheet" href="{% static 'punkweb_bb/css/thread.css' %}" />
 <link rel="stylesheet" href="{% static 'punkweb_bb/css/thread-form.css' %}" />
@@ -79,16 +82,11 @@
       <div class="thread__content">
         {{thread.content.rendered}}
       </div>
-      {% if thread.user.profile.signature.rendered %}
-      <div class="thread__signature">
-        {{thread.user.profile.signature.rendered}}
-      </div>
-      {% endif %}
       {% if thread|can_delete:request.user or thread|can_edit:request.user or perms.punkweb_bb.pin_thread or perms.punkweb_bb.close_thread %}
       <div class="thread__actions">
         {% if perms.punkweb_bb.pin_thread %}
         <a 
-          class="pw-icon-button ghost rounded"
+          class="pw-icon-button default rounded"
           title="{% if thread.is_pinned %}Unpin{% else %}Pin{% endif %}"
           hx-get="{% url 'punkweb_bb:thread_pin' thread.id %}"
           hx-swap="none"
@@ -102,7 +100,7 @@
         {% endif %}
         {% if perms.punkweb_bb.close_thread %}
         <a
-          class="pw-icon-button ghost rounded"
+          class="pw-icon-button default rounded"
           title="{% if thread.is_closed %}Reopen{% else %}Close{% endif %}"
           hx-get="{% url 'punkweb_bb:thread_close' thread.id %}"
           hx-swap="none"
@@ -116,7 +114,7 @@
         {% endif %}
         {% if thread|can_edit:request.user %}
         <a
-          class="pw-icon-button ghost rounded"
+          class="pw-icon-button default rounded"
           href="{% url 'punkweb_bb:thread_update' thread.id %}"
           title="Edit"
         >
@@ -125,7 +123,7 @@
         {% endif %}
         {% if thread|can_delete:request.user %}
         <a
-          class="pw-icon-button ghost rounded danger"
+          class="pw-icon-button default rounded danger"
           title="Delete"
           hx-get="{% url 'punkweb_bb:thread_delete' thread.id %}"
           hx-target="#modal-portal"
@@ -133,6 +131,11 @@
           <span class="material-symbols-outlined">delete</span>
         </a>
         {% endif %}
+      </div>
+      {% endif %}
+      {% if thread.user.profile.signature.rendered %}
+      <div class="thread__signature">
+        {{thread.user.profile.signature.rendered}}
       </div>
       {% endif %}
     </div>
@@ -189,16 +192,11 @@
       <div class="thread__content">
         {{post.content.rendered}}
       </div>
-      {% if post.user.profile.signature.rendered %}
-      <div class="thread__signature">
-        {{post.user.profile.signature.rendered}}
-      </div>
-      {% endif %}
       {% if post|can_delete:request.user or post|can_edit:request.user %}
       <div class="thread__actions">
         {% if post|can_edit:request.user %}
         <a
-          class="pw-icon-button ghost rounded"
+          class="pw-icon-button default rounded"
           title="Edit"
           hx-get="{% url 'punkweb_bb:post_update' post.id %}"
           hx-target="#modal-portal"
@@ -208,7 +206,7 @@
         {% endif %}
         {% if post|can_delete:request.user %}
         <a
-          class="pw-icon-button ghost rounded danger"
+          class="pw-icon-button default rounded danger"
           title="Delete"
           hx-get="{% url 'punkweb_bb:post_delete' post.id %}"
           hx-target="#modal-portal"
@@ -216,6 +214,11 @@
           <span class="material-symbols-outlined">delete</span>
         </a>
         {% endif %}
+      </div>
+      {% endif %}
+      {% if post.user.profile.signature.rendered %}
+      <div class="thread__signature">
+        {{post.user.profile.signature.rendered}}
       </div>
       {% endif %}
     </div>
