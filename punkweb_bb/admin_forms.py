@@ -1,6 +1,13 @@
 from django import forms
 
-from punkweb_bb.models import BoardProfile, Category, Post, Subcategory, Thread
+from punkweb_bb.models import (
+    BoardProfile,
+    Category,
+    GroupStyle,
+    Post,
+    Subcategory,
+    Thread,
+)
 from punkweb_bb.widgets import BBCodeEditorWidget
 
 
@@ -46,4 +53,13 @@ class PostAdminModelForm(forms.ModelForm):
         fields = "__all__"
         widgets = {
             "content": BBCodeEditorWidget(),
+        }
+
+
+class GroupStyleAdminModelForm(forms.ModelForm):
+    class Meta:
+        model = GroupStyle
+        fields = "__all__"
+        widgets = {
+            "username_style": BBCodeEditorWidget(),
         }

@@ -4,11 +4,20 @@ from django.utils.safestring import mark_safe
 from punkweb_bb.admin_forms import (
     BoardProfileAdminModelForm,
     CategoryAdminModelForm,
+    GroupStyleAdminModelForm,
     PostAdminModelForm,
     SubcategoryAdminModelForm,
     ThreadAdminModelForm,
 )
-from punkweb_bb.models import BoardProfile, Category, Post, Shout, Subcategory, Thread
+from punkweb_bb.models import (
+    BoardProfile,
+    Category,
+    GroupStyle,
+    Post,
+    Shout,
+    Subcategory,
+    Thread,
+)
 
 
 @admin.register(BoardProfile)
@@ -113,4 +122,17 @@ class ShoutModelAdmin(admin.ModelAdmin):
         "user__username",
         "user__email",
         "content",
+    )
+
+
+@admin.register(GroupStyle)
+class GroupStyleModelAdmin(admin.ModelAdmin):
+    form = GroupStyleAdminModelForm
+    list_display = (
+        "group",
+        "priority",
+    )
+    search_fields = (
+        "group__name",
+        "username_style",
     )
