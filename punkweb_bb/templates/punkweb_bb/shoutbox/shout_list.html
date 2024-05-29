@@ -9,9 +9,8 @@
   </div>
   {% if shout|can_delete:request.user %}
   <div class="shoutbox__shout__actions">
-    <button class="pw-icon-button danger xs" hx-get="{% url 'punkweb_bb:shout_delete' shout.id %}"
-      hx-target="#modal-portal">
-      <span class="material-symbols-outlined">close</span>
+    <button class="pw-icon-button danger xs" title="Delete" hx-get="{% url 'punkweb_bb:shout_delete' shout.id %}" hx-target="#modal-portal">
+      <span class="material-symbols-outlined">delete</span>
     </button>
   </div>
   {% endif %}
