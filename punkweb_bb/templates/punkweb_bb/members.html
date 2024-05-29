@@ -41,7 +41,9 @@
           </div>
           <div class="members__user__stat">
             Date Joined:
-            <span class="members__user__stat__value">{{user.date_joined | date:'m/d/Y'}}</span>
+            <span class="members__user__stat__value">
+              <time datetime="{{user.date_joined|date:'c'}}">{{user.date_joined | date:'m/d/Y'}}</time>
+            </span>
           </div>
         </div>
       </div>

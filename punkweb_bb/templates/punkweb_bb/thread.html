@@ -41,7 +41,9 @@
 
 <div class="pw-card fluid margin">
   <div class="pw-card-header">
-    <div class="thread__date">{{thread.created_at|date:'M d, Y'}}</div>
+    <div class="thread__date">
+      <time datetime="{{thread.created_at|date:'c'}}">{{thread.created_at | date:'M d, Y'}}</time>
+    </div>
   </div>
   <div class="thread">
     <div class="thread__user">
@@ -73,7 +75,7 @@
         <div class="thread__user__details__row">
           <div class="thread__user__details__label">Joined:</div>
           <div class="thread__user__details__value">
-            {{thread.user.date_joined|date:"M d, Y"}}
+            <time datetime="{{thread.user.date_joined|date:'c'}}">{{thread.user.date_joined | date:'M d, Y'}}</time>
           </div>
         </div>
         <div class="thread__user__details__row">
@@ -150,7 +152,9 @@
 {% for post in posts %}
 <div id="post-{{post.id}}" class="pw-card fluid margin">
   <div class="pw-card-header thread__header">
-    <div class="thread__date">{{post.created_at|date:'M d, Y'}}</div>
+    <div class="thread__date">
+      <time datetime="{{post.created_at|date:'c'}}">{{post.created_at | date:'M d, Y'}}</time>
+    </div>
     <a class="thread__index" href="{{post.get_absolute_url}}">#{{post.index}}</a>
   </div>
   <div class="thread">
@@ -187,7 +191,7 @@
         <div class="thread__user__details__row">
           <div class="thread__user__details__label">Joined:</div>
           <div class="thread__user__details__value">
-            {{post.user.date_joined|date:"M d, Y"}}
+            <time datetime="{{post.user.date_joined|date:'c'}}">{{post.user.date_joined | date:'M d, Y'}}</time>
           </div>
         </div>
         <div class="thread__user__details__row">

@@ -3,7 +3,7 @@
 {% for shout in shouts %}
 <div class="shoutbox__shout">
   <div class="shoutbox__shout__content">
-    <span>{{shout.created_at|date:'g:i A'}}</span>
+    <time datetime="{{shout.created_at|date:'c'}}">{{shout.created_at | date:'g:i A'}}</time>
     <span><a href="{% url 'punkweb_bb:profile' shout.user.id %}">{{shout.user|styled_username}}</a>: </span>
     <span>{{ shout.content | safe | shoutbox_bbcode }}</span>
   </div>
