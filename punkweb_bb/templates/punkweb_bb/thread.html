@@ -84,15 +84,53 @@
         {{thread.user.profile.signature.rendered}}
       </div>
       {% endif %}
-      {% if thread|can_delete:request.user or thread|can_edit:request.user %}
+      {% if thread|can_delete:request.user or thread|can_edit:request.user or perms.punkweb_bb.pin_thread or perms.punkweb_bb.close_thread %}
       <div class="thread__actions">
+        {% if perms.punkweb_bb.pin_thread %}
+        <a 
+          class="pw-icon-button ghost rounded"
+          title="{% if thread.is_pinned %}Unpin{% else %}Pin{% endif %}"
+          hx-get="{% url 'punkweb_bb:thread_pin' thread.id %}"
+          hx-swap="none"
+        >
+          {% if thread.is_pinned %}
+          <span class="material-symbols-outlined">keep_off</span>
+          {% else %}
+          <span class="material-symbols-outlined">keep</span>
+          {% endif %}
+        </a>
+        {% endif %}
+        {% if perms.punkweb_bb.close_thread %}
+        <a
+          class="pw-icon-button ghost rounded"
+          title="{% if thread.is_closed %}Reopen{% else %}Close{% endif %}"
+          hx-get="{% url 'punkweb_bb:thread_close' thread.id %}"
+          hx-swap="none"
+        >
+          {% if thread.is_closed %}
+          <span class="material-symbols-outlined">lock_open</span>
+          {% else %}
+          <span class="material-symbols-outlined">lock</span>
+          {% endif %}
+        </a>
+        {% endif %}
         {% if thread|can_edit:request.user %}
-        <a class="pw-button ghost sm" href="{% url 'punkweb_bb:thread_update' thread.id %}">Edit</a>
+        <a
+          class="pw-icon-button ghost rounded"
+          href="{% url 'punkweb_bb:thread_update' thread.id %}"
+          title="Edit"
+        >
+          <span class="material-symbols-outlined">edit</span>
+        </a>
         {% endif %}
         {% if thread|can_delete:request.user %}
-        <a class="pw-button ghost danger sm" hx-get="{% url 'punkweb_bb:thread_delete' thread.id %}"
-          hx-target="#modal-portal">
-          Delete
+        <a
+          class="pw-icon-button ghost rounded danger"
+          title="Delete"
+          hx-get="{% url 'punkweb_bb:thread_delete' thread.id %}"
+          hx-target="#modal-portal"
+        >
+          <span class="material-symbols-outlined">delete</span>
         </a>
         {% endif %}
       </div>
@@ -159,12 +197,23 @@
       {% if post|can_delete:request.user or post|can_edit:request.user %}
       <div class="thread__actions">
         {% if post|can_edit:request.user %}
-        <a class="pw-button ghost sm" hx-get="{% url 'punkweb_bb:post_update' post.id %}" hx-target="#modal-portal">Edit</a>
+        <a
+          class="pw-icon-button ghost rounded"
+          title="Edit"
+          hx-get="{% url 'punkweb_bb:post_update' post.id %}"
+          hx-target="#modal-portal"
+        >
+          <span class="material-symbols-outlined">edit</span>
+        </a>
         {% endif %}
         {% if post|can_delete:request.user %}
-        <a class="pw-button ghost danger sm" hx-get="{% url 'punkweb_bb:post_delete' post.id %}"
-          hx-target="#modal-portal">
-          Delete
+        <a
+          class="pw-icon-button ghost rounded danger"
+          title="Delete"
+          hx-get="{% url 'punkweb_bb:post_delete' post.id %}"
+          hx-target="#modal-portal"
+        >
+          <span class="material-symbols-outlined">delete</span>
         </a>
         {% endif %}
       </div>
