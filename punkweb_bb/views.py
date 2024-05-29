@@ -407,6 +407,32 @@ def thread_delete_view(request, thread_id):
 
 
 @login_required(login_url="/login/")
+def thread_pin_view(request, thread_id):
+    thread = get_object_or_404(Thread, pk=thread_id)
+
+    if not request.user.has_perm("punkweb_bb.pin_thread"):
+        return HttpResponseForbidden("You do not have permission to pin threads.")
+
+    thread.is_pinned = not thread.is_pinned
+    thread.save()
+
+    return htmx_redirect(thread.get_absolute_url())
+
+
+@login_required(login_url="/login/")
+def thread_close_view(request, thread_id):
+    thread = get_object_or_404(Thread, pk=thread_id)
+
+    if not request.user.has_perm("punkweb_bb.close_thread"):
+        return HttpResponseForbidden("You do not have permission to close threads.")
+
+    thread.is_closed = not thread.is_closed
+    thread.save()
+
+    return htmx_redirect(thread.get_absolute_url())
+
+
+@login_required(login_url="/login/")
 def post_create_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
