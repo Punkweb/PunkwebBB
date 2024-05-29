@@ -2,6 +2,7 @@
 {% load static humanize_int can_post %}
 
 {% block title_prefix %}{{subcategory.name}} | {% endblock%}
+{% block og_title_prefix %}{{subcategory.name}} | {% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'punkweb_bb/css/subcategory.css' %}" />
@@ -29,13 +30,22 @@
     {% if perms.punkweb_bb.change_subcategory or perms.punkweb_bb.delete_subcategory %}
     <div class="subcategory__header__actions">
       {% if perms.punkweb_bb.change_subcategory %}
-      <a class="pw-button ghost xs" href="{% url 'punkweb_bb:subcategory_update' subcategory.slug %}">
-        Edit
+      <a
+        class="pw-icon-button default rounded"
+        href="{% url 'punkweb_bb:subcategory_update' subcategory.slug %}"
+        title="Edit subcategory"
+      >
+        <span class="material-symbols-outlined">edit</span>
       </a>
       {% endif %}
       {% if perms.punkweb_bb.delete_subcategory %}
-      <a class="pw-button ghost danger xs" hx-get="{% url 'punkweb_bb:subcategory_delete' subcategory.slug %}" hx-target="#modal-portal">
-        Delete
+      <a
+        class="pw-icon-button default rounded danger"
+        title="Delete subcategory"
+        hx-get="{% url 'punkweb_bb:subcategory_delete' subcategory.slug %}"
+        hx-target="#modal-portal"
+      >
+        <span class="material-symbols-outlined">delete</span>
       </a>
       {% endif %}
     </div>
