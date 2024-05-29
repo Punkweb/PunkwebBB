@@ -1,4 +1,3 @@
-import datetime
 import math
 import os
 
@@ -42,7 +41,7 @@ class BoardProfile(UUIDPrimaryKeyMixin, TimestampMixin):
     def is_online(self):
         last_seen = cache.get(f"profile_online_{self.id}")
         if last_seen:
-            return timezone.now() < last_seen + datetime.timedelta(minutes=5)
+            return timezone.now() < last_seen + timezone.timedelta(minutes=5)
         return False
 
     @property

@@ -1,5 +1,3 @@
-import datetime
-
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -498,7 +496,7 @@ def post_delete_view(request, post_id):
 
 def current_shouts():
     return Shout.objects.filter(
-        created_at__gt=timezone.now() - datetime.timedelta(hours=12)
+        created_at__gt=timezone.now() - timezone.timedelta(hours=12)
     ).order_by("created_at")
 
 
