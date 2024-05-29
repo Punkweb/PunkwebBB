@@ -3,6 +3,7 @@ import math
 import os
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from django.core.cache import cache
 from django.db import models
 from django.forms import ValidationError
@@ -11,6 +12,7 @@ from django.utils import timezone
 from precise_bbcode.fields import BBCodeTextField
 
 from punkweb_bb.mixins import TimestampMixin, UUIDPrimaryKeyMixin
+from punkweb_bb.utils import get_styled_username
 
 User = get_user_model()
 
@@ -27,6 +29,10 @@ class BoardProfile(UUIDPrimaryKeyMixin, TimestampMixin):
 
     class Meta:
         ordering = ("user__username",)
+
+    @property
+    def styled_username(self):
+        return get_styled_username(self.user)
 
     @property
     def is_online(self):
@@ -205,3 +211,18 @@ class Shout(UUIDPrimaryKeyMixin, TimestampMixin):
 
     def can_delete(self, user):
         return user == self.user or user.has_perm("punkweb_bb.delete_shout")
+
+
+class GroupStyle(UUIDPrimaryKeyMixin, TimestampMixin):
+    group = models.OneToOneField(Group, related_name="style", on_delete=models.CASCADE)
+    priority = models.PositiveIntegerField(
+        default=0,
+        help_text="Highest priority is displayed",
+    )
+    username_style = BBCodeTextField()
+
+    class Meta:
+        ordering = ("-priority",)
+
+    def __str__(self):
+        return f"{self.group} > {self.priority}"
