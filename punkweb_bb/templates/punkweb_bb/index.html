@@ -31,36 +31,45 @@
             </colgroup>
             <thead>
               <tr>
-                <th><a href="{{category.get_absolute_url}}">{{category.name}}</a></th>
+                <th>
+                  <div class="index__category__title">
+                    <a href="{{category.get_absolute_url}}">{{category.name}}</a>
+                    {% if perms.punkweb_bb.add_subcategory %}
+                    <a
+                      class="pw-icon-button default rounded sm"
+                      href="{% url 'punkweb_bb:subcategory_create' category.slug %}"
+                      title="Create subcategory"
+                    >
+                      <span class="material-symbols-outlined">add</span>
+                    </a>
+                    {% endif %}
+                    {% if perms.punkweb_bb.change_category %}
+                    <a
+                      class="pw-icon-button default rounded sm"
+                      href="{% url 'punkweb_bb:category_update' category.slug %}"
+                      title="Edit category"
+                    >
+                      <span class="material-symbols-outlined">edit</span>
+                    </a>
+                    {% endif %}
+                    {% if perms.punkweb_bb.delete_category %}
+                    <a
+                      class="pw-icon-button default danger rounded sm"
+                      title="Delete category"
+                      hx-get="{% url 'punkweb_bb:category_delete' category.slug %}"
+                      hx-target="#modal-portal"
+                    >
+                    <span class="material-symbols-outlined">delete</span>
+                    </a>
+                    {% endif %}
+                  </div>
+                </th>
                 <th>Threads</th>
                 <th>Posts</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {% if perms.punkweb_bb.add_subcategory or perms.punkweb_bb.change_category or perms.punkweb_bb.delete_category %}
-              <tr>
-                <td colspan="4">
-                  <div class="index__category__actions">
-                    {% if perms.punkweb_bb.add_subcategory %}
-                    <a class="pw-button ghost xs" href="{% url 'punkweb_bb:subcategory_create' category.slug %}">
-                      Create Subcategory
-                    </a>
-                    {% endif %}
-                    {% if perms.punkweb_bb.change_category %}
-                    <a class="pw-button ghost xs" href="{% url 'punkweb_bb:category_update' category.slug %}">
-                      Edit
-                    </a>
-                    {% endif %}
-                    {% if perms.punkweb_bb.delete_category %}
-                    <a class="pw-button ghost danger xs" hx-get="{% url 'punkweb_bb:category_delete' category.slug %}" hx-target="#modal-portal">
-                      Delete
-                    </a>
-                    {% endif %}
-                  </div>
-                </td>
-              </tr>
-              {% endif %}
               {% for subcategory in category.subcategories.all %}
               <tr>
                 <td>
@@ -134,7 +143,13 @@
       </div>
       {% endfor %}
       {% if perms.punkweb_bb.add_category %}
-      <a class="pw-button ghost xs" href="{% url 'punkweb_bb:category_create' %}">Create Category</a>
+      <a
+        class="pw-icon-button raised primary rounded"
+        href="{% url 'punkweb_bb:category_create' %}"
+        title="Create category"
+      >
+        <span class="material-symbols-outlined">add</span>
+      </a>
       {% endif %}
     </div>
     <div class="index__sidebar">
