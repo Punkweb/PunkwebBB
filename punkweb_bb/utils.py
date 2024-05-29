@@ -18,8 +18,8 @@ def get_unique_slug(model, field):
     return slug
 
 
-def get_user_highest_priority_group(user):
-    groups = Group.objects.filter(user=user, style__isnull=False)
+def get_highest_priority_group(user):
+    groups = user.groups.filter(style__isnull=False)
 
     if groups.exists():
         return groups.order_by("-style__priority").first()
@@ -28,7 +28,7 @@ def get_user_highest_priority_group(user):
 
 
 def get_styled_username(user):
-    group = get_user_highest_priority_group(user)
+    group = get_highest_priority_group(user)
 
     if group:
         username_style = group.style.username_style
@@ -38,7 +38,7 @@ def get_styled_username(user):
         return user.username
 
 
-def get_group_name_styled(group):
+def get_styled_group_name(group):
     if group.style is None:
         return group.name
     else:
