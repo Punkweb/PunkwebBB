@@ -119,6 +119,10 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
             "-is_pinned",
             "-last_post_created_at",
         )
+        permissions = (
+            ("pin_thread", "Can pin thread"),
+            ("close_thread", "Can close thread"),
+        )
 
     def __str__(self):
         return f"{self.title}"
