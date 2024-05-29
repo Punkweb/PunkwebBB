@@ -2,7 +2,7 @@ $(function () {
   $(document).ready(function () {
     $(".bbcode-editor").sceditor({
       emoticonsCompat: true,
-      emoticonsEnabled: true,
+      emoticonsEnabled: false,
       emoticonsRoot: "/media/precise_bbcode/smilies/",
       emoticons: {
         dropdown: {},
