@@ -12,7 +12,7 @@ from django.utils import timezone
 from precise_bbcode.fields import BBCodeTextField
 
 from punkweb_bb.mixins import TimestampMixin, UUIDPrimaryKeyMixin
-from punkweb_bb.utils import get_styled_username
+from punkweb_bb.utils import get_highest_priority_group, get_styled_username
 
 User = get_user_model()
 
@@ -29,6 +29,10 @@ class BoardProfile(UUIDPrimaryKeyMixin, TimestampMixin):
 
     class Meta:
         ordering = ("user__username",)
+
+    @property
+    def priority_group(self):
+        return get_highest_priority_group(self.user)
 
     @property
     def styled_username(self):
