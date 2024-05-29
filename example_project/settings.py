@@ -135,8 +135,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # PunkwebBB
 
-PUNKWEB_BB = {
-    "SITE_NAME": "Example",
-    "SITE_TITLE": "Example Project",
-    "SHOUTBOX_ENABLED": True,
-}
+PUNKWEB_BB = {}
