@@ -1,5 +1,5 @@
 {% extends 'punkweb_bb/base.html' %}
-{% load static styled_username %}
+{% load static render styled_username %}
 
 {% block title_prefix %}{{ user.username }} | {% endblock%}
 {% block og_title_prefix %}{{ user.username }} | {% endblock %}
@@ -76,7 +76,7 @@
               <a href="{% url 'punkweb_bb:thread' thread.id %}">{{ thread.title }}</a>
             </div>
             <p class="profile__thread__preview">
-              {{ thread.content.rendered|striptags|truncatechars:120 }}
+              {{ thread.content|render|striptags|truncatechars:120 }}
             </p>
             <div class="profile__thread__date">
               <time datetime="{{thread.created_at|date:'c'}}">

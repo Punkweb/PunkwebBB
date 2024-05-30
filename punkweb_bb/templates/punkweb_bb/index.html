@@ -1,6 +1,6 @@
 {% extends 'punkweb_bb/base.html' %}
 
-{% load static bbcode_tags styled_username %}
+{% load static render styled_username %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'punkweb_bb/css/index.css' %}" />
@@ -75,7 +75,7 @@
                 <td>
                   <a href="{{subcategory.get_absolute_url}}" title="{{subcategory.name}}">{{subcategory.name}}</a>
                   <div>
-                    {{subcategory.description.rendered}}
+                    {{subcategory.description|render}}
                   </div>
                 </td>
                 <td>{{subcategory.thread_count}}</td>

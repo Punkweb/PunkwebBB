@@ -1,12 +1,12 @@
 {% extends 'punkweb_bb/base.html' %}
-{% load static can_delete can_edit can_post styled_username %}
+{% load static render styled_username can_delete can_edit can_post %}
 
 {% block title_prefix %}{{thread.title}} | {% endblock %}
 {% block og_title_prefix %}{{thread.title}} | {% endblock %}
 
 {% block extra_head %}
-<meta name="description" content="{{thread.content.rendered|striptags|truncatechars:120}}" />
-<meta property="og:description" content="{{thread.content.rendered|striptags|truncatechars:120}}" />
+<meta name="description" content="{{thread.content|render|striptags|truncatechars:120}}" />
+<meta property="og:description" content="{{thread.content|render|striptags|truncatechars:120}}" />
 <link rel="stylesheet" href="{% static 'punkweb_bb/css/post-form.css' %}" />
 <link rel="stylesheet" href="{% static 'punkweb_bb/css/thread.css' %}" />
 <link rel="stylesheet" href="{% static 'punkweb_bb/css/thread-form.css' %}" />
@@ -86,7 +86,7 @@
     </div>
     <div class="thread__main">
       <div class="thread__content">
-        {{thread.content.rendered}}
+        {{thread.content|render}}
       </div>
       {% if thread|can_delete:request.user or thread|can_edit:request.user or perms.punkweb_bb.pin_thread or perms.punkweb_bb.close_thread or perms.punkweb_bb.move_thread %}
       <div class="thread__actions">
@@ -149,9 +149,9 @@
         {% endif %}
       </div>
       {% endif %}
-      {% if thread.user.profile.signature.rendered %}
+      {% if thread.user.profile.signature|render %}
       <div class="thread__signature">
-        {{thread.user.profile.signature.rendered}}
+        {{thread.user.profile.signature|render}}
       </div>
       {% endif %}
     </div>
@@ -212,7 +212,7 @@
     </div>
     <div class="thread__main">
       <div class="thread__content">
-        {{post.content.rendered}}
+        {{post.content|render}}
       </div>
       {% if post|can_delete:request.user or post|can_edit:request.user %}
       <div class="thread__actions">
@@ -238,9 +238,9 @@
         {% endif %}
       </div>
       {% endif %}
-      {% if post.user.profile.signature.rendered %}
+      {% if post.user.profile.signature|render %}
       <div class="thread__signature">
-        {{post.user.profile.signature.rendered}}
+        {{post.user.profile.signature|render}}
       </div>
       {% endif %}
     </div>
