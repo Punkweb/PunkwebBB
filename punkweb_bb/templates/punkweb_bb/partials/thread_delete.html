@@ -1,11 +1,7 @@
-{% extends 'punkweb_bb/base_modal.html' %}
+{% extends 'punkweb_bb/base_delete_modal.html' %}
 
 {% block title %}Delete Thread{% endblock %}
 
-{% block content %}
-<p>Are you sure you want to delete this thread? This action cannot be undone!</p>
-<div class="modal__actions">
-  <button class="modal__cancel pw-button default">Cancel</button>
-  <button class="pw-button raised danger" hx-delete="{% url 'punkweb_bb:thread_delete' thread.id %}">Delete</button>
-</div>
-{% endblock %}
+{% block object_type %}thread{% endblock %}
+
+{% block delete_url %}{% url 'punkweb_bb:thread_delete' thread.id %}{% endblock %}
