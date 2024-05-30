@@ -105,3 +105,11 @@ class ThreadModelForm(forms.ModelForm):
             "title": forms.TextInput(attrs={"autofocus": True, "class": "pw-input"}),
             "content": BBCodeEditorWidget(),
         }
+
+
+class ThreadMoveForm(forms.Form):
+    subcategory = forms.ModelChoiceField(
+        queryset=Subcategory.objects.all(),
+        empty_label="Select a subcategory",
+        widget=forms.Select(attrs={"class": "pw-input"}),
+    )
