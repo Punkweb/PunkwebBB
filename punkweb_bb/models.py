@@ -8,7 +8,6 @@ from django.db import models
 from django.forms import ValidationError
 from django.urls import reverse
 from django.utils import timezone
-from precise_bbcode.fields import BBCodeTextField
 
 from punkweb_bb.mixins import TimestampMixin, UUIDPrimaryKeyMixin
 from punkweb_bb.utils import get_highest_priority_group, get_styled_username
@@ -24,7 +23,7 @@ def profile_image_upload_to(instance, filename):
 class BoardProfile(UUIDPrimaryKeyMixin, TimestampMixin):
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     image = models.ImageField(upload_to=profile_image_upload_to, blank=True, null=True)
-    signature = BBCodeTextField(max_length=1024, blank=True, null=True)
+    signature = models.TextField(max_length=1024, blank=True)
 
     class Meta:
         ordering = ("user__username",)
@@ -76,7 +75,7 @@ class Subcategory(UUIDPrimaryKeyMixin, TimestampMixin):
     )
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=1024, unique=True)
-    description = BBCodeTextField(blank=True, null=True)
+    description = models.TextField(blank=True)
     order = models.PositiveIntegerField(default=0)
     staff_post_only = models.BooleanField(default=False)
 
@@ -116,7 +115,7 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
     )
     user = models.ForeignKey(User, related_name="threads", on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    content = BBCodeTextField()
+    content = models.TextField()
     is_pinned = models.BooleanField(default=False)
     is_closed = models.BooleanField(default=False)
     last_post_created_at = models.DateTimeField(auto_now_add=True)
@@ -161,7 +160,7 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
 class Post(UUIDPrimaryKeyMixin, TimestampMixin):
     thread = models.ForeignKey(Thread, related_name="posts", on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="posts", on_delete=models.CASCADE)
-    content = BBCodeTextField()
+    content = models.TextField()
 
     class Meta:
         ordering = ("created_at",)
@@ -223,7 +222,7 @@ class GroupStyle(UUIDPrimaryKeyMixin, TimestampMixin):
         default=0,
         help_text="Highest priority is displayed",
     )
-    username_style = BBCodeTextField()
+    username_style = models.TextField()
 
     class Meta:
         ordering = ("-priority",)
