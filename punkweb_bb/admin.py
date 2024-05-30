@@ -34,10 +34,6 @@ class BoardProfileModelAdmin(admin.ModelAdmin):
         "user__username",
         "user__email",
     )
-    readonly_fields = ("signature_rendered",)
-
-    def signature_rendered(self, obj):
-        return mark_safe(obj.signature.rendered)
 
 
 @admin.register(Category)
