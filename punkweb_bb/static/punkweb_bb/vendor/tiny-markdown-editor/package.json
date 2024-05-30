@@ -1,0 +1,72 @@
+{
+  "name": "tiny-markdown-editor",
+  "version": "0.1.19",
+  "description": "TinyMDE: A tiny, ultra low dependency, embeddable HTML/JavaScript Markdown editor.",
+  "main": "lib/index.js",
+  "files": [
+    "dist/*",
+    "lib/*",
+    "globals.d.ts"
+  ],
+  "types": "globals.d.ts",
+  "keywords": [
+    "embeddable",
+    "markdown",
+    "editor"
+  ],
+  "scripts": {
+    "test": "npx gulp test",
+    "build": "npx gulp",
+    "dev": "npx gulp dev",
+    "prepublishOnly": "npx gulp prepublish",
+    "releasePatch": "npx gulp releasePatch",
+    "release": "npx gulp release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jefago/tiny-markdown-editor.git"
+  },
+  "author": "Jens-Fabian Goetzmann <mail@jefago.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jefago/tiny-markdown-editor/issues"
+  },
+  "type": "commonjs",
+  "homepage": "https://github.com/jefago/tiny-markdown-editor#readme",
+  "browserslist": "> 0.25%, not dead",
+  "dependencies": {
+    "core-js": "^3.6.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-transform-modules-commonjs": "^7.23.3",
+    "@babel/preset-env": "^7.22.20",
+    "@octokit/rest": "^20.0.2",
+    "@rollup/plugin-babel": "^6.0.2",
+    "@rollup/plugin-commonjs": "^23.0.2",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/stream": "^2.0.0",
+    "autoprefixer": "^10.4.13",
+    "cssnano": "^5.1.14",
+    "del": "^7.0.0",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.26.0",
+    "express": "^4.17.1",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-postcss": "^9.0.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-size": "^3.0.0",
+    "gulp-terser": "^2.1.0",
+    "jest": "^29.2.2",
+    "jest-cli": "^29.2.2",
+    "jest-puppeteer": "^9.0.2",
+    "postcss-import": "^15.0.0",
+    "puppeteer": "^19.2.2",
+    "rollup": "^2.79.1",
+    "rollup-plugin-eslint": "^7.0.0",
+    "terser": "^5.3.3",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}
