@@ -422,7 +422,7 @@ class SettingsViewTestCase(TestCase):
         )
 
         self.user.profile.refresh_from_db()
-        self.assertEqual(self.user.profile._signature_rendered, "<strong>test</strong>")
+        self.assertEqual(self.user.profile.signature, "[b]test[/b]")
 
         self.assertEqual(response.status_code, 200)
 
@@ -546,7 +546,7 @@ class ThreadUpdateViewTestCase(TestCase):
         self.assertRedirects(response, self.thread.get_absolute_url())
         self.thread.refresh_from_db()
         self.assertEqual(self.thread.title, "edit")
-        self.assertEqual(self.thread._content_rendered, "edit")
+        self.assertEqual(self.thread.content, "edit")
 
 
 class ThreadDeleteViewTestCase(TestCase):
@@ -675,7 +675,7 @@ class PostUpdateViewTestCase(TestCase):
 
         self.assertRedirects(response, self.post.get_absolute_url())
         self.post.refresh_from_db()
-        self.assertEqual(self.post._content_rendered, "edit")
+        self.assertEqual(self.post.content, "edit")
 
 
 class PostDeleteViewTestCase(TestCase):
