@@ -129,6 +129,7 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
             "-last_post_created_at",
         )
         permissions = (
+            ("move_thread", "Can move thread"),
             ("pin_thread", "Can pin thread"),
             ("close_thread", "Can close thread"),
         )
