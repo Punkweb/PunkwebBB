@@ -8,6 +8,7 @@ from punkweb_bb.models import (
     Subcategory,
     Thread,
 )
+from punkweb_bb.utils import get_editor_widget
 from punkweb_bb.widgets import BBCodeEditorWidget
 
 
@@ -16,7 +17,7 @@ class BoardProfileAdminModelForm(forms.ModelForm):
         model = BoardProfile
         fields = "__all__"
         widgets = {
-            "signature": BBCodeEditorWidget(),
+            "signature": get_editor_widget(),
         }
 
 
@@ -25,7 +26,7 @@ class CategoryAdminModelForm(forms.ModelForm):
         model = Category
         fields = "__all__"
         widgets = {
-            "description": BBCodeEditorWidget(),
+            "description": get_editor_widget(),
         }
 
 
@@ -34,7 +35,7 @@ class SubcategoryAdminModelForm(forms.ModelForm):
         model = Subcategory
         fields = "__all__"
         widgets = {
-            "description": BBCodeEditorWidget(),
+            "description": get_editor_widget(),
         }
 
 
@@ -43,7 +44,7 @@ class ThreadAdminModelForm(forms.ModelForm):
         model = Thread
         fields = "__all__"
         widgets = {
-            "content": BBCodeEditorWidget(),
+            "content": get_editor_widget(),
         }
 
 
@@ -52,7 +53,7 @@ class PostAdminModelForm(forms.ModelForm):
         model = Post
         fields = "__all__"
         widgets = {
-            "content": BBCodeEditorWidget(),
+            "content": get_editor_widget(),
         }
 
 

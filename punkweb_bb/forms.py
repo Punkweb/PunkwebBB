@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 from punkweb_bb.models import BoardProfile, Category, Post, Shout, Subcategory, Thread
-from punkweb_bb.widgets import BBCodeEditorWidget
+from punkweb_bb.utils import get_editor_widget
 
 
 class LoginForm(AuthenticationForm):
@@ -39,7 +39,7 @@ class BoardProfileModelForm(forms.ModelForm):
             "signature",
         )
         widgets = {
-            "signature": BBCodeEditorWidget(),
+            "signature": get_editor_widget(),
         }
 
 
@@ -66,7 +66,7 @@ class PostModelForm(forms.ModelForm):
             "content": "",
         }
         widgets = {
-            "content": BBCodeEditorWidget(),
+            "content": get_editor_widget(),
         }
 
 
@@ -87,7 +87,7 @@ class SubcategoryModelForm(forms.ModelForm):
         )
         widgets = {
             "name": forms.TextInput(attrs={"autofocus": True, "class": "pw-input"}),
-            "description": BBCodeEditorWidget(),
+            "description": get_editor_widget(),
             "order": forms.TextInput(
                 attrs={"class": "pw-input", "min": "0", "type": "number"}
             ),
@@ -103,7 +103,7 @@ class ThreadModelForm(forms.ModelForm):
         )
         widgets = {
             "title": forms.TextInput(attrs={"autofocus": True, "class": "pw-input"}),
-            "content": BBCodeEditorWidget(),
+            "content": get_editor_widget(),
         }
 
 
