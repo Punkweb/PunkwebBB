@@ -1,0 +1,24 @@
+{% extends 'punkweb_bb/base_modal.html' %}
+
+{% block title %}Move Thread{% endblock %}
+
+{% block content %}
+<form class="threadMoveForm" action="{% url 'punkweb_bb:thread_move' thread.id %}" method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <div class="threadMoveForm__field">
+    <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {{ field }}
+  </div>
+  {% endfor %}
+  {% if form.non_field_errors %}
+  {{ form.non_field_errors }}
+  {% endif %}
+  <div class="threadMoveForm__actions">
+    <button class="modal__cancel pw-button default">Cancel</button>
+    <button class="pw-button raised primary" type="submit">Move</button>
+  </div>
+</form>
+{{form.media.css}}
+{{form.media.js}}
+{% endblock %}

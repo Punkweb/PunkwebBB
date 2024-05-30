@@ -61,6 +61,7 @@ urlpatterns = [
     ),
     path("thread/<str:thread_id>/pin/", views.thread_pin_view, name="thread_pin"),
     path("thread/<str:thread_id>/close/", views.thread_close_view, name="thread_close"),
+    path("thread/<str:thread_id>/move/", views.thread_move_view, name="thread_move"),
     path("post/<str:post_id>/delete/", views.post_delete_view, name="post_delete"),
     path("post/<str:post_id>/update/", views.post_update_view, name="post_update"),
     path("shout-list/", views.shout_list_view, name="shout_list"),

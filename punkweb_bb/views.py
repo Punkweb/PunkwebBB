@@ -14,6 +14,7 @@ from punkweb_bb.forms import (
     SignUpForm,
     SubcategoryModelForm,
     ThreadModelForm,
+    ThreadMoveForm,
 )
 from punkweb_bb.guests import guest_list
 from punkweb_bb.models import Category, Post, Shout, Subcategory, Thread
@@ -406,10 +407,10 @@ def thread_delete_view(request, thread_id):
 
 @login_required(login_url="/login/")
 def thread_pin_view(request, thread_id):
-    thread = get_object_or_404(Thread, pk=thread_id)
-
     if not request.user.has_perm("punkweb_bb.pin_thread"):
         return HttpResponseForbidden("You do not have permission to pin threads.")
+
+    thread = get_object_or_404(Thread, pk=thread_id)
 
     thread.is_pinned = not thread.is_pinned
     thread.save()
@@ -419,15 +420,45 @@ def thread_pin_view(request, thread_id):
 
 @login_required(login_url="/login/")
 def thread_close_view(request, thread_id):
-    thread = get_object_or_404(Thread, pk=thread_id)
-
     if not request.user.has_perm("punkweb_bb.close_thread"):
         return HttpResponseForbidden("You do not have permission to close threads.")
+
+    thread = get_object_or_404(Thread, pk=thread_id)
 
     thread.is_closed = not thread.is_closed
     thread.save()
 
     return htmx_redirect(thread.get_absolute_url())
+
+
+@login_required(login_url="/login/")
+def thread_move_view(request, thread_id):
+    if not request.user.has_perm("punkweb_bb.move_thread"):
+        return HttpResponseForbidden("You do not have permission to move threads.")
+
+    thread = get_object_or_404(Thread, pk=thread_id)
+
+    if request.method == "POST":
+        form = ThreadMoveForm(request.POST)
+
+        if form.is_valid():
+            thread.subcategory = form.cleaned_data["subcategory"]
+            thread.save()
+
+            return redirect(thread)
+
+    initial_data = {
+        "subcategory": thread.subcategory,
+    }
+
+    form = ThreadMoveForm(data=initial_data)
+
+    context = {
+        "thread": thread,
+        "form": form,
+    }
+
+    return render(request, "punkweb_bb/partials/thread_move.html", context=context)
 
 
 @login_required(login_url="/login/")
