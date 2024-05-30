@@ -1,5 +1,19 @@
-from django.contrib.auth.models import Group
 from django.utils.text import slugify
+from precise_bbcode.bbcode import get_parser
+from punkweb_bb.settings import RENDERER
+
+
+def get_editor_widget():
+    if RENDERER == "bbcode":
+        from punkweb_bb.widgets import BBCodeEditorWidget
+
+        return BBCodeEditorWidget()
+    elif RENDERER == "markdown":
+        from punkweb_bb.widgets import MarkdownEditorWidget
+
+        return MarkdownEditorWidget()
+    else:
+        raise ValueError("Invalid renderer")
 
 
 def get_unique_slug(model, field):
@@ -31,8 +45,9 @@ def get_styled_username(user):
     group = get_highest_priority_group(user)
 
     if group:
+        parser = get_parser()
         username_style = group.style.username_style
-        styled_username = username_style.rendered.replace("{USER}", user.username)
+        styled_username = parser.render(username_style.replace("{USER}", user.username))
         return styled_username
     else:
         return user.username
@@ -42,6 +57,7 @@ def get_styled_group_name(group):
     if group.style is None:
         return group.name
     else:
+        parser = get_parser()
         username_style = group.style.username_style
-        styled_group_name = username_style.rendered.replace("{USER}", group.name)
+        styled_group_name = parser.render(username_style.replace("{USER}", group.name))
         return styled_group_name
