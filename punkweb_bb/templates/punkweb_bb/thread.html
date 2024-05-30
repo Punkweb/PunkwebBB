@@ -88,8 +88,18 @@
       <div class="thread__content">
         {{thread.content.rendered}}
       </div>
-      {% if thread|can_delete:request.user or thread|can_edit:request.user or perms.punkweb_bb.pin_thread or perms.punkweb_bb.close_thread %}
+      {% if thread|can_delete:request.user or thread|can_edit:request.user or perms.punkweb_bb.pin_thread or perms.punkweb_bb.close_thread or perms.punkweb_bb.move_thread %}
       <div class="thread__actions">
+        {% if perms.punkweb_bb.move_thread %}
+        <a 
+          class="pw-icon-button default rounded"
+          title="Move"
+          hx-get="{% url 'punkweb_bb:thread_move' thread.id %}"
+          hx-target="#modal-portal"
+        >
+          <span class="material-symbols-outlined">move_item</span>
+        </a>
+        {% endif %}
         {% if perms.punkweb_bb.pin_thread %}
         <a 
           class="pw-icon-button default rounded"
