@@ -65,7 +65,7 @@
   </div>
   {% if user.threads.count == 0 %}
     <div class="pw-card-content">
-      <p>{{ user.username }} has not created any threads.</p>
+      <div>{{ user.username }} has not created any threads.</div>
     </div>
     {% else %}
     <ul class="profile__thread__list">
@@ -75,9 +75,9 @@
             <div class="profile__thread__title">
               <a href="{% url 'punkweb_bb:thread' thread.id %}">{{ thread.title }}</a>
             </div>
-            <p class="profile__thread__preview">
+            <div class="profile__thread__preview">
               {{ thread.content|render|striptags|truncatechars:120 }}
-            </p>
+            </div>
             <div class="profile__thread__date">
               <time datetime="{{thread.created_at|date:'c'}}">
                 {{thread.created_at|date:'M j, Y'}} at
