@@ -19,7 +19,7 @@ def render(value):
         rendered = parser.format(value)
         return mark_safe(rendered)
     elif PARSER == "markdown":
-        escaped = html.escape(value)
+        escaped = html.escape(value, quote=False)
         rendered = md.markdown(escaped, extensions=["markdown.extensions.fenced_code"])
         return mark_safe(rendered)
     return value
