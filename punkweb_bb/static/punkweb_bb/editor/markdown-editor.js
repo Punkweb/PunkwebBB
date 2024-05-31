@@ -1,21 +1,47 @@
-function initMarkdownEditor(element) {
-  var editor = new TinyMDE.Editor({
-    textarea: element,
-  });
+function initMarkdownEditor(containerElement) {
+  var editorElement = containerElement.querySelector(".markdown-editor");
+  var toolbarElement = containerElement.querySelector(
+    "#markdown-editor-toolbar"
+  );
 
-  var toolbarElement = document.createElement("div");
-  toolbarElement.id = "markdown-editor-toolbar";
-  element.parentNode.insertBefore(toolbarElement, element);
+  var editor = null;
 
-  new TinyMDE.CommandBar({
-    element: toolbarElement,
-    editor: editor,
-  });
+  if (!containerElement.querySelector(".TinyMDE")) {
+    editor = new TinyMDE.Editor({
+      textarea: editorElement,
+    });
+  }
+
+  if (editor && !toolbarElement.querySelector(".TMCommandBar")) {
+    var toolbar = new TinyMDE.CommandBar({
+      element: toolbarElement,
+      editor: editor,
+      commands: [
+        "bold",
+        "italic",
+        "strikethrough",
+        "|",
+        "h1",
+        "h2",
+        "|",
+        "ul",
+        "ol",
+        "|",
+        "blockquote",
+        "code",
+        "insertLink",
+        "insertImage",
+        "hr",
+      ],
+    });
+  }
 }
 
 $(function () {
   $(document).ready(function () {
-    var editorElements = document.querySelectorAll(".markdown-editor");
+    var editorElements = document.querySelectorAll(
+      ".markdown-editor-container"
+    );
     editorElements.forEach((element) => {
       initMarkdownEditor(element);
     });
