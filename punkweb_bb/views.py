@@ -588,16 +588,22 @@ def bbcode_view(request):
         ("Italic", "[i]Italic Text[/i]"),
         ("Underline", "[u]Underlined Text[/u]"),
         ("Strikethrough", "[s]Strikethrough Text[/s]"),
-        ("Quote", "[quote=Example]Quoted Text[/quote]"),
-        ("Center", "[center]Centered Text[/center]"),
         ("Color", "[color=red]Red Text[/color]"),
+        ("Font", "[font=serif]Serif Text[/font]"),
+        ("Shadow", "[shadow=red]Red Shadow Text[/shadow]"),
+        ("Size", "[size=7]Size 7 Text[/size]"),
+        ("Superscript", "Sup [sup]Superscript Text[/sup]"),
+        ("Subscript", "Sub [sub]Subscript Text[/sub]"),
+        ("Horizontal Rule", "[hr]"),
+        ("Left", "[left]Left Text[/left]"),
+        ("Center", "[center]Centered Text[/center]"),
+        ("Right", "[right]Right Text[/right]"),
+        ("Quote", "[quote=Example]Quoted Text[/quote]"),
         ("Url", "[url=https://google.com]Link Text[/url]"),
         (
             "Image",
             "[img]https://placehold.co/400[/img]",
         ),
-        # Custom
-        ("Horizontal Rule", "[hr]"),
         (
             "Code",
             """
@@ -616,23 +622,8 @@ class ThreadModelForm(forms.ModelForm):
 [/code]
 """,
         ),
-        ("Email", "[email=test@example.com]Example[/email]"),
-        ("Font", "[font=serif]Serif Text[/font]"),
         ("Ordered List", "[ol][li]Item 1[/li][li]Item 2[/li][/ol]"),
         ("Unordered List", "[ul][li]Item 1[/li][li]Item 2[/li][/ul]"),
-        ("Shadow", "[shadow=red]Red Shadow Text[/shadow]"),
-        ("Size", "[size=7]Size 7 Text[/size]"),
-        (
-            "Checkbox",
-            """
-[n]Unchecked
-[y]Checked
-            """,
-        ),
-        ("Superscript", "Sup [sup]Superscript Text[/sup]"),
-        ("Subscript", "Sub [sub]Subscript Text[/sub]"),
-        ("Left", "[left]Left Text[/left]"),
-        ("Right", "[right]Right Text[/right]"),
         ("Escape", "[escape][b]Escaped bbcode[/b][/escape]"),
     )
 

@@ -1,6 +1,5 @@
 {% extends "punkweb_bb/base.html" %}
-
-{% load bbcode_tags %}
+{% load render %}
 
 {% block content %}
 
@@ -11,7 +10,7 @@
     <div>
       <h4>{{ code.0 }}</h4>
       <pre>{{ code.1 }}</pre>
-      {% bbcode code.1 %}
+      {{ code.1|render }}
     </div>
     {% endfor %}
   </div>
