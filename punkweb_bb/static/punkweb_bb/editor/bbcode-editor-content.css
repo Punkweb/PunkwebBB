@@ -1,30 +1,27 @@
 /*! SCEditor | (C) 2011-2013, Sam Clarke | sceditor.com/license */
 html,
-body {
+body,
+p,
+code:before,
+table {
   color: #212529;
   font-family: Arial, Helvetica sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
+  margin: 0;
   overflow: visible;
+  padding: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
 }
 
 html {
   height: 100%;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-}
-
-*:before,
-*:after {
-  box-sizing: border-box;
 }
 
 .ios {
@@ -50,10 +47,14 @@ body.placeholder::before {
   font-style: italic;
 }
 
-hr {
-  border: none;
-  border-top: 1px solid #ced4da;
-  margin: 1rem 0;
+table,
+td {
+  border: 1px dotted #000;
+  empty-cells: show;
+}
+
+table td {
+  min-width: 5px;
 }
 
 a {
@@ -82,6 +83,22 @@ blockquote cite {
   font-weight: 700;
   display: block;
   font-size: 1rem;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ced4da;
+  margin: 1rem 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
 }
 
 /* Prevent empty paragraphs from collapsing */
