@@ -8,12 +8,16 @@ body {
   line-height: 1.5;
   overflow: visible;
 }
+
 html {
   height: 100%;
 }
 
 * {
   box-sizing: border-box;
+}
+
+body {
   margin: 0;
   padding: 0;
 }
@@ -54,11 +58,6 @@ hr {
 
 a {
   text-decoration: none;
-}
-
-ul,
-ol {
-  padding-inline-start: 2rem;
 }
 
 code {
