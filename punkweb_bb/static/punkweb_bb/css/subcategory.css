@@ -11,6 +11,10 @@
   gap: 1rem;
 }
 
+.subcategory__header__name h1 {
+  margin: 0;
+}
+
 .subcategory__header__actions {
   align-items: center;
   display: flex;
