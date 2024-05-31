@@ -1,19 +1,17 @@
+from django.forms import Textarea
 from django.utils.text import slugify
-from precise_bbcode.bbcode import get_parser
-from punkweb_bb.settings import RENDERER
+
+from punkweb_bb.bbcode import get_parser
+from punkweb_bb.settings import PARSER
+from punkweb_bb.widgets import BBCodeEditorWidget, MarkdownEditorWidget
 
 
 def get_editor_widget():
-    if RENDERER == "bbcode":
-        from punkweb_bb.widgets import BBCodeEditorWidget
-
+    if PARSER == "bbcode":
         return BBCodeEditorWidget()
-    elif RENDERER == "markdown":
-        from punkweb_bb.widgets import MarkdownEditorWidget
-
+    elif PARSER == "markdown":
         return MarkdownEditorWidget()
-    else:
-        raise ValueError("Invalid renderer")
+    return Textarea(attrs={"class": "pw-input"})
 
 
 def get_unique_slug(model, field):
@@ -47,17 +45,17 @@ def get_styled_username(user):
     if group:
         parser = get_parser()
         username_style = group.style.username_style
-        styled_username = parser.render(username_style.replace("{USER}", user.username))
-        return styled_username
-    else:
-        return user.username
+        rendered = parser.format(username_style.replace("{USER}", user.username))
+        return rendered
+
+    return user.username
 
 
 def get_styled_group_name(group):
-    if group.style is None:
-        return group.name
-    else:
+    if group.style is not None:
         parser = get_parser()
         username_style = group.style.username_style
-        styled_group_name = parser.render(username_style.replace("{USER}", group.name))
-        return styled_group_name
+        rendered = parser.format(username_style.replace("{USER}", group.name))
+        return rendered
+
+    return group.name

@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.utils.safestring import mark_safe
 
 from punkweb_bb.admin_forms import (
     BoardProfileAdminModelForm,

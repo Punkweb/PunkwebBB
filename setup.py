@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="punkweb_bb",
-    version="0.3.0",
+    version="0.4.0",
     author="Punkweb",
     author_email="punkwebnet@gmail.com",
     packages=["punkweb_bb"],
@@ -16,10 +16,10 @@ setup(
     package_data={"": ["README.md"]},
     install_requires=[
         "django>=4.0",
-        "django-precise-bbcode",
+        "bbcode",
         "markdown",
-        "expiringdict",
         "pillow",
+        "expiringdict",
     ],
     classifiers=[
         "Environment :: Web Environment",

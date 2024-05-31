@@ -4,7 +4,7 @@ PUNKWEB_BB = getattr(settings, "PUNKWEB_BB", {})
 
 SITE_NAME = PUNKWEB_BB.get("SITE_NAME", "PUNKWEB")
 SITE_TITLE = PUNKWEB_BB.get("SITE_TITLE", "PunkwebBB")
-RENDERER = PUNKWEB_BB.get("RENDERER", "bbcode")
+PARSER = PUNKWEB_BB.get("PARSER", "bbcode")
 FAVICON = PUNKWEB_BB.get("FAVICON", "punkweb_bb/favicon.ico")
 OG_IMAGE = PUNKWEB_BB.get("OG_IMAGE", None)
 SHOUTBOX_ENABLED = PUNKWEB_BB.get("SHOUTBOX_ENABLED", True)

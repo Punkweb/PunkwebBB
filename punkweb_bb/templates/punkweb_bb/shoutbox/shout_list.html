@@ -1,11 +1,11 @@
-{% load shoutbox_render styled_username can_delete %}
+{% load render styled_username can_delete %}
 
 {% for shout in shouts %}
 <div class="shoutbox__shout">
   <div class="shoutbox__shout__content">
     <time datetime="{{shout.created_at|date:'c'}}">{{shout.created_at | date:'g:i A'}}</time>
     <span><a href="{% url 'punkweb_bb:profile' shout.user.id %}">{{shout.user|styled_username}}</a>: </span>
-    <span>{{ shout.content|shoutbox_render }}</span>
+    <span>{{ shout.content|render_shout }}</span>
   </div>
   {% if shout|can_delete:request.user %}
   <div class="shoutbox__shout__actions">

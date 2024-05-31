@@ -1,5 +1,5 @@
 Django==4.2.11
-django-precise-bbcode==1.2.16
+bbcode
 markdown
 Pillow
 expiringdict==1.2.2

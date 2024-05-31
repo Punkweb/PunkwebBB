@@ -2,17 +2,15 @@
 
 PunkwebBB is a Django application that provides a simple and modern forum board software for your Django website.
 
-This is the successor to [punkweb-boards](https://github.com/Punkweb/punkweb-boards).
-
 Check out [punkweb.net](https://punkweb.net/board/) for documentation, support and a live demonstration of the software.
 
 ## Built with
 
 - [Django](https://www.djangoproject.com/)
-- [django-precise-bbcode](https://github.com/ellmetha/django-precise-bbcode)
-- [Markdown](https://python-markdown.github.io/)
 - [HTMX](https://htmx.org/)
 - [jQuery](https://jquery.com/)
+- [bbcode](https://pypi.org/project/bbcode/)
+- [Markdown](https://pypi.org/project/Markdown/)
 - [SCEditor](https://www.sceditor.com/)
 - [TinyMDE](https://github.com/jefago/tiny-markdown-editor)
 - [PrismJS](https://prismjs.com/)
@@ -21,21 +19,18 @@ Check out [punkweb.net](https://punkweb.net/board/) for documentation, support a
 
 - Python 3.9+
 - Django 4.0+
-- django-precise-bbcode 1.2+
-- markdown 3.6+
-- Pillow
 
 It may work with older versions of Python and Django, but it has not been tested.
 
 ## BBCode or Markdown?
 
-PunkwebBB supports both BBCode and Markdown. You'll want to decide before installing which renderer you want to use, as switching between them will cause existing threads, posts, signatures, etc. to render incorrectly! Switching will not affect the database schema, but it will affect the content.
+PunkwebBB supports both BBCode and Markdown. You'll want to decide before installing which parser you want to use, as switching between them will cause existing threads, posts, signatures, etc. to render incorrectly! Switching will not affect the database schema, but it will affect the content.
 
-BBCode is the default renderer, but you can switch to Markdown by setting the following in your Django settings module:
+BBCode is the default parser, but you can switch to Markdown by setting the following in your Django settings module:
 
 ```python
 PUNKWEB_BB = {
-  "RENDERER": "markdown",
+  "PARSER": "markdown",
 }
 ```
 
@@ -45,17 +40,14 @@ PUNKWEB_BB = {
 pip install punkweb-bb
 ```
 
-Add `precise_bbcode` and `punkweb_bb` to your `INSTALLED_APPS` in your Django settings module:
+Add `punkweb_bb` to your `INSTALLED_APPS` in your Django settings module:
 
 ```python
 INSTALLED_APPS = [
     ...
-    "precise_bbcode",
     "punkweb_bb",
 ]
 ```
-
-_Note_: `precise_bbcode` is required even if using the Markdown renderer! It must be installed before `punkweb_bb`.
 
 Add the following context processor to your `TEMPLATES` setting:
 
@@ -98,7 +90,7 @@ These are the default settings for PunkwebBB, which can be overridden in your Dj
 PUNKWEB_BB = {
   "SITE_NAME": "PUNKWEB",
   "SITE_TITLE": "PunkwebBB",
-  "RENDERER": "bbcode", # "bbcode" or "markdown"
+  "PARSER": "bbcode", # "bbcode" or "markdown"
   "FAVICON": "punkweb_bb/favicon.ico",
   "OG_IMAGE": None, # Used for Open Graph meta tags, must be a full URL!
   "SHOUTBOX_ENABLED": True,

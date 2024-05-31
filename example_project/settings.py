@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "precise_bbcode",
     "punkweb_bb",
 ]
 
@@ -135,4 +134,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # PunkwebBB
 
-PUNKWEB_BB = {}
+PUNKWEB_BB = {
+    "PARSER": "markdown",
+}
