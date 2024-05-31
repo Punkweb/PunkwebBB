@@ -11,6 +11,8 @@ def get_editor_widget():
         return BBCodeEditorWidget()
     elif PARSER == "markdown":
         return MarkdownEditorWidget()
+    elif PARSER == "mix":
+        return MarkdownEditorWidget()
     return Textarea(attrs={"class": "pw-input"})
 
 

@@ -135,5 +135,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # PunkwebBB
 
 PUNKWEB_BB = {
-    "PARSER": "markdown",
+    "PARSER": "mix",
 }
