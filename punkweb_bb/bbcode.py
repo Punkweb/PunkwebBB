@@ -175,12 +175,13 @@ def init_default_tags(parser):
     init_text_tags(parser)
     init_alignment_tags(parser)
     init_list_tags(parser)
-    add_size_tag(_parser)
-    add_img_tag(_parser)
-    add_quote_tag(_parser)
-    add_code_tag(_parser)
-    add_spoiler_tag(_parser)
-    _parser.add_simple_formatter("hr", "<hr />", standalone=True)
+
+    parser.add_simple_formatter("hr", "<hr />", standalone=True)
+    add_size_tag(parser)
+    add_img_tag(parser)
+    add_quote_tag(parser)
+    add_code_tag(parser)
+    add_spoiler_tag(parser)
 
 
 _parser = None
@@ -220,24 +221,6 @@ def get_mix_parser():
             replace_cosmetic=False,
             escape_html=False,
         )
-
-        _mix_parser.add_simple_formatter("sub", "<sub>%(value)s</sub>")
-        _mix_parser.add_simple_formatter("sup", "<sup>%(value)s</sup>")
-        _mix_parser.add_simple_formatter("escape", "%(value)s", render_embedded=False)
-        _mix_parser.add_simple_formatter(
-            "center", '<div style="text-align: center">%(value)s</div>'
-        )
-        _mix_parser.add_simple_formatter(
-            "left", '<div style="text-align: left">%(value)s</div>'
-        )
-        _mix_parser.add_simple_formatter(
-            "right", '<div style="text-align: right">%(value)s</div>'
-        )
-
-        add_font_tag(_mix_parser)
-        add_color_tag(_mix_parser)
-        add_shadow_tag(_mix_parser)
-        add_quote_tag(_mix_parser)
-        add_spoiler_tag(_mix_parser)
+        init_default_tags(_mix_parser)
 
     return _mix_parser
