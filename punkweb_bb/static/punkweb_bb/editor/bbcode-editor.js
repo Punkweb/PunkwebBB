@@ -1,12 +1,7 @@
 $(function () {
   $(document).ready(function () {
     $(".bbcode-editor").sceditor({
-      emoticonsCompat: true,
       emoticonsEnabled: false,
-      emoticonsRoot: "/media/precise_bbcode/smilies/",
-      emoticons: {
-        dropdown: {},
-      },
       format: "bbcode",
       icons: "material",
       style: "/static/punkweb_bb/editor/bbcode-editor-content.css",
