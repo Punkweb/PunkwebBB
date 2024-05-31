@@ -10,26 +10,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name="boardprofile",
-            name="_signature_rendered",
-        ),
-        migrations.RemoveField(
-            model_name="groupstyle",
-            name="_username_style_rendered",
-        ),
-        migrations.RemoveField(
-            model_name="post",
-            name="_content_rendered",
-        ),
-        migrations.RemoveField(
-            model_name="subcategory",
-            name="_description_rendered",
-        ),
-        migrations.RemoveField(
-            model_name="thread",
-            name="_content_rendered",
-        ),
         migrations.AlterField(
             model_name="boardprofile",
             name="signature",

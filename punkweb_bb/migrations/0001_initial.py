@@ -3,7 +3,6 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import precise_bbcode.fields
 import punkweb_bb.models
 import uuid
 
@@ -58,14 +57,8 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=255)),
                 ("slug", models.SlugField(max_length=1024, unique=True)),
                 (
-                    "_description_rendered",
-                    models.TextField(blank=True, editable=False, null=True),
-                ),
-                (
                     "description",
-                    precise_bbcode.fields.BBCodeTextField(
-                        blank=True, no_rendered_field=True, null=True
-                    ),
+                    models.TextField(blank=True, null=True),
                 ),
                 ("order", models.PositiveIntegerField(default=0)),
                 ("staff_post_only", models.BooleanField(default=False)),
@@ -100,12 +93,8 @@ class Migration(migrations.Migration):
                 ("updated_at", models.DateTimeField(auto_now=True)),
                 ("title", models.CharField(max_length=255)),
                 (
-                    "_content_rendered",
-                    models.TextField(blank=True, editable=False, null=True),
-                ),
-                (
                     "content",
-                    precise_bbcode.fields.BBCodeTextField(no_rendered_field=True),
+                    models.TextField(),
                 ),
                 ("is_pinned", models.BooleanField(default=False)),
                 ("is_closed", models.BooleanField(default=False)),
@@ -174,12 +163,8 @@ class Migration(migrations.Migration):
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("updated_at", models.DateTimeField(auto_now=True)),
                 (
-                    "_content_rendered",
-                    models.TextField(blank=True, editable=False, null=True),
-                ),
-                (
                     "content",
-                    precise_bbcode.fields.BBCodeTextField(no_rendered_field=True),
+                    models.TextField(),
                 ),
                 (
                     "thread",
@@ -225,14 +210,8 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "_signature_rendered",
-                    models.TextField(blank=True, editable=False, null=True),
-                ),
-                (
                     "signature",
-                    precise_bbcode.fields.BBCodeTextField(
-                        blank=True, max_length=1024, no_rendered_field=True, null=True
-                    ),
+                    models.TextField(blank=True, max_length=1024, null=True),
                 ),
                 (
                     "user",

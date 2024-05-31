@@ -2,7 +2,6 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import precise_bbcode.fields
 import uuid
 
 
@@ -35,12 +34,8 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "_username_style_rendered",
-                    models.TextField(blank=True, editable=False, null=True),
-                ),
-                (
                     "username_style",
-                    precise_bbcode.fields.BBCodeTextField(no_rendered_field=True),
+                    models.TextField(),
                 ),
                 (
                     "group",
