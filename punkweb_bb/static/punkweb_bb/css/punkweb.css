@@ -181,7 +181,7 @@ blockquote cite {
   border-bottom: 1px solid var(--border);
   color: var(--table-header-text);
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 700;
   padding: 0.75rem 1rem;
   text-align: left;
 }
@@ -664,7 +664,7 @@ blockquote cite {
 .pw-input-label {
   display: block;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 /** Card **/
