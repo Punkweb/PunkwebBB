@@ -12,7 +12,10 @@
 }
 
 .profile__info__username {
+  align-items: center;
+  display: flex;
   font-size: 1.5rem;
+  gap: 0.5rem;
 }
 
 .profile__info__stat {

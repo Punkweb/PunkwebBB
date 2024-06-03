@@ -40,6 +40,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: 15rem;
 }
 
 .index__statistics__content {
@@ -80,6 +81,7 @@
 
 .subcategory__latestThread__info__title {
   display: block;
+  max-width: 15rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -88,6 +90,5 @@
 @media screen and (max-width: 1024px) {
   .index__main {
     flex-direction: column;
-    gap: 0;
   }
 }
