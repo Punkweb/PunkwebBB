@@ -56,12 +56,12 @@
           {% endif %}
         </div>
         <div class="thread__user__username">
-          {% if thread.user.profile.is_online %}
-          <div class="onlineIndicator"></div>
-          {% endif %}
           <a href="{% url 'punkweb_bb:profile' thread.user.id %}">
             {{thread.user|styled_username}}
           </a>
+          {% if thread.user.profile.is_online %}
+          <div class="onlineIndicator"></div>
+          {% endif %}
         </div>
         <div class="thread__user__group">
           {% if thread.user.profile.priority_group %}
@@ -182,12 +182,12 @@
           {% endif %}
         </div>
         <div class="thread__user__username">
-          {% if post.user.profile.is_online %}
-          <div class="onlineIndicator"></div>
-          {% endif %}
           <a href="{% url 'punkweb_bb:profile' post.user.id %}">
             {{post.user|styled_username}}
           </a>
+          {% if post.user.profile.is_online %}
+          <div class="onlineIndicator"></div>
+          {% endif %}
         </div>
         <div class="thread__user__group">
           {% if post.user.profile.priority_group %}

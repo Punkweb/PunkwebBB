@@ -29,13 +29,24 @@
     <div class="profile__info">
       <div class="profile__info__avatar">
         {% if user.profile.image %}
-        <img class="pw-avatar xl" src="{{user.profile.image.url}}" />
+        <img
+          class="pw-avatar lg"
+          src="{{user.profile.image.url}}"
+          alt="{{user.username}}" />
         {% else %}
-        <img class="pw-avatar xl" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" />
+        <img
+          class="pw-avatar lg"
+          src="{% static 'punkweb_bb/img/default-profile-image.png' %}"
+          alt="{{user.username}}" />
         {% endif %}
       </div>
       <div class="profile__info__details">
-        <div class="profile__info__username">{{user|styled_username}}</div>
+        <div class="profile__info__username">
+          {{user|styled_username}}
+          {% if user.profile.is_online %}
+          <div class="onlineIndicator"></div>
+          {% endif %}
+        </div>
         <div class="profile__info__stats">
           <div class="profile__info__stat">
             Date Joined:
