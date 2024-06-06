@@ -36,9 +36,11 @@ class BoardProfileModelForm(forms.ModelForm):
         model = BoardProfile
         fields = (
             "image",
+            "bio",
             "signature",
         )
         widgets = {
+            "bio": get_editor_widget(),
             "signature": get_editor_widget(),
         }
 
