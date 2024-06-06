@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -112,9 +113,36 @@ def index_view(request):
 def profile_view(request, user_id):
     user = get_object_or_404(User, pk=user_id)
 
+    # Get top threads by post count
+    top_threads = user.threads.annotate(count_posts=Count("posts")).order_by(
+        "-count_posts"
+    )[:5]
+
+    # Get top subcategories by thread count
+    top_subcategories = (
+        user.threads.values("subcategory")
+        .annotate(count_threads=Count("subcategory"))
+        .order_by("-count_threads")
+    )
+    for subcategory in top_subcategories:
+        subcategory["subcategory"] = Subcategory.objects.get(
+            pk=subcategory["subcategory"]
+        )
+
+    threads_qs = user.threads.all().order_by("-created_at")
+    posts_qs = user.posts.all().order_by("-created_at")
+
+    threads = paginate_qs(request, threads_qs)
+    posts = paginate_qs(request, posts_qs)
+
     context = {
         "user": user,
+        "top_threads": top_threads,
+        "top_subcategories": top_subcategories,
+        "threads": threads,
+        "posts": posts,
     }
+
     return render(request, "punkweb_bb/profile.html", context=context)
 
 
