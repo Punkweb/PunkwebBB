@@ -114,7 +114,7 @@ def add_spoiler_tag(parser):
     def _render_spoiler(name, value, options, parent, context):
         if "spoiler" in options:
             summary = options["spoiler"]
-            return f"<details><summary>{summary}</summary>{value}</details>"
+            return f'<details class="pw-spoiler"><summary>{summary}</summary>{value}</details>'
 
     parser.add_formatter(
         "spoiler", _render_spoiler, strip=True, swallow_trailing_newline=True

@@ -824,3 +824,18 @@ blockquote cite {
   border-color: 1px solid var(--oc-red-4);
   color: var(--oc-red-9);
 }
+
+/* Spoiler */
+
+.pw-spoiler {
+  background-color: var(--oc-gray-1);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  color: var(--oc-gray-9);
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+}
+
+.pw-spoiler > summary {
+  cursor: pointer;
+}
