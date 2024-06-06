@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -117,12 +118,44 @@ def profile_view(request, user_id):
     return render(request, "punkweb_bb/profile.html", context=context)
 
 
-def members_view(request):
-    users = paginate_qs(
-        request, User.objects.select_related("profile").order_by("username")
+class FilterUsersForm(forms.Form):
+    search = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={"class": "pw-input", "placeholder": "Search"}),
+    )
+    sort_by = forms.ChoiceField(
+        required=False,
+        choices=(
+            ("", "-----------"),
+            ("username", "Username (A-Z)"),
+            ("-username", "Username (Z-A)"),
+            ("date_joined", "Date Joined (Oldest)"),
+            ("-date_joined", "Date Joined (Newest)"),
+        ),
+        widget=forms.Select(attrs={"class": "pw-input"}),
     )
 
+
+def members_view(request):
+    users_qs = User.objects.all()
+
+    form = FilterUsersForm(request.GET)
+    if form.is_valid():
+        search = form.cleaned_data["search"]
+        sort_by = form.cleaned_data["sort_by"]
+        if search:
+            users_qs = users_qs.filter(username__icontains=search)
+        if sort_by:
+            users_qs = users_qs.order_by(sort_by)
+        else:
+            users_qs = users_qs.order_by("username")
+
+        users_qs = users_qs.select_related("profile")
+
+    users = paginate_qs(request, users_qs)
+
     context = {
+        "form": form,
         "users": users,
     }
     return render(request, "punkweb_bb/members.html", context=context)

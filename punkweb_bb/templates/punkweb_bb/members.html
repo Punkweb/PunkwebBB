@@ -21,6 +21,25 @@
   </ul>
 </nav>
 
+<div class="members__header">
+  <h1>Members</h1>
+  <form class="members__filters" action="{% url 'punkweb_bb:members' %}" method="get">
+    {% for field in form %}
+    <div class="members__filters__field">
+      <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+    </div>
+    {% endfor %}
+    {% if form.non_field_errors %}
+    {{ form.non_field_errors }}
+    {% endif %}
+    <div class="members__filters__actions">
+      <button class="pw-button raised primary" type="submit">Search</button>
+    </div>
+  </form>
+</div>
+
+{% if users|length > 0 %}
 <div class="pw-card fluid">
   <ul class="members__list">
     {% for user in users %}
@@ -62,6 +81,9 @@
     {% endfor %}
   </ul>
 </div>
+{% else %}
+<h3>No results found.</h3>
+{% endif %}
 
 {% if users.has_other_pages %}
 <nav>
