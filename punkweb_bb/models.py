@@ -23,6 +23,7 @@ def profile_image_upload_to(instance, filename):
 class BoardProfile(UUIDPrimaryKeyMixin, TimestampMixin):
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     image = models.ImageField(upload_to=profile_image_upload_to, blank=True, null=True)
+    bio = models.TextField(max_length=1024, blank=True)
     signature = models.TextField(max_length=1024, blank=True)
 
     class Meta:
