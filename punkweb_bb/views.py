@@ -1,12 +1,13 @@
 from django import forms
 from django.contrib.auth import authenticate, get_user_model, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
+from django.core.exceptions import PermissionDenied
 from django.db.models import Count
-from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 
+from punkweb_bb.decorators import redirect_if_authenticated
 from punkweb_bb.forms import (
     BoardProfileModelForm,
     CategoryModelForm,
@@ -20,17 +21,20 @@ from punkweb_bb.forms import (
 )
 from punkweb_bb.guests import guest_list
 from punkweb_bb.models import Category, Post, Shout, Subcategory, Thread
-from punkweb_bb.pagination import paginate_qs
+from punkweb_bb.pagination import paginate
 from punkweb_bb.response import htmx_redirect
 from punkweb_bb.utils import get_unique_slug
 
 User = get_user_model()
 
 
-def signup_view(request):
-    if request.user.is_authenticated:
-        return redirect("punkweb_bb:index")
+def check_object_permission(obj, func, user):
+    if not getattr(obj, func)(user):
+        raise PermissionDenied
 
+
+@redirect_if_authenticated()
+def signup_view(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
 
@@ -47,12 +51,10 @@ def signup_view(request):
     return render(request, "punkweb_bb/signup.html", context)
 
 
+@redirect_if_authenticated()
 def login_view(request):
-    if request.user.is_authenticated:
-        return redirect("punkweb_bb:index")
-
     if request.method == "POST":
-        form = LoginForm(request, request.POST)
+        form = LoginForm(request=request, data=request.POST)
 
         if form.is_valid():
             username = form.cleaned_data["username"]
@@ -132,8 +134,8 @@ def profile_view(request, user_id):
     threads_qs = user.threads.all().order_by("-created_at")
     posts_qs = user.posts.all().order_by("-created_at")
 
-    threads = paginate_qs(request, threads_qs)
-    posts = paginate_qs(request, posts_qs)
+    threads = paginate(request, threads_qs)
+    posts = paginate(request, posts_qs)
 
     context = {
         "user": user,
@@ -180,7 +182,7 @@ def members_view(request):
 
         users_qs = users_qs.select_related("profile")
 
-    users = paginate_qs(request, users_qs)
+    users = paginate(request, users_qs)
 
     context = {
         "form": form,
@@ -213,10 +215,8 @@ def settings_view(request):
 
 
 @login_required(login_url="/login/")
+@permission_required("punkweb_bb.view_category", raise_exception=True)
 def category_create_view(request):
-    if not request.user.has_perm("punkweb_bb.add_category"):
-        return HttpResponseForbidden("You do not have permission to create categories.")
-
     if request.method == "POST":
         form = CategoryModelForm(request.POST)
 
@@ -236,10 +236,8 @@ def category_create_view(request):
 
 
 @login_required(login_url="/login/")
+@permission_required("punkweb_bb.change_category", raise_exception=True)
 def category_update_view(request, category_slug):
-    if not request.user.has_perm("punkweb_bb.change_category"):
-        return HttpResponseForbidden("You do not have permission to change categories.")
-
     category = get_object_or_404(Category, slug=category_slug)
 
     if request.method == "POST":
@@ -260,10 +258,8 @@ def category_update_view(request, category_slug):
 
 
 @login_required(login_url="/login/")
+@permission_required("punkweb_bb.delete_category", raise_exception=True)
 def category_delete_view(request, category_slug):
-    if not request.user.has_perm("punkweb_bb.delete_category"):
-        return HttpResponseForbidden("You do not have permission to delete categories.")
-
     category = get_object_or_404(Category, slug=category_slug)
 
     if request.method == "DELETE":
@@ -281,7 +277,7 @@ def category_delete_view(request, category_slug):
 def subcategory_view(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
-    threads = paginate_qs(request, subcategory.threads.all())
+    threads = paginate(request, subcategory.threads.all())
 
     context = {
         "subcategory": subcategory,
@@ -291,12 +287,8 @@ def subcategory_view(request, subcategory_slug):
 
 
 @login_required(login_url="/login/")
+@permission_required("punkweb_bb.add_subcategory", raise_exception=True)
 def subcategory_create_view(request, category_slug):
-    if not request.user.has_perm("punkweb_bb.add_subcategory"):
-        return HttpResponseForbidden(
-            "You do not have permission to create subcategories."
-        )
-
     category = get_object_or_404(Category, slug=category_slug)
 
     if request.method == "POST":
@@ -320,12 +312,8 @@ def subcategory_create_view(request, category_slug):
 
 
 @login_required(login_url="/login/")
+@permission_required("punkweb_bb.change_subcategory", raise_exception=True)
 def subcategory_update_view(request, subcategory_slug):
-    if not request.user.has_perm("punkweb_bb.change_subcategory"):
-        return HttpResponseForbidden(
-            "You do not have permission to change subcategories."
-        )
-
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
     if request.method == "POST":
@@ -346,12 +334,8 @@ def subcategory_update_view(request, subcategory_slug):
 
 
 @login_required(login_url="/login/")
+@permission_required("punkweb_bb.delete_subcategory", raise_exception=True)
 def subcategory_delete_view(request, subcategory_slug):
-    if not request.user.has_perm("punkweb_bb.delete_subcategory"):
-        return HttpResponseForbidden(
-            "You do not have permission to delete subcategories."
-        )
-
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
     if request.method == "DELETE":
@@ -372,10 +356,7 @@ def subcategory_delete_view(request, subcategory_slug):
 def thread_create_view(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
-    if not subcategory.can_post(request.user):
-        return HttpResponseForbidden(
-            "You do not have permission to post in this subcategory."
-        )
+    check_object_permission(subcategory, "can_post", request.user)
 
     if request.method == "POST":
         form = ThreadModelForm(request.POST)
@@ -400,7 +381,7 @@ def thread_create_view(request, subcategory_slug):
 def thread_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
-    posts = paginate_qs(request, thread.posts.all())
+    posts = paginate(request, thread.posts.all())
 
     post_form = PostModelForm()
 
@@ -423,10 +404,7 @@ def thread_view(request, thread_id):
 def thread_update_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
-    if not thread.can_edit(request.user):
-        return HttpResponseForbidden(
-            "You do not have permission to change this thread."
-        )
+    check_object_permission(thread, "can_edit", request.user)
 
     if request.method == "POST":
         form = ThreadModelForm(request.POST, instance=thread)
@@ -449,10 +427,7 @@ def thread_update_view(request, thread_id):
 def thread_delete_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
-    if not thread.can_delete(request.user):
-        return HttpResponseForbidden(
-            "You do not have permission to delete this thread."
-        )
+    check_object_permission(thread, "can_delete", request.user)
 
     if request.method == "DELETE":
         thread.delete()
@@ -467,10 +442,8 @@ def thread_delete_view(request, thread_id):
 
 
 @login_required(login_url="/login/")
+@permission_required("punkweb_bb.pin_thread", raise_exception=True)
 def thread_pin_view(request, thread_id):
-    if not request.user.has_perm("punkweb_bb.pin_thread"):
-        return HttpResponseForbidden("You do not have permission to pin threads.")
-
     thread = get_object_or_404(Thread, pk=thread_id)
 
     thread.is_pinned = not thread.is_pinned
@@ -480,10 +453,8 @@ def thread_pin_view(request, thread_id):
 
 
 @login_required(login_url="/login/")
+@permission_required("punkweb_bb.close_thread", raise_exception=True)
 def thread_close_view(request, thread_id):
-    if not request.user.has_perm("punkweb_bb.close_thread"):
-        return HttpResponseForbidden("You do not have permission to close threads.")
-
     thread = get_object_or_404(Thread, pk=thread_id)
 
     thread.is_closed = not thread.is_closed
@@ -493,10 +464,8 @@ def thread_close_view(request, thread_id):
 
 
 @login_required(login_url="/login/")
+@permission_required("punkweb_bb.move_thread", raise_exception=True)
 def thread_move_view(request, thread_id):
-    if not request.user.has_perm("punkweb_bb.move_thread"):
-        return HttpResponseForbidden("You do not have permission to move threads.")
-
     thread = get_object_or_404(Thread, pk=thread_id)
 
     if request.method == "POST":
@@ -526,10 +495,7 @@ def thread_move_view(request, thread_id):
 def post_create_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
-    if not thread.can_post(request.user):
-        return HttpResponseForbidden(
-            "You do not have permission to post in this thread."
-        )
+    check_object_permission(thread, "can_post", request.user)
 
     form = PostModelForm(request.POST)
 
@@ -546,8 +512,7 @@ def post_create_view(request, thread_id):
 def post_update_view(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
 
-    if not post.can_edit(request.user):
-        return HttpResponseForbidden("You do not have permission to change this post.")
+    check_object_permission(post, "can_edit", request.user)
 
     if request.method == "POST":
         form = PostModelForm(request.POST, instance=post)
@@ -571,8 +536,7 @@ def post_update_view(request, post_id):
 def post_delete_view(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
 
-    if not post.can_delete(request.user):
-        return HttpResponseForbidden("You do not have permission to delete this post.")
+    check_object_permission(post, "can_delete", request.user)
 
     if request.method == "DELETE":
         post.delete()
@@ -628,8 +592,7 @@ def shout_create_view(request):
 def shout_delete_view(request, shout_id):
     shout = get_object_or_404(Shout, pk=shout_id)
 
-    if not shout.can_delete(request.user):
-        return HttpResponseForbidden("You do not have permission to delete this shout.")
+    check_object_permission(shout, "can_delete", request.user)
 
     if request.method == "DELETE":
         shout.delete()
