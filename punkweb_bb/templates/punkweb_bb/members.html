@@ -23,17 +23,9 @@
 
 <div class="members__header">
   <h1>Members</h1>
-  <form class="members__filters" action="{% url 'punkweb_bb:members' %}" method="get">
-    {% for field in form %}
-    <div class="members__filters__field">
-      <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-      {{ field }}
-    </div>
-    {% endfor %}
-    {% if form.non_field_errors %}
-    {{ form.non_field_errors }}
-    {% endif %}
-    <div class="members__filters__actions">
+  <form class="inlineForm" action="{% url 'punkweb_bb:members' %}" method="get">
+    {{ form }}
+    <div class="inlineForm__actions">
       <button class="pw-button raised primary" type="submit">Search</button>
     </div>
   </form>

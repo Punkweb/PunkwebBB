@@ -10,20 +10,6 @@
   margin: 0;
 }
 
-.members__filters {
-  align-items: end;
-  display: flex;
-  justify-content: end;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.members__filters__field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
 .members__list {
   list-style: none;
   padding: 0;

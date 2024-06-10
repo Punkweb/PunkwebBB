@@ -1,0 +1,9 @@
+{% for field in form %}
+<div class="stackedForm__field">
+  {{ field.label_tag }}
+  {{ field }}
+</div>
+{% endfor %}
+{% if form.non_field_errors %}
+{{ form.non_field_errors }}
+{% endif %}

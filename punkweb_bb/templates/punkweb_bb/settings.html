@@ -6,7 +6,10 @@
 
 {% block extra_head %}
 {{form.media.css}}
-<link rel="stylesheet" href="{% static 'punkweb_bb/css/settings.css' %}" />
+{% endblock %}
+
+{% block extra_script %}
+{{form.media.js}}
 {% endblock %}
 
 {% block content %}
@@ -25,35 +28,10 @@
 <div class="pw-card fluid">
   <div class="pw-card-header">Settings</div>
   <div class="pw-card-content">
-    <form class="settingsForm" action="{% url 'punkweb_bb:settings' %}" enctype="multipart/form-data" method="post">
+    <form class="stackedForm" action="{% url 'punkweb_bb:settings' %}" enctype="multipart/form-data" method="post">
       {% csrf_token %}
-      {% for field in form %}
-      {% if field.name == "image" %}
-      <div class="settingsForm__field">
-        <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {% if field.value %}
-        <img class="pw-avatar xl" src="{{ field.value.url }}" alt="{{ field.label }}">
-        <label>
-          <input type="checkbox" name="image-clear" id="image-clear_id" />
-          Remove
-        </label>
-        {% endif %}
-        <input type="file" name="image" accept="image/*" id="id_image" />
-      </div>
-      {% else %}
-      <div class="settingsForm__field">
-        <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field }}
-      </div>
-      {% endif %}
-      {% if field.errors %}
-      {{ field.errors }}
-      {% endif %}
-      {% endfor %}
-      {% if form.non_field_errors %}
-      {{ form.non_field_errors }}
-      {% endif %}
-      <div class="settingsForm__actions">
+      {{ form }}
+      <div class="stackedForm__actions">
         <a class="pw-button default" href="{% url 'punkweb_bb:profile' request.user.id %}">Cancel</a>
         <button class="pw-button raised primary" type="submit">Save</button>
       </div>
@@ -61,8 +39,4 @@
   </div>
 </div>
 
-{% endblock %}
-
-{% block extra_script %}
-{{form.media.js}}
 {% endblock %}

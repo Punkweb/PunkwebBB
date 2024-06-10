@@ -21,20 +21,12 @@
   </ul>
 </nav>
 
-<div class="pw-card center">
+<div class="pw-card center loginCard">
   <div class="pw-card-header">Login</div>
   <div class="pw-card-content">
-    <form class="loginForm" action="{% url 'punkweb_bb:login' %}" method="post">
+    <form class="stackedForm" action="{% url 'punkweb_bb:login' %}" method="post">
       {% csrf_token %}
-      {% for field in form %}
-      <div class="loginForm__field">
-        <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field }}
-      </div>
-      {% endfor %}
-      {% if form.non_field_errors %}
-      {{ form.non_field_errors }}
-      {% endif %}
+      {{ form }}
       <button class="pw-button fluid raised primary" type="submit">Login</button>
     </form>
   </div>

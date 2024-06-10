@@ -1,0 +1,6 @@
+{% for field in form %}
+<div class="inlineForm__field">
+  <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+  {{ field }}
+</div>
+{% endfor %}

@@ -7,9 +7,7 @@
 {% block extra_head %}
 <meta name="description" content="{{thread.content|render|striptags|truncatechars:120}}" />
 <meta property="og:description" content="{{thread.content|render|striptags|truncatechars:120}}" />
-<link rel="stylesheet" href="{% static 'punkweb_bb/css/post-form.css' %}" />
 <link rel="stylesheet" href="{% static 'punkweb_bb/css/thread.css' %}" />
-<link rel="stylesheet" href="{% static 'punkweb_bb/css/thread-form.css' %}" />
 {{post_form.media.css}}
 {% endblock %}
 
@@ -299,17 +297,10 @@
   <div class="pw-card-header">Reply to thread</div>
   <div class="pw-card-content">
     <div class="thread__reply__content">
-      <form class="postForm" action="{% url 'punkweb_bb:post_create' thread.id %}" method="post">
+      <form class="stackedForm" action="{% url 'punkweb_bb:post_create' thread.id %}" method="post">
         {% csrf_token %}
-        {% for field in post_form %}
-        <div class="postForm__field">
-          {{ field }}
-        </div>
-        {% endfor %}
-        {% if post_form.non_field_errors %}
-        {{ post_form.non_field_errors }}
-        {% endif %}
-        <div class="postForm__actions">
+        {{ post_form }}
+        <div class="stackedForm__actions">
           <button class="pw-button raised primary" type="submit">Post reply</button>
         </div>
       </form>

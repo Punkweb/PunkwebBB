@@ -1,0 +1,26 @@
+{% for field in form %}
+{% if field.name == "image" %}
+<div class="stackedForm__field">
+  <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+  {% if field.value %}
+  <img class="pw-avatar xl" src="{{ field.value.url }}" alt="{{ field.label }}">
+  <label>
+    <input type="checkbox" name="image-clear" id="image-clear_id" />
+    Remove
+  </label>
+  {% endif %}
+  <input type="file" name="image" accept="image/*" id="id_image" />
+</div>
+{% else %}
+<div class="stackedForm__field">
+  <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+  {{ field }}
+</div>
+{% endif %}
+{% if field.errors %}
+{{ field.errors }}
+{% endif %}
+{% endfor %}
+{% if form.non_field_errors %}
+{{ form.non_field_errors }}
+{% endif %}

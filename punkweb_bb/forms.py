@@ -6,10 +6,8 @@ from punkweb_bb.utils import get_editor_widget
 
 
 class LoginForm(AuthenticationForm):
-    """
-    Override the default AuthenticationForm to add CSS classes to the
-    username and password fields.
-    """
+    template_name = "punkweb_bb/forms/stacked_form.html"
+    label_suffix = ""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -21,6 +19,8 @@ class LoginForm(AuthenticationForm):
 
 
 class SignUpForm(UserCreationForm):
+    template_name = "punkweb_bb/forms/stacked_form.html"
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -31,7 +31,29 @@ class SignUpForm(UserCreationForm):
         self.fields["password2"].widget.attrs.update({"class": "pw-input fluid"})
 
 
+class FilterUsersForm(forms.Form):
+    template_name = "punkweb_bb/forms/inline_form.html"
+
+    search = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={"class": "pw-input", "placeholder": "Search"}),
+    )
+    sort_by = forms.ChoiceField(
+        required=False,
+        choices=(
+            ("", "-----------"),
+            ("username", "Username (A-Z)"),
+            ("-username", "Username (Z-A)"),
+            ("date_joined", "Date Joined (Oldest)"),
+            ("-date_joined", "Date Joined (Newest)"),
+        ),
+        widget=forms.Select(attrs={"class": "pw-input"}),
+    )
+
+
 class BoardProfileModelForm(forms.ModelForm):
+    template_name = "punkweb_bb/forms/settings_form.html"
+
     class Meta:
         model = BoardProfile
         fields = (
@@ -46,6 +68,8 @@ class BoardProfileModelForm(forms.ModelForm):
 
 
 class CategoryModelForm(forms.ModelForm):
+    template_name = "punkweb_bb/forms/stacked_form.html"
+
     class Meta:
         model = Category
         fields = (
@@ -61,6 +85,8 @@ class CategoryModelForm(forms.ModelForm):
 
 
 class PostModelForm(forms.ModelForm):
+    template_name = "punkweb_bb/forms/stacked_form.html"
+
     class Meta:
         model = Post
         fields = ("content",)
@@ -79,6 +105,8 @@ class ShoutModelForm(forms.ModelForm):
 
 
 class SubcategoryModelForm(forms.ModelForm):
+    template_name = "punkweb_bb/forms/stacked_form.html"
+
     class Meta:
         model = Subcategory
         fields = (
@@ -97,6 +125,8 @@ class SubcategoryModelForm(forms.ModelForm):
 
 
 class ThreadModelForm(forms.ModelForm):
+    template_name = "punkweb_bb/forms/stacked_form.html"
+
     class Meta:
         model = Thread
         fields = (
@@ -110,6 +140,8 @@ class ThreadModelForm(forms.ModelForm):
 
 
 class ThreadMoveForm(forms.Form):
+    template_name = "punkweb_bb/forms/stacked_form.html"
+
     subcategory = forms.ModelChoiceField(
         queryset=Subcategory.objects.all(),
         empty_label="Select a subcategory",

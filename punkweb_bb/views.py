@@ -11,6 +11,7 @@ from punkweb_bb.decorators import redirect_if_authenticated
 from punkweb_bb.forms import (
     BoardProfileModelForm,
     CategoryModelForm,
+    FilterUsersForm,
     LoginForm,
     PostModelForm,
     ShoutModelForm,
@@ -146,24 +147,6 @@ def profile_view(request, user_id):
     }
 
     return render(request, "punkweb_bb/profile.html", context=context)
-
-
-class FilterUsersForm(forms.Form):
-    search = forms.CharField(
-        required=False,
-        widget=forms.TextInput(attrs={"class": "pw-input", "placeholder": "Search"}),
-    )
-    sort_by = forms.ChoiceField(
-        required=False,
-        choices=(
-            ("", "-----------"),
-            ("username", "Username (A-Z)"),
-            ("-username", "Username (Z-A)"),
-            ("date_joined", "Date Joined (Oldest)"),
-            ("-date_joined", "Date Joined (Newest)"),
-        ),
-        widget=forms.Select(attrs={"class": "pw-input"}),
-    )
 
 
 def members_view(request):

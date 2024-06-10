@@ -3,17 +3,10 @@
 {% block title %}Edit Post{% endblock %}
 
 {% block content %}
-<form class="postForm" action="{% url 'punkweb_bb:post_update' post.id %}" method="post">
+<form class="stackedForm" action="{% url 'punkweb_bb:post_update' post.id %}" method="post">
   {% csrf_token %}
-  {% for field in form %}
-  <div class="postForm__field">
-    {{ field }}
-  </div>
-  {% endfor %}
-  {% if form.non_field_errors %}
-  {{ form.non_field_errors }}
-  {% endif %}
-  <div class="postForm__actions">
+  {{ form }}
+  <div class="stackedForm__actions">
     <button class="pw-button raised primary" type="submit">Save</button>
   </div>
 </form>

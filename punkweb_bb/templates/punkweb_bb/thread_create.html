@@ -6,7 +6,10 @@
 
 {% block extra_head %}
 {{form.media.css}}
-<link rel="stylesheet" href="{% static 'punkweb_bb/css/thread-form.css' %}" />
+{% endblock %}
+
+{% block extra_script %}
+{{form.media.js}}
 {% endblock %}
 
 {% block content %}
@@ -31,18 +34,10 @@
 <div class="pw-card fluid">
   <div class="pw-card-header">Create Thread</div>
   <div class="pw-card-content">
-    <form class="threadForm" action="{% url 'punkweb_bb:thread_create' subcategory.slug %}" method="post">
+    <form class="stackedForm" action="{% url 'punkweb_bb:thread_create' subcategory.slug %}" method="post">
       {% csrf_token %}
-      {% for field in form %}
-      <div class="threadForm__field">
-        <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field }}
-      </div>
-      {% endfor %}
-      {% if form.non_field_errors %}
-      {{ form.non_field_errors }}
-      {% endif %}
-      <div class="threadForm__actions">
+      {{ form }}
+      <div class="stackedForm__actions">
         <a class="pw-button default" href="{{subcategory.get_absolute_url}}" type="submit">Cancel</a>
         <button class="pw-button raised primary" type="submit">Create Thread</button>
       </div>
@@ -50,8 +45,4 @@
   </div>
 </div>
 
-{% endblock %}
-
-{% block extra_script %}
-{{form.media.js}}
 {% endblock %}

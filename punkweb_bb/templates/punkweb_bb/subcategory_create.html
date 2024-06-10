@@ -5,7 +5,10 @@
 
 {% block extra_head %}
 {{form.media.css}}
-<link rel="stylesheet" href="{% static 'punkweb_bb/css/subcategory-form.css' %}" />
+{% endblock %}
+
+{% block extra_script %}
+{{form.media.js}}
 {% endblock %}
 
 {% block content %}
@@ -27,18 +30,10 @@
 <div class="pw-card fluid">
   <div class="pw-card-header">Create Subcategory</div>
   <div class="pw-card-content">
-    <form class="subcategoryForm" action="{% url 'punkweb_bb:subcategory_create' category.slug %}" method="post">
+    <form class="stackedForm" action="{% url 'punkweb_bb:subcategory_create' category.slug %}" method="post">
       {% csrf_token %}
-      {% for field in form %}
-      <div class="subcategoryForm__field">
-        <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field }}
-      </div>
-      {% endfor %}
-      {% if form.non_field_errors %}
-      {{ form.non_field_errors }}
-      {% endif %}
-      <div class="subcategoryForm__actions">
+      {{ form }}
+      <div class="stackedForm__actions">
         <a class="pw-button default" href="{% url 'punkweb_bb:index' %}" type="submit">Cancel</a>
         <button class="pw-button raised primary" type="submit">Create</button>
       </div>
@@ -46,8 +41,4 @@
   </div>
 </div>
 
-{% endblock %}
-
-{% block extra_script %}
-{{form.media.js}}
 {% endblock %}
