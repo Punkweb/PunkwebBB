@@ -10,15 +10,14 @@ class BBCodeEditorWidget(forms.Textarea):
         css = {
             "all": (
                 "/static/punkweb_bb/vendor/sceditor-3.2.0/minified/themes/square.min.css",
-                "/static/punkweb_bb/editor/bbcode-editor.css",
             )
         }
         js = (
             "/static/punkweb_bb/vendor/jquery-3.7.0.min.js",
             "/static/punkweb_bb/vendor/sceditor-3.2.0/minified/jquery.sceditor.bbcode.min.js",
             "/static/punkweb_bb/vendor/sceditor-3.2.0/minified/icons/material.js",
-            "/static/punkweb_bb/editor/bbcode-editor-tags.js",
-            "/static/punkweb_bb/editor/bbcode-editor.js",
+            "/static/punkweb_bb/js/bbcode-editor-tags.js",
+            "/static/punkweb_bb/js/bbcode-editor.js",
         )
 
 
@@ -38,5 +37,5 @@ class MarkdownEditorWidget(forms.Textarea):
         js = (
             "/static/punkweb_bb/vendor/jquery-3.7.0.min.js",
             "/static/punkweb_bb/vendor/tiny-markdown-editor/dist/tiny-mde.min.js",
-            "/static/punkweb_bb/editor/markdown-editor.js",
+            "/static/punkweb_bb/js/markdown-editor.js",
         )
