@@ -28,17 +28,7 @@
   <div class="pw-card-content">
     <div class="profile__info">
       <div class="profile__info__avatar">
-        {% if user.profile.image %}
-        <img
-          class="pw-avatar lg"
-          src="{{user.profile.image.url}}"
-          alt="{{user.username}}" />
-        {% else %}
-        <img
-          class="pw-avatar lg"
-          src="{% static 'punkweb_bb/img/default-profile-image.png' %}"
-          alt="{{user.username}}" />
-        {% endif %}
+        {% include 'punkweb_bb/components/profile_image.html' with user=user size="lg" %}
       </div>
       <div class="profile__info__details">
         <div class="profile__info__username">

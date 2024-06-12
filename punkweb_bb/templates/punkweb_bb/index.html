@@ -84,17 +84,7 @@
                   {% if subcategory.latest_thread %}
                   {% if subcategory.latest_thread.latest_post %}
                   <div class="subcategory__latestThread">
-                    {% if subcategory.latest_thread.latest_post.user.profile.image %}
-                    <img
-                      class="pw-avatar xs"
-                      src="{{subcategory.latest_thread.latest_post.user.profile.image.url}}"
-                      alt="{{ subcategory.latest_thread.latest_post.user.username }}" />
-                    {% else%}
-                    <img
-                      class="pw-avatar xs"
-                      src="{% static 'punkweb_bb/img/default-profile-image.png' %}"
-                      alt="{{ subcategory.latest_thread.latest_post.user.username }}" />
-                    {% endif %}
+                    {% include 'punkweb_bb/components/profile_image.html' with user=subcategory.latest_thread.latest_post.user %}
                     <div class="subcategory__latestThread__info">
                       <a class="subcategory__latestThread__info__title"
                         href="{{subcategory.latest_thread.get_absolute_url}}" title="{{subcategory.latest_thread.title}}">
@@ -114,17 +104,7 @@
                   </div>
                   {% else %}
                   <div class="subcategory__latestThread">
-                    {% if subcategory.latest_thread.user.profile.image %}
-                    <img
-                      class="pw-avatar xs"
-                      src="{{subcategory.latest_thread.user.profile.image.url}}"
-                      alt="{{subcategory.latest_thread.user.username}}" />
-                    {% else%}
-                    <img
-                      class="pw-avatar xs"
-                      src="{% static 'punkweb_bb/img/default-profile-image.png' %}"
-                      alt="{{subcategory.latest_thread.user.username}}" />
-                    {% endif %}
+                    {% include 'punkweb_bb/components/profile_image.html' with user=subcategory.latest_thread.user %}
                     <div class="subcategory__latestThread__info">
                       <a class="subcategory__latestThread__info__title"
                         href="{{subcategory.latest_thread.get_absolute_url}}" title="{{subcategory.latest_thread.title}}">
@@ -170,17 +150,7 @@
         <div class="index__recentThreads__content">
           {% for thread in recent_threads %}
           <div class="index__recentThreads__thread">
-            {% if thread.user.profile.image %}
-            <img
-              class="pw-avatar xs"
-              src="{{thread.user.profile.image.url}}"
-              alt="{{thread.user.username}}" />
-            {% else%}
-            <img
-              class="pw-avatar xs"
-              src="{% static 'punkweb_bb/img/default-profile-image.png' %}"
-              alt="{{thread.user.username}}" />
-            {% endif %}
+            {% include 'punkweb_bb/components/profile_image.html' with user=thread.user %}
             <div class="index__recentThreads__thread__info">
               <a class="index__recentThreads__thread__info__title" href="{{thread.get_absolute_url}}"
                 title="{{thread.title}}">

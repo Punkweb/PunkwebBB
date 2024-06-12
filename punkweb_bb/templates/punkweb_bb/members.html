@@ -37,17 +37,7 @@
     {% for user in users %}
     <li class="members__user">
       <div class="members__user__avatar">
-        {% if user.profile.image %}
-        <img
-        class="pw-avatar sm"
-        src="{{user.profile.image.url}}"
-        alt="{{user.username}}" />
-        {% else %}
-        <img
-        class="pw-avatar sm"
-        src="{% static 'punkweb_bb/img/default-profile-image.png' %}"
-        alt="{{user.username}}" />
-        {% endif %}
+        {% include 'punkweb_bb/components/profile_image.html' with user=user size="sm" %}
       </div>
       <div class="members__user__info">
         <div class="members__user__username">

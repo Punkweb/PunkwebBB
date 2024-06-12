@@ -47,11 +47,7 @@
     <div class="thread__user">
       <div class="thread__user__info">
         <div class="thread__user__image">
-          {% if thread.user.profile.image %}
-          <img class="pw-avatar" src="{{thread.user.profile.image.url}}" alt="{{thread.user.username}}" />
-          {% else %}
-          <img class="pw-avatar" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" alt="{{thread.user.username}}" />
-          {% endif %}
+          {% include 'punkweb_bb/components/profile_image.html' with user=thread.user size="md" %}
         </div>
         <div class="thread__user__username">
           <a href="{% url 'punkweb_bb:profile' thread.user.id %}">
@@ -169,15 +165,7 @@
     <div class="thread__user">
       <div class="thread__user__info">
         <div class="thread__user__image">
-          {% if post.user.profile.image %}
-          <div class="thread__user__image">
-            <img class="pw-avatar" src="{{post.user.profile.image.url}}" alt="{{post.user.username}}" />
-          </div>
-          {% else %}
-          <div class="thread__user__image">
-            <img class="pw-avatar" src="{% static 'punkweb_bb/img/default-profile-image.png' %}" alt="{{post.user.username}}" />
-          </div>
-          {% endif %}
+          {% include 'punkweb_bb/components/profile_image.html' with user=post.user size="md" %}
         </div>
         <div class="thread__user__username">
           <a href="{% url 'punkweb_bb:profile' post.user.id %}">

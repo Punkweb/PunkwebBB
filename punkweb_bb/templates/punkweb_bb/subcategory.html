@@ -121,17 +121,7 @@
                   </a>
                 </div>
               </div>
-              {% if thread.latest_post.user.profile.image %}
-              <img
-                class="pw-avatar xs"
-                src="{{thread.latest_post.user.profile.image.url}}"
-                alt="{{thread.latest_post.user.username}}" />
-              {% else %}
-              <img
-                class="pw-avatar xs"
-                src="{% static 'punkweb_bb/img/default-profile-image.png' %}"
-                alt="{{thread.latest_post.user.username}}" />
-              {% endif %}
+              {% include 'punkweb_bb/components/profile_image.html' with user=thread.latest_post.user %}
             </div>
             {% else %}
             No posts
