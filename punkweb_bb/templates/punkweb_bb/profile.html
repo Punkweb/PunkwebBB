@@ -24,7 +24,7 @@
   </ul>
 </nav>
 
-<div class="pw-card fluid margin">
+<div class="pw-card fluid mb-4">
   <div class="pw-card-content">
     <div class="profile__info">
       <div class="profile__info__avatar">
@@ -34,7 +34,9 @@
         <div class="profile__info__username">
           {{user|styled_username}}
           {% if user.profile.is_online %}
-          <div class="onlineIndicator"></div>
+          <div class="pw-badge xs green">Online</div>
+          {% else %}
+          <div class="pw-badge xs">Offline</div>
           {% endif %}
         </div>
         <div class="profile__info__stats">
@@ -60,7 +62,7 @@
   </div>
 </div>
 
-<div class="pw-card fluid margin">
+<div class="pw-card fluid">
   <div class="pw-card-header">
     Threads
   </div>

@@ -1,13 +1,13 @@
-{% extends 'punkweb_bb/base_modal.html' %}
+{% extends 'punkweb_bb/base_dialog.html' %}
 
 {% block title %}Move Thread{% endblock %}
 
 {% block content %}
-<form class="stackedForm" action="{% url 'punkweb_bb:thread_move' thread.id %}" method="post">
+<form class="pw-form" action="{% url 'punkweb_bb:thread_move' thread.id %}" method="post">
   {% csrf_token %}
   {{ form }}
-  <div class="stackedForm__actions">
-    <button class="modal__cancel pw-button default">Cancel</button>
+  <div class="pw-form-actions end">
+    <button class="pw-dialog-cancel pw-button default">Cancel</button>
     <button class="pw-button raised primary" type="submit">Move</button>
   </div>
 </form>

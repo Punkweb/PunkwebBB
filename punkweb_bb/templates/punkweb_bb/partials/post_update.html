@@ -1,12 +1,12 @@
-{% extends 'punkweb_bb/base_modal.html' %}
+{% extends 'punkweb_bb/base_dialog.html' %}
 
 {% block title %}Edit Post{% endblock %}
 
 {% block content %}
-<form class="stackedForm" action="{% url 'punkweb_bb:post_update' post.id %}" method="post">
+<form class="pw-form" action="{% url 'punkweb_bb:post_update' post.id %}" method="post">
   {% csrf_token %}
   {{ form }}
-  <div class="stackedForm__actions">
+  <div class="pw-form-actions end">
     <button class="pw-button raised primary" type="submit">Save</button>
   </div>
 </form>

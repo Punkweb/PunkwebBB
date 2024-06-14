@@ -20,7 +20,7 @@
       {% include 'punkweb_bb/shoutbox/shoutbox.html' %}
       {% endif %}
       {% for category in categories %}
-      <div id="{{category.slug}}.{{category.order}}" class="pw-card fluid margin">
+      <div id="{{category.slug}}.{{category.order}}" class="pw-card fluid mb-4">
         <div class="pw-table-container">
           <table class="pw-table">
             <colgroup>
@@ -54,10 +54,10 @@
                     {% endif %}
                     {% if perms.punkweb_bb.delete_category %}
                     <a
-                      class="pw-icon-button default danger rounded sm"
+                      class="pw-icon-button default red rounded sm"
                       title="Delete category"
                       hx-get="{% url 'punkweb_bb:category_delete' category.slug %}"
-                      hx-target="#modal-portal"
+                      hx-target="#dialog-portal"
                     >
                     <span class="material-symbols-outlined">delete</span>
                     </a>
@@ -145,63 +145,67 @@
       {% endif %}
     </div>
     <div class="index__sidebar">
-      <div class="pw-card fluid">
+      <div class="pw-card fluid mb-4">
         <div class="pw-card-header">Recent threads</div>
-        <div class="index__recentThreads__content">
-          {% for thread in recent_threads %}
-          <div class="index__recentThreads__thread">
-            {% include 'punkweb_bb/components/profile_image.html' with user=thread.user %}
-            <div class="index__recentThreads__thread__info">
-              <a class="index__recentThreads__thread__info__title" href="{{thread.get_absolute_url}}"
-                title="{{thread.title}}">
-                {{thread.title}}
-              </a>
-              <div>
-                <time datetime="{{thread.created_at|date:'c'}}">
-                  {{thread.created_at|date:'M j, Y'}} at
-                  {{thread.created_at|date:'g:i A'}}
-                </time>
-                •
-                <a href="{% url 'punkweb_bb:profile' thread.user.id %}">
-                  {{thread.user|styled_username}}
+        <div class="pw-card-content">
+          <div class="index__recentThreads">
+            {% for thread in recent_threads %}
+            <div class="index__recentThreads__thread">
+              {% include 'punkweb_bb/components/profile_image.html' with user=thread.user %}
+              <div class="index__recentThreads__thread__info">
+                <a class="index__recentThreads__thread__title" href="{{thread.get_absolute_url}}"
+                  title="{{thread.title}}">
+                  {{thread.title}}
                 </a>
+                <div>
+                  <time datetime="{{thread.created_at|date:'c'}}">
+                    {{thread.created_at|date:'M j, Y'}} at
+                    {{thread.created_at|date:'g:i A'}}
+                  </time>
+                  •
+                  <a href="{% url 'punkweb_bb:profile' thread.user.id %}">
+                    {{thread.user|styled_username}}
+                  </a>
+                </div>
               </div>
             </div>
+            {% endfor %}
           </div>
-          {% endfor %}
         </div>
       </div>
-      <div class="pw-card fluid margin">
+      <div class="pw-card fluid">
         <div class="pw-card-header">Statistics</div>
-        <div class="index__statistics__content">
-          <div class="index__statistics__list">
-            <div class="index__statistics__row">
-              <div class="index__statistics__label">Total threads:</div>
-              <div class="index__statistics__value">
-                {{thread_count}}
+        <div class="pw-card-content">
+          <div class="index__statistics">
+            <div class="index__statistics__list">
+              <div class="index__statistics__row">
+                <div class="index__statistics__label">Total threads:</div>
+                <div class="index__statistics__value">
+                  {{thread_count}}
+                </div>
               </div>
-            </div>
-            <div class="index__statistics__row">
-              <div class="index__statistics__label">Total posts:</div>
-              <div class="index__statistics__value">{{post_count}}</div>
-            </div>
-            <div class="index__statistics__row">
-              <div class="index__statistics__label">Total members:</div>
-              <div class="index__statistics__value">{{users|length}}</div>
-            </div>
-            {% if newest_user %}
-            <div class="index__statistics__row">
-              <div class="index__statistics__label">Newest member:</div>
-              <div class="index__statistics__value">
-                <a href="{% url 'punkweb_bb:profile' newest_user.id %}">
-                  {{newest_user|styled_username}}
-                </a>
+              <div class="index__statistics__row">
+                <div class="index__statistics__label">Total posts:</div>
+                <div class="index__statistics__value">{{post_count}}</div>
               </div>
-            </div>
-            {% endif %}
-            <div class="index__statistics__row">
-              <div class="index__statistics__label">Users online:</div>
-              <div class="index__statistics__value">{{total_online}} ({{members_online|length}} members, {{staff_online|length}} staff, {{guests_online}} guests)</div>
+              <div class="index__statistics__row">
+                <div class="index__statistics__label">Total members:</div>
+                <div class="index__statistics__value">{{users|length}}</div>
+              </div>
+              {% if newest_user %}
+              <div class="index__statistics__row">
+                <div class="index__statistics__label">Newest member:</div>
+                <div class="index__statistics__value">
+                  <a href="{% url 'punkweb_bb:profile' newest_user.id %}">
+                    {{newest_user|styled_username}}
+                  </a>
+                </div>
+              </div>
+              {% endif %}
+              <div class="index__statistics__row">
+                <div class="index__statistics__label">Users online:</div>
+                <div class="index__statistics__value">{{total_online}} ({{members_online|length}} members, {{staff_online|length}} staff, {{guests_online}} guests)</div>
+              </div>
             </div>
           </div>
         </div>
@@ -217,7 +221,7 @@
         sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
       </iframe>
       {% else %}
-      <div class="pw-callout danger">
+      <div class="pw-callout red mt-4">
         <h4>Discord Widget Error</h4>
         <p><code>DISCORD_SERVER_ID</code> not configured in settings module.</p>
       </div>

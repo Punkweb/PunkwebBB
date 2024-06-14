@@ -17,11 +17,10 @@
   flex: 0 0 20rem;
 }
 
-.index__recentThreads__content {
+.index__recentThreads {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
 }
 
 .index__recentThreads__thread {
@@ -35,7 +34,7 @@
   font-size: 0.75rem;
 }
 
-.index__recentThreads__thread__info__title {
+.index__recentThreads__thread__title {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -43,11 +42,10 @@
   max-width: 15rem;
 }
 
-.index__statistics__content {
+.index__statistics {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
 }
 
 .index__statistics__list {

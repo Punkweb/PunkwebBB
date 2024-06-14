@@ -1,7 +1,8 @@
 {% for field in form %}
-<div class="stackedForm__field">
-  {{ field.label_tag }}
+<div class="pw-form-group">
+  <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
   {{ field }}
+  {{ field.errors }}
 </div>
 {% endfor %}
 {% if form.non_field_errors %}

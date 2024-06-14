@@ -1,0 +1,16 @@
+<div class="pw-dialog-container">
+  <div class="pw-dialog-underlay"></div>
+  <div class="pw-dialog">
+    <div class="pw-dialog-header">
+      <div class="pw-dialog-title">{% block title %}{% endblock %}</div>
+      <button class="pw-icon-button default rounded sm pw-dialog-close">
+        <span class="material-symbols-outlined">
+          close
+        </span>
+      </button>
+    </div>
+    <div class="pw-dialog-body">
+    {% block content %}{% endblock %}
+    </div>
+  </div>
+</div>

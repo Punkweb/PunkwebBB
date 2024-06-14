@@ -37,7 +37,7 @@
 {% if posts.number == 1 %}
 <h1>{{thread.title}}</h1>
 
-<div class="pw-card fluid margin">
+<div class="pw-card fluid mb-4">
   <div class="pw-card-header">
     <div class="thread__date">
       <time datetime="{{thread.created_at|date:'c'}}">{{thread.created_at | date:'M j, Y'}}</time>
@@ -89,7 +89,7 @@
           class="pw-icon-button default rounded"
           title="Move"
           hx-get="{% url 'punkweb_bb:thread_move' thread.id %}"
-          hx-target="#modal-portal"
+          hx-target="#dialog-portal"
         >
           <span class="material-symbols-outlined">move_item</span>
         </a>
@@ -133,10 +133,10 @@
         {% endif %}
         {% if thread|can_delete:request.user %}
         <a
-          class="pw-icon-button default rounded danger"
+          class="pw-icon-button default rounded red"
           title="Delete"
           hx-get="{% url 'punkweb_bb:thread_delete' thread.id %}"
-          hx-target="#modal-portal"
+          hx-target="#dialog-portal"
         >
           <span class="material-symbols-outlined">delete</span>
         </a>
@@ -154,7 +154,7 @@
 {% endif %}
 
 {% for post in posts %}
-<div id="post-{{post.id}}" class="pw-card fluid margin">
+<div id="post-{{post.id}}" class="pw-card fluid mb-4">
   <div class="pw-card-header thread__header">
     <div class="thread__date">
       <time datetime="{{post.created_at|date:'c'}}">{{post.created_at | date:'M j, Y'}}</time>
@@ -207,17 +207,17 @@
           class="pw-icon-button default rounded"
           title="Edit"
           hx-get="{% url 'punkweb_bb:post_update' post.id %}"
-          hx-target="#modal-portal"
+          hx-target="#dialog-portal"
         >
           <span class="material-symbols-outlined">edit</span>
         </a>
         {% endif %}
         {% if post|can_delete:request.user %}
         <a
-          class="pw-icon-button default rounded danger"
+          class="pw-icon-button default rounded red"
           title="Delete"
           hx-get="{% url 'punkweb_bb:post_delete' post.id %}"
-          hx-target="#modal-portal"
+          hx-target="#dialog-portal"
         >
           <span class="material-symbols-outlined">delete</span>
         </a>
@@ -234,61 +234,17 @@
 </div>
 {% endfor %}
 
-{% if posts.has_other_pages %}
-<nav>
-  <ul class="pw-pagination">
-    {% if posts.has_previous %}
-    <li class="pw-pagination-item">
-      <a class="pw-pagination-link" href="{{ post.thread.get_absolute_url }}?page={{posts.previous_page_number}}">
-        Prev
-      </a>
-    </li>
-    {% else %}
-    <li class="pw-pagination-item disabled">
-      <a class="pw-pagination-link" href="#">
-        Prev
-      </a>
-    </li>
-    {% endif %}
-    {% for i in posts.paginator.page_range %}
-    {% if posts.number == i %}
-    <li class="pw-pagination-item active">
-      <a class="pw-pagination-link" href="#">
-        {{i}}
-      </a>
-    </li>
-    {% else %}
-    <li class="pw-pagination-item">
-      <a class="pw-pagination-link" href="{{ post.thread.get_absolute_url }}?page={{i}}">
-        {{i}}
-      </a>
-    </li>
-    {% endif %}
-    {% endfor %}
-    {% if posts.has_next %}
-    <li class="pw-pagination-item">
-      <a class="pw-pagination-link" href="{{ post.thread.get_absolute_url }}?page={{posts.next_page_number}}">
-        Next
-      </a>
-    </li>
-    {% else %}
-    <li class="pw-pagination-item disabled">
-      <a class="pw-pagination-link" href="#">Next</a>
-    </li>
-    {% endif %}
-  </ul>
-</nav>
-{% endif %}
+{% include 'punkweb_bb/components/pagination_controls.html' with paginator=posts %}
 
 {% if thread|can_post:request.user %}
-<div class="pw-card fluid margin">
+<div class="pw-card fluid mt-4">
   <div class="pw-card-header">Reply to thread</div>
   <div class="pw-card-content">
     <div class="thread__reply__content">
-      <form class="stackedForm" action="{% url 'punkweb_bb:post_create' thread.id %}" method="post">
+      <form class="pw-form" action="{% url 'punkweb_bb:post_create' thread.id %}" method="post">
         {% csrf_token %}
         {{ post_form }}
-        <div class="stackedForm__actions">
+        <div class="pw-form-actions end">
           <button class="pw-button raised primary" type="submit">Post reply</button>
         </div>
       </form>
@@ -296,7 +252,7 @@
   </div>
 </div>
 {% else %}
-<div class="pw-card fluid margin">
+<div class="pw-card fluid mt-4">
   <div class="pw-card-header">Thread closed</div>
   <div class="pw-card-content">
     <div>This thread is closed and you cannot reply to it.</div>

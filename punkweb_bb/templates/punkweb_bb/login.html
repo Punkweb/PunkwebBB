@@ -21,13 +21,15 @@
   </ul>
 </nav>
 
-<div class="pw-card center loginCard">
+<div class="pw-card centerPage">
   <div class="pw-card-header">Login</div>
   <div class="pw-card-content">
-    <form class="stackedForm" action="{% url 'punkweb_bb:login' %}" method="post">
+    <form class="pw-form" action="{% url 'punkweb_bb:login' %}" method="post">
       {% csrf_token %}
       {{ form }}
-      <button class="pw-button fluid raised primary" type="submit">Login</button>
+      <div class="pw-form-actions">
+        <button class="pw-button fluid raised primary" type="submit">Login</button>
+      </div>
     </form>
   </div>
 </div>

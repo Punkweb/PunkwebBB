@@ -1,12 +1,11 @@
 {% load static %}
-{% if user.profile.image %}
-<img
-  class="pw-avatar {{size|default:"xs"}}"
-  src="{{user.profile.image.url}}"
-  alt="{{user.username}}" />
-{% else%}
-<img
-  class="pw-avatar {{size|default:"xs"}}"
-  src="{% static 'punkweb_bb/img/default-profile-image.png' %}"
-  alt="{{user.username}}" />
-{% endif %}
+<div class="pw-avatar {{size|default:"xs"}}">
+  {% if user.profile.image %}
+  <img
+    class="pw-avatar-image"
+    src="{{user.profile.image.url}}"
+    alt="{{user.username}}" />
+  {% else%}
+  <div class="pw-avatar-fallback">{{user.username|slice:":1"}}</div>
+  {% endif %}
+</div>

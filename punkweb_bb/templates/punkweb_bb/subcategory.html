@@ -40,10 +40,10 @@
       {% endif %}
       {% if perms.punkweb_bb.delete_subcategory %}
       <a
-        class="pw-icon-button default rounded danger"
+        class="pw-icon-button default rounded red"
         title="Delete subcategory"
         hx-get="{% url 'punkweb_bb:subcategory_delete' subcategory.slug %}"
-        hx-target="#modal-portal"
+        hx-target="#dialog-portal"
       >
         <span class="material-symbols-outlined">delete</span>
       </a>
@@ -66,7 +66,7 @@
   {% endif %}
 </div>
 
-<div class="pw-card fluid margin">
+<div class="pw-card fluid mb-4">
   <div class="pw-table-container">
     <table class="pw-table">
       <colgroup>
@@ -134,51 +134,6 @@
   </div>
 </div>
 
-
-{% if threads.has_other_pages %}
-<nav>
-  <ul class="pw-pagination">
-    {% if threads.has_previous %}
-    <li class="pw-pagination-item">
-      <a class="pw-pagination-link" href="{{ subcategory.get_absolute_url }}?page={{threads.previous_page_number}}">
-        Prev
-      </a>
-    </li>
-    {% else %}
-    <li class="pw-pagination-item disabled">
-      <a class="pw-pagination-link" href="#">
-        Prev
-      </a>
-    </li>
-    {% endif %}
-    {% for i in threads.paginator.page_range %}
-    {% if threads.number == i %}
-    <li class="pw-pagination-item active">
-      <a class="pw-pagination-link" href="#">
-        {{i}}
-      </a>
-    </li>
-    {% else %}
-    <li class="pw-pagination-item">
-      <a class="pw-pagination-link" href="{{ subcategory.get_absolute_url }}?page={{i}}">
-        {{i}}
-      </a>
-    </li>
-    {% endif %}
-    {% endfor %}
-    {% if threads.has_next %}
-    <li class="pw-pagination-item">
-      <a class="pw-pagination-link" href="{{ subcategory.get_absolute_url }}?page={{threads.next_page_number}}">
-        Next
-      </a>
-    </li>
-    {% else %}
-    <li class="pw-pagination-item disabled">
-      <a class="pw-pagination-link" href="#">Next</a>
-    </li>
-    {% endif %}
-  </ul>
-</nav>
-{% endif %}
+{% include 'punkweb_bb/components/pagination_controls.html' with paginator=threads %}
 
 {% endblock %}

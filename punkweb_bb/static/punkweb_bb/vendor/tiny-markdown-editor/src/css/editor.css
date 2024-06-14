@@ -1,6 +1,6 @@
 .TinyMDE {
   background-color: #fff;
-  border: 1px solid var(--border);
+  border: 1px solid var(--oc-gray-4);
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
   color: var(--oc-gray-9);

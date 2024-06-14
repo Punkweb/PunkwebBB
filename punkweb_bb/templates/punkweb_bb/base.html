@@ -13,17 +13,13 @@
   <meta property="og:image" content="{{ punkweb_bb.settings.OG_IMAGE }}" />
   {% endif %}
   <link rel="icon" href="{% static punkweb_bb.settings.FAVICON %}" />
-  <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/open-color.css' %}" />
-  <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/prism.css' %}" />
-  <link rel="stylesheet" href="{% static 'punkweb_bb/css/defaults.css' %}" />
-  <link rel="stylesheet" href="{% static 'punkweb_bb/css/variables.css' %}" />
-  <link rel="stylesheet" href="{% static 'punkweb_bb/css/typography.css' %}" />
-  <link rel="stylesheet" href="{% static 'punkweb_bb/css/punkweb.css' %}" />
-  <link rel="stylesheet" href="{% static 'punkweb_bb/css/punkweb-modal.css' %}" />
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
   />
+  <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/prism.css' %}" />
+  <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/punkweb-ui.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'punkweb_bb/css/punkweb.css' %}" />
   {% block extra_head %}{% endblock %}
 </head>
 
@@ -32,7 +28,7 @@
     <header>
       <nav class="nav">
         <div class="nav__upper">
-          <div class="container">
+          <div class="pw-container">
             <div class="nav__upper__content">
               {% if request.user.is_staff %}
               <div class="nav__upper__links">
@@ -66,7 +62,7 @@
           </div>
         </div>
         <div class="nav__main">
-          <div class="container">
+          <div class="pw-container">
             <div class="nav__main__content">
               <a class="nav__title" href="{% url 'punkweb_bb:index' %}">
                 {{ punkweb_bb.settings.SITE_NAME|default:"PUNKWEB"}}
@@ -83,14 +79,14 @@
       </nav>
     </header>
     <main class="main">
-      <div class="container">
+      <div class="pw-container">
         {% block content %}
         {% endblock content %}
       </div>
     </main>
     <footer>
       <div class="footer">
-        <div class="container">
+        <div class="pw-container">
           <div class="footer__content">
             <div>Powered by <a href="https://github.com/Punkweb/PunkwebBB" target="_blank">PunkwebBB</a></div>
             <div><a href="{% url 'punkweb_bb:bbcode' %}">BBCode Reference</a></div>
@@ -99,11 +95,11 @@
       </div>
     </footer>
   </div>
-  <div id="modal-portal"></div>
+  <div id="dialog-portal"></div>
   <script src="{% static 'punkweb_bb/vendor/htmx-1.9.4.min.js' %}"></script>
   <script src="{% static 'punkweb_bb/vendor/jquery-3.7.0.min.js' %}"></script>
   <script src="{% static 'punkweb_bb/vendor/prism.js' %}"></script>
-  <script src="{% static 'punkweb_bb/js/punkweb-modal.js' %}"></script>
+  <script src="{% static 'punkweb_bb/js/punkweb-dialog.js' %}"></script>
   {% block extra_script %}{% endblock %}
 </body>
 

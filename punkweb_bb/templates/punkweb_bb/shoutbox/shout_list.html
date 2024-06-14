@@ -10,10 +10,10 @@
   {% if shout|can_delete:request.user %}
   <div class="shoutbox__shout__actions">
     <button
-      class="pw-icon-button default danger sm"
+      class="pw-icon-button default red sm"
       title="Delete"
       hx-get="{% url 'punkweb_bb:shout_delete' shout.id %}"
-      hx-target="#modal-portal"
+      hx-target="#dialog-portal"
     >
       <span class="material-symbols-outlined">delete</span>
     </button>

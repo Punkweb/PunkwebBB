@@ -23,7 +23,7 @@
 }
 
 .members__user:not(:last-of-type) {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--oc-gray-4);
 }
 
 .members__user__username {
@@ -40,5 +40,5 @@
 }
 
 .members__user__stat__value {
-  color: var(--text-dark);
+  color: var(--oc-gray-9);
 }

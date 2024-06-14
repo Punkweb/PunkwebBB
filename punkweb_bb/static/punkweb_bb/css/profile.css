@@ -23,7 +23,7 @@
 }
 
 .profile__info__stat__value {
-  color: var(--text-dark);
+  color: var(--oc-gray-9);
 }
 
 .profile__thread__list {
@@ -55,7 +55,7 @@
 }
 
 .profile__thread:not(:last-of-type) {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--oc-gray-4);
 }
 
 @media screen and (max-width: 768px) {

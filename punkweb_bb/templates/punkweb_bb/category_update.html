@@ -22,10 +22,10 @@
 <div class="pw-card fluid">
   <div class="pw-card-header">Edit Category</div>
   <div class="pw-card-content">
-    <form class="stackedForm" action="{% url 'punkweb_bb:category_update' category.slug %}" method="post">
+    <form class="pw-form" action="{% url 'punkweb_bb:category_update' category.slug %}" method="post">
       {% csrf_token %}
       {{ form }}
-      <div class="stackedForm__actions">
+      <div class="pw-form-actions end">
         <a class="pw-button default" href="{{category.get_absolute_url}}">Cancel</a>
         <button class="pw-button raised primary" type="submit">Save</button>
       </div>

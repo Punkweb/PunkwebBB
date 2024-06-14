@@ -1,6 +1,6 @@
 .TMCommandBar {
   background-color: var(--oc-gray-1);
-  border: 1px solid var(--border);
+  border: 1px solid var(--oc-gray-4);
   border-bottom: none;
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
@@ -43,7 +43,7 @@
   height: 24px;
   margin: 0 8px;
   width: 0px;
-  border-left: 2px solid var(--border);
+  border-left: 2px solid var(--oc-gray-4);
 }
 
 .TMCommandButton_Active {
