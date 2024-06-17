@@ -24,6 +24,7 @@ from punkweb_bb.guests import guest_list
 from punkweb_bb.models import Category, Post, Shout, Subcategory, Thread
 from punkweb_bb.pagination import paginate
 from punkweb_bb.response import htmx_redirect
+from punkweb_bb.searching import search_threads
 from punkweb_bb.utils import get_unique_slug
 
 User = get_user_model()
@@ -639,3 +640,20 @@ class ThreadModelForm(forms.ModelForm):
     }
 
     return render(request, "punkweb_bb/bbcode.html", context=context)
+
+
+def search_view(request):
+    query = request.GET.get("q", "")
+
+    print(query)
+
+    matching_threads = search_threads(query)
+
+    print(matching_threads)
+
+    context = {
+        "query": query,
+        "threads": matching_threads,
+    }
+
+    return render(request, "punkweb_bb/search.html", context=context)

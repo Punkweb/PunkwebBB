@@ -68,4 +68,5 @@ urlpatterns = [
     path("shout-create/", views.shout_create_view, name="shout_create"),
     path("shout/<str:shout_id>/delete/", views.shout_delete_view, name="shout_delete"),
     path("bbcode/", views.bbcode_view, name="bbcode"),
+    path("search/", views.search_view, name="search"),
 ]

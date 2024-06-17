@@ -75,6 +75,9 @@
               <a class="nav__link" href="{% url 'punkweb_bb:members' %}">
                 Members
               </a>
+              <form method="GET" action="{% url 'punkweb_bb:search' %}">
+                <input id="id_q" name="q" type="text" />
+              </form>
             </div>
           </div>
         </div>

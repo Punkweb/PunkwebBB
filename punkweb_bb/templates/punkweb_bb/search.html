@@ -1,0 +1,27 @@
+{% extends 'punkweb_bb/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<nav>
+  <ul class="pw-breadcrumb">
+    <li class="pw-breadcrumb-item">
+      <a href="{% url 'punkweb_bb:index' %}">Home</a>
+    </li>
+    {% comment %} <li class="pw-breadcrumb-item">
+      <a href="{{thread.subcategory.category.get_absolute_url}}">{{thread.subcategory.category.name}}</a>
+    </li>
+    <li class="pw-breadcrumb-item">
+      <a href="{{thread.subcategory.get_absolute_url}}">{{thread.subcategory.name}}</a>
+    </li>
+    <li class="pw-breadcrumb-item active">
+      {{thread.title}}
+    </li> {% endcomment %}
+  </ul>
+</nav>
+
+{% for thread in threads %}
+<p>{{ thread.title }}</p>
+{% endfor %}
+
+{% endblock %}
