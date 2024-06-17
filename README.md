@@ -53,7 +53,7 @@ TEMPLATES = [
 ]
 ```
 
-# Note: The context processor is deprecated and will be removed in v0.5.0!
+**_Note_**: The context processor is deprecated and will be removed in v0.5.0!
 
 Add the following URL pattern to your `urls.py`:
 
