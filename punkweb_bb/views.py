@@ -630,6 +630,7 @@ class ThreadModelForm(forms.ModelForm):
 [/code]
 """,
         ),
+        ("Spoiler", "[spoiler=Title]Content[/spoiler]"),
         ("Ordered List", "[ol][li]Item 1[/li][li]Item 2[/li][/ol]"),
         ("Unordered List", "[ul][li]Item 1[/li][li]Item 2[/li][/ul]"),
         ("Escape", "[escape][b]Escaped bbcode[/b][/escape]"),
