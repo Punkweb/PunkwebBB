@@ -7,7 +7,6 @@ from punkweb_bb.utils import get_editor_widget
 
 class LoginForm(AuthenticationForm):
     template_name = "punkweb_bb/forms/stacked_form.html"
-    label_suffix = ""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -52,7 +51,7 @@ class FilterUsersForm(forms.Form):
 
 
 class BoardProfileModelForm(forms.ModelForm):
-    template_name = "punkweb_bb/forms/settings_form.html"
+    template_name = "punkweb_bb/forms/stacked_form.html"
 
     class Meta:
         model = BoardProfile
@@ -116,11 +115,11 @@ class SubcategoryModelForm(forms.ModelForm):
             "staff_post_only",
         )
         widgets = {
-            "name": forms.TextInput(attrs={"autofocus": True, "class": "pw-input"}),
-            "description": get_editor_widget(),
-            "order": forms.TextInput(
-                attrs={"class": "pw-input", "min": "0", "type": "number"}
+            "name": forms.TextInput(
+                attrs={"autofocus": True, "class": "pw-input fluid"}
             ),
+            "description": get_editor_widget(),
+            "order": forms.NumberInput(attrs={"class": "pw-input", "min": "0"}),
         }
 
 
@@ -134,7 +133,9 @@ class ThreadModelForm(forms.ModelForm):
             "content",
         )
         widgets = {
-            "title": forms.TextInput(attrs={"autofocus": True, "class": "pw-input"}),
+            "title": forms.TextInput(
+                attrs={"autofocus": True, "class": "pw-input fluid"}
+            ),
             "content": get_editor_widget(),
         }
 
@@ -145,5 +146,5 @@ class ThreadMoveForm(forms.Form):
     subcategory = forms.ModelChoiceField(
         queryset=Subcategory.objects.all(),
         empty_label="Select a subcategory",
-        widget=forms.Select(attrs={"class": "pw-input"}),
+        widget=forms.Select(attrs={"class": "pw-input fluid"}),
     )
