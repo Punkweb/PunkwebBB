@@ -112,7 +112,7 @@ Creating test database for alias 'default'...
 System check identified no issues (0 silenced).
 ...........................................................
 ----------------------------------------------------------------------
-Ran 59 tests in 8.699s
+Ran 59 tests in 8.389s
 
 OK
 Destroying test database for alias 'default'...
@@ -131,7 +131,8 @@ punkweb_bb/mixins.py                              11      0   100%
 punkweb_bb/models.py                             154      1    99%
 punkweb_bb/pagination.py                          11      4    64%
 punkweb_bb/response.py                             3      0   100%
-punkweb_bb/settings.py                            11      0   100%
+punkweb_bb/searching.py                            8      5    38%
+punkweb_bb/settings.py                            13      0   100%
 punkweb_bb/signals.py                              9      0   100%
 punkweb_bb/templatetags/__init__.py                0      0   100%
 punkweb_bb/templatetags/can_delete.py              5      0   100%
@@ -145,8 +146,8 @@ punkweb_bb/templatetags/styled_username.py         6      0   100%
 punkweb_bb/tests.py                              418      0   100%
 punkweb_bb/urls.py                                 4      0   100%
 punkweb_bb/utils.py                               44     26    41%
-punkweb_bb/views.py                              311    117    62%
+punkweb_bb/views.py                              319    123    61%
 punkweb_bb/widgets.py                             16      2    88%
 ------------------------------------------------------------------
-TOTAL                                           1371    218    84%
+TOTAL                                           1389    229    84%
 ```
