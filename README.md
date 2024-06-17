@@ -84,6 +84,8 @@ PUNKWEB_BB = {
   "FAVICON": "punkweb_bb/favicon.ico",
   "OG_IMAGE": None, # Used for Open Graph meta tags, must be a full URL!
   "SHOUTBOX_ENABLED": True,
+  "SHOUTBOX_POLLING_ENABLED": True,
+  "SHOUTBOX_POLLING_INTERVAL": 30, # in seconds
   "DISCORD_WIDGET_ENABLED": False,
   "DISCORD_WIDGET_THEME": "dark",
   "DISCORD_SERVER_ID": None, # Found under Server Settings > Widget > Server ID

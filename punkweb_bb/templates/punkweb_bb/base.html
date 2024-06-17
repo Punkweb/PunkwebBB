@@ -5,8 +5,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title_prefix %}{% endblock %}{% punkweb_bb "SITE_TITLE" "PunkwebBB" %}</title>
-  <meta property="og:title" content="{% block og_title_prefix %}{% endblock %}{% punkweb_bb "SITE_TITLE" "PunkwebBB" %}" />
+  <title>{% block title_prefix %}{% endblock %}{% punkweb_bb "SITE_TITLE" %}</title>
+  <meta property="og:title" content="{% block og_title_prefix %}{% endblock %}{% punkweb_bb "SITE_TITLE" %}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   {% punkweb_bb "OG_IMAGE" as og_image %}
@@ -67,7 +67,7 @@
           <div class="pw-container">
             <div class="nav__main__content">
               <a class="nav__title" href="{% url 'punkweb_bb:index' %}">
-                {% punkweb_bb "SITE_NAME" "PUNKWEB" %}
+                {% punkweb_bb "SITE_NAME" %}
               </a>
               <a class="nav__link" href="{% url 'punkweb_bb:index' %}">
                 Forum

@@ -1,10 +1,20 @@
+{% load punkweb_bb %}
+
 <div class="pw-card fluid mb-4">
   <div class="pw-card-header">
     Shoutbox
   </div>
 
-  <div class="shoutbox__shouts" id="shoutlist" hx-get="{% url 'punkweb_bb:shout_list' %}" hx-trigger="load, every 15s"
-    hx-on::after-request="shoutboxScrollToBottom(event)">
+  {% punkweb_bb "SHOUTBOX_POLLING_ENABLED" as polling_enabled %}
+  {% punkweb_bb "SHOUTBOX_POLLING_INTERVAL" as polling_interval %}
+
+  <div
+    class="shoutbox__shouts"
+    id="shoutlist"
+    hx-get="{% url 'punkweb_bb:shout_list' %}"
+    hx-trigger="load{% if polling_enabled %}, every {{ polling_interval }}s{% endif %}"
+    hx-on::after-request="shoutboxScrollToBottom(event)"
+  >
   </div>
 
   {% if request.user.is_authenticated %}
