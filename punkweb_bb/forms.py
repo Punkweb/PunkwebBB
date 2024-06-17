@@ -109,6 +109,7 @@ class SubcategoryModelForm(forms.ModelForm):
     class Meta:
         model = Subcategory
         fields = (
+            "category",
             "name",
             "description",
             "order",
@@ -118,6 +119,7 @@ class SubcategoryModelForm(forms.ModelForm):
             "name": forms.TextInput(
                 attrs={"autofocus": True, "class": "pw-input fluid"}
             ),
+            "category": forms.Select(attrs={"class": "pw-input fluid"}),
             "description": get_editor_widget(),
             "order": forms.NumberInput(attrs={"class": "pw-input", "min": "0"}),
         }

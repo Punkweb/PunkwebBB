@@ -286,7 +286,7 @@ def subcategory_create_view(request, category_slug):
 
             return redirect(subcategory)
     else:
-        form = SubcategoryModelForm()
+        form = SubcategoryModelForm(initial={"category": category})
 
     context = {
         "category": category,
