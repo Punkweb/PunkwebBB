@@ -9,13 +9,18 @@
 
   {% if request.user.is_authenticated %}
   <form
-    class="shoutbox__form"
+    class="py-2"
     hx-post="{% url 'punkweb_bb:shout_create' %}"
     hx-target="#shoutlist"
     hx-on::after-request="this.reset(); shoutboxScrollToBottom(event)"
   >
-    <input class="pw-input fluid shoutbox__input" autocomplete="off" name="content" type="text"
-      placeholder="Type your message here..." />
+    <input
+      autocomplete="off"
+      class="pw-input fluid"
+      name="content"
+      placeholder="Type your message here..." 
+      style="border: none;"
+      type="text" />
   </form>
   {% endif %}
 </div>

@@ -23,11 +23,3 @@
   align-items: center;
   display: flex;
 }
-
-.shoutbox__form {
-  padding: 0.5rem 0;
-}
-
-.shoutbox__input {
-  border: none !important;
-}
