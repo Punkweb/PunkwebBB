@@ -67,6 +67,8 @@
 </div>
 
 <div class="pw-card fluid mb-4">
+
+  {% if threads|length > 0 %}
   <div class="pw-table-container">
     <table class="pw-table">
       <colgroup>
@@ -132,6 +134,11 @@
       </tbody>
     </table>
   </div>
+  {% else %}
+  <div class="pw-card-content">
+    <p>No threads have been created in this subcategory yet.</p>
+  </div>
+  {% endif %}
 </div>
 
 {% include 'punkweb_bb/components/pagination_controls.html' with paginator=threads %}
