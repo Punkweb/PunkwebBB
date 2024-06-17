@@ -1,18 +1,20 @@
-{% load static %}
+{% load static punkweb_bb %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title_prefix %}{% endblock %}{{ punkweb_bb.settings.SITE_TITLE|default:"PunkwebBB" }}</title>
-  <meta property="og:title" content="{% block og_title_prefix %}{% endblock %}{{ punkweb_bb.settings.SITE_TITLE|default:"PunkwebBB" }}" />
+  <title>{% block title_prefix %}{% endblock %}{% punkweb_bb "SITE_TITLE" "PunkwebBB" %}</title>
+  <meta property="og:title" content="{% block og_title_prefix %}{% endblock %}{% punkweb_bb "SITE_TITLE" "PunkwebBB" %}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-  {% if punkweb_bb.settings.OG_IMAGE %}
-  <meta property="og:image" content="{{ punkweb_bb.settings.OG_IMAGE }}" />
+  {% punkweb_bb "OG_IMAGE" as og_image %}
+  {% if og_image %}
+  <meta property="og:image" content="{{ og_image }}" />
   {% endif %}
-  <link rel="icon" href="{% static punkweb_bb.settings.FAVICON %}" />
+  {% punkweb_bb "FAVICON" as favicon %}
+  <link rel="icon" href="{% static favicon %}" />
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
@@ -65,7 +67,7 @@
           <div class="pw-container">
             <div class="nav__main__content">
               <a class="nav__title" href="{% url 'punkweb_bb:index' %}">
-                {{ punkweb_bb.settings.SITE_NAME|default:"PUNKWEB"}}
+                {% punkweb_bb "SITE_NAME" "PUNKWEB" %}
               </a>
               <a class="nav__link" href="{% url 'punkweb_bb:index' %}">
                 Forum
