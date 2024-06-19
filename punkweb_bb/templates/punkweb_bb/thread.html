@@ -236,6 +236,7 @@
 
 {% include 'punkweb_bb/components/pagination_controls.html' with paginator=posts %}
 
+{% if request.user.is_authenticated %}
 {% if thread|can_post:request.user %}
 <div class="pw-card fluid mt-4">
   <div class="pw-card-header">Reply to thread</div>
@@ -258,6 +259,7 @@
     <div>This thread is closed and you cannot reply to it.</div>
   </div>
 </div>
+{% endif %}
 {% endif %}
 
 {% endblock %}

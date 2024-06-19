@@ -52,6 +52,7 @@
     {% endif %}
   </div>
 
+  {% if request.user.is_authenticated %}
   {% if subcategory|can_post:request.user %}
   <a class="pw-button ghost primary" href="{% url 'punkweb_bb:thread_create' subcategory.slug %}">Create Thread</a>
   {% else %}
@@ -63,6 +64,7 @@
   >
     Create Thread
   </button>
+  {% endif %}
   {% endif %}
 </div>
 
