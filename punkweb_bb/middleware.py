@@ -38,8 +38,8 @@ class ProfileOnlineCacheMiddleware:
         )
 
         for header in headers:
-            ip = request.META.get(header, None)
-            if ip:
+            if request.META.get(header, None):
+                ip = request.META[header].split(",")[0].strip()
                 try:
                     validate_ipv46_address(ip)
                     return ip
