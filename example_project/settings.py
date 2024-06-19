@@ -133,6 +133,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # PunkwebBB
 
+LOGIN_URL = "punkweb_bb:login"
+
 PUNKWEB_BB = {
     "PARSER": "bbcode",
 }

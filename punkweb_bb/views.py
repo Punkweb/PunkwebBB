@@ -1,4 +1,3 @@
-from django import forms
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
@@ -175,7 +174,7 @@ def members_view(request):
     return render(request, "punkweb_bb/members.html", context=context)
 
 
-@login_required(login_url="/login/")
+@login_required()
 def settings_view(request):
     if request.method == "POST":
         form = BoardProfileModelForm(
@@ -198,7 +197,7 @@ def settings_view(request):
     return render(request, "punkweb_bb/settings.html", context=context)
 
 
-@login_required(login_url="/login/")
+@login_required()
 @permission_required("punkweb_bb.view_category", raise_exception=True)
 def category_create_view(request):
     if request.method == "POST":
@@ -219,7 +218,7 @@ def category_create_view(request):
     return render(request, "punkweb_bb/category_create.html", context=context)
 
 
-@login_required(login_url="/login/")
+@login_required()
 @permission_required("punkweb_bb.change_category", raise_exception=True)
 def category_update_view(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
@@ -241,7 +240,7 @@ def category_update_view(request, category_slug):
     return render(request, "punkweb_bb/category_update.html", context=context)
 
 
-@login_required(login_url="/login/")
+@login_required()
 @permission_required("punkweb_bb.delete_category", raise_exception=True)
 def category_delete_view(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
@@ -270,7 +269,7 @@ def subcategory_view(request, subcategory_slug):
     return render(request, "punkweb_bb/subcategory.html", context=context)
 
 
-@login_required(login_url="/login/")
+@login_required()
 @permission_required("punkweb_bb.add_subcategory", raise_exception=True)
 def subcategory_create_view(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
@@ -295,7 +294,7 @@ def subcategory_create_view(request, category_slug):
     return render(request, "punkweb_bb/subcategory_create.html", context=context)
 
 
-@login_required(login_url="/login/")
+@login_required()
 @permission_required("punkweb_bb.change_subcategory", raise_exception=True)
 def subcategory_update_view(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
@@ -317,7 +316,7 @@ def subcategory_update_view(request, subcategory_slug):
     return render(request, "punkweb_bb/subcategory_update.html", context=context)
 
 
-@login_required(login_url="/login/")
+@login_required()
 @permission_required("punkweb_bb.delete_subcategory", raise_exception=True)
 def subcategory_delete_view(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
@@ -336,7 +335,7 @@ def subcategory_delete_view(request, subcategory_slug):
     )
 
 
-@login_required(login_url="/login/")
+@login_required()
 def thread_create_view(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
@@ -384,7 +383,7 @@ def thread_view(request, thread_id):
     return render(request, "punkweb_bb/thread.html", context=context)
 
 
-@login_required(login_url="/login/")
+@login_required()
 def thread_update_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
@@ -407,7 +406,7 @@ def thread_update_view(request, thread_id):
     return render(request, "punkweb_bb/thread_update.html", context=context)
 
 
-@login_required(login_url="/login/")
+@login_required()
 def thread_delete_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
@@ -425,7 +424,7 @@ def thread_delete_view(request, thread_id):
     return render(request, "punkweb_bb/partials/thread_delete.html", context=context)
 
 
-@login_required(login_url="/login/")
+@login_required()
 @permission_required("punkweb_bb.pin_thread", raise_exception=True)
 def thread_pin_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
@@ -436,7 +435,7 @@ def thread_pin_view(request, thread_id):
     return htmx_redirect(thread.get_absolute_url())
 
 
-@login_required(login_url="/login/")
+@login_required()
 @permission_required("punkweb_bb.close_thread", raise_exception=True)
 def thread_close_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
@@ -447,7 +446,7 @@ def thread_close_view(request, thread_id):
     return htmx_redirect(thread.get_absolute_url())
 
 
-@login_required(login_url="/login/")
+@login_required()
 @permission_required("punkweb_bb.move_thread", raise_exception=True)
 def thread_move_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
@@ -475,7 +474,7 @@ def thread_move_view(request, thread_id):
     return render(request, "punkweb_bb/partials/thread_move.html", context=context)
 
 
-@login_required(login_url="/login/")
+@login_required()
 def post_create_view(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
 
@@ -492,7 +491,7 @@ def post_create_view(request, thread_id):
         return redirect(post)
 
 
-@login_required(login_url="/login/")
+@login_required()
 def post_update_view(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
 
@@ -516,7 +515,7 @@ def post_update_view(request, post_id):
     return render(request, "punkweb_bb/partials/post_update.html", context=context)
 
 
-@login_required(login_url="/login/")
+@login_required()
 def post_delete_view(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
 
@@ -572,7 +571,7 @@ def shout_create_view(request):
             )
 
 
-@login_required(login_url="/login/")
+@login_required()
 def shout_delete_view(request, shout_id):
     shout = get_object_or_404(Shout, pk=shout_id)
 
