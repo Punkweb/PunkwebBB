@@ -37,23 +37,14 @@ INSTALLED_APPS = [
 ]
 ```
 
-Add the following context processor to your `TEMPLATES` setting:
+**_Optionally:_** Add the following middleware to your `MIDDLEWARE` setting, at the end of the list:
 
 ```python
-TEMPLATES = [
-    {
-        ...
-        "OPTIONS": {
-            "context_processors": [
-                ...
-                "punkweb_bb.context_processors.punkweb_bb",
-            ],
-        },
-    },
+MIDDLEWARE = [
+    ...
+    "punkweb_bb.middleware.ProfileOnlineCacheMiddleware",
 ]
 ```
-
-**_Note_**: The context processor is deprecated and will be removed in v0.5.0!
 
 Add the following URL pattern to your `urls.py`:
 
@@ -71,6 +62,10 @@ And finally, install the models:
 ```bash
 python manage.py migrate
 ```
+
+## Deprecated notice (v0.5.0)
+
+If you were using the package before v0.5.0, there was a step in the README to add a context processor. This is no longer necessary, as it's been removed, so you may get an error that it doesn't exist. If you see this error, you can safely remove the context processor from your settings.
 
 ## Configuration
 
@@ -112,7 +107,7 @@ Creating test database for alias 'default'...
 System check identified no issues (0 silenced).
 ...........................................................
 ----------------------------------------------------------------------
-Ran 59 tests in 8.389s
+Ran 59 tests in 8.594s
 
 OK
 Destroying test database for alias 'default'...
@@ -126,7 +121,7 @@ punkweb_bb/bbcode.py                             118     46    61%
 punkweb_bb/decorators.py                          12      0   100%
 punkweb_bb/forms.py                               59      0   100%
 punkweb_bb/guests.py                              13      0   100%
-punkweb_bb/middleware.py                          14      0   100%
+punkweb_bb/middleware.py                          27      3    89%
 punkweb_bb/mixins.py                              11      0   100%
 punkweb_bb/models.py                             154      1    99%
 punkweb_bb/pagination.py                          11      4    64%
@@ -149,5 +144,5 @@ punkweb_bb/utils.py                               44     26    41%
 punkweb_bb/views.py                              319    123    61%
 punkweb_bb/widgets.py                             16      2    88%
 ------------------------------------------------------------------
-TOTAL                                           1389    229    84%
+TOTAL                                           1402    232    83%
 ```
