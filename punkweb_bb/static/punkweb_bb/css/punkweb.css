@@ -154,3 +154,7 @@ hr {
   margin: 0;
   padding: 0;
 }
+
+pre[class*="language-"] {
+  font-size: 0.75rem;
+}

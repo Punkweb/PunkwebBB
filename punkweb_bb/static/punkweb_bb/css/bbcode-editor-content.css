@@ -72,6 +72,10 @@ code {
   direction: ltr;
 }
 
+pre code {
+  font-size: 0.75rem;
+}
+
 blockquote {
   background: #f1f3f5;
   margin: 0.25rem 0;
