@@ -18,7 +18,7 @@ Check out [punkweb.net](https://punkweb.net/board/) for documentation, support a
 ## Requirements
 
 - Python 3.9+
-- Django 4.0+
+- Django 3.2+
 
 It may work with older versions of Python and Django, but it has not been tested.
 
