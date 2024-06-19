@@ -42,3 +42,9 @@
 .members__user__stat__value {
   color: var(--oc-gray-9);
 }
+
+@media screen and (max-width: 768px) {
+  .members__header {
+    flex-direction: column;
+  }
+}
