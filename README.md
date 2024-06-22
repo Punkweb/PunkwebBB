@@ -1,6 +1,8 @@
 # PunkwebBB
 
-PunkwebBB is a Django application that provides a simple and modern forum board software for your Django website.
+PunkwebBB is a Django application that provides a simple forum board software for your Django website.
+
+One of the main goals of this project is to be as simple as possible to install, and not depend on any other Django apps.  I want users of this package to be able to install a fully working forum board in under a minute, and then be able to configure it further from there.
 
 Check out [punkweb.net](https://punkweb.net/board/) for documentation, support and a live demonstration of the software.
 
@@ -62,10 +64,6 @@ And finally, install the models:
 ```bash
 python manage.py migrate
 ```
-
-## Deprecated notice (v0.5.0)
-
-If you were using the package before v0.5.0, there was a step in the README to add a context processor. This is no longer necessary, as it's been removed, so you may get an error that it doesn't exist. If you see this error, you can safely remove the context processor from your settings.
 
 ## Configuration
 
