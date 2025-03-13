@@ -223,7 +223,9 @@ class GroupStyle(UUIDPrimaryKeyMixin, TimestampMixin):
         default=0,
         help_text="Highest priority is displayed",
     )
-    username_style = models.TextField()
+    username_style = models.TextField(
+        help_text="BBCode style for the username.  Use {USER} as a placeholder for the username.  Example: [b]{USER}[/b]"
+    )
 
     class Meta:
         ordering = ("-priority",)
