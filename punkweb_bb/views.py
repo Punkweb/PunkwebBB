@@ -476,19 +476,20 @@ def thread_move_view(request, thread_id):
 
 @login_required()
 def post_create_view(request, thread_id):
-    thread = get_object_or_404(Thread, pk=thread_id)
+    if request.method == "POST":
+        thread = get_object_or_404(Thread, pk=thread_id)
 
-    check_object_permission(thread, "can_post", request.user)
+        check_object_permission(thread, "can_post", request.user)
 
-    form = PostModelForm(request.POST)
+        form = PostModelForm(request.POST)
 
-    if form.is_valid():
-        post = form.save(commit=False)
-        post.thread = thread
-        post.user = request.user
-        post.save()
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.thread = thread
+            post.user = request.user
+            post.save()
 
-        return redirect(post)
+            return redirect(post)
 
 
 @login_required()
