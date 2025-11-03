@@ -1,7 +1,7 @@
 {% extends 'punkweb_bb/base_delete_dialog.html' %}
 
 {% block title %}Delete Thread{% endblock %}
-
 {% block object_type %}thread{% endblock %}
-
-{% block delete_url %}{% url 'punkweb_bb:thread_delete' thread.id %}{% endblock %}
+{% block delete_url %}
+  {% url 'punkweb_bb:thread_delete' thread.id %}
+{% endblock %}

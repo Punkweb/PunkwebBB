@@ -1,48 +1,41 @@
 {% extends 'punkweb_bb/base.html' %}
+
 {% load static %}
 
-{% block title_prefix %}Create Thread | {% endblock %}
-{% block og_title_prefix %}Create Thread | {% endblock %}
-
-{% block extra_head %}
-{{form.media.css}}
-{% endblock %}
-
-{% block extra_script %}
-{{form.media.js}}
-{% endblock %}
-
+{% block title_prefix %}Create Thread |{% endblock %}
+{% block og_title_prefix %}Create Thread |{% endblock %}
+{% block extra_head %}{{ form.media.css }}{% endblock %}
+{% block extra_script %}{{ form.media.js }}{% endblock %}
 {% block content %}
-
-<nav>
-  <ul class="pw-breadcrumb">
-    <li class="pw-breadcrumb-item">
-      <a href="{% url 'punkweb_bb:index' %}">Home</a>
-    </li>
-    <li class="pw-breadcrumb-item">
-      <a href="{{subcategory.category.get_absolute_url}}">{{subcategory.category.name}}</a>
-    </li>
-    <li class="pw-breadcrumb-item">
-      <a href="{{subcategory.get_absolute_url}}">{{subcategory.name}}</a>
-    </li>
-    <li class="pw-breadcrumb-item active">
-      Create Thread
-    </li>
-  </ul>
-</nav>
-
-<div class="pw-card fluid">
-  <div class="pw-card-header">Create Thread</div>
-  <div class="pw-card-content">
-    <form class="pw-form" action="{% url 'punkweb_bb:thread_create' subcategory.slug %}" method="post">
-      {% csrf_token %}
-      {{ form }}
-      <div class="pw-form-actions end">
-        <a class="pw-button default" href="{{subcategory.get_absolute_url}}" type="submit">Cancel</a>
-        <button class="pw-button raised primary" type="submit">Create Thread</button>
-      </div>
-    </form>
+  <nav>
+    <ul class="pw-breadcrumb">
+      <li class="pw-breadcrumb-item">
+        <a href="{% url 'punkweb_bb:index' %}">Home</a>
+      </li>
+      <li class="pw-breadcrumb-item">
+        <a href="{{ subcategory.category.get_absolute_url }}">{{ subcategory.category.name }}</a>
+      </li>
+      <li class="pw-breadcrumb-item">
+        <a href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}</a>
+      </li>
+      <li class="pw-breadcrumb-item active">Create Thread</li>
+    </ul>
+  </nav>
+  <div class="pw-card fluid">
+    <div class="pw-card-header">Create Thread</div>
+    <div class="pw-card-content">
+      <form class="pw-form"
+            action="{% url 'punkweb_bb:thread_create' subcategory.slug %}"
+            method="post">
+        {% csrf_token %}
+        {{ form }}
+        <div class="pw-form-actions end">
+          <a class="pw-button default"
+             href="{{ subcategory.get_absolute_url }}"
+             type="submit">Cancel</a>
+          <button class="pw-button raised primary" type="submit">Create Thread</button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
-
 {% endblock %}

@@ -3,235 +3,229 @@
 {% load static punkweb_bb render styled_username %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'punkweb_bb/css/index.css' %}" />
-<link rel="stylesheet" href="{% static 'punkweb_bb/css/shoutbox.css' %}" />
+  <link rel="stylesheet" href="{% static 'punkweb_bb/css/index.css' %}" />
+  <link rel="stylesheet" href="{% static 'punkweb_bb/css/shoutbox.css' %}" />
 {% endblock %}
-
 {% block extra_script %}
-<script src="{% static 'punkweb_bb/js/shoutbox.js' %}"></script>
+  <script src="{% static 'punkweb_bb/js/shoutbox.js' %}"></script>
 {% endblock %}
-
 {% block content %}
+  <div class="index">
+    <div class="index__main">
+      <div class="index__categories">
+        {% punkweb_bb "SHOUTBOX_ENABLED" as shoutbox_enabled %}
+        {% if shoutbox_enabled %}
 
-<div class="index">
-  <div class="index__main">
-    <div class="index__categories">
-      {% punkweb_bb "SHOUTBOX_ENABLED" as shoutbox_enabled %}
-      {% if shoutbox_enabled %}
-      {% include 'punkweb_bb/shoutbox/shoutbox.html' %}
-      {% endif %}
-      {% for category in categories %}
-      <div id="{{category.slug}}.{{category.order}}" class="pw-card fluid mb-4">
-        <div class="pw-table-container">
-          <table class="pw-table">
-            <colgroup>
-              <col span="1">
-              <col span="1" width="96px">
-              <col span="1" width="96px">
-              <col span="1" width="320px">
-            </colgroup>
-            <thead>
-              <tr>
-                <th>
-                  <div class="index__category__title">
-                    <a href="{{category.get_absolute_url}}">{{category.name}}</a>
-                    {% if perms.punkweb_bb.add_subcategory %}
-                    <a
-                      class="pw-icon-button default rounded sm"
-                      href="{% url 'punkweb_bb:subcategory_create' category.slug %}"
-                      title="Create subcategory"
-                    >
-                      <span class="material-symbols-outlined">add</span>
-                    </a>
-                    {% endif %}
-                    {% if perms.punkweb_bb.change_category %}
-                    <a
-                      class="pw-icon-button default rounded sm"
-                      href="{% url 'punkweb_bb:category_update' category.slug %}"
-                      title="Edit category"
-                    >
-                      <span class="material-symbols-outlined">edit</span>
-                    </a>
-                    {% endif %}
-                    {% if perms.punkweb_bb.delete_category %}
-                    <a
-                      class="pw-icon-button default red rounded sm"
-                      title="Delete category"
-                      hx-get="{% url 'punkweb_bb:category_delete' category.slug %}"
-                      hx-target="#dialog-portal"
-                    >
-                    <span class="material-symbols-outlined">delete</span>
-                    </a>
-                    {% endif %}
-                  </div>
-                </th>
-                <th>Threads</th>
-                <th>Posts</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for subcategory in category.subcategories.all %}
-              <tr>
-                <td>
-                  <a href="{{subcategory.get_absolute_url}}" title="{{subcategory.name}}">{{subcategory.name}}</a>
-                  <div>
-                    {{subcategory.description|render}}
-                  </div>
-                </td>
-                <td>{{subcategory.thread_count}}</td>
-                <td>{{subcategory.post_count}}</td>
-                <td>
-                  {% if subcategory.latest_thread %}
-                  {% if subcategory.latest_thread.latest_post %}
-                  <div class="subcategory__latestThread">
-                    {% include 'punkweb_bb/components/profile_image.html' with user=subcategory.latest_thread.latest_post.user %}
-                    <div class="subcategory__latestThread__info">
-                      <a class="subcategory__latestThread__info__title"
-                        href="{{subcategory.latest_thread.get_absolute_url}}" title="{{subcategory.latest_thread.title}}">
-                        {{subcategory.latest_thread.title}}
-                      </a>
-                      <div>
-                        <time datetime="{{subcategory.latest_thread.latest_post.created_at|date:'c'}}">
-                          {{subcategory.latest_thread.latest_post.created_at|date:'M j, Y'}} at
-                          {{subcategory.latest_thread.latest_post.created_at|date:'g:i A'}}
-                        </time>
-                        •
-                        <a href="{% url 'punkweb_bb:profile' subcategory.latest_thread.latest_post.user.id %}">
-                          {{subcategory.latest_thread.latest_post.user|styled_username}}
-                        </a>
+          {% include 'punkweb_bb/shoutbox/shoutbox.html' %}
+
+        {% endif %}
+        {% for category in categories %}
+          <div id="{{ category.slug }}.{{ category.order }}"
+               class="pw-card fluid mb-4">
+            <div class="pw-table-container">
+              <table class="pw-table">
+                <colgroup>
+                  <col span="1" />
+                  <col span="1" width="96px" />
+                  <col span="1" width="96px" />
+                  <col span="1" width="320px" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>
+                      <div class="index__category__title">
+                        <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                        {% if perms.punkweb_bb.add_subcategory %}
+                          <a class="pw-icon-button default rounded sm"
+                             href="{% url 'punkweb_bb:subcategory_create' category.slug %}"
+                             title="Create subcategory">
+                            <span class="material-symbols-outlined">add</span>
+                          </a>
+                        {% endif %}
+                        {% if perms.punkweb_bb.change_category %}
+                          <a class="pw-icon-button default rounded sm"
+                             href="{% url 'punkweb_bb:category_update' category.slug %}"
+                             title="Edit category">
+                            <span class="material-symbols-outlined">edit</span>
+                          </a>
+                        {% endif %}
+                        {% if perms.punkweb_bb.delete_category %}
+                          <a class="pw-icon-button default red rounded sm"
+                             title="Delete category"
+                             hx-get="{% url 'punkweb_bb:category_delete' category.slug %}"
+                             hx-target="#dialog-portal">
+                            <span class="material-symbols-outlined">delete</span>
+                          </a>
+                        {% endif %}
                       </div>
+                    </th>
+                    <th>Threads</th>
+                    <th>Posts</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for subcategory in category.subcategories.all %}
+                    <tr>
+                      <td>
+                        <a href="{{ subcategory.get_absolute_url }}"
+                           title="{{ subcategory.name }}">{{ subcategory.name }}</a>
+                        <div>{{ subcategory.description|render }}</div>
+                      </td>
+                      <td>{{ subcategory.thread_count }}</td>
+                      <td>{{ subcategory.post_count }}</td>
+                      <td>
+                        {% if subcategory.latest_thread %}
+                          {% if subcategory.latest_thread.latest_post %}
+                            <div class="subcategory__latestThread">
+
+                              {% include 'punkweb_bb/components/profile_image.html' with user=subcategory.latest_thread.latest_post.user %}
+
+                              <div class="subcategory__latestThread__info">
+                                <a class="subcategory__latestThread__info__title"
+                                   href="{{ subcategory.latest_thread.get_absolute_url }}"
+                                   title="{{ subcategory.latest_thread.title }}">
+                                  {{ subcategory.latest_thread.title }}
+                                </a>
+                                <div>
+                                  <time datetime="{{ subcategory.latest_thread.latest_post.created_at|date:'c' }}">
+                                    {{ subcategory.latest_thread.latest_post.created_at|date:'M j, Y' }} at
+                                    {{ subcategory.latest_thread.latest_post.created_at|date:'g:i A' }}
+                                  </time>
+                                  •
+                                  <a href="{% url 'punkweb_bb:profile' subcategory.latest_thread.latest_post.user.id %}">
+                                    {{ subcategory.latest_thread.latest_post.user|styled_username }}
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          {% else %}
+                            <div class="subcategory__latestThread">
+
+                              {% include 'punkweb_bb/components/profile_image.html' with user=subcategory.latest_thread.user %}
+
+                              <div class="subcategory__latestThread__info">
+                                <a class="subcategory__latestThread__info__title"
+                                   href="{{ subcategory.latest_thread.get_absolute_url }}"
+                                   title="{{ subcategory.latest_thread.title }}">
+                                  {{ subcategory.latest_thread.title }}
+                                </a>
+                                <div>
+                                  <time datetime="{{ subcategory.latest_thread.created_at|date:'c' }}">
+                                    {{ subcategory.latest_thread.created_at|date:'M j, Y' }} at
+                                    {{ subcategory.latest_thread.created_at|date:'g:i A' }}
+                                  </time>
+                                  •
+                                  <a href="{% url 'punkweb_bb:profile' subcategory.latest_thread.user.id %}">
+                                    {{ subcategory.latest_thread.user|styled_username }}
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          {% endif %}
+                        {% else %}
+                          No threads
+                        {% endif %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        {% endfor %}
+        {% if perms.punkweb_bb.add_category %}
+          <a class="pw-icon-button raised primary rounded"
+             href="{% url 'punkweb_bb:category_create' %}"
+             title="Create category">
+            <span class="material-symbols-outlined">add</span>
+          </a>
+        {% endif %}
+      </div>
+      <div class="index__sidebar">
+        <div class="pw-card fluid mb-4">
+          <div class="pw-card-header">Recent threads</div>
+          <div class="pw-card-content">
+            <div class="index__recentThreads">
+              {% for thread in recent_threads %}
+                <div class="index__recentThreads__thread">
+
+                  {% include 'punkweb_bb/components/profile_image.html' with user=thread.user %}
+
+                  <div class="index__recentThreads__thread__info">
+                    <a class="index__recentThreads__thread__title"
+                       href="{{ thread.get_absolute_url }}"
+                       title="{{ thread.title }}">{{ thread.title }}</a>
+                    <div>
+                      <time datetime="{{ thread.created_at|date:'c' }}">
+                        {{ thread.created_at|date:'M j, Y' }} at
+                        {{ thread.created_at|date:'g:i A' }}
+                      </time>
+                      •
+                      <a href="{% url 'punkweb_bb:profile' thread.user.id %}">{{ thread.user|styled_username }}</a>
                     </div>
                   </div>
-                  {% else %}
-                  <div class="subcategory__latestThread">
-                    {% include 'punkweb_bb/components/profile_image.html' with user=subcategory.latest_thread.user %}
-                    <div class="subcategory__latestThread__info">
-                      <a class="subcategory__latestThread__info__title"
-                        href="{{subcategory.latest_thread.get_absolute_url}}" title="{{subcategory.latest_thread.title}}">
-                        {{subcategory.latest_thread.title}}
-                      </a>
-                      <div>
-                        <time datetime="{{subcategory.latest_thread.created_at|date:'c'}}">
-                          {{subcategory.latest_thread.created_at|date:'M j, Y'}} at
-                          {{subcategory.latest_thread.created_at|date:'g:i A'}}
-                        </time>
-                        •
-                        <a href="{% url 'punkweb_bb:profile' subcategory.latest_thread.user.id %}">
-                          {{subcategory.latest_thread.user|styled_username}}
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  {% endif %}
-                  {% else %}
-                  No threads
-                  {% endif %}
-                </td>
-              </tr>
+                </div>
               {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      {% endfor %}
-      {% if perms.punkweb_bb.add_category %}
-      <a
-        class="pw-icon-button raised primary rounded"
-        href="{% url 'punkweb_bb:category_create' %}"
-        title="Create category"
-      >
-        <span class="material-symbols-outlined">add</span>
-      </a>
-      {% endif %}
-    </div>
-    <div class="index__sidebar">
-      <div class="pw-card fluid mb-4">
-        <div class="pw-card-header">Recent threads</div>
-        <div class="pw-card-content">
-          <div class="index__recentThreads">
-            {% for thread in recent_threads %}
-            <div class="index__recentThreads__thread">
-              {% include 'punkweb_bb/components/profile_image.html' with user=thread.user %}
-              <div class="index__recentThreads__thread__info">
-                <a class="index__recentThreads__thread__title" href="{{thread.get_absolute_url}}"
-                  title="{{thread.title}}">
-                  {{thread.title}}
-                </a>
-                <div>
-                  <time datetime="{{thread.created_at|date:'c'}}">
-                    {{thread.created_at|date:'M j, Y'}} at
-                    {{thread.created_at|date:'g:i A'}}
-                  </time>
-                  •
-                  <a href="{% url 'punkweb_bb:profile' thread.user.id %}">
-                    {{thread.user|styled_username}}
-                  </a>
-                </div>
-              </div>
             </div>
-            {% endfor %}
           </div>
         </div>
-      </div>
-      <div class="pw-card fluid mb-4">
-        <div class="pw-card-header">Statistics</div>
-        <div class="pw-card-content">
-          <div class="index__statistics">
-            <div class="index__statistics__list">
-              <div class="index__statistics__row">
-                <div class="index__statistics__label">Total threads:</div>
-                <div class="index__statistics__value">
-                  {{thread_count}}
+        <div class="pw-card fluid mb-4">
+          <div class="pw-card-header">Statistics</div>
+          <div class="pw-card-content">
+            <div class="index__statistics">
+              <div class="index__statistics__list">
+                <div class="index__statistics__row">
+                  <div class="index__statistics__label">Total threads:</div>
+                  <div class="index__statistics__value">{{ thread_count }}</div>
                 </div>
-              </div>
-              <div class="index__statistics__row">
-                <div class="index__statistics__label">Total posts:</div>
-                <div class="index__statistics__value">{{post_count}}</div>
-              </div>
-              <div class="index__statistics__row">
-                <div class="index__statistics__label">Total members:</div>
-                <div class="index__statistics__value">{{users|length}}</div>
-              </div>
-              {% if newest_user %}
-              <div class="index__statistics__row">
-                <div class="index__statistics__label">Newest member:</div>
-                <div class="index__statistics__value">
-                  <a href="{% url 'punkweb_bb:profile' newest_user.id %}">
-                    {{newest_user|styled_username}}
-                  </a>
+                <div class="index__statistics__row">
+                  <div class="index__statistics__label">Total posts:</div>
+                  <div class="index__statistics__value">{{ post_count }}</div>
                 </div>
-              </div>
-              {% endif %}
-              <div class="index__statistics__row">
-                <div class="index__statistics__label">Users online:</div>
-                <div class="index__statistics__value">{{total_online}} ({{members_online|length}} members, {{staff_online|length}} staff, {{guests_online}} guests)</div>
+                <div class="index__statistics__row">
+                  <div class="index__statistics__label">Total members:</div>
+                  <div class="index__statistics__value">{{ users|length }}</div>
+                </div>
+                {% if newest_user %}
+                  <div class="index__statistics__row">
+                    <div class="index__statistics__label">Newest member:</div>
+                    <div class="index__statistics__value">
+                      <a href="{% url 'punkweb_bb:profile' newest_user.id %}">{{ newest_user|styled_username }}</a>
+                    </div>
+                  </div>
+                {% endif %}
+                <div class="index__statistics__row">
+                  <div class="index__statistics__label">Users online:</div>
+                  <div class="index__statistics__value">
+                    {{ total_online }} ({{ members_online|length }} members, {{ staff_online|length }} staff, {{ guests_online }} guests)
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        {% punkweb_bb "DISCORD_WIDGET_ENABLED" as discord_widget_enabled %}
+        {% punkweb_bb "DISCORD_SERVER_ID" as discord_server_id %}
+        {% if discord_widget_enabled %}
+          {% if discord_server_id %}
+            <iframe src="https://discord.com/widget?id={{ discord_server_id }}&theme={% punkweb_bb "DISCORD_WIDGET_THEME" %}"
+                    width="100%"
+                    height="384"
+                    allowtransparency="true"
+                    frameborder="0"
+                    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+            </iframe>
+          {% else %}
+            <div class="pw-callout red mt-4">
+              <h4>Discord Widget Error</h4>
+              <p>
+                <code>DISCORD_SERVER_ID</code> not configured in settings module.
+              </p>
+            </div>
+          {% endif %}
+        {% endif %}
       </div>
-      {% punkweb_bb "DISCORD_WIDGET_ENABLED" as discord_widget_enabled %}
-      {% punkweb_bb "DISCORD_SERVER_ID" as discord_server_id %}
-      {% if discord_widget_enabled %}
-      {% if discord_server_id %}
-      <iframe
-        src="https://discord.com/widget?id={{ discord_server_id }}&theme={% punkweb_bb "DISCORD_WIDGET_THEME" %}"
-        width="100%"
-        height="384"
-        allowtransparency="true"
-        frameborder="0"
-        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
-      </iframe>
-      {% else %}
-      <div class="pw-callout red mt-4">
-        <h4>Discord Widget Error</h4>
-        <p><code>DISCORD_SERVER_ID</code> not configured in settings module.</p>
-      </div>
-      {% endif %}
-      {% endif %}
     </div>
   </div>
-</div>
-
 {% endblock %}

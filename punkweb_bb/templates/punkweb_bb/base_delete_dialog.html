@@ -1,13 +1,16 @@
 {% extends 'punkweb_bb/base_dialog.html' %}
 
 {% block content %}
-<div>
-  Are you sure you want to delete this {% block object_type %}{% endblock %}?
-  <br />
-  <b>This action cannot be undone!</b>
-</div>
-<div class="pw-dialog-actions">
-  <button class="pw-dialog-cancel pw-button default">Cancel</button>
-  <button class="pw-button raised red" hx-delete="{% block delete_url %}{% endblock %}">Delete</button>
-</div>
+  <div>
+    Are you sure you want to delete this
+    {% block object_type %}{% endblock %}
+    ?
+    <br />
+    <b>This action cannot be undone!</b>
+  </div>
+  <div class="pw-dialog-actions">
+    <button class="pw-dialog-cancel pw-button default">Cancel</button>
+    <button class="pw-button raised red"
+            hx-delete="{% block delete_url %}{% endblock %}">Delete</button>
+  </div>
 {% endblock %}

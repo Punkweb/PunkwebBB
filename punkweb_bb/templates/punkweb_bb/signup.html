@@ -1,37 +1,31 @@
 {% extends 'punkweb_bb/base.html' %}
+
 {% load static %}
 
-{% block title_prefix %}Sign Up | {% endblock%}
-{% block og_title_prefix %}Sign Up | {% endblock %}
-
+{% block title_prefix %}Sign Up |{% endblock %}
+{% block og_title_prefix %}Sign Up |{% endblock %}
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'punkweb_bb/css/signup.css' %}" />
+  <link rel="stylesheet" href="{% static 'punkweb_bb/css/signup.css' %}" />
 {% endblock %}
-
 {% block content %}
-
-<nav>
-  <ul class="pw-breadcrumb">
-    <li class="pw-breadcrumb-item">
-      <a href="{% url 'punkweb_bb:index' %}">Home</a>
-    </li>
-    <li class="pw-breadcrumb-item active">
-      Sign Up
-    </li>
-  </ul>
-</nav>
-
-<div class="pw-card centerPage">
-  <div class="pw-card-header">Sign Up</div>
-  <div class="pw-card-content">
-    <form class="pw-form" action="{% url 'punkweb_bb:signup' %}" method="post">
-      {% csrf_token %}
-      {{ form }}
-      <div class="pw-form-actions">
-        <button class="pw-button fluid raised primary" type="submit">Sign Up</button>
-      </div>
-    </form>
+  <nav>
+    <ul class="pw-breadcrumb">
+      <li class="pw-breadcrumb-item">
+        <a href="{% url 'punkweb_bb:index' %}">Home</a>
+      </li>
+      <li class="pw-breadcrumb-item active">Sign Up</li>
+    </ul>
+  </nav>
+  <div class="pw-card centerPage">
+    <div class="pw-card-header">Sign Up</div>
+    <div class="pw-card-content">
+      <form class="pw-form" action="{% url 'punkweb_bb:signup' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <div class="pw-form-actions">
+          <button class="pw-button fluid raised primary" type="submit">Sign Up</button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
-
 {% endblock %}

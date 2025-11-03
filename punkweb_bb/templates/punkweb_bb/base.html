@@ -2,107 +2,95 @@
 
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title_prefix %}{% endblock %}{% punkweb_bb "SITE_TITLE" %}</title>
-  <meta property="og:title" content="{% block og_title_prefix %}{% endblock %}{% punkweb_bb "SITE_TITLE" %}" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-  {% punkweb_bb "OG_IMAGE" as og_image %}
-  {% if og_image %}
-  <meta property="og:image" content="{{ og_image }}" />
-  {% endif %}
-  {% punkweb_bb "FAVICON" as favicon %}
-  <link rel="icon" href="{% static favicon %}" />
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-  />
-  <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/prism-duotone-sea.css' %}" />
-  <link rel="stylesheet" href="{% static 'punkweb_bb/vendor/punkweb-ui.min.css' %}" />
-  <link rel="stylesheet" href="{% static 'punkweb_bb/css/punkweb.css' %}" />
-  {% block extra_head %}{% endblock %}
-</head>
-
-<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
-  <div class="layout">
-    <header>
-      <nav class="nav">
-        <div class="nav__upper">
-          <div class="pw-container">
-            <div class="nav__upper__content">
-              {% if request.user.is_staff %}
-              <div class="nav__upper__links">
-                <a class="nav__upper__link" href="{% url 'admin:index' %}">Admin</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title_prefix %}{% endblock %}
+    {% punkweb_bb "SITE_TITLE" %}</title>
+    <meta property="og:title"
+          content="{% block og_title_prefix %}{% endblock %}{% punkweb_bb "SITE_TITLE" %}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    {% punkweb_bb "OG_IMAGE" as og_image %}
+    {% if og_image %}<meta property="og:image" content="{{ og_image }}" />{% endif %}
+    {% punkweb_bb "FAVICON" as favicon %}
+    <link rel="icon" href="{% static favicon %}" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+          href="{% static 'punkweb_bb/vendor/prism-duotone-sea.css' %}" />
+    <link rel="stylesheet"
+          href="{% static 'punkweb_bb/vendor/punkweb-ui.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'punkweb_bb/css/punkweb.css' %}" />
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+    <div class="layout">
+      <header>
+        <nav class="nav">
+          <div class="nav__upper">
+            <div class="pw-container">
+              <div class="nav__upper__content">
+                {% if request.user.is_staff %}
+                  <div class="nav__upper__links">
+                    <a class="nav__upper__link" href="{% url 'admin:index' %}">Admin</a>
+                  </div>
+                {% endif %}
+                <div class="nav__spacer"></div>
+                {% if request.user.is_authenticated %}
+                  <div class="nav__upper__links">
+                    <a class="nav__upper__link"
+                       href="{% url 'punkweb_bb:profile' request.user.id %}">Profile</a>
+                    <a class="nav__upper__link" href="{% url 'punkweb_bb:settings' %}">Settings</a>
+                    <a class="nav__upper__link" href="{% url 'punkweb_bb:logout' %}">Logout</a>
+                  </div>
+                {% else %}
+                  <div class="nav__upper__links">
+                    <a class="nav__upper__link" href="{% url 'punkweb_bb:signup' %}">Sign Up</a>
+                    <a class="nav__upper__link" href="{% url 'punkweb_bb:login' %}">Login</a>
+                  </div>
+                {% endif %}
               </div>
-              {% endif %}
-              <div class="nav__spacer"></div>
-              {% if request.user.is_authenticated %}
-              <div class="nav__upper__links">
-                <a class="nav__upper__link" href="{% url 'punkweb_bb:profile' request.user.id %}">
-                  Profile
-                </a>
-                <a class="nav__upper__link" href="{% url 'punkweb_bb:settings' %}">
-                  Settings
-                </a>
-                <a class="nav__upper__link" href="{% url 'punkweb_bb:logout' %}">
-                  Logout
-                </a>
-              </div>
-              {% else %}
-              <div class="nav__upper__links">
-                <a class="nav__upper__link" href="{% url 'punkweb_bb:signup' %}">
-                  Sign Up
-                </a>
-                <a class="nav__upper__link" href="{% url 'punkweb_bb:login' %}">
-                  Login
-                </a>
-              </div>
-              {% endif %}
             </div>
           </div>
-        </div>
-        <div class="nav__main">
-          <div class="pw-container">
-            <div class="nav__main__content">
-              <a class="nav__title" href="{% url 'punkweb_bb:index' %}">
-                {% punkweb_bb "SITE_NAME" %}
-              </a>
-              <a class="nav__link" href="{% url 'punkweb_bb:index' %}">
-                Forum
-              </a>
-              <a class="nav__link" href="{% url 'punkweb_bb:members' %}">
-                Members
-              </a>
+          <div class="nav__main">
+            <div class="pw-container">
+              <div class="nav__main__content">
+                <a class="nav__title" href="{% url 'punkweb_bb:index' %}">{% punkweb_bb "SITE_NAME" %}</a>
+                <a class="nav__link" href="{% url 'punkweb_bb:index' %}">Forum</a>
+                <a class="nav__link" href="{% url 'punkweb_bb:members' %}">Members</a>
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
-    </header>
-    <main class="main">
-      <div class="pw-container">
-        {% block content %}
-        {% endblock content %}
-      </div>
-    </main>
-    <footer>
-      <div class="footer">
+        </nav>
+      </header>
+      <main class="main">
         <div class="pw-container">
-          <div class="footer__content">
-            <div>Powered by <a href="https://github.com/Punkweb/PunkwebBB" target="_blank">PunkwebBB</a></div>
-            <div><a href="{% url 'punkweb_bb:bbcode' %}">BBCode Reference</a></div>
+          {% block content %}
+          {% endblock content %}
+        </div>
+      </main>
+      <footer>
+        <div class="footer">
+          <div class="pw-container">
+            <div class="footer__content">
+              <div>
+                Powered by <a href="https://github.com/Punkweb/PunkwebBB" target="_blank">PunkwebBB</a>
+              </div>
+              <div>
+                <a href="{% url 'punkweb_bb:bbcode' %}">BBCode Reference</a>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </footer>
-  </div>
-  <div id="dialog-portal"></div>
-  <script src="{% static 'punkweb_bb/vendor/htmx-2.0.0.min.js' %}"></script>
-  <script src="{% static 'punkweb_bb/vendor/jquery-3.7.0.min.js' %}"></script>
-  <script src="{% static 'punkweb_bb/vendor/prism.js' %}"></script>
-  <script src="{% static 'punkweb_bb/js/punkweb-dialog.js' %}"></script>
-  {% block extra_script %}{% endblock %}
-</body>
-
+      </footer>
+    </div>
+    <div id="dialog-portal"></div>
+    <script src="{% static 'punkweb_bb/vendor/htmx-2.0.0.min.js' %}"></script>
+    <script src="{% static 'punkweb_bb/vendor/jquery-3.7.0.min.js' %}"></script>
+    <script src="{% static 'punkweb_bb/vendor/prism.js' %}"></script>
+    <script src="{% static 'punkweb_bb/js/punkweb-dialog.js' %}"></script>
+    {% block extra_script %}{% endblock %}
+  </body>
 </html>

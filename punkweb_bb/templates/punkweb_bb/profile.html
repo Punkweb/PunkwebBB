@@ -1,101 +1,90 @@
 {% extends 'punkweb_bb/base.html' %}
+
 {% load static render styled_username %}
 
-{% block title_prefix %}{{ user.username }} | {% endblock%}
-{% block og_title_prefix %}{{ user.username }} | {% endblock %}
-
+{% block title_prefix %}{{ user.username }} |{% endblock %}
+{% block og_title_prefix %}{{ user.username }} |{% endblock %}
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'punkweb_bb/css/profile.css' %}">
+  <link rel="stylesheet" href="{% static 'punkweb_bb/css/profile.css' %}" />
 {% endblock %}
-
 {% block content %}
-
-<nav>
-  <ul class="pw-breadcrumb">
-    <li class="pw-breadcrumb-item">
-      <a href="{% url 'punkweb_bb:index' %}">Home</a>
-    </li>
-    <li class="pw-breadcrumb-item">
-      <a href="{% url 'punkweb_bb:members' %}">Members</a>
-    </li>
-    <li class="pw-breadcrumb-item active">
-      {{ user.username }}
-    </li>
-  </ul>
-</nav>
-
-<div class="pw-card fluid mb-4">
-  <div class="pw-card-content">
-    <div class="profile__info">
-      <div class="profile__info__avatar">
-        {% include 'punkweb_bb/components/profile_image.html' with user=user size="lg" %}
-      </div>
-      <div class="profile__info__details">
-        <div class="profile__info__username">
-          {{user|styled_username}}
-          {% if user.profile.is_online %}
-          <div class="pw-badge xs green">Online</div>
-          {% else %}
-          <div class="pw-badge xs">Offline</div>
-          {% endif %}
-        </div>
-        <div class="profile__info__stats">
-          <div class="profile__info__stat">
-            Date Joined:
-            <span class="profile__info__stat__value">
-              <time datetime="{{user.date_joined|date:'c'}}">{{user.date_joined | date:'m/d/Y'}}</time>
-            </span>
-          </div>
-          <div class="profile__info__stat">
-            Last Login:
-            <span class="profile__info__stat__value">
-              <time datetime="{{user.last_login|date:'c'}}">{{user.last_login | date:'m/d/Y'}}</time>
-            </span>
-          </div>
-          <div class="profile__info__stat">
-            Posts:
-            <span class="profile__info__stat__value">{{user.profile.post_count}}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="pw-card fluid">
-  <div class="pw-card-header">
-    Threads
-  </div>
-  {% if user.threads.count == 0 %}
-    <div class="pw-card-content">
-      <div>{{ user.username }} has not created any threads.</div>
-    </div>
-    {% else %}
-    <ul class="profile__thread__list">
-      {% for thread in user.threads.all %}
-        <li class="profile__thread">
-          <div class="profile__thread__details">
-            <div class="profile__thread__title">
-              <a href="{% url 'punkweb_bb:thread' thread.id %}">{{ thread.title }}</a>
-            </div>
-            <div class="profile__thread__preview">
-              {{ thread.content|render|striptags|truncatechars:120 }}
-            </div>
-            <div class="profile__thread__date">
-              <time datetime="{{thread.created_at|date:'c'}}">
-                {{thread.created_at|date:'M j, Y'}} at
-                {{thread.created_at|date:'g:i A'}}
-              </time>
-              •
-              <a href="{% url 'punkweb_bb:subcategory' thread.subcategory.slug %}">
-                {{thread.subcategory.name}}
-              </a>
-            </div>
-          </div>
-        </li>
-      {% endfor %}
+  <nav>
+    <ul class="pw-breadcrumb">
+      <li class="pw-breadcrumb-item">
+        <a href="{% url 'punkweb_bb:index' %}">Home</a>
+      </li>
+      <li class="pw-breadcrumb-item">
+        <a href="{% url 'punkweb_bb:members' %}">Members</a>
+      </li>
+      <li class="pw-breadcrumb-item active">{{ user.username }}</li>
     </ul>
-  {% endif %}
-</div>
+  </nav>
+  <div class="pw-card fluid mb-4">
+    <div class="pw-card-content">
+      <div class="profile__info">
+        <div class="profile__info__avatar">
 
+          {% include 'punkweb_bb/components/profile_image.html' with user=user size="lg" %}
+
+        </div>
+        <div class="profile__info__details">
+          <div class="profile__info__username">
+            {{ user|styled_username }}
+            {% if user.profile.is_online %}
+              <div class="pw-badge xs green">Online</div>
+            {% else %}
+              <div class="pw-badge xs">Offline</div>
+            {% endif %}
+          </div>
+          <div class="profile__info__stats">
+            <div class="profile__info__stat">
+              Date Joined:
+              <span class="profile__info__stat__value">
+                <time datetime="{{ user.date_joined|date:'c' }}">{{ user.date_joined | date:'m/d/Y' }}</time>
+              </span>
+            </div>
+            <div class="profile__info__stat">
+              Last Login:
+              <span class="profile__info__stat__value">
+                <time datetime="{{ user.last_login|date:'c' }}">{{ user.last_login | date:'m/d/Y' }}</time>
+              </span>
+            </div>
+            <div class="profile__info__stat">
+              Posts:
+              <span class="profile__info__stat__value">{{ user.profile.post_count }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pw-card fluid">
+    <div class="pw-card-header">Threads</div>
+    {% if user.threads.count == 0 %}
+      <div class="pw-card-content">
+        <div>{{ user.username }} has not created any threads.</div>
+      </div>
+    {% else %}
+      <ul class="profile__thread__list">
+        {% for thread in user.threads.all %}
+          <li class="profile__thread">
+            <div class="profile__thread__details">
+              <div class="profile__thread__title">
+                <a href="{% url 'punkweb_bb:thread' thread.id %}">{{ thread.title }}</a>
+              </div>
+              <div class="profile__thread__preview">{{ thread.content|render|striptags|truncatechars:120 }}</div>
+              <div class="profile__thread__date">
+                <time datetime="{{ thread.created_at|date:'c' }}">
+                  {{ thread.created_at|date:'M j, Y' }} at
+                  {{ thread.created_at|date:'g:i A' }}
+                </time>
+                •
+                <a href="{% url 'punkweb_bb:subcategory' thread.subcategory.slug %}">{{ thread.subcategory.name }}</a>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
 {% endblock %}

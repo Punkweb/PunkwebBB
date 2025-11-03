@@ -1,7 +1,7 @@
 {% extends 'punkweb_bb/base_delete_dialog.html' %}
 
 {% block title %}Delete Category{% endblock %}
-
 {% block object_type %}category{% endblock %}
-
-{% block delete_url %}{% url 'punkweb_bb:category_delete' category.slug %}{% endblock %}
+{% block delete_url %}
+  {% url 'punkweb_bb:category_delete' category.slug %}
+{% endblock %}

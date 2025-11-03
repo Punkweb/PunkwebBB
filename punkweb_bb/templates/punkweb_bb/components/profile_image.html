@@ -1,11 +1,11 @@
 {% load static %}
-<div class="pw-avatar {{size|default:"xs"}}">
+
+<div class="pw-avatar {{ size|default:"xs" }}">
   {% if user.profile.image %}
-  <img
-    class="pw-avatar-image"
-    src="{{user.profile.image.url}}"
-    alt="{{user.username}}" />
-  {% else%}
-  <div class="pw-avatar-fallback">{{user.username|slice:":1"}}</div>
+    <img class="pw-avatar-image"
+         src="{{ user.profile.image.url }}"
+         alt="{{ user.username }}" />
+  {% else %}
+    <div class="pw-avatar-fallback">{{ user.username|slice:":1" }}</div>
   {% endif %}
 </div>

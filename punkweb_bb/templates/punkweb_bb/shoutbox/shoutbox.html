@@ -1,36 +1,25 @@
 {% load punkweb_bb %}
 
 <div class="pw-card fluid mb-4">
-  <div class="pw-card-header">
-    Shoutbox
-  </div>
-
+  <div class="pw-card-header">Shoutbox</div>
   {% punkweb_bb "SHOUTBOX_POLLING_ENABLED" as polling_enabled %}
   {% punkweb_bb "SHOUTBOX_POLLING_INTERVAL" as polling_interval %}
-
-  <div
-    class="shoutbox__shouts"
-    id="shoutlist"
-    hx-get="{% url 'punkweb_bb:shout_list' %}"
-    hx-trigger="load{% if polling_enabled %}, every {{ polling_interval }}s{% endif %}"
-    hx-on::after-request="shoutboxScrollToBottom(event)"
-  >
-  </div>
-
+  <div class="shoutbox__shouts"
+       id="shoutlist"
+       hx-get="{% url 'punkweb_bb:shout_list' %}"
+       hx-trigger="load{% if polling_enabled %}, every {{ polling_interval }}s{% endif %}"
+       hx-on::after-request="shoutboxScrollToBottom(event)"></div>
   {% if request.user.is_authenticated %}
-  <form
-    class="py-2"
-    hx-post="{% url 'punkweb_bb:shout_create' %}"
-    hx-target="#shoutlist"
-    hx-on::after-request="this.reset(); shoutboxScrollToBottom(event)"
-  >
-    <input
-      autocomplete="off"
-      class="pw-input fluid"
-      name="content"
-      placeholder="Type your message here..." 
-      style="border: none;"
-      type="text" />
-  </form>
+    <form class="py-2"
+          hx-post="{% url 'punkweb_bb:shout_create' %}"
+          hx-target="#shoutlist"
+          hx-on::after-request="this.reset(); shoutboxScrollToBottom(event)">
+      <input autocomplete="off"
+             class="pw-input fluid"
+             name="content"
+             placeholder="Type your message here..."
+             style="border: none"
+             type="text" />
+    </form>
   {% endif %}
 </div>

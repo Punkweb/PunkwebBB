@@ -19,7 +19,6 @@ It may work with older versions of Python and Django, but it has not been tested
 
 - [Django](https://www.djangoproject.com/)
 - [HTMX](https://htmx.org/)
-- [jQuery](https://jquery.com/)
 - [bbcode](https://pypi.org/project/bbcode/)
 - [Markdown](https://pypi.org/project/Markdown/)
 - [SCEditor](https://www.sceditor.com/)

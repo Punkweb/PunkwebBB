@@ -1,72 +1,68 @@
 {% extends "punkweb_bb/base.html" %}
+
 {% load static styled_username %}
 
-{% block title_prefix %}Members | {% endblock%}
-{% block og_title_prefix %}Members | {% endblock %}
-
+{% block title_prefix %}Members |{% endblock %}
+{% block og_title_prefix %}Members |{% endblock %}
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'punkweb_bb/css/members.css' %}" />
+  <link rel="stylesheet" href="{% static 'punkweb_bb/css/members.css' %}" />
 {% endblock %}
-
 {% block content %}
+  <nav>
+    <ul class="pw-breadcrumb">
+      <li class="pw-breadcrumb-item">
+        <a href="{% url 'punkweb_bb:index' %}">Home</a>
+      </li>
+      <li class="pw-breadcrumb-item active">Members</li>
+    </ul>
+  </nav>
+  <div class="members__header">
+    <h1>Members</h1>
+    <form class="pw-form inline"
+          action="{% url 'punkweb_bb:members' %}"
+          method="get">
+      {{ form }}
+      <div class="pw-form-actions">
+        <button class="pw-button raised" type="submit">Search</button>
+      </div>
+    </form>
+  </div>
+  {% if users|length > 0 %}
+    <div class="pw-card fluid mb-4">
+      <ul class="members__list">
+        {% for user in users %}
+          <li class="members__user">
+            <div class="members__user__avatar">
 
-<nav>
-  <ul class="pw-breadcrumb">
-    <li class="pw-breadcrumb-item">
-      <a href="{% url 'punkweb_bb:index' %}">Home</a>
-    </li>
-    <li class="pw-breadcrumb-item active">
-      Members
-    </li>
-  </ul>
-</nav>
+              {% include 'punkweb_bb/components/profile_image.html' with user=user size="sm" %}
 
-<div class="members__header">
-  <h1>Members</h1>
-  <form class="pw-form inline" action="{% url 'punkweb_bb:members' %}" method="get">
-    {{ form }}
-    <div class="pw-form-actions">
-      <button class="pw-button raised" type="submit">Search</button>
+            </div>
+            <div class="members__user__info">
+              <div class="members__user__username">
+                <a href="{% url 'punkweb_bb:profile' user.id %}">{{ user|styled_username }}</a>
+                {% if user.profile.is_online %}<div class="onlineIndicator"></div>{% endif %}
+              </div>
+              <div class="members__user__stats">
+                <div class="members__user__stat">
+                  Posts:
+                  <span class="members__user__stat__value">{{ user.profile.post_count }}</span>
+                </div>
+                <div class="members__user__stat">
+                  Date Joined:
+                  <span class="members__user__stat__value">
+                    <time datetime="{{ user.date_joined|date:'c' }}">{{ user.date_joined | date:'m/d/Y' }}</time>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
     </div>
-  </form>
-</div>
+  {% else %}
+    <h3>No results found.</h3>
+  {% endif %}
 
-{% if users|length > 0 %}
-<div class="pw-card fluid mb-4">
-  <ul class="members__list">
-    {% for user in users %}
-    <li class="members__user">
-      <div class="members__user__avatar">
-        {% include 'punkweb_bb/components/profile_image.html' with user=user size="sm" %}
-      </div>
-      <div class="members__user__info">
-        <div class="members__user__username">
-          <a href="{% url 'punkweb_bb:profile' user.id %}">{{ user|styled_username }}</a>
-          {% if user.profile.is_online %}
-          <div class="onlineIndicator"></div>      
-          {% endif %}    
-        </div>
-        <div class="members__user__stats">
-          <div class="members__user__stat">
-            Posts:
-            <span class="members__user__stat__value">{{user.profile.post_count}}</span>
-          </div>
-          <div class="members__user__stat">
-            Date Joined:
-            <span class="members__user__stat__value">
-              <time datetime="{{user.date_joined|date:'c'}}">{{user.date_joined | date:'m/d/Y'}}</time>
-            </span>
-          </div>
-        </div>
-      </div>
-    </li>
-    {% endfor %}
-  </ul>
-</div>
-{% else %}
-<h3>No results found.</h3>
-{% endif %}
-
-{% include 'punkweb_bb/components/pagination_controls.html' with paginator=users %}
+  {% include 'punkweb_bb/components/pagination_controls.html' with paginator=users %}
 
 {% endblock %}

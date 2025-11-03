@@ -1,50 +1,41 @@
 {% extends 'punkweb_bb/base.html' %}
+
 {% load static %}
 
-{% block title_prefix %}Edit Thread | {% endblock %}
-
-{% block extra_head %}
-{{form.media.css}}
-{% endblock %}
-
-{% block extra_script %}
-{{form.media.js}}
-{% endblock %}
-
+{% block title_prefix %}Edit Thread |{% endblock %}
+{% block extra_head %}{{ form.media.css }}{% endblock %}
+{% block extra_script %}{{ form.media.js }}{% endblock %}
 {% block content %}
-
-<nav>
-  <ul class="pw-breadcrumb">
-    <li class="pw-breadcrumb-item">
-      <a href="{% url 'punkweb_bb:index' %}">Home</a>
-    </li>
-    <li class="pw-breadcrumb-item">
-      <a href="{{thread.subcategory.category.get_absolute_url}}">{{thread.subcategory.category.name}}</a>
-    </li>
-    <li class="pw-breadcrumb-item">
-      <a href="{{thread.subcategory.get_absolute_url}}">{{thread.subcategory.name}}</a>
-    </li>
-    <li class="pw-breadcrumb-item">
-      <a href="{{thread.get_absolute_url}}">{{thread.title}}</a>
-    </li>
-    <li class="pw-breadcrumb-item active">
-      Edit
-    </li>
-  </ul>
-</nav>
-
-<div class="pw-card fluid">
-  <div class="pw-card-header">Edit Thread</div>
-  <div class="pw-card-content">
-    <form class="pw-form" action="{% url 'punkweb_bb:thread_update' thread.id %}" method="post">
-      {% csrf_token %}
-      {{ form }}
-      <div class="pw-form-actions end">
-        <a class="pw-button default" href="{{thread.get_absolute_url}}">Cancel</a>
-        <button class="pw-button raised primary" type="submit">Save</button>
-      </div>
-    </form>
+  <nav>
+    <ul class="pw-breadcrumb">
+      <li class="pw-breadcrumb-item">
+        <a href="{% url 'punkweb_bb:index' %}">Home</a>
+      </li>
+      <li class="pw-breadcrumb-item">
+        <a href="{{ thread.subcategory.category.get_absolute_url }}">{{ thread.subcategory.category.name }}</a>
+      </li>
+      <li class="pw-breadcrumb-item">
+        <a href="{{ thread.subcategory.get_absolute_url }}">{{ thread.subcategory.name }}</a>
+      </li>
+      <li class="pw-breadcrumb-item">
+        <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a>
+      </li>
+      <li class="pw-breadcrumb-item active">Edit</li>
+    </ul>
+  </nav>
+  <div class="pw-card fluid">
+    <div class="pw-card-header">Edit Thread</div>
+    <div class="pw-card-content">
+      <form class="pw-form"
+            action="{% url 'punkweb_bb:thread_update' thread.id %}"
+            method="post">
+        {% csrf_token %}
+        {{ form }}
+        <div class="pw-form-actions end">
+          <a class="pw-button default" href="{{ thread.get_absolute_url }}">Cancel</a>
+          <button class="pw-button raised primary" type="submit">Save</button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
-
 {% endblock %}

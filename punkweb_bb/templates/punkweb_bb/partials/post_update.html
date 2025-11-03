@@ -1,15 +1,16 @@
 {% extends 'punkweb_bb/base_dialog.html' %}
 
 {% block title %}Edit Post{% endblock %}
-
 {% block content %}
-<form class="pw-form" action="{% url 'punkweb_bb:post_update' post.id %}" method="post">
-  {% csrf_token %}
-  {{ form }}
-  <div class="pw-form-actions end">
-    <button class="pw-button raised primary" type="submit">Save</button>
-  </div>
-</form>
-{{form.media.css}}
-{{form.media.js}}
+  <form class="pw-form"
+        action="{% url 'punkweb_bb:post_update' post.id %}"
+        method="post">
+    {% csrf_token %}
+    {{ form }}
+    <div class="pw-form-actions end">
+      <button class="pw-button raised primary" type="submit">Save</button>
+    </div>
+  </form>
+  {{ form.media.css }}
+  {{ form.media.js }}
 {% endblock %}

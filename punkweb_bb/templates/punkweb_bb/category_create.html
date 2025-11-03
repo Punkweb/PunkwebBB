@@ -1,33 +1,32 @@
 {% extends 'punkweb_bb/base.html' %}
+
 {% load static %}
 
-{% block title_prefix %}Create Category | {% endblock %}
-
+{% block title_prefix %}Create Category |{% endblock %}
 {% block content %}
-
-<nav>
-  <ul class="pw-breadcrumb">
-    <li class="pw-breadcrumb-item">
-      <a href="{% url 'punkweb_bb:index' %}">Home</a>
-    </li>
-    <li class="pw-breadcrumb-item active">
-      Create Category
-    </li>
-  </ul>
-</nav>
-
-<div class="pw-card">
-  <div class="pw-card-header">Create Category</div>
-  <div class="pw-card-content">
-    <form class="pw-form" action="{% url 'punkweb_bb:category_create' %}" method="post">
-      {% csrf_token %}
-      {{ form }}
-      <div class="pw-form-actions end">
-        <a class="pw-button default" href="{% url 'punkweb_bb:index' %}" type="submit">Cancel</a>
-        <button class="pw-button raised primary" type="submit">Create</button>
-      </div>
-    </form>
+  <nav>
+    <ul class="pw-breadcrumb">
+      <li class="pw-breadcrumb-item">
+        <a href="{% url 'punkweb_bb:index' %}">Home</a>
+      </li>
+      <li class="pw-breadcrumb-item active">Create Category</li>
+    </ul>
+  </nav>
+  <div class="pw-card">
+    <div class="pw-card-header">Create Category</div>
+    <div class="pw-card-content">
+      <form class="pw-form"
+            action="{% url 'punkweb_bb:category_create' %}"
+            method="post">
+        {% csrf_token %}
+        {{ form }}
+        <div class="pw-form-actions end">
+          <a class="pw-button default"
+             href="{% url 'punkweb_bb:index' %}"
+             type="submit">Cancel</a>
+          <button class="pw-button raised primary" type="submit">Create</button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
-
 {% endblock %}

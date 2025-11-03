@@ -1,35 +1,38 @@
 {% for field in form %}
-{% if field.widget_type == "clearablefile" %}
-<div class="pw-form-group">
-  <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-  {% if field.value %}
-  <div class="pw-avatar xl">
-    <img class="pw-avatar-image" src="{{ field.value.url }}" alt="{{ field.label }}">
-  </div>
-  <label>
-    <input type="checkbox" name="{{ field.name }}-clear" id="{{ field.name }}-clear_id" />
-    Remove
-  </label>
+  {% if field.widget_type == "clearablefile" %}
+    <div class="pw-form-group">
+      <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {% if field.value %}
+        <div class="pw-avatar xl">
+          <img class="pw-avatar-image"
+               src="{{ field.value.url }}"
+               alt="{{ field.label }}" />
+        </div>
+        <label>
+          <input type="checkbox"
+                 name="{{ field.name }}-clear"
+                 id="{{ field.name }}-clear_id" />
+          Remove
+        </label>
+      {% endif %}
+      <input type="file"
+             name="{{ field.name }}"
+             accept="image/*"
+             id="{{ field.id_for_label }}" />
+      {{ field.errors }}
+    </div>
+  {% elif field.widget_type == "checkbox" %}
+    <div class="pw-form-group check">
+      {{ field }}
+      <label class="pw-checkbox-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field.errors }}
+    </div>
+  {% else %}
+    <div class="pw-form-group">
+      {% if field.label %}<label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>{% endif %}
+      {{ field }}
+      {{ field.errors }}
+    </div>
   {% endif %}
-  <input type="file" name="{{ field.name }}" accept="image/*" id="{{ field.id_for_label }}" />
-  {{ field.errors }}
-</div>
-{% elif field.widget_type == "checkbox" %}
-<div class="pw-form-group check">
-    {{ field }}
-    <label class="pw-checkbox-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-  {{ field.errors }}
-</div>
-{% else %}
-<div class="pw-form-group">
-  {% if field.label %}
-  <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-  {% endif %}
-  {{ field }}
-  {{ field.errors }}
-</div>
-{% endif %}
 {% endfor %}
-{% if form.non_field_errors %}
-{{ form.non_field_errors }}
-{% endif %}
+{% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
