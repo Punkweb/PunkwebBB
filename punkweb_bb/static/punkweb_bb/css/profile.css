@@ -2,7 +2,6 @@
   align-items: center;
   display: flex;
   gap: 1rem;
-  padding: 1rem;
 }
 
 .profile__info__details {
@@ -19,11 +18,11 @@
 }
 
 .profile__info__stat {
-  color: var(--oc-gray-6);
+  color: var(--muted-foreground);
 }
 
 .profile__info__stat__value {
-  color: var(--oc-gray-9);
+  color: var(--foreground);
 }
 
 .profile__thread__list {
@@ -36,7 +35,7 @@
   align-items: center;
   display: flex;
   gap: 0.5rem;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .profile__thread__details {
@@ -50,12 +49,12 @@
 }
 
 .profile__thread__date {
-  color: var(--oc-gray-6);
+  color: var(--muted-foreground);
   font-size: 0.875rem;
 }
 
 .profile__thread:not(:last-of-type) {
-  border-bottom: 1px solid var(--oc-gray-4);
+  border-bottom: 1px solid var(--border);
 }
 
 @media screen and (max-width: 768px) {

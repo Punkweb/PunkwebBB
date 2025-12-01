@@ -13,7 +13,7 @@ def get_editor_widget():
         return MarkdownEditorWidget()
     elif PARSER == "mix":
         return MarkdownEditorWidget()
-    return Textarea(attrs={"class": "pw-input"})
+    return Textarea()
 
 
 def get_unique_slug(model, field):

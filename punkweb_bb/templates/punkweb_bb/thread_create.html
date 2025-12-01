@@ -9,33 +9,31 @@
 {% block content %}
   <nav>
     <ul class="pw-breadcrumb">
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{% url 'punkweb_bb:index' %}">Home</a>
       </li>
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{{ subcategory.category.get_absolute_url }}">{{ subcategory.category.name }}</a>
       </li>
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}</a>
       </li>
-      <li class="pw-breadcrumb-item active">Create Thread</li>
+      <li class="active">Create Thread</li>
     </ul>
   </nav>
-  <div class="pw-card fluid">
-    <div class="pw-card-header">Create Thread</div>
-    <div class="pw-card-content">
-      <form class="pw-form"
-            action="{% url 'punkweb_bb:thread_create' subcategory.slug %}"
-            method="post">
-        {% csrf_token %}
-        {{ form }}
-        <div class="pw-form-actions end">
-          <a class="pw-button default"
-             href="{{ subcategory.get_absolute_url }}"
-             type="submit">Cancel</a>
-          <button class="pw-button raised primary" type="submit">Create Thread</button>
-        </div>
-      </form>
-    </div>
+  <div class="pw-card">
+    <h1 class="mt-0">Create Thread</h1>
+    <form class="pw-form"
+          action="{% url 'punkweb_bb:thread_create' subcategory.slug %}"
+          method="post">
+      {% csrf_token %}
+      {{ form }}
+      <div class="pw-form-actions end">
+        <a class="pw-button"
+           href="{{ subcategory.get_absolute_url }}"
+           type="submit">Cancel</a>
+        <button class="pw-button primary" type="submit">Create Thread</button>
+      </div>
+    </form>
   </div>
 {% endblock %}

@@ -10,22 +10,20 @@
 {% block content %}
   <nav>
     <ul class="pw-breadcrumb">
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{% url 'punkweb_bb:index' %}">Home</a>
       </li>
-      <li class="pw-breadcrumb-item active">Login</li>
+      <li class="active">Login</li>
     </ul>
   </nav>
   <div class="pw-card centerPage">
-    <div class="pw-card-header">Login</div>
-    <div class="pw-card-content">
-      <form class="pw-form" action="{% url 'punkweb_bb:login' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <div class="pw-form-actions">
-          <button class="pw-button fluid raised primary" type="submit">Login</button>
-        </div>
-      </form>
-    </div>
+    <h1 class="mt-0">Login</h1>
+    <form class="pw-form" action="{% url 'punkweb_bb:login' %}" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <div class="pw-form-actions">
+        <button class="pw-button primary w-full" type="submit">Login</button>
+      </div>
+    </form>
   </div>
 {% endblock %}

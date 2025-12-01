@@ -56,8 +56,8 @@ def add_url_tag(parser):
 def add_quote_tag(parser):
     def _render_quote(name, value, options, parent, context):
         if "quote" in options:
-            return f'<blockquote class="pw-blockquote"><cite>{options["quote"]} said: </cite>{value}</blockquote>'
-        return f'<blockquote class="pw-blockquote">{value}</blockquote>'
+            return f'<blockquote><cite>{options["quote"]} said: </cite>{value}</blockquote>'
+        return f"<blockquote>{value}</blockquote>"
 
     parser.add_formatter(
         "quote", _render_quote, strip=True, swallow_trailing_newline=True
@@ -114,8 +114,8 @@ def add_spoiler_tag(parser):
     def _render_spoiler(name, value, options, parent, context):
         if "spoiler" in options:
             summary = options["spoiler"]
-            return f'<details class="pw-details"><summary>{summary}</summary>{value}</details>'
-        return f'<details class="pw-details"><summary>Click to reveal</summary>{value}</details>'
+            return f"<details><summary>{summary}</summary>{value}</details>"
+        return f"<details><summary>Click to reveal</summary>{value}</details>"
 
     parser.add_formatter(
         "spoiler", _render_spoiler, strip=True, swallow_trailing_newline=True

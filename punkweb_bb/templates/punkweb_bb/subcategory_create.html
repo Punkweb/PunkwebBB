@@ -8,30 +8,26 @@
 {% block content %}
   <nav>
     <ul class="pw-breadcrumb">
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{% url 'punkweb_bb:index' %}">Home</a>
       </li>
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
       </li>
-      <li class="pw-breadcrumb-item active">Create Subcategory</li>
+      <li class="active">Create Subcategory</li>
     </ul>
   </nav>
-  <div class="pw-card fluid">
-    <div class="pw-card-header">Create Subcategory</div>
-    <div class="pw-card-content">
-      <form class="pw-form"
-            action="{% url 'punkweb_bb:subcategory_create' category.slug %}"
-            method="post">
-        {% csrf_token %}
-        {{ form }}
-        <div class="pw-form-actions end">
-          <a class="pw-button default"
-             href="{% url 'punkweb_bb:index' %}"
-             type="submit">Cancel</a>
-          <button class="pw-button raised primary" type="submit">Create</button>
-        </div>
-      </form>
-    </div>
+  <div class="pw-card">
+    <h1 class="mt-0">Create Subcategory</h1>
+    <form class="pw-form"
+          action="{% url 'punkweb_bb:subcategory_create' category.slug %}"
+          method="post">
+      {% csrf_token %}
+      {{ form }}
+      <div class="pw-form-actions end">
+        <a class="pw-button" href="{% url 'punkweb_bb:index' %}" type="submit">Cancel</a>
+        <button class="pw-button primary" type="submit">Create</button>
+      </div>
+    </form>
   </div>
 {% endblock %}

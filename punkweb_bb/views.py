@@ -624,7 +624,7 @@ class ThreadModelForm(forms.ModelForm):
             "content",
         )
         widgets = {
-            "title": forms.TextInput(attrs={"autofocus": True, "class": "pw-input"}),
+            "title": forms.TextInput(attrs={"autofocus": True}),
             "content": BBCodeEditorWidget(),
         }
 [/code]

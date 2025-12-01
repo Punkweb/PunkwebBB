@@ -1,7 +1,7 @@
 {% for field in form %}
   {% if field.widget_type == "clearablefile" %}
     <div class="pw-form-group">
-      <label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
       {% if field.value %}
         <div class="pw-avatar xl">
           <img class="pw-avatar-image"
@@ -29,7 +29,7 @@
     </div>
   {% else %}
     <div class="pw-form-group">
-      {% if field.label %}<label class="pw-input-label" for="{{ field.id_for_label }}">{{ field.label }}</label>{% endif %}
+      {% if field.label %}<label for="{{ field.id_for_label }}">{{ field.label }}</label>{% endif %}
       {{ field }}
       {{ field.errors }}
     </div>

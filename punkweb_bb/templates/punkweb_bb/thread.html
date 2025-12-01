@@ -16,25 +16,23 @@
 {% block content %}
   <nav>
     <ul class="pw-breadcrumb">
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{% url 'punkweb_bb:index' %}">Home</a>
       </li>
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{{ thread.subcategory.category.get_absolute_url }}">{{ thread.subcategory.category.name }}</a>
       </li>
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{{ thread.subcategory.get_absolute_url }}">{{ thread.subcategory.name }}</a>
       </li>
-      <li class="pw-breadcrumb-item active">{{ thread.title }}</li>
+      <li class="active">{{ thread.title }}</li>
     </ul>
   </nav>
   {% if posts.number == 1 %}
     <h1>{{ thread.title }}</h1>
-    <div class="pw-card fluid mb-4">
-      <div class="pw-card-header">
-        <div class="thread__date">
-          <time datetime="{{ thread.created_at|date:'c' }}">{{ thread.created_at | date:'M j, Y' }}</time>
-        </div>
+    <div class="pw-card mb-4 p-0">
+      <div class="thread__date">
+        <time datetime="{{ thread.created_at|date:'c' }}">{{ thread.created_at | date:'M j, Y' }}</time>
       </div>
       <div class="thread">
         <div class="thread__user">
@@ -74,7 +72,7 @@
           {% if thread|can_delete:request.user or thread|can_edit:request.user or perms.punkweb_bb.pin_thread or perms.punkweb_bb.close_thread or perms.punkweb_bb.move_thread %}
             <div class="thread__actions">
               {% if perms.punkweb_bb.move_thread %}
-                <a class="pw-icon-button default rounded"
+                <a class="pw-button rounded"
                    title="Move"
                    hx-get="{% url 'punkweb_bb:thread_move' thread.id %}"
                    hx-target="#dialog-portal">
@@ -82,7 +80,7 @@
                 </a>
               {% endif %}
               {% if perms.punkweb_bb.pin_thread %}
-                <a class="pw-icon-button default rounded"
+                <a class="pw-button rounded"
                    title="{% if thread.is_pinned %}Unpin{% else %}Pin{% endif %}"
                    hx-get="{% url 'punkweb_bb:thread_pin' thread.id %}"
                    hx-swap="none">
@@ -94,7 +92,7 @@
                 </a>
               {% endif %}
               {% if perms.punkweb_bb.close_thread %}
-                <a class="pw-icon-button default rounded"
+                <a class="pw-button rounded"
                    title="{% if thread.is_closed %}Reopen{% else %}Close{% endif %}"
                    hx-get="{% url 'punkweb_bb:thread_close' thread.id %}"
                    hx-swap="none">
@@ -106,14 +104,14 @@
                 </a>
               {% endif %}
               {% if thread|can_edit:request.user %}
-                <a class="pw-icon-button default rounded"
+                <a class="pw-button rounded"
                    href="{% url 'punkweb_bb:thread_update' thread.id %}"
                    title="Edit">
                   <span class="material-symbols-outlined">edit</span>
                 </a>
               {% endif %}
               {% if thread|can_delete:request.user %}
-                <a class="pw-icon-button default rounded red"
+                <a class="pw-button rounded"
                    title="Delete"
                    hx-get="{% url 'punkweb_bb:thread_delete' thread.id %}"
                    hx-target="#dialog-portal">
@@ -130,9 +128,9 @@
     </div>
   {% endif %}
   {% for post in posts %}
-    <div id="post-{{ post.id }}" class="pw-card fluid mb-4">
-      <div class="pw-card-header thread__header">
-        <div class="thread__date">
+    <div id="post-{{ post.id }}" class="pw-card mb-4 p-0">
+      <div class="post__header">
+        <div class="post__date">
           <time datetime="{{ post.created_at|date:'c' }}">{{ post.created_at | date:'M j, Y' }}</time>
         </div>
         <a class="thread__index" href="{{ post.get_absolute_url }}">#{{ post.index }}</a>
@@ -175,7 +173,7 @@
           {% if post|can_delete:request.user or post|can_edit:request.user %}
             <div class="thread__actions">
               {% if post|can_edit:request.user %}
-                <a class="pw-icon-button default rounded"
+                <a class="pw-button rounded"
                    title="Edit"
                    hx-get="{% url 'punkweb_bb:post_update' post.id %}"
                    hx-target="#dialog-portal">
@@ -183,7 +181,7 @@
                 </a>
               {% endif %}
               {% if post|can_delete:request.user %}
-                <a class="pw-icon-button default rounded red"
+                <a class="pw-button rounded"
                    title="Delete"
                    hx-get="{% url 'punkweb_bb:post_delete' post.id %}"
                    hx-target="#dialog-portal">
@@ -204,28 +202,24 @@
 
   {% if request.user.is_authenticated %}
     {% if thread|can_post:request.user %}
-      <div class="pw-card fluid mt-4">
-        <div class="pw-card-header">Reply to thread</div>
-        <div class="pw-card-content">
-          <div class="thread__reply__content">
-            <form class="pw-form"
-                  action="{% url 'punkweb_bb:post_create' thread.id %}"
-                  method="post">
-              {% csrf_token %}
-              {{ post_form }}
-              <div class="pw-form-actions end">
-                <button class="pw-button raised primary" type="submit">Post reply</button>
-              </div>
-            </form>
-          </div>
+      <div class="pw-card mt-4">
+        <h4 class="mt-0">Reply to thread</h4>
+        <div class="thread__reply__content">
+          <form class="pw-form"
+                action="{% url 'punkweb_bb:post_create' thread.id %}"
+                method="post">
+            {% csrf_token %}
+            {{ post_form }}
+            <div class="pw-form-actions end">
+              <button class="pw-button primary" type="submit">Post reply</button>
+            </div>
+          </form>
         </div>
       </div>
     {% else %}
-      <div class="pw-card fluid mt-4">
-        <div class="pw-card-header">Thread closed</div>
-        <div class="pw-card-content">
-          <div>This thread is closed and you cannot reply to it.</div>
-        </div>
+      <div class="pw-card mt-4">
+        <h4 class="mt-0">Thread closed</h4>
+        <div>This thread is closed and you cannot reply to it.</div>
       </div>
     {% endif %}
   {% endif %}

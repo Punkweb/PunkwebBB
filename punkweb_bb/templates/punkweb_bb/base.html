@@ -8,6 +8,7 @@
     <title>
       {% block title_prefix %}{% endblock %}
     {% punkweb_bb "SITE_TITLE" %}</title>
+    <script type="text/javascript" src="{% static 'punkweb_bb/js/theme.js' %}"></script>
     <meta property="og:title"
           content="{% block og_title_prefix %}{% endblock %}{% punkweb_bb "SITE_TITLE" %}" />
     <meta property="og:type" content="website" />
@@ -19,7 +20,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet"
-          href="{% static 'punkweb_bb/vendor/prism-duotone-sea.css' %}" />
+          href="{% static 'punkweb_bb/vendor/prism-punkweb.css' %}" />
     <link rel="stylesheet"
           href="{% static 'punkweb_bb/vendor/punkweb-ui.min.css' %}" />
     <link rel="stylesheet" href="{% static 'punkweb_bb/css/punkweb.css' %}" />
@@ -30,7 +31,7 @@
       <header>
         <nav class="nav">
           <div class="nav__upper">
-            <div class="pw-container">
+            <div class="pw-container 2xl">
               <div class="nav__upper__content">
                 {% if request.user.is_staff %}
                   <div class="nav__upper__links">
@@ -38,8 +39,15 @@
                   </div>
                 {% endif %}
                 <div class="nav__spacer"></div>
+                <template id="moon-icon">
+                  <span class="material-symbols-outlined text-xs">dark_mode</span>
+                </template>
+                <template id="sun-icon">
+                  <span class="material-symbols-outlined text-xs">light_mode</span>
+                </template>
                 {% if request.user.is_authenticated %}
                   <div class="nav__upper__links">
+                    <button class="pw-button sm" id="theme-toggle"></button>
                     <a class="nav__upper__link"
                        href="{% url 'punkweb_bb:profile' request.user.id %}">Profile</a>
                     <a class="nav__upper__link" href="{% url 'punkweb_bb:settings' %}">Settings</a>
@@ -47,6 +55,7 @@
                   </div>
                 {% else %}
                   <div class="nav__upper__links">
+                    <button class="pw-button sm" id="theme-toggle"></button>
                     <a class="nav__upper__link" href="{% url 'punkweb_bb:signup' %}">Sign Up</a>
                     <a class="nav__upper__link" href="{% url 'punkweb_bb:login' %}">Login</a>
                   </div>
@@ -55,7 +64,7 @@
             </div>
           </div>
           <div class="nav__main">
-            <div class="pw-container">
+            <div class="pw-container 2xl">
               <div class="nav__main__content">
                 <a class="nav__title" href="{% url 'punkweb_bb:index' %}">{% punkweb_bb "SITE_NAME" %}</a>
                 <a class="nav__link" href="{% url 'punkweb_bb:index' %}">Forum</a>
@@ -66,14 +75,14 @@
         </nav>
       </header>
       <main class="main">
-        <div class="pw-container">
+        <div class="pw-container 2xl">
           {% block content %}
           {% endblock content %}
         </div>
       </main>
       <footer>
         <div class="footer">
-          <div class="pw-container">
+          <div class="pw-container 2xl">
             <div class="footer__content">
               <div>
                 Powered by <a href="https://github.com/Punkweb/PunkwebBB" target="_blank">PunkwebBB</a>
@@ -91,6 +100,7 @@
     <script src="{% static 'punkweb_bb/vendor/jquery-3.7.0.min.js' %}"></script>
     <script src="{% static 'punkweb_bb/vendor/prism.js' %}"></script>
     <script src="{% static 'punkweb_bb/js/punkweb-dialog.js' %}"></script>
-    {% block extra_script %}{% endblock %}
+    {% block extra_script %}
+    {% endblock %}
   </body>
 </html>

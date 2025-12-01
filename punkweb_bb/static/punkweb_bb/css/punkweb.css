@@ -1,20 +1,13 @@
-body {
-  background-color: white;
-  color: var(--oc-gray-9);
+:root {
+  --primary: var(--tw-indigo-600);
 }
 
-a {
-  color: var(--primary-9);
-}
-
-hr {
-  border: none;
-  border-top: 1px solid var(--oc-gray-4);
-  margin: 1rem 0;
+[data-theme='dark'] {
+  --primary: var(--tw-indigo-400);
 }
 
 .onlineIndicator {
-  background-color: var(--oc-green-6);
+  background-color: var(--tw-green-500);
   border-radius: 100%;
   display: inline-block;
   height: 0.5rem;
@@ -38,10 +31,11 @@ hr {
 /** Nav **/
 
 .nav__upper {
-  background-color: var(--oc-gray-9);
+  background-color: var(--muted);
 }
 
 .nav__upper__content {
+  align-items: center;
   display: flex;
   font-size: 0.75rem;
   font-weight: 500;
@@ -49,18 +43,17 @@ hr {
 }
 
 .nav__upper__links {
+  align-items: center;
   display: flex;
   gap: 1rem;
 }
 
 .nav__upper__link {
-  color: var(--oc-gray-0);
+  color: var(--foreground);
 }
 
 .nav__main {
-  background-color: var(--primary-9);
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
-  color: var(--oc-gray-0);
+  border-bottom: var(--border-width) solid var(--border);
 }
 
 .nav__main__content {
@@ -75,26 +68,26 @@ hr {
 }
 
 .nav__title {
-  color: var(--oc-gray-0);
+  color: var(--foreground);
   font-size: 1.5rem;
   font-weight: 700;
 }
 
 .nav__title:hover {
-  color: var(--oc-gray-0);
+  color: var(--foreground);
   text-decoration: none;
 }
 
 .nav__link {
-  color: var(--oc-gray-0);
+  color: var(--foreground);
   font-weight: 500;
 }
 
 /** Footer **/
 
 .footer {
-  background-color: var(--oc-gray-9);
-  color: white;
+  background-color: var(--muted);
+  color: var(--muted-foreground);
   font-size: 0.875rem;
   padding: 0.5rem 0;
 }
@@ -106,34 +99,8 @@ hr {
 }
 
 .footer a {
-  color: var(--oc-gray-0);
+  color: var(--foreground);
   font-weight: 500;
-}
-
-/** Table **/
-
-.pw-table-container {
-  overflow-x: auto;
-}
-
-.pw-table {
-  border-collapse: collapse;
-  min-width: 48rem;
-  width: 100%;
-}
-
-.pw-table thead tr th {
-  background-color: var(--oc-gray-1);
-  border-bottom: 1px solid var(--oc-gray-4);
-  color: var(--oc-gray-7);
-  font-size: 0.875rem;
-  font-weight: 700;
-  padding: 0.75rem 1rem;
-  text-align: left;
-}
-
-.pw-table tbody tr td {
-  padding: 0.75rem 1rem;
 }
 
 /* Center content, used for login and signup */
@@ -143,18 +110,35 @@ hr {
   width: 20rem;
 }
 
-.pw-form .errorlist.nonfield {
-  color: var(--oc-red-8);
+/* Style helptext in Django forms */
+
+.helptext {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
   margin: 0;
 }
 
-.pw-form-group .errorlist {
-  color: var(--oc-red-8);
-  list-style: none;
+/* Style error messages in Django forms */
+
+.errorlist {
+  color: var(--error);
   margin: 0;
-  padding: 0;
+  padding-inline-start: 1rem;
 }
 
-pre[class*="language-"] {
-  font-size: 0.75rem;
+.pw-breadcrumb {
+  background-color: var(--muted);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.material-icons,
+.material-symbols,
+.material-symbols-outlined {
+  font-size: 1rem;
+  user-select: none;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }

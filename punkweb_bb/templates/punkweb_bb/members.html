@@ -10,25 +10,25 @@
 {% block content %}
   <nav>
     <ul class="pw-breadcrumb">
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{% url 'punkweb_bb:index' %}">Home</a>
       </li>
-      <li class="pw-breadcrumb-item active">Members</li>
+      <li class="active">Members</li>
     </ul>
   </nav>
   <div class="members__header">
     <h1>Members</h1>
-    <form class="pw-form inline"
+    <form class="pw-form horizontal"
           action="{% url 'punkweb_bb:members' %}"
           method="get">
       {{ form }}
       <div class="pw-form-actions">
-        <button class="pw-button raised" type="submit">Search</button>
+        <button class="pw-button" type="submit">Search</button>
       </div>
     </form>
   </div>
   {% if users|length > 0 %}
-    <div class="pw-card fluid mb-4">
+    <div class="pw-card mb-4 p-0">
       <ul class="members__list">
         {% for user in users %}
           <li class="members__user">

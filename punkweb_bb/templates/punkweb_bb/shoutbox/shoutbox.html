@@ -1,7 +1,7 @@
 {% load punkweb_bb %}
 
-<div class="pw-card fluid mb-4">
-  <div class="pw-card-header">Shoutbox</div>
+<div class="pw-card mb-4 p-0">
+  <div class="shoutbox__header">Shoutbox</div>
   {% punkweb_bb "SHOUTBOX_POLLING_ENABLED" as polling_enabled %}
   {% punkweb_bb "SHOUTBOX_POLLING_INTERVAL" as polling_interval %}
   <div class="shoutbox__shouts"
@@ -15,10 +15,11 @@
           hx-target="#shoutlist"
           hx-on::after-request="this.reset(); shoutboxScrollToBottom(event)">
       <input autocomplete="off"
-             class="pw-input fluid"
+             class="w-full"
              name="content"
              placeholder="Type your message here..."
-             style="border: none"
+             style="border: none;
+                    outline: none"
              type="text" />
     </form>
   {% endif %}

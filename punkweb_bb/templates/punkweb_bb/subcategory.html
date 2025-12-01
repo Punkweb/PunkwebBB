@@ -10,13 +10,13 @@
 {% block content %}
   <nav>
     <ul class="pw-breadcrumb">
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{% url 'punkweb_bb:index' %}">Home</a>
       </li>
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{{ subcategory.category.get_absolute_url }}">{{ subcategory.category.name }}</a>
       </li>
-      <li class="pw-breadcrumb-item active">{{ subcategory.name }}</li>
+      <li class="active">{{ subcategory.name }}</li>
     </ul>
   </nav>
   <div class="subcategory__header">
@@ -25,14 +25,14 @@
       {% if perms.punkweb_bb.change_subcategory or perms.punkweb_bb.delete_subcategory %}
         <div class="subcategory__header__actions">
           {% if perms.punkweb_bb.change_subcategory %}
-            <a class="pw-icon-button default rounded"
+            <a class="pw-button rounded"
                href="{% url 'punkweb_bb:subcategory_update' subcategory.slug %}"
                title="Edit subcategory">
               <span class="material-symbols-outlined">edit</span>
             </a>
           {% endif %}
           {% if perms.punkweb_bb.delete_subcategory %}
-            <a class="pw-icon-button default rounded red"
+            <a class="pw-button rounded red"
                title="Delete subcategory"
                hx-get="{% url 'punkweb_bb:subcategory_delete' subcategory.slug %}"
                hx-target="#dialog-portal">
@@ -44,84 +44,80 @@
     </div>
     {% if request.user.is_authenticated %}
       {% if subcategory|can_post:request.user %}
-        <a class="pw-button ghost primary"
+        <a class="pw-button primary"
            href="{% url 'punkweb_bb:thread_create' subcategory.slug %}">Create Thread</a>
       {% else %}
-        <button class="pw-button ghost primary"
+        <button class="pw-button primary"
                 disabled
                 href="{% url 'punkweb_bb:thread_create' subcategory.slug %}"
                 title="You do not have permission to create a thread in this subcategory.">Create Thread</button>
       {% endif %}
     {% endif %}
   </div>
-  <div class="pw-card fluid mb-4">
-    {% if threads|length > 0 %}
-      <div class="pw-table-container">
-        <table class="pw-table">
-          <colgroup>
-            <col />
-            <col width="96px" />
-            <col width="96px" />
-            <col width="192px" />
-          </colgroup>
-          <thead>
+  {% if threads|length > 0 %}
+    <div class="pw-table-container">
+      <table>
+        <colgroup>
+          <col />
+          <col width="96px" />
+          <col width="96px" />
+          <col width="192px" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Posts</th>
+            <th>Views</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for thread in threads %}
             <tr>
-              <th>Title</th>
-              <th>Posts</th>
-              <th>Views</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for thread in threads %}
-              <tr>
+              <td>
+                <div class="thread__title">
+                  <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a>
+                  {% if thread.is_pinned %}<span class="material-symbols-outlined" title="Pinned">keep</span>{% endif %}
+                  {% if thread.is_closed %}<span class="material-symbols-outlined" title="Closed">lock</span>{% endif %}
+                </div>
+                <div>
+                  <a href="{% url 'punkweb_bb:profile' thread.user.id %}">{{ thread.user|styled_username }}</a>
+                  •
+                  <time datetime="{{ thread.created_at|date:'c' }}">{{ thread.created_at | date:'M j, Y' }}</time>
+                </td>
+                <td>{{ thread.post_count }}</td>
+                <td>{{ thread.view_count | humanize_int }}</td>
                 <td>
-                  <div class="thread__title">
-                    <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a>
-                    {% if thread.is_pinned %}<span class="material-symbols-outlined" title="Pinned">keep</span>{% endif %}
-                    {% if thread.is_closed %}<span class="material-symbols-outlined" title="Closed">lock</span>{% endif %}
-                  </div>
-                  <div>
-                    <a href="{% url 'punkweb_bb:profile' thread.user.id %}">{{ thread.user|styled_username }}</a>
-                    •
-                    <time datetime="{{ thread.created_at|date:'c' }}">{{ thread.created_at | date:'M j, Y' }}</time>
-                  </td>
-                  <td>{{ thread.post_count }}</td>
-                  <td>{{ thread.view_count | humanize_int }}</td>
-                  <td>
-                    {% if thread.latest_post %}
-                      <div class="thread__latestPost">
-                        <div class="thread__latestPost__info">
-                          <a class="thread__latestPost__info__title"
-                             href="{{ thread.latest_post.get_absolute_url }}"
-                             title="{{ thread.latest_post.title }}">
-                            <time datetime="{{ thread.latest_post.created_at|date:'c' }}">
-                              {{ thread.latest_post.created_at|date:'M j, Y' }}
-                            </time>
-                          </a>
-                          <div>
-                            <a href="{% url 'punkweb_bb:profile' thread.latest_post.user.id %}">{{ thread.latest_post.user|styled_username }}</a>
-                          </div>
+                  {% if thread.latest_post %}
+                    <div class="thread__latestPost">
+                      <div class="thread__latestPost__info">
+                        <a class="thread__latestPost__info__title"
+                           href="{{ thread.latest_post.get_absolute_url }}"
+                           title="{{ thread.latest_post.title }}">
+                          <time datetime="{{ thread.latest_post.created_at|date:'c' }}">
+                            {{ thread.latest_post.created_at|date:'M j, Y' }}
+                          </time>
+                        </a>
+                        <div>
+                          <a href="{% url 'punkweb_bb:profile' thread.latest_post.user.id %}">{{ thread.latest_post.user|styled_username }}</a>
                         </div>
-
-                        {% include 'punkweb_bb/components/profile_image.html' with user=thread.latest_post.user %}
-
                       </div>
-                    {% else %}
-                      No posts
-                    {% endif %}
-                  </td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      {% else %}
-        <div class="pw-card-content">
-          <p>No threads have been created in this subcategory yet.</p>
-        </div>
-      {% endif %}
-    </div>
+
+                      {% include 'punkweb_bb/components/profile_image.html' with user=thread.latest_post.user %}
+
+                    </div>
+                  {% else %}
+                    No posts
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p>No threads have been created in this subcategory yet.</p>
+    {% endif %}
 
     {% include 'punkweb_bb/components/pagination_controls.html' with paginator=threads %}
 

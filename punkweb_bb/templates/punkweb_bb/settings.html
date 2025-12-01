@@ -9,27 +9,25 @@
 {% block content %}
   <nav>
     <ul class="pw-breadcrumb">
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{% url 'punkweb_bb:index' %}">Home</a>
       </li>
-      <li class="pw-breadcrumb-item active">Settings</li>
+      <li class="active">Settings</li>
     </ul>
   </nav>
-  <div class="pw-card fluid">
-    <div class="pw-card-header">Settings</div>
-    <div class="pw-card-content">
-      <form class="pw-form"
-            action="{% url 'punkweb_bb:settings' %}"
-            enctype="multipart/form-data"
-            method="post">
-        {% csrf_token %}
-        {{ form }}
-        <div class="pw-form-actions end">
-          <a class="pw-button default"
-             href="{% url 'punkweb_bb:profile' request.user.id %}">Cancel</a>
-          <button class="pw-button raised primary" type="submit">Save</button>
-        </div>
-      </form>
-    </div>
+  <div class="pw-card">
+    <h1 class="mt-0">Settings</h1>
+    <form class="pw-form"
+          action="{% url 'punkweb_bb:settings' %}"
+          enctype="multipart/form-data"
+          method="post">
+      {% csrf_token %}
+      {{ form }}
+      <div class="pw-form-actions end">
+        <a class="pw-button"
+           href="{% url 'punkweb_bb:profile' request.user.id %}">Cancel</a>
+        <button class="pw-button primary" type="submit">Save</button>
+      </div>
+    </form>
   </div>
 {% endblock %}

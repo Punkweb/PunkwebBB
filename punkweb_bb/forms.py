@@ -12,9 +12,9 @@ class LoginForm(AuthenticationForm):
         super().__init__(*args, **kwargs)
 
         self.fields["username"].widget.attrs.update(
-            {"autofocus": True, "class": "pw-input fluid"}
+            {"autofocus": True, "class": "w-full"}
         )
-        self.fields["password"].widget.attrs.update({"class": "pw-input fluid"})
+        self.fields["password"].widget.attrs.update({"class": "w-full"})
 
 
 class SignUpForm(UserCreationForm):
@@ -24,10 +24,10 @@ class SignUpForm(UserCreationForm):
         super().__init__(*args, **kwargs)
 
         self.fields["username"].widget.attrs.update(
-            {"autofocus": True, "class": "pw-input fluid"}
+            {"autofocus": True, "class": "w-full"}
         )
-        self.fields["password1"].widget.attrs.update({"class": "pw-input fluid"})
-        self.fields["password2"].widget.attrs.update({"class": "pw-input fluid"})
+        self.fields["password1"].widget.attrs.update({"class": "w-full"})
+        self.fields["password2"].widget.attrs.update({"class": "w-full"})
 
 
 class FilterUsersForm(forms.Form):
@@ -35,7 +35,7 @@ class FilterUsersForm(forms.Form):
 
     search = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={"class": "pw-input", "placeholder": "Search"}),
+        widget=forms.TextInput(attrs={"placeholder": "Search"}),
     )
     sort_by = forms.ChoiceField(
         required=False,
@@ -46,7 +46,6 @@ class FilterUsersForm(forms.Form):
             ("date_joined", "Date Joined (Oldest)"),
             ("-date_joined", "Date Joined (Newest)"),
         ),
-        widget=forms.Select(attrs={"class": "pw-input"}),
     )
 
 
@@ -76,10 +75,7 @@ class CategoryModelForm(forms.ModelForm):
             "order",
         )
         widgets = {
-            "name": forms.TextInput(attrs={"autofocus": True, "class": "pw-input"}),
-            "order": forms.TextInput(
-                attrs={"class": "pw-input", "min": "0", "type": "number"}
-            ),
+            "name": forms.TextInput(attrs={"autofocus": True}),
         }
 
 
@@ -116,12 +112,10 @@ class SubcategoryModelForm(forms.ModelForm):
             "staff_post_only",
         )
         widgets = {
-            "name": forms.TextInput(
-                attrs={"autofocus": True, "class": "pw-input fluid"}
-            ),
-            "category": forms.Select(attrs={"class": "pw-input fluid"}),
+            "name": forms.TextInput(attrs={"autofocus": True, "class": "w-full"}),
+            "category": forms.Select(attrs={"class": "w-full"}),
             "description": get_editor_widget(),
-            "order": forms.NumberInput(attrs={"class": "pw-input", "min": "0"}),
+            "order": forms.NumberInput(attrs={"min": "0"}),
         }
 
 
@@ -135,9 +129,7 @@ class ThreadModelForm(forms.ModelForm):
             "content",
         )
         widgets = {
-            "title": forms.TextInput(
-                attrs={"autofocus": True, "class": "pw-input fluid"}
-            ),
+            "title": forms.TextInput(attrs={"autofocus": True, "class": "w-full"}),
             "content": get_editor_widget(),
         }
 
@@ -148,5 +140,5 @@ class ThreadMoveForm(forms.Form):
     subcategory = forms.ModelChoiceField(
         queryset=Subcategory.objects.all(),
         empty_label="Select a subcategory",
-        widget=forms.Select(attrs={"class": "pw-input fluid"}),
+        widget=forms.Select(attrs={"class": "w-full"}),
     )

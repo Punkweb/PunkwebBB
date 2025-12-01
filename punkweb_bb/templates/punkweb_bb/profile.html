@@ -10,60 +10,56 @@
 {% block content %}
   <nav>
     <ul class="pw-breadcrumb">
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{% url 'punkweb_bb:index' %}">Home</a>
       </li>
-      <li class="pw-breadcrumb-item">
+      <li>
         <a href="{% url 'punkweb_bb:members' %}">Members</a>
       </li>
-      <li class="pw-breadcrumb-item active">{{ user.username }}</li>
+      <li class="active">{{ user.username }}</li>
     </ul>
   </nav>
-  <div class="pw-card fluid mb-4">
-    <div class="pw-card-content">
-      <div class="profile__info">
-        <div class="profile__info__avatar">
+  <div class="pw-card mb-4">
+    <div class="profile__info">
+      <div class="profile__info__avatar">
 
-          {% include 'punkweb_bb/components/profile_image.html' with user=user size="lg" %}
+        {% include 'punkweb_bb/components/profile_image.html' with user=user size="lg" %}
 
+      </div>
+      <div class="profile__info__details">
+        <div class="profile__info__username">
+          {{ user|styled_username }}
+          {% if user.profile.is_online %}
+            <div class="pw-badge xs green">Online</div>
+          {% else %}
+            <div class="pw-badge xs">Offline</div>
+          {% endif %}
         </div>
-        <div class="profile__info__details">
-          <div class="profile__info__username">
-            {{ user|styled_username }}
-            {% if user.profile.is_online %}
-              <div class="pw-badge xs green">Online</div>
-            {% else %}
-              <div class="pw-badge xs">Offline</div>
-            {% endif %}
+        <div class="profile__info__stats">
+          <div class="profile__info__stat">
+            Date Joined:
+            <span class="profile__info__stat__value">
+              <time datetime="{{ user.date_joined|date:'c' }}">{{ user.date_joined | date:'m/d/Y' }}</time>
+            </span>
           </div>
-          <div class="profile__info__stats">
-            <div class="profile__info__stat">
-              Date Joined:
-              <span class="profile__info__stat__value">
-                <time datetime="{{ user.date_joined|date:'c' }}">{{ user.date_joined | date:'m/d/Y' }}</time>
-              </span>
-            </div>
-            <div class="profile__info__stat">
-              Last Login:
-              <span class="profile__info__stat__value">
-                <time datetime="{{ user.last_login|date:'c' }}">{{ user.last_login | date:'m/d/Y' }}</time>
-              </span>
-            </div>
-            <div class="profile__info__stat">
-              Posts:
-              <span class="profile__info__stat__value">{{ user.profile.post_count }}</span>
-            </div>
+          <div class="profile__info__stat">
+            Last Login:
+            <span class="profile__info__stat__value">
+              <time datetime="{{ user.last_login|date:'c' }}">{{ user.last_login | date:'m/d/Y' }}</time>
+            </span>
+          </div>
+          <div class="profile__info__stat">
+            Posts:
+            <span class="profile__info__stat__value">{{ user.profile.post_count }}</span>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="pw-card fluid">
-    <div class="pw-card-header">Threads</div>
+  <div class="pw-card">
+    <h4 class="my-0">Threads</h4>
     {% if user.threads.count == 0 %}
-      <div class="pw-card-content">
-        <div>{{ user.username }} has not created any threads.</div>
-      </div>
+      <div>{{ user.username }} has not created any threads.</div>
     {% else %}
       <ul class="profile__thread__list">
         {% for thread in user.threads.all %}

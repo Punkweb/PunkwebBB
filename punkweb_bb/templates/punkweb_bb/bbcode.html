@@ -3,18 +3,16 @@
 {% load render %}
 
 {% block content %}
-  <div class="pw-card fluid">
-    <div class="pw-card-header">BBCode Reference</div>
-    <div class="pw-card-content">
-      <div class="flex flex-column gap-4">
-        {% for code in codes %}
-          <div>
-            <h4>{{ code.0 }}</h4>
-            <pre>{{ code.1 }}</pre>
-            {{ code.1|render }}
-          </div>
-        {% endfor %}
-      </div>
+  <div class="pw-card">
+    <h1 class="mt-0">BBCode Reference</h1>
+    <div class="flex flex-col gap-4">
+      {% for code in codes %}
+        <div>
+          <h4>{{ code.0 }}</h4>
+          <pre>{{ code.1 }}</pre>
+          {{ code.1|render }}
+        </div>
+      {% endfor %}
     </div>
   </div>
 {% endblock %}

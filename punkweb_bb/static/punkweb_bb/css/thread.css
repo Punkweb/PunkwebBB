@@ -9,18 +9,34 @@
 }
 
 .thread__date {
+  background-color: var(--muted);
+  border-bottom: var(--border-width) solid var(--border);
+  font-weight: 700;
+  padding: 1rem;
+  text-decoration: none;
+}
+
+.post__header {
+  align-items: center;
+  background-color: var(--muted);
+  border-bottom: var(--border-width) solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.post__date {
   font-weight: 700;
   text-decoration: none;
 }
 
 .thread__index {
-  color: var(--body-fg) !important;
-  font-weight: 500;
+  color: var(--foreground) !important;
 }
 
 .thread__user {
   align-items: center;
-  border-right: 1px solid var(--oc-gray-4);
+  border-right: 1px solid var(--border);
   display: flex;
   flex: 0 0 16rem;
   flex-direction: column;
@@ -47,8 +63,8 @@
 }
 
 .thread__user__details {
-  background-color: var(--oc-gray-0);
-  border: 1px solid var(--oc-gray-4);
+  background-color: var(--muted);
+  border: 1px solid var(--border);
   border-radius: 0.25rem;
   display: flex;
   flex-direction: column;
@@ -64,7 +80,7 @@
 }
 
 .thread__user__details__label {
-  color: var(--body-fg);
+  color: var(--muted-foreground);
 }
 
 .thread__main {
@@ -87,7 +103,7 @@
 }
 
 .thread__signature {
-  border-top: 1px solid var(--oc-gray-4);
+  border-top: 1px solid var(--border);
   padding: 1rem;
 }
 
@@ -104,6 +120,6 @@
 
   .thread__user {
     border-right: none;
-    border-bottom: 1px solid var(--oc-gray-4);
+    border-bottom: 1px solid var(--border);
   }
 }

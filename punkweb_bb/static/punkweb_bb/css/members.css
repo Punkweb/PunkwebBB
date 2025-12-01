@@ -23,7 +23,7 @@
 }
 
 .members__user:not(:last-of-type) {
-  border-bottom: 1px solid var(--oc-gray-4);
+  border-bottom: 1px solid var(--border);
 }
 
 .members__user__username {
@@ -35,12 +35,12 @@
 }
 
 .members__user__stat {
-  color: var(--oc-gray-6);
+  color: var(--muted-foreground);
   font-size: 0.75rem;
 }
 
 .members__user__stat__value {
-  color: var(--oc-gray-9);
+  color: var(--foreground);
 }
 
 @media screen and (max-width: 768px) {

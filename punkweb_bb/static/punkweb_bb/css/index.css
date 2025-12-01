@@ -63,7 +63,7 @@
 }
 
 .index__statistics__label {
-  color: var(--oc-gray-7);
+  color: var(--muted-foreground);
 }
 
 .subcategory__latestThread {
