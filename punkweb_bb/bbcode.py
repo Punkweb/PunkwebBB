@@ -1,5 +1,13 @@
 import bbcode
 
+from punkweb_bb.settings import ALLOWED_URL_SCHEMES
+
+def safe_url(href):
+    href = (href or "").strip()
+    if not href:
+        return None
+    lower = href.lower()
+    return href if any(lower.startswith(s + ":") for s in ALLOWED_URL_SCHEMES) else None
 
 def add_font_tag(parser):
     def _render_font(name, value, options, parent, context):
@@ -40,18 +48,16 @@ def add_shadow_tag(parser):
 
     parser.add_formatter("shadow", _render_shadow)
 
-
 def add_url_tag(parser):
     def _render_url(name, value, options, parent, context):
         if "url" in options:
             url = options["url"]
-            return f'<a href="{url}">{value}</a>'
-        return f'<a href="{value}">{value}</a>'
+            return f'<a href="{safe_url(url)}">{value}</a>'
+        return f'<a href="{safe_url(value)}">{value}</a>'
 
     parser.add_formatter(
         "url", _render_url, replace_links=False, replace_cosmetic=False
     )
-
 
 def add_quote_tag(parser):
     def _render_quote(name, value, options, parent, context):
