@@ -51,9 +51,15 @@ def add_shadow_tag(parser):
 def add_url_tag(parser):
     def _render_url(name, value, options, parent, context):
         if "url" in options:
-            url = options["url"]
-            return f'<a href="{safe_url(url)}">{value}</a>'
-        return f'<a href="{safe_url(value)}">{value}</a>'
+            url = safe_url(options["url"])
+            if url is None:
+                return value
+            return f'<a href="{url}">{value}</a>'
+
+        url = safe_url(value)
+        if url is None:
+            return value
+        return f'<a href="{url}">{value}</a>'
 
     parser.add_formatter(
         "url", _render_url, replace_links=False, replace_cosmetic=False
