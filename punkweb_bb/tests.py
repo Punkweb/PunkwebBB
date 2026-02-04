@@ -7,6 +7,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from django.utils import timezone
 
+from punkweb_bb.bbcode import get_parser
 from punkweb_bb.models import (
     Category,
     Post,
@@ -776,3 +777,24 @@ class ShoutCreateViewTestCase(TestCase):
 
         self.assertEqual(Shout.objects.count(), 1)
         self.assertEqual(response.status_code, 200)
+
+
+class BBCodeURLTagTestCase(TestCase):
+    def setUp(self):
+        self.parser = get_parser()
+
+    def test_safe_url(self):
+        html = self.parser.format("[url]http://example.com[/url]")
+        self.assertEqual(html, '<a href="http://example.com">http://example.com</a>')
+
+    def test_unsafe_url(self):
+        html = self.parser.format("[url]javascript:alert(1)[/url]")
+        self.assertEqual(html, "javascript:alert(1)")
+
+    def test_url_with_text(self):
+        html = self.parser.format("[url=http://example.com]Click me[/url]")
+        self.assertEqual(html, '<a href="http://example.com">Click me</a>')
+
+    def test_unsafe_url_with_text(self):
+        html = self.parser.format("[url=javascript:alert(1)]XSS[/url]")
+        self.assertEqual(html, "XSS")

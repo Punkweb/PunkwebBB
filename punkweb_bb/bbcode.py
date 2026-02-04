@@ -1,13 +1,17 @@
 import bbcode
 
-from punkweb_bb.settings import ALLOWED_URL_SCHEMES
+from django.core.exceptions import ValidationError
+from django.core.validators import URLValidator
 
-def safe_url(href):
-    href = (href or "").strip()
-    if not href:
+
+def safe_url(url: str) -> str | None:
+    validate = URLValidator()
+    try:
+        validate(url)
+        return url
+    except ValidationError:
         return None
-    lower = href.lower()
-    return href if any(lower.startswith(s + ":") for s in ALLOWED_URL_SCHEMES) else None
+
 
 def add_font_tag(parser):
     def _render_font(name, value, options, parent, context):
@@ -48,22 +52,21 @@ def add_shadow_tag(parser):
 
     parser.add_formatter("shadow", _render_shadow)
 
+
 def add_url_tag(parser):
     def _render_url(name, value, options, parent, context):
-        if "url" in options:
-            url = safe_url(options["url"])
-            if url is None:
-                return value
-            return f'<a href="{url}">{value}</a>'
+        href = options["url"].strip() if "url" in options else value.strip()
 
-        url = safe_url(value)
-        if url is None:
+        safe_href = safe_url(href)
+        if safe_href:
+            return f'<a href="{safe_href}">{value}</a>'
+        else:
             return value
-        return f'<a href="{url}">{value}</a>'
 
     parser.add_formatter(
         "url", _render_url, replace_links=False, replace_cosmetic=False
     )
+
 
 def add_quote_tag(parser):
     def _render_quote(name, value, options, parent, context):
@@ -97,6 +100,11 @@ def add_code_tag(parser):
 
 def add_img_tag(parser):
     def _render_img(name, value, options, parent, context):
+        value = value.strip()
+        value = safe_url(value)
+        if not value:
+            return ""
+
         if "width" in options:
             width = options["width"]
         if "height" in options:
