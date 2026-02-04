@@ -64,7 +64,7 @@ a {
 code {
   display: block;
   background: #f5f2f0;
-  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   white-space: pre;
   padding: 1em;
   text-align: left;
