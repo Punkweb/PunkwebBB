@@ -195,9 +195,10 @@ class Post(UUIDPrimaryKeyMixin, TimestampMixin):
         return thread_url
 
     def save(self, *args, **kwargs):
-        if self.thread.is_closed:
-            raise ValidationError("Cannot add posts to a closed thread.")
         if self._state.adding:
+            if self.thread.is_closed:
+                raise ValidationError("Cannot add posts to a closed thread.")
+
             self.thread.last_post_created_at = timezone.now()
             self.thread.save()
         super().save(*args, **kwargs)

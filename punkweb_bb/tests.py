@@ -205,6 +205,27 @@ class ThreadTestCase(TestCase):
 
         self.assertRaises(ValidationError, post.save)
 
+    def test_update_post_in_closed_thread(self):
+        thread = Thread.objects.create(
+            subcategory=self.subcategory,
+            user=self.user,
+            title="test",
+            content="test",
+        )
+        post = Post.objects.create(
+            thread=thread,
+            user=self.user,
+            content="test",
+        )
+
+        thread.is_closed = True
+        thread.save()
+
+        post.content = "edited test"
+        post.save()
+
+        self.assertEqual(post.content, "edited test")
+
     def test_is_pinned(self):
         thread = Thread.objects.create(
             subcategory=self.subcategory,
