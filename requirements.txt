@@ -1,4 +1,4 @@
-Django==4.2.20
+Django==4.2.28
 bbcode
 markdown
 Pillow
