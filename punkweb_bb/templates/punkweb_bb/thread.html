@@ -125,6 +125,11 @@
           {% if thread.user.profile.signature|render %}
             <div class="thread__signature">{{ thread.user.profile.signature|render }}</div>
           {% endif %}
+		  {% if thread.was_edited %}
+			<div class="thread__edited">
+			  Last edited <time datetime="{{ thread.updated_at|date:'c' }}">{{ thread.updated_at|date:'M j, Y g:i A' }}</time>
+			</div>
+		  {% endif %}
         </div>
       </div>
     </div>
@@ -195,6 +200,11 @@
           {% if post.user.profile.signature|render %}
             <div class="thread__signature">{{ post.user.profile.signature|render }}</div>
           {% endif %}
+		  {% if post.was_edited %}
+		  <div class="thread__edited">
+			  Last edited <time datetime="{{ thread.updated_at|date:'c' }}">{{ thread.updated_at|date:'M j, Y g:i A' }}</time>
+		  </div>
+		  {% endif %}
         </div>
       </div>
     </div>

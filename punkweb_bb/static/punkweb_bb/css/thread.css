@@ -91,6 +91,13 @@
   padding: 1rem;
 }
 
+.thread__edited {
+  border-top: 1px solid var(--border-color);
+  color: var(--surface-muted);
+  font-size: 0.75rem;
+  padding: 0.5rem 1rem;
+}
+
 .thread__reply__content {
   display: flex;
   flex-direction: column;
