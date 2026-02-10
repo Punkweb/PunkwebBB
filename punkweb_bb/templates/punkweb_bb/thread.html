@@ -71,57 +71,64 @@
         </div>
         <div class="thread__main">
           <div class="thread__content">{{ thread.content|render }}</div>
-          {% if thread|can_delete:request.user or thread|can_edit:request.user or perms.punkweb_bb.pin_thread or perms.punkweb_bb.close_thread or perms.punkweb_bb.move_thread %}
-            <div class="thread__actions">
-              {% if perms.punkweb_bb.move_thread %}
-                <a class="pw-icon-button default rounded"
-                   title="Move"
-                   hx-get="{% url 'punkweb_bb:thread_move' thread.id %}"
-                   hx-target="#dialog-portal">
-                  <span class="material-symbols-outlined">move_item</span>
-                </a>
-              {% endif %}
-              {% if perms.punkweb_bb.pin_thread %}
-                <a class="pw-icon-button default rounded"
-                   title="{% if thread.is_pinned %}Unpin{% else %}Pin{% endif %}"
-                   hx-get="{% url 'punkweb_bb:thread_pin' thread.id %}"
-                   hx-swap="none">
-                  {% if thread.is_pinned %}
-                    <span class="material-symbols-outlined">keep_off</span>
-                  {% else %}
-                    <span class="material-symbols-outlined">keep</span>
-                  {% endif %}
-                </a>
-              {% endif %}
-              {% if perms.punkweb_bb.close_thread %}
-                <a class="pw-icon-button default rounded"
-                   title="{% if thread.is_closed %}Reopen{% else %}Close{% endif %}"
-                   hx-get="{% url 'punkweb_bb:thread_close' thread.id %}"
-                   hx-swap="none">
-                  {% if thread.is_closed %}
-                    <span class="material-symbols-outlined">lock_open</span>
-                  {% else %}
-                    <span class="material-symbols-outlined">lock</span>
-                  {% endif %}
-                </a>
-              {% endif %}
-              {% if thread|can_edit:request.user %}
-                <a class="pw-icon-button default rounded"
-                   href="{% url 'punkweb_bb:thread_update' thread.id %}"
-                   title="Edit">
-                  <span class="material-symbols-outlined">edit</span>
-                </a>
-              {% endif %}
-              {% if thread|can_delete:request.user %}
-                <a class="pw-icon-button default rounded red"
-                   title="Delete"
-                   hx-get="{% url 'punkweb_bb:thread_delete' thread.id %}"
-                   hx-target="#dialog-portal">
-                  <span class="material-symbols-outlined">delete</span>
-                </a>
-              {% endif %}
-            </div>
-          {% endif %}
+          <div class="thread__footer">
+            {% if thread.was_edited %}
+              <div class="thread__edited">
+                Last edited <time datetime="{{ thread.updated_at|date:'c' }}">{{ thread.updated_at|date:'M j, Y g:i A' }}</time>
+              </div>
+            {% endif %}
+            {% if thread|can_delete:request.user or thread|can_edit:request.user or perms.punkweb_bb.pin_thread or perms.punkweb_bb.close_thread or perms.punkweb_bb.move_thread %}
+              <div class="thread__actions">
+                {% if perms.punkweb_bb.move_thread %}
+                  <a class="pw-icon-button default rounded"
+                    title="Move"
+                    hx-get="{% url 'punkweb_bb:thread_move' thread.id %}"
+                    hx-target="#dialog-portal">
+                    <span class="material-symbols-outlined">move_item</span>
+                  </a>
+                {% endif %}
+                {% if perms.punkweb_bb.pin_thread %}
+                  <a class="pw-icon-button default rounded"
+                    title="{% if thread.is_pinned %}Unpin{% else %}Pin{% endif %}"
+                    hx-get="{% url 'punkweb_bb:thread_pin' thread.id %}"
+                    hx-swap="none">
+                    {% if thread.is_pinned %}
+                      <span class="material-symbols-outlined">keep_off</span>
+                    {% else %}
+                      <span class="material-symbols-outlined">keep</span>
+                    {% endif %}
+                  </a>
+                {% endif %}
+                {% if perms.punkweb_bb.close_thread %}
+                  <a class="pw-icon-button default rounded"
+                    title="{% if thread.is_closed %}Reopen{% else %}Close{% endif %}"
+                    hx-get="{% url 'punkweb_bb:thread_close' thread.id %}"
+                    hx-swap="none">
+                    {% if thread.is_closed %}
+                      <span class="material-symbols-outlined">lock_open</span>
+                    {% else %}
+                      <span class="material-symbols-outlined">lock</span>
+                    {% endif %}
+                  </a>
+                {% endif %}
+                {% if thread|can_edit:request.user %}
+                  <a class="pw-icon-button default rounded"
+                    href="{% url 'punkweb_bb:thread_update' thread.id %}"
+                    title="Edit">
+                    <span class="material-symbols-outlined">edit</span>
+                  </a>
+                {% endif %}
+                {% if thread|can_delete:request.user %}
+                  <a class="pw-icon-button default rounded red"
+                    title="Delete"
+                    hx-get="{% url 'punkweb_bb:thread_delete' thread.id %}"
+                    hx-target="#dialog-portal">
+                    <span class="material-symbols-outlined">delete</span>
+                  </a>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
           {% if thread.user.profile.signature|render %}
             <div class="thread__signature">{{ thread.user.profile.signature|render }}</div>
           {% endif %}
@@ -172,26 +179,33 @@
         </div>
         <div class="thread__main">
           <div class="thread__content">{{ post.content|render }}</div>
-          {% if post|can_delete:request.user or post|can_edit:request.user %}
-            <div class="thread__actions">
-              {% if post|can_edit:request.user %}
-                <a class="pw-icon-button default rounded"
-                   title="Edit"
-                   hx-get="{% url 'punkweb_bb:post_update' post.id %}"
-                   hx-target="#dialog-portal">
-                  <span class="material-symbols-outlined">edit</span>
-                </a>
-              {% endif %}
-              {% if post|can_delete:request.user %}
-                <a class="pw-icon-button default rounded red"
-                   title="Delete"
-                   hx-get="{% url 'punkweb_bb:post_delete' post.id %}"
-                   hx-target="#dialog-portal">
-                  <span class="material-symbols-outlined">delete</span>
-                </a>
-              {% endif %}
-            </div>
-          {% endif %}
+          <div class="thread__footer">
+            {% if post.was_edited %}
+              <div class="thread__edited">
+                Last edited <time datetime="{{ thread.updated_at|date:'c' }}">{{ thread.updated_at|date:'M j, Y g:i A' }}</time>
+              </div>
+            {% endif %}
+            {% if post|can_delete:request.user or post|can_edit:request.user %}
+              <div class="thread__actions">
+                {% if post|can_edit:request.user %}
+                  <a class="pw-icon-button default rounded"
+                    title="Edit"
+                    hx-get="{% url 'punkweb_bb:post_update' post.id %}"
+                    hx-target="#dialog-portal">
+                    <span class="material-symbols-outlined">edit</span>
+                  </a>
+                {% endif %}
+                {% if post|can_delete:request.user %}
+                  <a class="pw-icon-button default rounded red"
+                    title="Delete"
+                    hx-get="{% url 'punkweb_bb:post_delete' post.id %}"
+                    hx-target="#dialog-portal">
+                    <span class="material-symbols-outlined">delete</span>
+                  </a>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
           {% if post.user.profile.signature|render %}
             <div class="thread__signature">{{ post.user.profile.signature|render }}</div>
           {% endif %}

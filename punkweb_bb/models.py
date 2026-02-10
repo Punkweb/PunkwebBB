@@ -147,6 +147,12 @@ class Thread(UUIDPrimaryKeyMixin, TimestampMixin):
         return not self.is_closed
 
     @property
+    def was_edited(self):
+        if self.updated_at is None or self.created_at is None:
+            return False
+        return (self.updated_at - self.created_at).total_seconds() > 1
+
+    @property
     def post_count(self):
         return self.posts.count()
 
@@ -186,6 +192,12 @@ class Post(UUIDPrimaryKeyMixin, TimestampMixin):
     @property
     def page_number(self):
         return math.ceil(self.index / 10)
+
+    @property
+    def was_edited(self):
+        if self.updated_at is None or self.created_at is None:
+            return False
+        return (self.updated_at - self.created_at).total_seconds() > 1
 
     def get_absolute_url(self):
         thread_url = reverse("punkweb_bb:thread", args=[self.thread.id])
