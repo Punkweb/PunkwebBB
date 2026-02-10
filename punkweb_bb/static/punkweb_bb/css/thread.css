@@ -78,24 +78,28 @@
   padding: 1rem;
 }
 
+.thread__footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.thread__edited {
+  color: var(--oc-gray-7);
+  font-size: 0.75rem;
+}
+
 .thread__actions {
   align-items: center;
   display: flex;
   justify-content: flex-end;
   gap: 0.25rem;
-  padding: 1rem;
 }
 
 .thread__signature {
   border-top: 1px solid var(--oc-gray-4);
   padding: 1rem;
-}
-
-.thread__edited {
-  border-top: 1px solid var(--border-color);
-  color: var(--surface-muted);
-  font-size: 0.75rem;
-  padding: 0.5rem 1rem;
 }
 
 .thread__reply__content {
