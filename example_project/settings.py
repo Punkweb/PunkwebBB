@@ -137,4 +137,6 @@ LOGIN_URL = "punkweb_bb:login"
 
 PUNKWEB_BB = {
     "PARSER": "bbcode",
+    # "GITHUB_CLIENT_ID": "client-id",
+    # "GITHUB_CLIENT_SECRET": "client-secret",
 }

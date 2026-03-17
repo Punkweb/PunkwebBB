@@ -69,4 +69,6 @@ urlpatterns = [
     path("shout/<str:shout_id>/delete/", views.shout_delete_view, name="shout_delete"),
     path("bbcode/", views.bbcode_view, name="bbcode"),
     path("search/", views.search_view, name="search"),
+    path("github/login/", views.github_login_view, name="github_login"),
+    path("github/callback/", views.github_callback_view, name="github_callback"),
 ]

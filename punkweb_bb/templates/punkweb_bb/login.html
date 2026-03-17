@@ -26,6 +26,12 @@
           <button class="pw-button fluid raised primary" type="submit">Login</button>
         </div>
       </form>
+      {% if github_auth_enabled %}
+        <hr />
+        <div class="pw-form-actions">
+          <a class="pw-button fluid raised" href="{% url 'punkweb_bb:github_login' %}">Login with GitHub</a>
+        </div>
+      {% endif %}
     </div>
   </div>
 {% endblock %}

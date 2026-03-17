@@ -1,11 +1,17 @@
+import secrets
+
+import requests as http_requests
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
 from django.db.models import Count
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.http import urlencode
 
+import punkweb_bb.settings as punkweb_bb_settings
 from punkweb_bb.decorators import redirect_if_authenticated
 from punkweb_bb.forms import (
     BoardProfileModelForm,
@@ -20,7 +26,7 @@ from punkweb_bb.forms import (
     ThreadMoveForm,
 )
 from punkweb_bb.guests import guest_list
-from punkweb_bb.models import Category, Post, Shout, Subcategory, Thread
+from punkweb_bb.models import Category, GithubSocialAccount, Post, Shout, Subcategory, Thread
 from punkweb_bb.pagination import paginate
 from punkweb_bb.response import htmx_redirect
 from punkweb_bb.searching import search_threads
@@ -48,6 +54,7 @@ def signup_view(request):
 
     context = {
         "form": form,
+        "github_auth_enabled": punkweb_bb_settings.GITHUB_AUTH_ENABLED,
     }
     return render(request, "punkweb_bb/signup.html", context)
 
@@ -72,6 +79,7 @@ def login_view(request):
 
     context = {
         "form": form,
+        "github_auth_enabled": punkweb_bb_settings.GITHUB_AUTH_ENABLED,
     }
     return render(request, "punkweb_bb/login.html", context)
 
@@ -588,6 +596,93 @@ def shout_delete_view(request, shout_id):
     }
 
     return render(request, "punkweb_bb/partials/shout_delete.html", context=context)
+
+
+def github_login_view(request):
+    if not punkweb_bb_settings.GITHUB_AUTH_ENABLED:
+        raise Http404
+
+    state = secrets.token_urlsafe(16)
+    request.session["github_oauth_state"] = state
+
+    params = urlencode(
+        {
+            "client_id": punkweb_bb_settings.GITHUB_CLIENT_ID,
+            "scope": "user:email",
+            "state": state,
+        }
+    )
+    return redirect(f"https://github.com/login/oauth/authorize?{params}")
+
+
+def github_callback_view(request):
+    if not punkweb_bb_settings.GITHUB_AUTH_ENABLED:
+        raise Http404
+
+    state = request.GET.get("state")
+    if state != request.session.pop("github_oauth_state", None):
+        return redirect("punkweb_bb:login")
+
+    code = request.GET.get("code")
+    if not code:
+        return redirect("punkweb_bb:login")
+
+    token_response = http_requests.post(
+        "https://github.com/login/oauth/access_token",
+        data={
+            "client_id": punkweb_bb_settings.GITHUB_CLIENT_ID,
+            "client_secret": punkweb_bb_settings.GITHUB_CLIENT_SECRET,
+            "code": code,
+        },
+        headers={"Accept": "application/json"},
+        timeout=10,
+    )
+    access_token = token_response.json().get("access_token")
+    if not access_token:
+        return redirect("punkweb_bb:login")
+
+    headers = {"Authorization": f"token {access_token}"}
+    github_user = http_requests.get(
+        "https://api.github.com/user", headers=headers, timeout=10
+    ).json()
+
+    github_id = github_user.get("id")
+    github_login = github_user.get("login", "")
+    email = github_user.get("email")
+
+    if not email:
+        emails = http_requests.get(
+            "https://api.github.com/user/emails", headers=headers, timeout=10
+        ).json()
+        primary = [e["email"] for e in emails if e.get("primary") and e.get("verified")]
+        email = primary[0] if primary else None
+
+    try:
+        social = GithubSocialAccount.objects.get(github_id=github_id)
+        user = social.user
+    except GithubSocialAccount.DoesNotExist:
+        user = User.objects.filter(email=email).first() if email else None
+
+        if user is None:
+            username = github_login
+            counter = 1
+            while User.objects.filter(username=username).exists():
+                username = f"{github_login}{counter}"
+                counter += 1
+            user = User.objects.create_user(
+                username=username,
+                email=email or "",
+                password=None,
+            )
+
+        GithubSocialAccount.objects.create(
+            user=user,
+            github_id=github_id,
+            github_login=github_login,
+        )
+
+    login(request, user)
+    return redirect("punkweb_bb:index")
 
 
 def bbcode_view(request):

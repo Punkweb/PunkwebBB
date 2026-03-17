@@ -230,6 +230,17 @@ class Shout(UUIDPrimaryKeyMixin, TimestampMixin):
         return user == self.user or user.has_perm("punkweb_bb.delete_shout")
 
 
+class GithubSocialAccount(TimestampMixin):
+    user = models.OneToOneField(
+        User, related_name="github_account", on_delete=models.CASCADE
+    )
+    github_id = models.BigIntegerField(unique=True)
+    github_login = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.user.username} ({self.github_login})"
+
+
 class GroupStyle(UUIDPrimaryKeyMixin, TimestampMixin):
     group = models.OneToOneField(Group, related_name="style", on_delete=models.CASCADE)
     priority = models.PositiveIntegerField(

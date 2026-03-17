@@ -4,6 +4,7 @@ markdown
 Pillow
 expiringdict==1.2.2
 djlint
+requests
 
 # Testing
 coverage
