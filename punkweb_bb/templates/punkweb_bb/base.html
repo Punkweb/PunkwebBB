@@ -33,23 +33,31 @@
             <div class="pw-container">
               <div class="nav__upper__content">
                 {% if request.user.is_staff %}
-                  <div class="nav__upper__links">
-                    <a class="nav__upper__link" href="{% url 'admin:index' %}">Admin</a>
-                  </div>
+                <div class="nav__upper__links">
+                  <a class="nav__upper__link" href="{% url 'admin:index' %}">Admin</a>
+                </div>
                 {% endif %}
                 <div class="nav__spacer"></div>
                 {% if request.user.is_authenticated %}
-                  <div class="nav__upper__links">
-                    <a class="nav__upper__link"
-                       href="{% url 'punkweb_bb:profile' request.user.id %}">Profile</a>
-                    <a class="nav__upper__link" href="{% url 'punkweb_bb:settings' %}">Settings</a>
-                    <a class="nav__upper__link" href="{% url 'punkweb_bb:logout' %}">Logout</a>
-                  </div>
+                <div class="nav__upper__links">
+                  <a class="nav__upper__link" href="{% url 'punkweb_bb:profile' request.user.id %}">Profile</a>
+                  <a class="nav__upper__link" href="{% url 'punkweb_bb:settings' %}">Settings</a>
+                  {% punkweb_bb "LOGOUT_URL_NAME" as logout_url_name %}
+                  {% if logout_url_name %}
+                  <a class="nav__upper__link" href="{% url 'logout' %}">Logout</a>
+                  {% endif %}
+                </div>
                 {% else %}
-                  <div class="nav__upper__links">
-                    <a class="nav__upper__link" href="{% url 'punkweb_bb:signup' %}">Sign Up</a>
-                    <a class="nav__upper__link" href="{% url 'punkweb_bb:login' %}">Login</a>
-                  </div>
+                <div class="nav__upper__links">
+                  {% punkweb_bb "SIGNUP_URL_NAME" as signup_url_name %}
+                  {% if signup_url_name %}
+                  <a class="nav__upper__link" href="{% url 'signup' %}">Sign Up</a>
+                  {% endif %}
+                  {% punkweb_bb "LOGIN_URL_NAME" as login_url_name %}
+                  {% if login_url_name %}
+                  <a class="nav__upper__link" href="{% url 'login' %}">Login</a>
+                  {% endif %}
+                </div>
                 {% endif %}
               </div>
             </div>

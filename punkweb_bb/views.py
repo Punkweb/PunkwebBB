@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, get_user_model, login, logout
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
 from django.db.models import Count
@@ -6,15 +6,12 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 
-from punkweb_bb.decorators import redirect_if_authenticated
 from punkweb_bb.forms import (
     BoardProfileModelForm,
     CategoryModelForm,
     FilterUsersForm,
-    LoginForm,
     PostModelForm,
     ShoutModelForm,
-    SignUpForm,
     SubcategoryModelForm,
     ThreadModelForm,
     ThreadMoveForm,
@@ -32,53 +29,6 @@ User = get_user_model()
 def check_object_permission(obj, func, user):
     if not getattr(obj, func)(user):
         raise PermissionDenied
-
-
-@redirect_if_authenticated()
-def signup_view(request):
-    if request.method == "POST":
-        form = SignUpForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-
-            return redirect("punkweb_bb:login")
-    else:
-        form = SignUpForm()
-
-    context = {
-        "form": form,
-    }
-    return render(request, "punkweb_bb/signup.html", context)
-
-
-@redirect_if_authenticated()
-def login_view(request):
-    if request.method == "POST":
-        form = LoginForm(request=request, data=request.POST)
-
-        if form.is_valid():
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password"]
-
-            user = authenticate(request, username=username, password=password)
-
-            if user is not None:
-                login(request, user)
-
-                return redirect("punkweb_bb:index")
-    else:
-        form = LoginForm()
-
-    context = {
-        "form": form,
-    }
-    return render(request, "punkweb_bb/login.html", context)
-
-
-def logout_view(request):
-    logout(request)
-    return redirect("punkweb_bb:login")
 
 
 def index_view(request):

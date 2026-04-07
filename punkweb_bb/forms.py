@@ -1,33 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 from punkweb_bb.models import BoardProfile, Category, Post, Shout, Subcategory, Thread
 from punkweb_bb.utils import get_editor_widget
-
-
-class LoginForm(AuthenticationForm):
-    template_name = "punkweb_bb/forms/stacked_form.html"
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.fields["username"].widget.attrs.update(
-            {"autofocus": True, "class": "pw-input fluid"}
-        )
-        self.fields["password"].widget.attrs.update({"class": "pw-input fluid"})
-
-
-class SignUpForm(UserCreationForm):
-    template_name = "punkweb_bb/forms/stacked_form.html"
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.fields["username"].widget.attrs.update(
-            {"autofocus": True, "class": "pw-input fluid"}
-        )
-        self.fields["password1"].widget.attrs.update({"class": "pw-input fluid"})
-        self.fields["password2"].widget.attrs.update({"class": "pw-input fluid"})
 
 
 class FilterUsersForm(forms.Form):
