@@ -1,8 +1,8 @@
-Django==4.2.28
+Django
 bbcode
 markdown
 Pillow
-expiringdict==1.2.2
+expiringdict
 djlint
 
 # Testing
