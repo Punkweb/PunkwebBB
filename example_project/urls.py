@@ -23,7 +23,7 @@ from django.urls import include, path
 urlpatterns = [
     path("", include("punkweb_bb.urls")),
     path("admin/", admin.site.urls),
-    path("account/", include("django.contrib.auth.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]
 
 if settings.DEBUG:

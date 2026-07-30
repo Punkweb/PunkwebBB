@@ -1,6 +1,7 @@
 import math
 
 from django.contrib.auth import get_user_model
+from django.conf import settings
 from django.core.cache import cache
 from django.forms import ValidationError
 from django.test import Client, TestCase
@@ -359,66 +360,6 @@ class IndexViewTestCase(TestCase):
         self.assertEqual(response.context["users"].count(), 2)
 
 
-class LoginViewTestCase(TestCase):
-    def setUp(self):
-        self.client = Client()
-        self.url = reverse("punkweb_bb:login")
-        self.user = User.objects.create_user(username="test", password="test")
-
-    def test_redirect_authenticated_user(self):
-        self.client.force_login(self.user)
-        response = self.client.get(self.url)
-
-        self.assertRedirects(response, reverse("punkweb_bb:index"))
-
-    def test_login(self):
-        response = self.client.post(
-            self.url, {"username": "test", "password": "test"}, follow=True
-        )
-
-        self.assertRedirects(response, reverse("punkweb_bb:index"))
-        self.assertTrue(response.context["user"].is_authenticated)
-
-
-class LogoutViewTestCase(TestCase):
-    def setUp(self):
-        self.client = Client()
-        self.url = reverse("punkweb_bb:logout")
-        self.user = User.objects.create_user(username="test", password="test")
-
-    def test_logout(self):
-        self.client.force_login(self.user)
-        response = self.client.get(self.url, follow=True)
-
-        self.assertRedirects(response, reverse("punkweb_bb:login"))
-        self.assertFalse(response.context["user"].is_authenticated)
-
-
-class SignupViewTestCase(TestCase):
-    def setUp(self):
-        self.client = Client()
-        self.url = reverse("punkweb_bb:signup")
-        self.user = User.objects.create_user(username="test1", password="test")
-
-    def test_redirect_authenticated_user(self):
-        self.client.force_login(self.user)
-        response = self.client.get(self.url)
-
-        self.assertRedirects(response, reverse("punkweb_bb:index"))
-
-    def test_signup(self):
-        response = self.client.post(
-            self.url,
-            {
-                "username": "test2",
-                "password1": "needsmorecomplexity",
-                "password2": "needsmorecomplexity",
-            },
-        )
-
-        self.assertRedirects(response, reverse("punkweb_bb:login"))
-
-
 class SettingsViewTestCase(TestCase):
     def setUp(self):
         self.client = Client()
@@ -428,7 +369,7 @@ class SettingsViewTestCase(TestCase):
     def test_redirect_unauthenticated_user(self):
         response = self.client.get(self.url)
 
-        self.assertRedirects(response, f"{reverse('punkweb_bb:login')}?next={self.url}")
+        self.assertRedirects(response, f"{settings.LOGIN_URL}?next={self.url}")
 
     def test_settings(self):
         self.client.force_login(self.user)
@@ -468,7 +409,7 @@ class ThreadCreateViewTestCase(TestCase):
     def test_redirect_unauthenticated_user(self):
         response = self.client.get(self.url)
 
-        self.assertRedirects(response, f"{reverse('punkweb_bb:login')}?next={self.url}")
+        self.assertRedirects(response, f"{settings.LOGIN_URL}?next={self.url}")
 
     def test_thread_create(self):
         self.client.force_login(self.user)
@@ -539,7 +480,7 @@ class ThreadUpdateViewTestCase(TestCase):
     def test_redirect_unauthenticated_user(self):
         response = self.client.get(self.url)
 
-        self.assertRedirects(response, f"{reverse('punkweb_bb:login')}?next={self.url}")
+        self.assertRedirects(response, f"{settings.LOGIN_URL}?next={self.url}")
 
     def test_is_author(self):
         self.client.force_login(self.other_user)
@@ -588,7 +529,7 @@ class ThreadDeleteViewTestCase(TestCase):
     def test_redirect_unauthenticated_user(self):
         response = self.client.get(self.url)
 
-        self.assertRedirects(response, f"{reverse('punkweb_bb:login')}?next={self.url}")
+        self.assertRedirects(response, f"{settings.LOGIN_URL}?next={self.url}")
 
     def test_is_author(self):
         self.client.force_login(self.other_user)
@@ -629,7 +570,7 @@ class PostCreateViewTestCase(TestCase):
     def test_redirect_unauthenticated_user(self):
         response = self.client.get(self.url)
 
-        self.assertRedirects(response, f"{reverse('punkweb_bb:login')}?next={self.url}")
+        self.assertRedirects(response, f"{settings.LOGIN_URL}?next={self.url}")
 
     def test_post_create(self):
         self.client.force_login(self.user)
@@ -670,7 +611,7 @@ class PostUpdateViewTestCase(TestCase):
     def test_redirect_unauthenticated_user(self):
         response = self.client.get(self.url)
 
-        self.assertRedirects(response, f"{reverse('punkweb_bb:login')}?next={self.url}")
+        self.assertRedirects(response, f"{settings.LOGIN_URL}?next={self.url}")
 
     def test_is_author(self):
         self.client.force_login(self.other_user)
@@ -720,7 +661,7 @@ class PostDeleteViewTestCase(TestCase):
     def test_redirect_unauthenticated_user(self):
         response = self.client.get(self.url)
 
-        self.assertRedirects(response, f"{reverse('punkweb_bb:login')}?next={self.url}")
+        self.assertRedirects(response, f"{settings.LOGIN_URL}?next={self.url}")
 
     def test_is_author(self):
         self.client.force_login(self.other_user)
