@@ -195,16 +195,16 @@ def category_update_view(request, category_slug):
 def category_delete_view(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
 
-    if request.method == "DELETE":
+    if request.method == "POST":
         category.delete()
 
-        return htmx_redirect(reverse("punkweb_bb:index"))
+        return redirect(reverse("punkweb_bb:index"))
 
     context = {
         "category": category,
     }
 
-    return render(request, "punkweb_bb/partials/category_delete.html", context=context)
+    return render(request, "punkweb_bb/category_delete.html", context=context)
 
 
 def subcategory_view(request, subcategory_slug):
@@ -271,17 +271,17 @@ def subcategory_update_view(request, subcategory_slug):
 def subcategory_delete_view(request, subcategory_slug):
     subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
 
-    if request.method == "DELETE":
+    if request.method == "POST":
         subcategory.delete()
 
-        return htmx_redirect(subcategory.category.get_absolute_url())
+        return redirect(subcategory.category.get_absolute_url())
 
     context = {
         "subcategory": subcategory,
     }
 
     return render(
-        request, "punkweb_bb/partials/subcategory_delete.html", context=context
+        request, "punkweb_bb/subcategory_delete.html", context=context
     )
 
 
@@ -362,16 +362,16 @@ def thread_delete_view(request, thread_id):
 
     check_object_permission(thread, "can_delete", request.user)
 
-    if request.method == "DELETE":
+    if request.method == "POST":
         thread.delete()
 
-        return htmx_redirect(thread.subcategory.get_absolute_url())
+        return redirect(thread.subcategory.get_absolute_url())
 
     context = {
         "thread": thread,
     }
 
-    return render(request, "punkweb_bb/partials/thread_delete.html", context=context)
+    return render(request, "punkweb_bb/thread_delete.html", context=context)
 
 
 @login_required()
@@ -382,7 +382,7 @@ def thread_pin_view(request, thread_id):
     thread.is_pinned = not thread.is_pinned
     thread.save()
 
-    return htmx_redirect(thread.get_absolute_url())
+    return redirect(thread.get_absolute_url())
 
 
 @login_required()
@@ -393,7 +393,7 @@ def thread_close_view(request, thread_id):
     thread.is_closed = not thread.is_closed
     thread.save()
 
-    return htmx_redirect(thread.get_absolute_url())
+    return redirect(thread.get_absolute_url())
 
 
 @login_required()
@@ -421,7 +421,7 @@ def thread_move_view(request, thread_id):
         "form": form,
     }
 
-    return render(request, "punkweb_bb/partials/thread_move.html", context=context)
+    return render(request, "punkweb_bb/thread_move.html", context=context)
 
 
 @login_required()
@@ -463,7 +463,7 @@ def post_update_view(request, post_id):
         "form": form,
     }
 
-    return render(request, "punkweb_bb/partials/post_update.html", context=context)
+    return render(request, "punkweb_bb/post_update.html", context=context)
 
 
 @login_required()
@@ -472,16 +472,16 @@ def post_delete_view(request, post_id):
 
     check_object_permission(post, "can_delete", request.user)
 
-    if request.method == "DELETE":
+    if request.method == "POST":
         post.delete()
 
-        return htmx_redirect(post.thread.get_absolute_url())
+        return redirect(post.thread.get_absolute_url())
 
     context = {
         "post": post,
     }
 
-    return render(request, "punkweb_bb/partials/post_delete.html", context=context)
+    return render(request, "punkweb_bb/post_delete.html", context=context)
 
 
 def current_shouts():

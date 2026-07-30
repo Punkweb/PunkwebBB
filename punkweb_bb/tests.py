@@ -546,11 +546,9 @@ class ThreadDeleteViewTestCase(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.delete(self.url, follow=True)
+        response = self.client.post(self.url, follow=True)
 
-        self.assertEqual(
-            response.headers["HX-Redirect"], self.subcategory.get_absolute_url()
-        )
+        self.assertRedirects(response, self.subcategory.get_absolute_url())
         self.assertEqual(Thread.objects.count(), 0)
 
 
@@ -678,11 +676,9 @@ class PostDeleteViewTestCase(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.delete(self.url, follow=True)
+        response = self.client.post(self.url, follow=True)
 
-        self.assertEqual(
-            response.headers["HX-Redirect"], self.thread.get_absolute_url()
-        )
+        self.assertRedirects(response, self.thread.get_absolute_url())
         self.assertEqual(Post.objects.count(), 0)
 
 

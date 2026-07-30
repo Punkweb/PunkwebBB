@@ -1,0 +1,38 @@
+{% extends 'punkweb_bb/base.html' %}
+
+{% load static %}
+
+{% block title_prefix %}Delete Category |{% endblock %}
+{% block og_title_prefix %}Delete Category |{% endblock %}
+{% block content %}
+  <nav>
+    <ul class="pw-breadcrumb">
+      <li class="pw-breadcrumb-item">
+        <a href="{% url 'punkweb_bb:index' %}">Home</a>
+      </li>
+      <li class="pw-breadcrumb-item">
+        <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+      </li>
+      <li class="pw-breadcrumb-item active">Delete Category</li>
+    </ul>
+  </nav>
+  <div class="pw-card fluid">
+    <div class="pw-card-header">Delete Category</div>
+    <div class="pw-card-content">
+      <div>
+        Are you sure you want to delete this category?
+        <br />
+        <b>This action cannot be undone!</b>
+      </div>
+      <form class="pw-form"
+            action="{% url 'punkweb_bb:category_delete' category.slug %}"
+            method="post">
+        {% csrf_token %}
+        <div class="pw-form-actions end">
+          <a class="pw-button default" href="{% url 'punkweb_bb:index' %}">Cancel</a>
+          <button class="pw-button raised red" type="submit">Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

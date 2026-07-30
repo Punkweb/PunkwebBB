@@ -1,0 +1,44 @@
+{% extends 'punkweb_bb/base.html' %}
+
+{% load static %}
+
+{% block title_prefix %}Delete Thread |{% endblock %}
+{% block og_title_prefix %}Delete Thread |{% endblock %}
+{% block content %}
+  <nav>
+    <ul class="pw-breadcrumb">
+      <li class="pw-breadcrumb-item">
+        <a href="{% url 'punkweb_bb:index' %}">Home</a>
+      </li>
+      <li class="pw-breadcrumb-item">
+        <a href="{{ thread.subcategory.category.get_absolute_url }}">{{ thread.subcategory.category.name }}</a>
+      </li>
+      <li class="pw-breadcrumb-item">
+        <a href="{{ thread.subcategory.get_absolute_url }}">{{ thread.subcategory.name }}</a>
+      </li>
+      <li class="pw-breadcrumb-item">
+        <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a>
+      </li>
+      <li class="pw-breadcrumb-item active">Delete Thread</li>
+    </ul>
+  </nav>
+  <div class="pw-card fluid">
+    <div class="pw-card-header">Delete Thread</div>
+    <div class="pw-card-content">
+      <div>
+        Are you sure you want to delete this thread?
+        <br />
+        <b>This action cannot be undone!</b>
+      </div>
+      <form class="pw-form"
+            action="{% url 'punkweb_bb:thread_delete' thread.id %}"
+            method="post">
+        {% csrf_token %}
+        <div class="pw-form-actions end">
+          <a class="pw-button default" href="{{ thread.get_absolute_url }}">Cancel</a>
+          <button class="pw-button raised red" type="submit">Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

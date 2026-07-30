@@ -52,8 +52,7 @@
                         {% if perms.punkweb_bb.delete_category %}
                           <a class="pw-icon-button default red rounded sm"
                              title="Delete category"
-                             hx-get="{% url 'punkweb_bb:category_delete' category.slug %}"
-                             hx-target="#dialog-portal">
+                             href="{% url 'punkweb_bb:category_delete' category.slug %}">
                             <span class="material-symbols-outlined">delete</span>
                           </a>
                         {% endif %}

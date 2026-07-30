@@ -34,8 +34,7 @@
           {% if perms.punkweb_bb.delete_subcategory %}
             <a class="pw-icon-button default rounded red"
                title="Delete subcategory"
-               hx-get="{% url 'punkweb_bb:subcategory_delete' subcategory.slug %}"
-               hx-target="#dialog-portal">
+               href="{% url 'punkweb_bb:subcategory_delete' subcategory.slug %}">
               <span class="material-symbols-outlined">delete</span>
             </a>
           {% endif %}

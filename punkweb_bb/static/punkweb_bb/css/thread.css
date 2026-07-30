@@ -90,6 +90,10 @@
   font-size: 0.75rem;
 }
 
+.thread__spacer {
+  flex: 1;
+}
+
 .thread__actions {
   align-items: center;
   display: flex;
