@@ -4,7 +4,7 @@ from django import forms
 class BBCodeEditorWidget(forms.Textarea):
     def __init__(self, *args, **kwargs):
         super(BBCodeEditorWidget, self).__init__(*args, **kwargs)
-        self.attrs["class"] = "bbcode-editor"
+        self.attrs["class"] = "bbcode-editor pw-input fluid"
 
     class Media:
         css = {
@@ -26,7 +26,7 @@ class MarkdownEditorWidget(forms.Textarea):
 
     def __init__(self, *args, **kwargs):
         super(MarkdownEditorWidget, self).__init__(*args, **kwargs)
-        self.attrs["class"] = "markdown-editor"
+        self.attrs["class"] = "markdown-editor pw-input fluid"
 
     class Media:
         css = {
